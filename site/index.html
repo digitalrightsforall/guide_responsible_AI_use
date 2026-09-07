@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsible AI Use - Curated Skills & Prompts for Everyday AI Users</title>
+  <meta name="description" content="A curated directory of SKILL.md packages and structured prompts helping users interact with AI safely, factually, and accountably." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur flex-none border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🛡️</span>
+        <div>
+          <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">Responsible AI Use</span>
+          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded bg-teal-100 text-teal-800 dark:bg-teal-900/60 dark:text-teal-300 font-mono">Skills & Prompts</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-4">
+        <!-- Language Switcher -->
+        <button id="lang-toggle" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <span id="t-lang-btn">English</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" aria-label="Toggle theme" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 transition-colors">
+          <svg class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 transition-colors" title="GitHub Repository">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative py-12 md:py-16 bg-gradient-to-b from-teal-50/50 to-transparent dark:from-teal-950/20 dark:to-transparent border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-900/60 dark:text-teal-300 mb-4" id="t-hero-badge">
+        以用户为中心的负责任 AI 实践
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4" id="t-hero-title">
+        Responsible AI Use
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed" id="t-hero-subtitle">
+        精选开箱即用的 SKILL.md 技能包与实务提示词。让日常知识工作者、研究者和写作者在与 AI 交互时天然做到：输入守隐私、交互辨真伪、决策不盲从、发布明披露。
+      </p>
+
+      <!-- Distinction Banner -->
+      <div class="mt-8 text-left bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-3xl mx-auto">
+        <h2 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2" id="t-diff-title">
+          <svg class="w-4 h-4 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          为什么说 Responsible AI Use ≠ 传统的 Responsible AI？
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed" id="t-diff-text">
+          传统的负责任 AI 针对模型开发者与合规层（问的是“模型公平吗”）；而这里的 Responsible AI Use 面向日常知识工作者（问的是“我能给什么、哪些能信、输出能不能发”）。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Interactive 30-Second Pre-flight Checklist Widget -->
+    <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2" id="t-check-title">
+            ⚡ 日常 AI 负责任使用 30 秒核对清单
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400" id="t-check-subtitle">
+            在每次与 AI 开展重要对话前，快速自检这 4 项习惯：
+          </p>
+        </div>
+        <div class="flex items-center gap-3 self-end sm:self-center">
+          <span id="checklist-status" class="text-xs font-semibold text-slate-500 dark:text-slate-400">0/4</span>
+          <button id="reset-checklist" class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 underline" id="t-reset-checklist">
+            重置清单
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mb-5">
+        <div id="checklist-progress" class="bg-teal-600 dark:bg-teal-500 h-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
+          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-1-label">
+            输入防泄密：已剔除真实人名、机密凭证与内部未公开数据？
+          </span>
+        </label>
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
+          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-2-label">
+            交互辨真伪：引用的文献 DOI、法条与统计数据已亲自独立核实？
+          </span>
+        </label>
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
+          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-3-label">
+            决策不盲从：确认未将法律/医疗/人事等不可让渡的人类责任甩锅给算法？
+          </span>
+        </label>
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
+          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
+          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-4-label">
+            发布明披露：准备好附带真实的 AI 介入说明，并留存对话日志备查？
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Filter & Search Controls -->
+    <section class="space-y-4">
+      <!-- 4 Question Category Tabs -->
+      <div class="flex flex-wrap gap-2 pb-2">
+        <button data-cat="all" class="active-cat px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-transparent bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white transition-colors" id="t-cat-all">
+          全部问题
+        </button>
+        <button data-cat="feed-to-ai" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" id="t-cat-1">
+          1. 我能把什么给 AI？
+        </button>
+        <button data-cat="answers-to-trust" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" id="t-cat-2">
+          2. 哪些回答能信？
+        </button>
+        <button data-cat="when-not-to-listen" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" id="t-cat-3">
+          3. 什么时候不能听 AI？
+        </button>
+        <button data-cat="can-publish-directly" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" id="t-cat-4">
+          4. 输出能不能直接发布？
+        </button>
+      </div>
+
+      <!-- Secondary Filters & Search Bar -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+        <div class="flex items-center gap-2">
+          <button data-type="all" class="active-type px-3 py-1 rounded-md text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white" id="t-type-all">全部格式</button>
+          <button data-type="SKILL.md" class="px-3 py-1 rounded-md text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">SKILL.md</button>
+          <button data-type="Prompt" class="px-3 py-1 rounded-md text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">Prompt</button>
+          <span id="items-count" class="text-xs text-slate-500 dark:text-slate-400 ml-2 font-mono"></span>
+        </div>
+
+        <div class="relative w-full sm:w-72">
+          <input type="text" id="search-input" placeholder="搜索技能、提示词、客户端..." class="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Grid -->
+    <section id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Cards dynamically rendered by app.js -->
+    </section>
+
+    <!-- Non-Delegable Red Lines Box -->
+    <section class="bg-rose-50 dark:bg-rose-950/30 rounded-xl p-5 border border-rose-200 dark:border-rose-900/60">
+      <h3 class="text-sm font-bold text-rose-900 dark:text-rose-200 flex items-center gap-2 mb-3" id="t-redline-title">
+        🛑 人类决策的不可让渡底线
+      </h3>
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-rose-800 dark:text-rose-300">
+        <li class="flex items-center gap-2">
+          <span class="text-rose-600 dark:text-rose-400">•</span>
+          <span id="t-redline-1">未经执业医生独立复核的医疗诊断与用药处方决策。</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-rose-600 dark:text-rose-400">•</span>
+          <span id="t-redline-2">具有法律效力的合规签字与不可撤销的商业合同签署。</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-rose-600 dark:text-rose-400">•</span>
+          <span id="t-redline-3">针对具体个人的最终处分、解雇或招聘拒绝决定。</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-rose-600 dark:text-rose-400">•</span>
+          <span id="t-redline-4">仅凭 AI 对话结果作为独家信源对外发布事实报道。</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-8 mt-12 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p>Awesome Responsible AI Skills — Built for everyday knowledge workers, researchers, and professionals.</p>
+      <p>Released under the <a href="LICENSE" class="underline hover:text-slate-700 dark:hover:text-slate-300">MIT License</a>. Contributions welcome via Pull Requests.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Element -->
+  <div id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

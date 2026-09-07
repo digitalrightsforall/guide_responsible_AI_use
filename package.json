@@ -1,0 +1,21 @@
+{
+  "name": "awesome-responsible-ai-skills",
+  "version": "1.0.0",
+  "description": "Curated list and interactive directory of SKILL.md packages and practical prompts for responsible everyday AI use.",
+  "main": "site/index.html",
+  "scripts": {
+    "test": "node scripts/verify-data.js",
+    "serve": "node -e \"const http = require('http'); const fs = require('fs'); const path = require('path'); const port = 3000; http.createServer((req, res) => { let filePath = path.join(__dirname, 'site', req.url === '/' ? 'index.html' : req.url); fs.readFile(filePath, (err, data) => { if (err) { res.writeHead(404); res.end('Not Found'); return; } const ext = path.extname(filePath); const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' }[ext] || 'text/plain'; res.writeHead(200, { 'Content-Type': mime }); res.end(data); }); }).listen(port, () => console.log('Site running at http://localhost:' + port));\""
+  },
+  "keywords": [
+    "responsible-ai",
+    "ai-ethics",
+    "privacy",
+    "fact-checking",
+    "claude-skills",
+    "agent-skills",
+    "prompts"
+  ],
+  "author": "Responsible AI Use Contributors",
+  "license": "MIT"
+}

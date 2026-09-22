@@ -151,10 +151,37 @@ async function loadItems() {
   try {
     const response = await fetch(`data/items.json?_t=${Date.now()}`, { cache: "no-store" });
     itemsData = await response.json();
+    updateFilterCounts();
     renderCards();
   } catch (error) {
     console.error("Failed to load items.json:", error);
   }
+}
+
+function updateFilterCounts() {
+  const catCounts = {
+    all: itemsData.length,
+    "feed-to-ai": itemsData.filter((i) => i.category === "feed-to-ai").length,
+    "answers-to-trust": itemsData.filter((i) => i.category === "answers-to-trust").length,
+    "when-not-to-listen": itemsData.filter((i) => i.category === "when-not-to-listen").length,
+    "can-publish-directly": itemsData.filter((i) => i.category === "can-publish-directly").length
+  };
+  Object.entries(catCounts).forEach(([cat, count]) => {
+    const el = document.querySelector(`[data-cat="${cat}"] .filter-count`);
+    if (el) el.textContent = count;
+  });
+
+  const timeCounts = {
+    all: itemsData.length,
+    "pre-input": itemsData.filter((i) => i.timing === "pre-input").length,
+    "during-chat": itemsData.filter((i) => i.timing === "during-chat").length,
+    "pre-handoff": itemsData.filter((i) => i.timing === "pre-handoff").length,
+    "post-session": itemsData.filter((i) => i.timing === "post-session").length
+  };
+  Object.entries(timeCounts).forEach(([timing, count]) => {
+    const el = document.querySelector(`[data-timing="${timing}"] .filter-count`);
+    if (el) el.textContent = count;
+  });
 }
 
 // Setup Event Listeners

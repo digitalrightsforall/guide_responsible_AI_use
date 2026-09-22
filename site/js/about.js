@@ -14,7 +14,7 @@ const aboutI18n = {
     heroTitlePrefix: "帮助每一个人",
     heroTitleHighlight: "在算法时代保护自己的权利",
     heroDesc: "我们是一个共创社区。在机器与大模型日益渗透生活的今天，我们致力于通过知识普及、实务工具与社会倡导，让每一个普通人都能有尊严、有底线地使用数字工具，重获个人的自主权。",
-    ctaExplore: "浏览 38 项开源技能",
+    ctaExplore: "浏览 40 项开源技能",
     ctaPutongren: "访问 putongren.org 社区官网",
 
     whyExistTitle: "我们为什么存在？",
@@ -82,7 +82,7 @@ const aboutI18n = {
     heroTitlePrefix: "Helping Everyone",
     heroTitleHighlight: "Defend Their Rights in the Algorithmic Era",
     heroDesc: "We are a co-creation community. As AI and machine learning permeate our daily lives, we empower everyday people with practical knowledge, open tools, and community advocacy to use AI with dignity, boundary protection, and agency.",
-    ctaExplore: "Browse 38 Curated Skills",
+    ctaExplore: "Browse 40 Curated Skills",
     ctaPutongren: "Visit putongren.org Community",
 
     whyExistTitle: "Why Do We Exist?",

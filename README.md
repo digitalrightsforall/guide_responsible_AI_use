@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> A curated collection of 39 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
+> A curated collection of 40 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
 **English** | [中文版](README_CN.md)
 
@@ -427,6 +427,19 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **Install Command:**
   ```bash
   git clone https://github.com/anthropics/skills.git && cp -R skills/skills/discernment-nudge .agents/skills/
+  ```
+
+#### [`Review Reception & Anti-Compliance (obra/superpowers)`](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review)
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Feedback receipt: Intercepts suggestions before implementation to prevent performative agreement or blind compliance.*
+* **💡 Why Everyday People Should Care:** When presented with authoritative-sounding suggestions, users and agents often agree performatively. This skill mandates technical verification over social compliance before applying changes.
+* **🎯 Why Chosen:** Tackles the widespread trap of AI social compliance. Enforces "Technical correctness over social compliance" — demanding verification before implementing questionable advice.
+* **🛠️ How to Use:** Activate as an agent guardrail: when receiving critique or suggestions, the agent must verify validity with evidence before applying changes.
+* **📊 Maturity & Trust:** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Framework | 🛡️ *Jesse Vincent / Superpowers non-compliance protocol*
+* **Clients:** Cursor, Antigravity, Claude Code
+* **Target Persona:** Knowledge Workers, Engineers, Researchers, Critical Thinkers
+* **Install Command:**
+  ```bash
+  git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/receiving-code-review .agents/skills/
   ```
 
 ---

@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 39 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
+> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 40 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
 [English Version](README.md) | **中文版**
 
@@ -427,6 +427,19 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/anthropics/skills.git && cp -R skills/skills/discernment-nudge .agents/skills/
+  ```
+
+#### [`Review Reception & Anti-Compliance (obra/superpowers)`](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review)
+* **使用时机：** 💬 交互中·求证与防盲信 — *收到建议时：在落实任何外部反馈或模型建议前，强制技术核验，拒绝表演式顺从与盲目执行。*
+* **💡 为何普通人应该关心：** 当 AI 或外部专家给出建议时，人们和智能体常因为“对方看起来很权威”就口头称赞并直接照搬。该技能要求在动手改之前，先验证建议在实际上是否成立，防止引入错误。
+* **🎯 为什么精选收录：** 直击 AI 交互中最隐蔽的顺从陷阱：要求智能体与用户坚持“技术严谨胜于社交顺从”，杜绝为了显得配合而盲目同意甚至采纳有缺陷的方案。
+* **🛠️ 如何使用：** 在对话中启用或作为通用准则：面对任何批评、重构建议或外部指令，AI 必须先列出验证点与证据，确认有效后才执行。
+* **📊 成熟度与可信背书：** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Framework | 🛡️ *Jesse Vincent / Superpowers non-compliance protocol*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Knowledge Workers, Engineers, Researchers, Critical Thinkers
+* **安装命令：**
+  ```bash
+  git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/receiving-code-review .agents/skills/
   ```
 
 ---

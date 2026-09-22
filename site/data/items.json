@@ -950,6 +950,39 @@
     "how_to_use_en": "Install into Claude Code or agent environment; it appends 2-3 tailored reflection questions to challenge critical assumptions."
   },
   {
+    "id": "receiving-code-review",
+    "name": "Review Reception & Anti-Compliance (obra/superpowers)",
+    "category": "when-not-to-listen",
+    "category_title_en": "When should I NOT listen to AI?",
+    "category_title_cn": "什么时候不能听 AI？",
+    "timing": "during-chat",
+    "timing_desc_en": "Feedback receipt: Intercepts suggestions before implementation to prevent performative agreement or blind compliance.",
+    "timing_desc_cn": "收到建议时：在落实任何外部反馈或模型建议前，强制技术核验，拒绝表演式顺从与盲目执行。",
+    "why_chosen_en": "Tackles the widespread trap of AI social compliance. Enforces \"Technical correctness over social compliance\" — demanding verification before implementing questionable advice.",
+    "why_chosen_cn": "直击 AI 交互中最隐蔽的顺从陷阱：要求智能体与用户坚持“技术严谨胜于社交顺从”，杜绝为了显得配合而盲目同意甚至采纳有缺陷的方案。",
+    "status": {
+      "stage": "Battle-Tested Standard (290k ★)",
+      "adoption": "Superpowers Framework",
+      "trust_source": "Jesse Vincent / Superpowers non-compliance protocol"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code"
+    ],
+    "target_persona": "Knowledge Workers, Engineers, Researchers, Critical Thinkers",
+    "summary_en": "Enforces technical evaluation over social compliance when receiving feedback — demands verification before implementation and rejects performative agreement.",
+    "summary_cn": "确立“事实正确高于礼貌顺从”原则，要求在实施任何反馈前先行实测验证，坚决拒绝表演式赞同与无脑盲从。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/receiving-code-review .agents/skills/",
+    "why_care_cn": "当 AI 或外部专家给出建议时，人们和智能体常因为“对方看起来很权威”就口头称赞并直接照搬。该技能要求在动手改之前，先验证建议在实际上是否成立，防止引入错误。",
+    "why_care_en": "When presented with authoritative-sounding suggestions, users and agents often agree performatively. This skill mandates technical verification over social compliance before applying changes.",
+    "how_to_use_cn": "在对话中启用或作为通用准则：面对任何批评、重构建议或外部指令，AI 必须先列出验证点与证据，确认有效后才执行。",
+    "how_to_use_en": "Activate as an agent guardrail: when receiving critique or suggestions, the agent must verify validity with evidence before applying changes."
+  },
+  {
     "id": "ai-provenance",
     "name": "AI Provenance (noheton/f-ai2-r)",
     "category": "can-publish-directly",

@@ -8,7 +8,7 @@ Thank you for your interest in contributing! This project is dedicated to **Resp
 
 Before submitting, please ensure your contribution aligns with the **Responsible and Safe AI Use** philosophy—empowering everyday knowledge workers, researchers, and professionals to use existing AI tools safely and accountably:
 
-* **Curator, Not Creator**: We do not invent new tools; we curate, evaluate, and structure existing, proven open-source packages and prompt protocols.
+* **Curator, Not Creator**: We do not invent new tools; we curate, evaluate, and structure existing, proven open-source SKILL.md packages.
 * **Two Dynamic Practice Pillars (动态演进框架)**:
   1. **Inward: Self-Defense & Boundaries (对内·自我防护与边界)**: Guard against commercial AI over-harvesting user data into training corpora, and guard against blind faith in confident hallucinations.
   2. **Outward: Third-Party Verifiability (对外·成果第三方可核验)**: Ensure colleagues, readers, and clients can easily audit the evidence trail and rationale behind AI-assisted work, moving beyond empty disclaimers.

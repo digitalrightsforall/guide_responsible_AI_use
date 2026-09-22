@@ -881,7 +881,7 @@
     "why_care_cn": "直面大模型为了讨好用户而牺牲事实真相的顽疾。该技能为 AI 注入“实话实说”的底层戒律，即使现实很残酷也绝不给普通人灌迷魂汤。",
     "why_care_en": "Injects persistent guardrails that forbid pleasant falsehoods, demanding honest evaluation of feasibility and budget.",
     "how_to_use_cn": "配置到系统指令中，所有对话在得出乐观结论前必须先经过严格可行性审查。",
-    "how_to_use_en": "Add to agent system prompt to force rigorous feasibility checks before any affirmative conclusions."
+    "how_to_use_en": "Add to agent instructions or load the skill to force rigorous feasibility checks before any affirmative conclusions."
   },
   {
     "id": "the-jury",
@@ -1177,7 +1177,7 @@
     "why_care_cn": "符合学术出版（如 Nature、Elsevier 等）与国际标准的 AI 贡献度声明生成器。按国际通用的 CRediT 标准准确标注 AI 到底参与了“文法润色”还是“代码推导”，合规透明。",
     "why_care_en": "Generates standard AI usage disclosures complying with academic publisher guidelines (Nature, Elsevier, CRediT taxonomy).",
     "how_to_use_cn": "输入你在研究各阶段对 AI 的使用情况，技能自动生成符合期刊要求的双语披露声明段落。",
-    "how_to_use_en": "Answer prompt prompts about AI involvement to produce publisher-compliant disclosure paragraphs."
+    "how_to_use_en": "Answer guided questions about AI involvement to produce publisher-compliant disclosure paragraphs."
   },
   {
     "id": "ai-disclosure-convention",

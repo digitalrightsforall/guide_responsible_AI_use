@@ -15,9 +15,9 @@
 - Create: `.gitignore`
 - Command: `git init`
 
-- [ ] **Step 1: Initialize git repository**
-- [ ] **Step 2: Create `.gitignore`**
-- [ ] **Step 3: Initial commit with design spec**
+- [x] **Step 1: Initialize git repository**
+- [x] **Step 2: Create `.gitignore`**
+- [x] **Step 3: Initial commit with design spec**
 
 ---
 
@@ -25,10 +25,10 @@
 **Files:**
 - Create: `CONTRIBUTING.md`
 
-- [ ] **Step 1: Document Item Schema in `CONTRIBUTING.md`**
-- [ ] **Step 2: Provide template for `SKILL.md` submission**
-- [ ] **Step 3: Provide template for `Prompt` submission**
-- [ ] **Step 4: Commit**
+- [x] **Step 1: Document Item Schema in `CONTRIBUTING.md`**
+- [x] **Step 2: Provide template for `SKILL.md` submission**
+- [x] **Step 3: Strict zero-prompt & authentic repo inclusion criteria**
+- [x] **Step 4: Commit**
 
 ---
 
@@ -37,9 +37,9 @@
 - Create: `README.md`
 - Create: `README_CN.md`
 
-- [ ] **Step 1: Write `README.md` (English)**
-- [ ] **Step 2: Write `README_CN.md` (Chinese)**
-- [ ] **Step 3: Commit**
+- [x] **Step 1: Write `README.md` (English)**
+- [x] **Step 2: Write `README_CN.md` (Chinese)**
+- [x] **Step 3: Commit**
 
 ---
 
@@ -50,11 +50,11 @@
 - Create: `site/css/style.css`
 - Create: `site/js/app.js`
 
-- [ ] **Step 1: Create structured data `site/data/items.json`**
-- [ ] **Step 2: Create markup in `site/index.html`**
-- [ ] **Step 3: Create styling in `site/css/style.css`**
-- [ ] **Step 4: Implement interactive logic in `site/js/app.js`**
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Create structured data `site/data/items.json`**
+- [x] **Step 2: Create markup in `site/index.html`**
+- [x] **Step 3: Create styling in `site/css/style.css`**
+- [x] **Step 4: Implement interactive logic in `site/js/app.js`**
+- [x] **Step 5: Commit**
 
 ---
 
@@ -62,7 +62,7 @@
 **Files:**
 - Create: `scripts/verify-data.js`
 
-- [ ] **Step 1: Create validation script to ensure data schema integrity**
-- [ ] **Step 2: Run verification script**
-- [ ] **Step 3: Test website rendering via local HTTP server**
-- [ ] **Step 4: Final commit and verify git log**
+- [x] **Step 1: Create validation script to ensure data schema integrity**
+- [x] **Step 2: Run verification script**
+- [x] **Step 3: Test website rendering via local HTTP server**
+- [x] **Step 4: Final commit and verify git log**

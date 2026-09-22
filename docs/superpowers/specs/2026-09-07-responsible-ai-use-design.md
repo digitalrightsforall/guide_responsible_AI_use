@@ -19,7 +19,7 @@ In contrast, **Responsible AI Use** is user-centric and practice-centric. It foc
 | **Core Subject** | Developers, deployment institutions, governments | **Everyday users, knowledge workers, professionals** |
 | **Core Object** | AI system / deployment | **Human–AI interaction / daily practice** |
 | **Typical Questions** | Is the model fair? Is it interpretable? Who to audit? | **What can I feed to AI? Which answers can I trust? When should I NOT listen to AI? Can output be published directly?** |
-| **Governance Means** | Policies, standards, audits, impact assessments | **Skills (`SKILL.md`), defaults, checklists, workflow, warnings, prompts** |
+| **Governance Means** | Policies, standards, audits, impact assessments | **Standardized Open-Source Skills (`SKILL.md`), workflow gates, boundary checklists** |
 | **Direction of Responsibility** | "Do not build/deploy harmful AI" | **"Do not use AI in an irresponsible way"** |
 | **Risk Bearer** | Society, end-users, decision subjects | **Self + people impacted by one's own AI usage** |
 
@@ -51,15 +51,13 @@ Each item in the repository and website MUST conform to the following schema:
 
 ```markdown
 ### [Item Name](Direct Link to GitHub / Source)
-- **ID**: `unique-kebab-id` (e.g. `pii-shield`, `citation-checker`)
+- **ID**: `unique-kebab-id` (e.g. `skillguard`, `the-judge`)
 - **Question Category**: One of `feed-to-ai` | `answers-to-trust` | `when-not-to-listen` | `can-publish-directly`
-- **Format**: `SKILL.md` (Primary) | `Prompt` (Fallback when no SKILL.md exists)
-- **Supported Clients**: e.g., Claude Code, Antigravity, Cursor, Web Chat UI (ChatGPT/Claude/Gemini)
+- **Format**: Strictly `SKILL.md` (Standardized agent skills with YAML frontmatter)
+- **Supported Clients**: e.g., Claude Code, Antigravity, Cursor
 - **Target Persona**: General Knowledge Workers (with tags for Researchers, Writers, Analysts where applicable)
 - **Core Utility (1-2 sentences)**: Plain-language explanation of what problem it solves.
-- **Actionable Artifact**:
-  - For `SKILL.md`: Direct link to repository file, installation command or placement path (`.claude/skills/` etc.).
-  - For `Prompt`: Ready-to-copy structured prompt block with instructions.
+- **Actionable Artifact**: Direct link to repository file, installation command or placement path (`.agents/skills/` / `.claude/skills/`).
 ```
 
 ---
@@ -68,33 +66,32 @@ Each item in the repository and website MUST conform to the following schema:
 
 ```text
 skill-4-responsible-AI-use/
-├── .gitignore
-├── README.md                      # Canonical English Awesome List
-├── README_CN.md                   # Full Chinese Version
-├── CONTRIBUTING.md                # Submission Guidelines & Item Template
-├── docs/
-│   └── superpowers/specs/         # Design & Architecture Specs
-│       └── 2026-09-07-responsible-ai-use-design.md
-└── site/                          # Project Interactive Website
-    ├── index.html                 # Modern, responsive single-page portal
-    ├── css/style.css              # Clean, modern aesthetics (Tailwind / Custom CSS)
-    ├── js/app.js                  # Search, filter by 4 questions, 1-click copy, interactive checklist
-    ├── data/items.json            # Structured dataset of all curated items
-    └── package.json               # Local preview / build scripts
+├── README.md                  # Comprehensive English documentation (40 curated skills)
+├── README_CN.md               # Complete Chinese documentation
+├── CONTRIBUTING.md            # Guidelines, 100% SKILL.md criteria, schema specs
+├── scripts/                   # Verification, build, serve, and remote health checks
+└── site/                      # Production-ready static website
+    ├── index.html             # Interactive catalog with filters, search, modal
+    ├── about.html             # Digital Rights for All (putongren.org) story & philosophy
+    ├── css/style.css          # Design system matching DESIGN.md
+    ├── js/app.js              # State management, deep-linking, i18n, search, modal
+    ├── js/about.js            # i18n & interactive features for about page
+    ├── data/items.json        # Structured dataset of all 40 curated skills
+    ├── robots.txt             # Search engine crawler policy
+    └── sitemap.xml            # SEO sitemap
 ```
 
 ---
 
 ## 5. Interactive Website Features
 
-1. **Category Filter Tabs**: One-click filtering across the 4 practical questions.
-2. **Type Filter**: Filter by `SKILL.md` vs `Prompt`.
-3. **Keyword Search**: Instant search by tags, title, or client.
-4. **1-Click Copy**: Copy prompt templates or skill installation paths with instant feedback.
-5. **Interactive 30-Second Pre-flight Checklist**:
-   - Step 1: Input Check (Sanitized?)
-   - Step 2: Verification Check (Claims verified?)
-   - Step 3: Red Line Check (Not delegating human accountability?)
-   - Step 4: Disclosure Check (Properly attributed?)
-6. **Bilingual Support (EN / CN)**: Toggle seamlessly between English and Chinese content.
-7. **Zero-Friction Deployment**: Standard static files ready for GitHub Pages or local preview.
+1. **Category Filter Tabs**: One-click filtering across the 4 practical questions with live badge counters.
+2. **Workflow Timing Filter**: Filter by `pre-input`, `during-chat`, `pre-handoff`, and `post-session`.
+3. **Keyword & Client Search**: Instant search by title, tags, client, description, or id.
+4. **Rich Detail Modal**: Complete breakdown of why everyday people should care, why chosen, how to use, maturity & trust signals, and direct install commands.
+5. **URL Hash Deep-Linking**: Shareable `#skill=<id>` URLs that directly open the modal for any skill.
+6. **1-Click Copy**: Copy install commands or clone scripts with instant tooltip visual feedback.
+7. **Bilingual Support (ZH / EN)**: Default Chinese interface with seamless toggle to English across all pages.
+8. **Digital Rights for All (putongren.org)**: Fully integrated About page explaining the civic digital rights mission and principles.
+9. **Accessibility & Responsiveness**: WCAG 2.1 compliant focus indicators, ARIA dialog roles, and mobile sub-navigation.
+10. **Zero-Friction Deployment**: Standard static files ready for GitHub Pages or static host deployment.

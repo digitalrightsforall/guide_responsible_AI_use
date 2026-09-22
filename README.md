@@ -394,7 +394,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Thinking partner: Engaged when drafting critical essays, strategic plans, or executive briefings.*
 * **💡 Why Everyday People Should Care:** Injects persistent guardrails that forbid pleasant falsehoods, demanding honest evaluation of feasibility and budget.
 * **🎯 Why Chosen:** Encodes an uncompromising anti-sycophancy contract: forbids opening compliments, forbids diluting critiques to appease the user, and enforces mandatory 'Fatal Flaw' identification.
-* **🛠️ How to Use:** Add to agent system prompt to force rigorous feasibility checks before any affirmative conclusions.
+* **🛠️ How to Use:** Add to agent instructions or load the skill to force rigorous feasibility checks before any affirmative conclusions.
 * **📊 Maturity & Trust:** `Commit Pinned` | ⭐ Claude Skills Catalog | 🛡️ *Zero-appeasement anti-sycophancy contract with fatal-flaw requirements*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Executives, Strategists, Authors, Researchers
@@ -516,7 +516,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Attribution ledger: Updates local AI_ATTRIBUTION.md whenever substantive logic or text is produced.*
 * **💡 Why Everyday People Should Care:** Generates standard AI usage disclosures complying with academic publisher guidelines (Nature, Elsevier, CRediT taxonomy).
 * **🎯 Why Chosen:** Replaces crude all-or-nothing disclaimers with a standardized 6-level creative control spectrum, enabling third parties to understand exactly what the human did vs what the AI suggested.
-* **🛠️ How to Use:** Answer prompt prompts about AI involvement to produce publisher-compliant disclosure paragraphs.
+* **🛠️ How to Use:** Answer guided questions about AI involvement to produce publisher-compliant disclosure paragraphs.
 * **📊 Maturity & Trust:** `Active Open Specification` | ⭐ AI Attribution Standard | 🛡️ *Standardized 6-level human-AI contribution spectrum ledger*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Software Engineers, Authors, Technical Writers

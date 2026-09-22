@@ -1,22 +1,24 @@
 {
   "name": "awesome-responsible-ai-skills",
   "version": "1.0.0",
-  "description": "Curated list and interactive directory of SKILL.md packages and practical prompts for responsible everyday AI use.",
+  "description": "Curated directory of authentic open-source SKILL.md packages for responsible and safe AI use (Digital Rights for All / putongren.org).",
   "main": "site/index.html",
   "scripts": {
     "test": "node scripts/verify-data.js",
+    "test:remote": "node scripts/verify-remote.js",
     "build": "node scripts/generate-readmes.js",
     "serve": "node scripts/serve.js"
   },
   "keywords": [
     "responsible-ai",
-    "ai-ethics",
+    "ai-safety",
     "privacy",
     "fact-checking",
     "claude-skills",
     "agent-skills",
-    "prompts"
+    "skill-md",
+    "digital-rights"
   ],
-  "author": "Responsible AI Use Contributors",
+  "author": "Responsible AI Use Contributors (putongren.org)",
   "license": "MIT"
 }

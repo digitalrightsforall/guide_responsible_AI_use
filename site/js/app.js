@@ -137,10 +137,10 @@ function toggleTheme() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-// Load Data
+// Load Data with cache-busting
 async function loadItems() {
   try {
-    const response = await fetch("data/items.json");
+    const response = await fetch(`data/items.json?_t=${Date.now()}`, { cache: "no-store" });
     itemsData = await response.json();
     renderCards();
   } catch (error) {

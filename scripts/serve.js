@@ -16,7 +16,7 @@ const mimeTypes = {
   '.ico': 'image/x-icon'
 };
 
-const server = http.createServer((req, res) => {
+function handleRequest(req, res) {
   let reqPath = req.url.split('?')[0];
   if (reqPath === '/') reqPath = '/index.html';
 
@@ -44,8 +44,13 @@ const server = http.createServer((req, res) => {
     const stream = fs.createReadStream(filePath);
     stream.pipe(res);
   });
-});
+}
 
-server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port} (no-cache enabled)`);
+const ports = process.env.PORT ? [parseInt(process.env.PORT, 10)] : [3000, 3030];
+
+ports.forEach((p) => {
+  const srv = http.createServer(handleRequest);
+  srv.listen(p, () => {
+    console.log(`Server running at http://localhost:${p} (no-cache enabled)`);
+  });
 });

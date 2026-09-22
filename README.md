@@ -8,27 +8,13 @@
 
 ## 💡 Core Philosophy: Responsible and Safe AI Use (Dynamic Framework)
 
-Most "Responsible AI" resources are written for **model developers and enterprise compliance teams**: they discuss algorithmic fairness, model weights, red-teaming benchmarks, and corporate governance.
-
-However, once AI becomes an everyday utility on your desktop, an entirely different practical challenge emerges:
-**How can everyday individuals practice Responsible and Safe AI Use?**
-
-In this project, we curate **existing, proven open-source skills and prompts** (we curate, not invent). The practical connotation of responsible and safe AI use is currently unpacked into two dynamic pillars:
+In this project, we curate **existing, proven open-source skills** (we strictly curate, not invent). The practical connotation of responsible and safe AI use is unpacked into two dynamic pillars:
 
 1. **🛡️ Inward: Self-Defense & Boundaries (对内·自我防护与边界)**: Guard against commercial AI over-harvesting your personal and confidential data into training corpora, and guard against blind faith in confident hallucinations or sycophantic appeasement.
 2. **📐 Outward: Third-Party Verifiability (对外·成果第三方可核验)**: Ensure colleagues, clients, and readers can readily audit the evidence chain and reasoning behind AI-assisted work, moving beyond hollow bureaucratic disclaimers.
 
 > [!NOTE]
 > This dual framework is **dynamic and evolving** alongside AI capabilities and human practices, rather than a rigid or dogmatic doctrine.
-
-| Dimension | Traditional Responsible AI | Responsible AI Use (This Project) |
-| :--- | :--- | :--- |
-| **Core Subject** | Model developers, deployment institutions, regulators | **Everyday users, knowledge workers, professionals** |
-| **Core Object** | AI system architecture & model weights | **Human–AI interaction & daily practice** |
-| **Typical Questions** | Is the model fair? How to audit the company? | **What can I feed to AI? Which answers can I trust? When should I NOT listen to AI? Can output be published directly?** |
-| **Governance Means** | Corporate policies, ISO standards, algorithmic audits | **Skills (`SKILL.md`), sensible defaults, checklists, verification prompts** |
-| **Responsibility Direction** | "Do not build or deploy harmful AI" | **"Do not use AI in an irresponsible or reckless manner"** |
-| **Risk Bearer** | Society at large, generic end-users | **Yourself + the people impacted by your own AI-assisted work** |
 
 ---
 
@@ -48,7 +34,6 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * [2. Which answers can I trust?](#2-which-answers-can-i-trust)
 * [3. When should I NOT listen to AI?](#3-when-should-i-not-listen-to-ai)
 * [4. Can the output be published directly?](#4-can-the-output-be-published-directly)
-* [⚡ The 30-Second Pre-flight Checklist](#-the-30-second-pre-flight-checklist)
 * [🛑 Non-Delegable Red Lines](#-non-delegable-red-lines)
 
 ---
@@ -450,19 +435,6 @@ Under no circumstances should the following decisions be blindly delegated to AI
 * **Legal compliance sign-offs** and binding contractual agreements.
 * **Final personnel evaluations**, hiring rejections, and disciplinary actions.
 * **Sole-source reporting**: Publishing journalistic claims based solely on an LLM response without primary source verification.
-
----
-
-## ⚡ The 30-Second Pre-flight Checklist
-
-Print or pin this checklist to your workspace before interacting with any AI tool:
-
-| Stage | Question to Ask Yourself | Responsible Action |
-| :--- | :--- | :--- |
-| **1. Pre-Input** | *"Would I be comfortable seeing this text published on the front page of a newspaper tomorrow?"* | If NO: Scrub names, emails, internal numbers, and confidential notes before sending. |
-| **2. During Interaction** | *"Did the AI cite a specific paper, statistic, or law?"* | Verify the DOI/link in an independent tab. Never assume cited URLs or quotes are authentic. |
-| **3. During Decision** | *"Am I agreeing just because the AI's tone is confident and polite?"* | Ask for counter-arguments or potential failure modes before committing. |
-| **4. Before Output** | *"Can I provide a clear evidence trail for colleagues/readers to verify my AI-assisted deliverable?"* | Attach an honest AI disclosure statement, verification points, and retain prompt logs. |
 
 ---
 

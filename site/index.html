@@ -107,57 +107,7 @@
   <!-- Main Content Area -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
-    <!-- Interactive 30-Second Pre-flight Checklist Widget -->
-    <section class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-        <div>
-          <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2" id="t-check-title">
-            ⚡ 日常 AI 负责任使用 30 秒核对清单
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400" id="t-check-subtitle">
-            在每次与 AI 开展重要对话前，快速自检这 4 项习惯：
-          </p>
-        </div>
-        <div class="flex items-center gap-3 self-end sm:self-center">
-          <span id="checklist-status" class="text-xs font-semibold text-slate-500 dark:text-slate-400">0/4</span>
-          <button id="reset-checklist" class="text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 underline" id="t-reset-checklist">
-            重置清单
-          </button>
-        </div>
-      </div>
 
-      <!-- Progress Bar -->
-      <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mb-5">
-        <div id="checklist-progress" class="bg-teal-600 dark:bg-teal-500 h-full transition-all duration-300" style="width: 0%"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
-          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
-          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-1-label">
-            输入防泄密：已剔除真实人名、机密凭证与内部未公开数据？
-          </span>
-        </label>
-        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
-          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
-          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-2-label">
-            交互辨真伪：引用的文献 DOI、法条与统计数据已亲自独立核实？
-          </span>
-        </label>
-        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
-          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
-          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-3-label">
-            决策不盲从：确认未将法律/医疗/人事等不可让渡的人类责任甩锅给算法？
-          </span>
-        </label>
-        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors">
-          <input type="checkbox" class="check-item mt-1 rounded border-slate-300 dark:border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4" />
-          <span class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-snug" id="t-check-4-label">
-            发布明披露：准备好附带真实的 AI 介入说明，并留存对话日志备查？
-          </span>
-        </label>
-      </div>
-    </section>
 
     <!-- Filter & Search Controls -->
     <section class="space-y-4">

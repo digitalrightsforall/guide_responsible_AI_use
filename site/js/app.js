@@ -32,16 +32,6 @@ const i18n = {
     copied: "Copied to clipboard!",
     viewSource: "View on GitHub",
     copyCommand: "Copy Command",
-    checklistTitle: "⚡ 30-Second Pre-flight Checklist",
-    checklistSubtitle: "Check these 4 habits before every AI interaction:",
-    check1: "Input Check: All real names, confidential credentials, and private client data scrubbed?",
-    check2: "Fact Check: Cited sources, DOIs, laws, and statistics independently verified?",
-    check3: "Decision Check: Verified that I am not blindly delegating non-delegable human responsibility?",
-    check4: "Publication Check: Prepared to disclose AI usage honestly and retained session prompt logs?",
-    checklistDone: "You're all set for a responsible session!",
-    resetChecklist: "Reset",
-    diffTitle: "Why Responsible AI Use ≠ Traditional Responsible AI",
-    diffText: "Traditional RAI targets model builders and compliance officers (asking 'is the model fair?'). Responsible AI Use focuses on everyday practitioners (asking 'can I trust this answer, and can I publish this safely?').",
     itemsCount: "items available",
     noResults: "No matching skills or prompts found.",
     redLineTitle: "🛑 Non-Delegable Red Lines",
@@ -81,16 +71,6 @@ const i18n = {
     copied: "已复制到剪贴板！",
     viewSource: "查看 GitHub 源码",
     copyCommand: "复制安装命令",
-    checklistTitle: "⚡ 日常 AI 负责任使用 30 秒核对清单",
-    checklistSubtitle: "在每次与 AI 开展重要对话前，快速自检这 4 项习惯：",
-    check1: "输入防泄密：已剔除真实人名、机密凭证与内部未公开数据？",
-    check2: "交互辨真伪：引用的文献 DOI、法条与统计数据已亲自独立核实？",
-    check3: "决策不盲从：确认未将法律/医疗/人事等不可让渡的人类责任甩锅给算法？",
-    check4: "发布明披露：准备好附带真实的 AI 介入说明，并留存对话日志备查？",
-    checklistDone: "自检完成！你可以安心开启负责任的 AI 协作。",
-    resetChecklist: "重置清单",
-    diffTitle: "为什么说 Responsible AI Use ≠ 传统的 Responsible AI？",
-    diffText: "传统的负责任 AI 针对模型开发者与合规层（问的是“模型公平吗”）；而这里的 Responsible AI Use 面向日常知识工作者（问的是“我能给什么、哪些能信、输出能不能发”）。",
     itemsCount: "个精选项目",
     noResults: "没有找到符合条件的技能或提示词。",
     redLineTitle: "🛑 人类决策的不可让渡底线",
@@ -114,7 +94,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupEventListeners();
   await loadItems();
   updateLanguageUI();
-  initChecklist();
 });
 
 // Theme Management
@@ -233,25 +212,12 @@ function updateLanguageUI() {
   const searchInput = document.getElementById("search-input");
   if (searchInput) searchInput.placeholder = t.searchPlaceholder;
 
-  // Comparison section
-  setText("t-diff-title", t.diffTitle);
-  setText("t-diff-text", t.diffText);
-
   // Red Lines
   setText("t-redline-title", t.redLineTitle);
   setText("t-redline-1", t.redLine1);
   setText("t-redline-2", t.redLine2);
   setText("t-redline-3", t.redLine3);
   setText("t-redline-4", t.redLine4);
-
-  // Checklist
-  setText("t-check-title", t.checklistTitle);
-  setText("t-check-subtitle", t.checklistSubtitle);
-  setText("t-check-1-label", t.check1);
-  setText("t-check-2-label", t.check2);
-  setText("t-check-3-label", t.check3);
-  setText("t-check-4-label", t.check4);
-  setText("t-reset-checklist", t.resetChecklist);
 }
 
 function setText(id, text) {
@@ -420,45 +386,7 @@ function renderCard(item) {
   `;
 }
 
-// Checklist Logic
-function initChecklist() {
-  const checkboxes = document.querySelectorAll(".check-item");
-  const resetBtn = document.getElementById("reset-checklist");
-  const progressFill = document.getElementById("checklist-progress");
-  const statusText = document.getElementById("checklist-status");
 
-  function updateProgress() {
-    const total = checkboxes.length;
-    let checked = 0;
-    checkboxes.forEach((cb) => {
-      if (cb.checked) checked++;
-    });
-    const percent = Math.round((checked / total) * 100);
-    if (progressFill) progressFill.style.width = `${percent}%`;
-
-    const t = i18n[currentLang];
-    if (statusText) {
-      if (checked === total) {
-        statusText.textContent = `🎉 ${t.checklistDone}`;
-        statusText.classList.add("text-emerald-600", "dark:text-emerald-400", "font-bold");
-      } else {
-        statusText.textContent = `${checked}/${total}`;
-        statusText.classList.remove("text-emerald-600", "dark:text-emerald-400", "font-bold");
-      }
-    }
-  }
-
-  checkboxes.forEach((cb) => {
-    cb.addEventListener("change", updateProgress);
-  });
-
-  resetBtn?.addEventListener("click", () => {
-    checkboxes.forEach((cb) => (cb.checked = false));
-    updateProgress();
-  });
-
-  updateProgress();
-}
 
 // Toast notification helper
 function showToast(message) {

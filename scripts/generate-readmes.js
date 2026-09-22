@@ -235,7 +235,7 @@ function generateReadmeCn() {
 }
 
 fs.writeFileSync(readmePath, generateReadmeEn(), 'utf-8');
-console.log('✅ Generated README.md with all 26 items and 3 core dimensions.');
+console.log(`✅ Generated README.md with all ${items.length} items and 3 core dimensions.`);
 
 fs.writeFileSync(readmeCnPath, generateReadmeCn(), 'utf-8');
-console.log('✅ Generated README_CN.md with all 26 items and 3 core dimensions.');
+console.log(`✅ Generated README_CN.md with all ${items.length} items and 3 core dimensions.`);

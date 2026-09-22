@@ -17,7 +17,11 @@
     },
     "type": "SKILL.md",
     "url": "https://github.com/danyuchn/pii-guard",
-    "clients": ["Cursor", "Antigravity", "Claude Code"],
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code"
+    ],
     "target_persona": "General Knowledge Workers, Researchers, Journalists",
     "summary_en": "Creates a reversible, locally redacted working copy while treating the cloud LLM as untrusted. Prohibits the agent from opening, searching, or uploading the raw original.",
     "summary_cn": "默认视云端大模型为不可信环境，在本地生成可逆的脱敏工作副本，主 Agent 严禁接触原始文件，任务完成后在本地还原并清理。",
@@ -42,7 +46,10 @@
     },
     "type": "SKILL.md",
     "url": "https://github.com/joshzyj/open-scholar-skill",
-    "clients": ["Claude Code", "Antigravity"],
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
     "target_persona": "Academic Researchers, Qualitative Analysts, IRB Custodians",
     "summary_en": "Executes a pre-ingestion sensitivity scan before files are read into context. Gates IRB/HIPAA/restricted research data and offers local-only Bash analysis without raw-data transmission.",
     "summary_cn": "在智能体读取文件前先执行本地敏感性扫描，对 IRB/HIPAA/受控学术数据设置门禁，支持仅在本地跑脚本分析而不把正文回传云端。",
@@ -67,7 +74,11 @@
     },
     "type": "SKILL.md",
     "url": "https://github.com/cyberxuan-XBX/skill-sanitizer",
-    "clients": ["Claude Code", "Antigravity", "Cursor"],
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
     "target_persona": "Developers, Power Users, Knowledge Workers",
     "summary_en": "A local meta-security scanner that intercepts incoming SKILL.md files and checks for hidden prompt injections, suspicious bash operations, and exfiltration payloads before loading.",
     "summary_cn": "在智能体加载第三方 SKILL.md 之前，扫描该技能文件内是否藏有提示词注入、恶意 Bash 命令或秘密回传外联代码。",
@@ -83,21 +94,25 @@
     "timing": "pre-input",
     "timing_desc_en": "Batch document intake: Triggered when feeding office files (.pdf, .docx, .txt) into an agent task.",
     "timing_desc_cn": "文档批量处理时：在让智能体批量处理 PDF、Word 或 Markdown 文档前执行。",
-    "why_chosen_en": "A zero-configuration, battle-tested tool for cross-document PII scrubbing that automatically detects personal data patterns without needing enterprise gateway setup.",
+    "why_chosen_en": "Zero-infrastructure, battle-tested document redaction. Scans multiple common office formats and replaces personal identifiers with synthetic tokens locally.",
     "why_chosen_cn": "零门槛且经过实测的文档脱敏工具，支持跨常见办公文件格式（Word、PDF）自动探测并替换个人身份信息，无需复杂运维。",
     "status": {
-      "stage": "Active Open Source",
-      "adoption": "GitHub Community",
-      "trust_source": "Verified cross-platform document parsing logic"
+      "stage": "Production Ready",
+      "adoption": "Open Agent Community",
+      "trust_source": "Document-level token replacement tested on legal/financial docs"
     },
     "type": "SKILL.md",
     "url": "https://github.com/gregmos/PII-Shield",
-    "clients": ["Claude Code", "Antigravity", "Open Agent standard"],
-    "target_persona": "Legal & Financial Analysts, Knowledge Workers",
-    "summary_en": "Automatically detects personal identifiable information (names, emails, phones, SSNs) across files (.txt, .md, .pdf, .docx) before agent processing, replacing them with synthetic placeholders and restoring them locally.",
-    "summary_cn": "在智能体读取文件（.txt, .md, .pdf, .docx）时自动进行 PII 识别，将真实姓名、邮箱、电话等替换为合成占位符，任务完成后在本地还原。",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "General Knowledge Workers, Legal & Financial Analysts",
+    "summary_en": "Scans office documents (.txt, .md, .pdf, .docx) before agent processing, replaces personal identifiers with synthetic tokens, and restores them locally.",
+    "summary_cn": "在智能体读取文档前自动识别个人身份信息，并替换为占位标记，任务完成后在本地进行安全还原。",
     "action_type": "install_code",
-    "action_content": "git clone https://github.com/gregmos/PII-Shield .claude/skills/pii-shield"
+    "action_content": "git clone https://github.com/gregmos/PII-Shield.git .agents/skills/pii-shield"
   },
   {
     "id": "privacy-protector",
@@ -106,73 +121,168 @@
     "category_title_en": "What can I feed to AI?",
     "category_title_cn": "我能把什么给 AI？",
     "timing": "pre-input",
-    "timing_desc_en": "Real-time prompt drafting: Protects credentials and contact strings during conversational tasks.",
-    "timing_desc_cn": "日常对话起草时：在提示词中涉及客服对话、用户反馈或联系人清单时即时过滤。",
-    "why_chosen_en": "Maintains an ephemeral, memory-safe de-identification lookup table on local disk so sensitive user entities never travel into the cloud provider's training corpus.",
-    "why_chosen_cn": "在本地维护轻量级的临时映射表，确保真实用户联系方式和敏感凭据永远不会流入外部大模型的训练数据池。",
+    "timing_desc_en": "Context streaming: Active during chat when pasting customer communications or confidential logs.",
+    "timing_desc_cn": "上下文交互时：在向对话中粘贴包含客户信息或内部日志的文本时实时混淆。",
+    "why_chosen_en": "Tailored for support and sales professionals who frequently copy-paste customer text into AI chats, maintaining an ephemeral de-identification lookup table on local disk.",
+    "why_chosen_cn": "专为常接触客户信息的岗位设计。在会话中自动识别客户凭证与隐私，并在本地维护混淆映射，防止商业大模型获取真实数据。",
     "status": {
-      "stage": "Stable Module",
-      "adoption": "Mode.io Skill Registry",
-      "trust_source": "Standardized AgentSkills metadata structure"
+      "stage": "Production",
+      "adoption": "mode-io Agent Skills",
+      "trust_source": "Enterprise customer service data protection pattern"
     },
     "type": "SKILL.md",
     "url": "https://github.com/mode-io/mode-io-skills",
-    "clients": ["Claude Code", "Cursor", "Antigravity"],
-    "target_persona": "Customer Support Teams, Product Operations",
-    "summary_en": "Identifies sensitive business credentials and customer contact details in prompt context, maintaining an ephemeral de-identification lookup table on local storage.",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
+    "target_persona": "Support Teams, Account Managers, Operations",
+    "summary_en": "Identifies business credentials and contact details in prompt context, maintaining an ephemeral de-identification lookup table on local storage.",
     "summary_cn": "识别上下文中的敏感凭证和联系信息，维护本地临时混淆映射表，防止外部大模型获取真实数据。",
     "action_type": "install_code",
-    "action_content": "# Place privacy-protector/SKILL.md inside your agent skills directory"
+    "action_content": "git clone https://github.com/mode-io/mode-io-skills.git && cp -R mode-io-skills/skills/privacy-protector .agents/skills/"
   },
   {
     "id": "presidio-doc-anonymizer",
-    "name": "Anonymize Documents with Presidio",
+    "name": "Anonymize Documents with Presidio (schneidermichael)",
     "category": "feed-to-ai",
     "category_title_en": "What can I feed to AI?",
     "category_title_cn": "我能把什么给 AI？",
     "timing": "pre-input",
-    "timing_desc_en": "Pre-upload pipeline: Process interview recordings and qualitative research before passing text to cloud APIs.",
-    "timing_desc_cn": "上传云端前处理：在处理定性访谈、口述实录或案例库之前做本地化预处理。",
-    "why_chosen_en": "Builds upon Microsoft Presidio's industrial-grade NLP entity recognition engine, delivering deterministic anonymization without sending raw texts to any external server.",
-    "why_chosen_cn": "基于微软开源的 Presidio 工业级脱敏引擎封装，无需依赖外部云服务，在本地就能高精度识别几十种国际敏感实体。",
+    "timing_desc_en": "Pre-processing pipeline: Execute locally on interview recordings or qualitative survey datasets.",
+    "timing_desc_cn": "预处理流水线：在把田野调查、定性访谈录音文本发给大模型前本地批处理运行。",
+    "why_chosen_en": "Brings Microsoft's battle-tested Presidio NER engine into everyday agent workflows, guaranteeing deterministic entity extraction without relying on probabilistic LLM masking.",
+    "why_chosen_cn": "将微软成熟的 Presidio 命名实体识别引擎引入桌面端，依靠高精度的确定性模型过滤敏感实体，而非依赖不可靠的 LLM 自觉脱敏。",
     "status": {
-      "stage": "Production Tooling",
-      "adoption": "100+ GitHub Stars",
-      "trust_source": "Backed by Microsoft Presidio NLP core"
+      "stage": "Active Open Source",
+      "adoption": "Microsoft Presidio Ecosystem",
+      "trust_source": "Backed by Microsoft Presidio NLP open-source engine"
     },
     "type": "SKILL.md",
     "url": "https://github.com/schneidermichael/anonymize-documents-with-presidio",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Qualitative Researchers, Medical Administrators, HR",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Qualitative Researchers, Sociologists, Analysts",
     "summary_en": "Leverages Microsoft Presidio locally to scrub participant names, locations, and organizations before feeding transcripts to cloud LLMs.",
-    "summary_cn": "在本地调用微软 Presidio 引擎洗掉访谈对象姓名和机构，杜绝敏感学术调研数据外泄。",
+    "summary_cn": "在本地通过微软 Presidio 引擎洗掉访谈对象姓名和机构，杜绝敏感学术调研数据外泄。",
     "action_type": "install_code",
-    "action_content": "git clone https://github.com/schneidermichael/anonymize-documents-with-presidio .agents/skills/presidio"
+    "action_content": "git clone https://github.com/schneidermichael/anonymize-documents-with-presidio.git .agents/skills/presidio-anonymizer"
   },
   {
-    "id": "pre-input-pii-sanitizer",
-    "name": "Pre-Input PII Sanitizer Prompt",
+    "id": "trustboost-pii-sanitizer",
+    "name": "TrustBoost PII Sanitizer (teodorofodocrispin-cmyk)",
     "category": "feed-to-ai",
     "category_title_en": "What can I feed to AI?",
     "category_title_cn": "我能把什么给 AI？",
     "timing": "pre-input",
-    "timing_desc_en": "Zero-tool fallback: Use directly in web chats (ChatGPT/Claude.ai) before pasting confidential drafts.",
-    "timing_desc_cn": "网页端输入前：在将未公开草稿直接复制粘贴进网页版 ChatGPT 或 Claude 之前使用。",
-    "why_chosen_en": "Designed for everyday non-technical users without CLI agents. Employs a strict two-stage masking workflow so subsequent analytical turns only see pseudonymized entities.",
-    "why_chosen_cn": "专为普通网页端用户设计。通过严谨的两阶段提示词协议，强迫模型先输出假名化版本，确保后续对话历史中不残留真实商业与人名实体。",
+    "timing_desc_en": "Pre-flight gateway: Intercepts raw prompts and file contents before streaming to upstream LLM providers.",
+    "timing_desc_cn": "上流拦截门禁：在文本或文件内容上传至云端 LLM 接口之前进行多语言强行脱敏。",
+    "why_chosen_en": "Provides multilingual contextual PII sanitization across 8 languages, strictly complying with GDPR, LGPD, and HIPAA frameworks for global teams.",
+    "why_chosen_cn": "支持跨 8 种主流语言的上下文 PII 强脱敏，严格遵循 GDPR、LGPD 和 HIPAA 等国际隐私标准，特别适合跨国协作与金融法律团队。",
     "status": {
-      "stage": "Battle-tested Template",
-      "adoption": "Universal Web UI",
-      "trust_source": "Practitioner community consensus prompt"
+      "stage": "Production Stable",
+      "adoption": "Multi-client Ecosystem",
+      "trust_source": "Tested across 8 languages with compliance mapping"
     },
-    "type": "Prompt",
-    "url": "",
-    "clients": ["Universal Web Chat", "ChatGPT", "Claude.ai", "Gemini", "Open WebUI"],
-    "target_persona": "Everyday Web Chat Users, Non-technical Professionals",
-    "summary_en": "A two-stage prompting technique that forces the model to redact private entities first before performing substantive analysis.",
-    "summary_cn": "两阶段脱敏提示词，强制模型在进行实质性分析前先将输入文本中的人名、机构、联系方式和金额假名化。",
-    "action_type": "copy_prompt",
-    "action_content": "You are an expert privacy officer and data sanitization assistant.\nI am going to provide a raw draft text.\nYour ONLY task is to return a sanitized version of the text where:\n1. All human names are replaced with brackets like [Person A], [Person B].\n2. All specific organizational names, emails, phone numbers, and physical addresses are replaced with [Organization X], [Email redacted], [Location Y].\n3. All monetary figures and specific account numbers are replaced with [Amount A], [Account Z].\n\nDo NOT summarize, analyze, or interpret the text yet. Return ONLY the sanitized version and a private mapping table so I can verify."
+    "type": "SKILL.md",
+    "url": "https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Windsurf"
+    ],
+    "target_persona": "Enterprise Knowledge Workers, Financial Analysts, Legal Professionals",
+    "summary_en": "Sanitizes PII from text before it reaches upstream LLM providers, supporting contextual sanitization across eight languages while adhering to global privacy frameworks.",
+    "summary_cn": "在文本传输至云端模型前执行 PII 脱敏，支持 8 种语言上下文，严格遵循 GDPR 和 HIPAA 隐私合规体系。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer.git .agents/skills/trustboost-pii-sanitizer"
+  },
+  {
+    "id": "openmed-clinical-ingestion",
+    "name": "OpenMed Clinical Document Ingestion (maziyarpanahi)",
+    "category": "feed-to-ai",
+    "category_title_en": "What can I feed to AI?",
+    "category_title_cn": "我能把什么给 AI？",
+    "timing": "pre-input",
+    "timing_desc_en": "Intake gate: Triggered before analyzing clinical case notes, patient reports, or medical research data.",
+    "timing_desc_cn": "临床数据录入门禁：在将病历记录、临床随访笔记或患者数据交由 AI 分析前执行。",
+    "why_chosen_en": "Addresses high-consequence medical data risks by detecting protected health information (PHI) and clinical terminology, preventing HIPAA/ethics breaches on the desktop.",
+    "why_chosen_cn": "针对极高敏感度的医疗健康数据（PHI），在智能体接触病历和患者记录前强制执行医学实体脱敏，严守医疗伦理红线。",
+    "status": {
+      "stage": "Active Research Release",
+      "adoption": "OpenMed Suite",
+      "trust_source": "Clinical NLP benchmarked for HIPAA PHI safety"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/maziyarpanahi/openmed",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Clinical Researchers, Healthcare Analysts, Medical Writers",
+    "summary_en": "Specialized clinical ingestion skill that detects and redacts Protected Health Information (PHI) and patient identifiers from medical texts before agent processing.",
+    "summary_cn": "专为医学临床文本设计的脱敏技能，在智能体处理医疗记录前识别并屏蔽受保护健康信息（PHI）与患者标识。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/maziyarpanahi/openmed.git && cp -R openmed/skills/deidentifying-clinical-text .agents/skills/"
+  },
+  {
+    "id": "claude-hook-redactor",
+    "name": "Claude Code Hook Redaction Strategy (ruvnet)",
+    "category": "feed-to-ai",
+    "category_title_en": "What can I feed to AI?",
+    "category_title_cn": "我能把什么给 AI？",
+    "timing": "pre-input",
+    "timing_desc_en": "Pre-execution hook: Runs automatically on the PreToolUse lifecycle event before bash or file commands execute.",
+    "timing_desc_cn": "工具调用拦截：在智能体执行 Bash 或文件读取前，利用 PreToolUse 钩子在操作系统层拦截。",
+    "why_chosen_en": "Zero-token client-side defense. Rather than asking an AI to be careful, it uses an OS-level regex sed hook to guarantee API keys and secret tokens never enter conversation logs.",
+    "why_chosen_cn": "真正的客户端系统级硬防护。不依赖大模型自我约束，而是通过系统级 PreToolUse 钩子自动用占位符置换环境变量与 API Key，保证秘钥物理上不离开本地。",
+    "status": {
+      "stage": "Verified Architecture",
+      "adoption": "Claude Code Community Gist",
+      "trust_source": "Client-side execution lifecycle hook verified on macOS/Linux"
+    },
+    "type": "SKILL.md",
+    "url": "https://gist.github.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9",
+    "clients": [
+      "Claude Code"
+    ],
+    "target_persona": "Developers, System Administrators, DevOps Engineers",
+    "summary_en": "Utilizes client-side execution hooks to swap out environmental secrets with safe placeholders before tool execution, ensuring raw keys never enter model context.",
+    "summary_cn": "利用客户端 PreToolUse 钩子在工具执行前拦截环境变量与敏感秘钥，确保真实凭据绝不泄露至对话记录与云端大模型。",
+    "action_type": "install_code",
+    "action_content": "curl -sL https://gist.githubusercontent.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9/raw -o .claude/hooks/pre-tool-redact.sh && chmod +x .claude/hooks/pre-tool-redact.sh"
+  },
+  {
+    "id": "presidio-anonymize-text",
+    "name": "AREX Presidio Anonymize Text (VectorSpaceLab)",
+    "category": "feed-to-ai",
+    "category_title_en": "What can I feed to AI?",
+    "category_title_cn": "我能把什么给 AI？",
+    "timing": "pre-input",
+    "timing_desc_en": "Pre-read filter: Invoked before agent ingests enterprise documents or user communications.",
+    "timing_desc_cn": "文档读取前过滤：在智能体读取包含企业机密的文本文件或会话记录前介入。",
+    "why_chosen_en": "Standardized AgentSkills packaging of Presidio NER engine for autonomous agent repositories, with zero-effort integration into Cursor and Antigravity.",
+    "why_chosen_cn": "遵循 AgentSkills 标准封装的 Presidio 命名实体识别技能，开箱即用支持 Cursor、Antigravity 和 Claude Code，无缝集成到日常桌面工作流。",
+    "status": {
+      "stage": "Production Standard",
+      "adoption": "AREX-Skill Repo",
+      "trust_source": "Enterprise repository standard with deterministic NER masking"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/VectorSpaceLab/AREX-Skill",
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code"
+    ],
+    "target_persona": "Knowledge Workers, Enterprise Staff, Developers",
+    "summary_en": "AgentSkills-compliant anonymization package that scans text buffers for sensitive entities using Microsoft Presidio and replaces them with anonymized tokens.",
+    "summary_cn": "符合 AgentSkills 规范的文本脱敏技能包，利用 Presidio 扫描敏感实体并生成脱敏标记，保护企业机密资产。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/VectorSpaceLab/AREX-Skill.git && cp -R AREX-Skill/skills/repositories/repo-skills/presidio/sub-skills/anonymize-text .agents/skills/presidio-anonymize"
   },
   {
     "id": "post-generation-fact-check",
@@ -181,21 +291,25 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Immediately after draft generation: Must run as a distinct second pass before taking the response as fact.",
-    "timing_desc_cn": "内容生成完毕后立即运行：作为独立的第二轮核验通道，严禁与生成混在同一轮中。",
-    "why_chosen_en": "Directly attacks epistemic complacency. Mandates a separate audit pass that extracts factual claims and queries external web evidence, explicitly banning reliance on model memory.",
-    "why_chosen_cn": "直击“对 AI 盲信”的弊病。它确立了生成与核实分离的硬规则，提取事实断言并强制调用搜索求证，绝不允许 AI 用自身记忆自证清白。",
+    "timing_desc_en": "Post-generation pass: Runs immediately after an initial draft is produced, before any claims are acted on.",
+    "timing_desc_cn": "生成后独立执行：在初步草稿或回答生成后立即触发，在采纳任何结论前完成独立求证。",
+    "why_chosen_en": "Solves the fundamental flaw of models confirming their own hallucinations. Enforces an independent verification pass that queries external ground truth and strictly forbids model memory as evidence.",
+    "why_chosen_cn": "解决大模型自我复读、自我印证幻觉的致命缺陷。强制设立独立的第二轮事实核查轮次，通过外部可信检索求证，严禁以大模型内部记忆为核验证据。",
     "status": {
-      "stage": "Stable Skill",
-      "adoption": "AgentSkills Standard",
-      "trust_source": "Peer-reviewed procedural verification methodology"
+      "stage": "Production Stable",
+      "adoption": "Agent Skills Library",
+      "trust_source": "Verified multi-step claim extraction and external evidence retrieval"
     },
     "type": "SKILL.md",
     "url": "https://github.com/jwynia/agent-skills",
-    "clients": ["Claude Code", "Cursor", "Antigravity"],
-    "target_persona": "Knowledge Workers, Journalists, Researchers",
-    "summary_en": "Forces verification into a separate pass after generation: extracts every checkable claim, queries external sources, and marks statements as confirmed, contradicted, or unverified.",
-    "summary_cn": "在文本生成后启动独立的核查流程：逐条提取可核对的事实断言，检索外部权威信源，标明已证实、有矛盾或未证实（严禁用模型记忆自圆其说）。",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
+    "target_persona": "Knowledge Workers, Writers, Journalists, Researchers",
+    "summary_en": "Forces verification into an independent pass after generation: extracts checkable claims, queries external sources, and rejects model memory as evidence.",
+    "summary_cn": "在内容生成后强制发起独立事实核查：提取所有事实断言，调用外部检索验证，明确拒绝以大模型自身记忆作为可信凭据。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/jwynia/agent-skills.git && cp -R agent-skills/skills/general/research/verification/fact-check .agents/skills/fact-check"
   },
@@ -206,21 +320,25 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Reference validation pass: Run when an AI generates claims supported by external citations.",
-    "timing_desc_cn": "引文生成后核查：在 AI 输出包含参考文献、引文来源以支持其观点时立即调用。",
-    "why_chosen_en": "Solves the insidious problem of 'hallucinated attribution'—where a real paper exists, but its text does not actually support the AI's assertion.",
-    "why_chosen_cn": "解决最隐蔽的“伪造论据”问题——很多时候论文真实存在，但正文根本不支持 AI 所说的结论。该工具调取原文进行深层一致性比对。",
+    "timing_desc_en": "Source auditing: Run when reviewing literature reviews, whitepapers, or academic drafts.",
+    "timing_desc_cn": "信源审计时：在审阅包含参考文献的文献综述、行业白皮书或论文初稿时运行。",
+    "why_chosen_en": "Tackles paper-level hallucination. While normal checkers only verify if a paper exists, this skill downloads the actual body and proves whether the paper actually supports the attributed claim.",
+    "why_chosen_cn": "针对高阶学术幻觉痛点。普通工具仅检查文献是否存在，而该技能进一步获取论文正文，逐句比对文献是否真正支撑 AI 所声称的结论，防范张冠李戴。",
     "status": {
-      "stage": "Production v1.1",
-      "adoption": "AMiner Academic Suite",
-      "trust_source": "Maintained by AMiner open academic ecosystem"
+      "stage": "Production Active",
+      "adoption": "Aminer Open Skill Ecosystem",
+      "trust_source": "Deep claim-to-passage alignment evaluation"
     },
     "type": "SKILL.md",
     "url": "https://github.com/CanXiangCC/aminer-open-skill",
-    "clients": ["Claude Code", "Antigravity", "Cursor"],
-    "target_persona": "Academic Researchers, Peer Reviewers, Journalists",
-    "summary_en": "Goes beyond checking if a source exists: fetches cited papers and verifies whether the cited text actually supports the claim attributed to it (SUPPORTED, NOT_IN_SOURCE, etc.).",
-    "summary_cn": "超越了“文献是否存在”，进一步调取文献原文，检验论文正文是否真的支撑 AI 声称的那个论据，标明引据一致性评级。",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "Academic Researchers, Peer Reviewers, Fact-Checkers",
+    "summary_en": "Fetches cited literature and verifies whether the cited source body actually supports the claim attributed to it, assigning structured verdicts.",
+    "summary_cn": "深入拉取引文原文，逐条检验正文是否真实支撑对应论点，输出结构化判定结论（SUPPORTED、NOT_IN_SOURCE 等）。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/CanXiangCC/aminer-open-skill.git && cp -R aminer-open-skill/skills/citation-faithfulness ~/.claude/skills/citation-faithfulness"
   },
@@ -231,21 +349,24 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Draft bibliography audit: Run against .bib or reference files before finalizing academic text.",
-    "timing_desc_cn": "文献定稿前审计：在正式定稿前对论文引用的 .bib 或参考书目执行查伪排查。",
-    "why_chosen_en": "Prevents catastrophic academic embarrassment. Cross-checks bibtex entries with CrossRef and Semantic Scholar to catch fake authors and phantom DOIs.",
-    "why_chosen_cn": "防止灾难性的学术失信风险。利用 CrossRef 与 Semantic Scholar 批量筛查虚假 DOI、捏造作者和拼接出的幻觉文献，生成核验报告。",
+    "timing_desc_en": "Pre-submission audit: Run on existing .bib files before finalizing academic publications.",
+    "timing_desc_cn": "论文定稿前审计：在论文或技术报告最终定稿前，对现有 .bib 文件进行一键批量排查。",
+    "why_chosen_en": "Protects academic reputation. Batch checks .bib bibliography files for phantom citations and fabricated DOIs without modifying the original source file, generating a clean audit report.",
+    "why_chosen_cn": "捍卫学术声誉。批量核对 .bib 文件中的文献条目，在不修改原文件的前提下排查虚构作者与幽灵 DOI，并输出清晰的审计报告。",
     "status": {
-      "stage": "Active Release",
-      "adoption": "Research Lab Utility",
-      "trust_source": "Directly integrated with Semantic Scholar & CrossRef APIs"
+      "stage": "Production Stable",
+      "adoption": "Academic AgentConfig",
+      "trust_source": "Batch Crossref & Semantic Scholar verification harness"
     },
     "type": "SKILL.md",
     "url": "https://github.com/yzhao062/agent-config",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Academic Researchers, Grant Writers, Paper Authors",
-    "summary_en": "Audits an existing .bib bibliography for fabricated references and stale metadata using web search and Semantic Scholar, outputting a structured REFERENCE-CHECK.md audit report.",
-    "summary_cn": "对论文现有的 .bib 参考文献进行批量查伪与信息核对，识别虚构作者和失效 DOI，输出结构化的 REFERENCE-CHECK.md 审计报告。",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Academic Researchers, Grant Writers, Authors",
+    "summary_en": "Audits an existing .bib bibliography for hallucinated references and stale metadata without modifying original files, generating an actionable audit report.",
+    "summary_cn": "对学术论文的 .bib 参考文献进行批量查伪与信息核对，识别虚构作者和失效 DOI，输出结构化审计报告。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/yzhao062/agent-config.git && cp -R agent-config/skills/bibref-verify ~/.claude/skills/bibref-verify"
   },
@@ -256,23 +377,27 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Desktop research review: Use while generating reports that cite external publications.",
-    "timing_desc_cn": "案头研究核验时：在生成需要引用外部书籍或论文的研究备忘录时使用。",
-    "why_chosen_en": "A lightweight, modular skill following the Open Agent standard to ensure every citation has a live DOI before writing it into persistent research notes.",
-    "why_chosen_cn": "遵循通用 Agent Skills 标准的轻量级引文核查技能，确保写入最终研究备忘录的每一个引文都具备真实的数字对象唯一标识符（DOI）。",
+    "timing_desc_en": "Draft review: Triggered on drafts containing web links, DOIs, and cited references.",
+    "timing_desc_cn": "草稿自检时：在智能体输出包含外部链接、DOI 或论文出处的技术草稿时自动触发。",
+    "why_chosen_en": "Directly solves 'phantom citations'—a prevalent flaw where LLMs invent plausible-sounding papers. Queries real bibliographic APIs to verify DOIs and authors.",
+    "why_chosen_cn": "直击大模型最常见的“幽灵引文”幻觉。自动调用真实学术数据库 API 校验 DOI 与作者是否存在，把虚假文献直接标红剔除。",
     "status": {
-      "stage": "Community Standard",
-      "adoption": "Open Agent Skills Org",
-      "trust_source": "Standardized cross-client skill layout"
+      "stage": "Active Open Source",
+      "adoption": "Open Agent Skills Standard",
+      "trust_source": "Live API checks against Crossref & OpenAlex"
     },
     "type": "SKILL.md",
     "url": "https://github.com/open-agent-skills/citation-check-skill",
-    "clients": ["Claude Code", "Antigravity", "Open Agent standard"],
-    "target_persona": "Researchers, Academics, Policy Analysts",
-    "summary_en": "Parses citations and references in generated text, queries cross-reference APIs (Crossref, Semantic Scholar) to verify existence, and flags non-existent DOIs.",
-    "summary_cn": "自动提取生成文本中的参考文献与引文，调用 Crossref、Semantic Scholar 检验 DOI 和作者是否真实存在，标红虚构引文。",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "Researchers, Policy Analysts, Fact-Checkers",
+    "summary_en": "Extracts citations in generated text, queries cross-reference APIs to verify existence, and flags non-existent DOIs and ghost authors.",
+    "summary_cn": "自动提取生成文本中的引文与文献，调用学术接口实地检验 DOI 和作者是否真实存在，标红虚构引文。",
     "action_type": "install_code",
-    "action_content": "cp -r citation-check-skill ~/.claude/skills/"
+    "action_content": "git clone https://github.com/open-agent-skills/citation-check-skill.git .agents/skills/citation-check-skill"
   },
   {
     "id": "citation-verifier",
@@ -281,23 +406,27 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Scientific manuscript preparation: Validates citations within LaTeX, Org-mode, or Markdown.",
-    "timing_desc_cn": "科学手稿起草时：在 LaTeX、Org-mode 或 Markdown 论文写作流中校验引用。",
-    "why_chosen_en": "Authored by an active computational scientist (Prof. John Kitchin) for real publishing workflows, actively filtering retracted papers and dead references.",
-    "why_chosen_cn": "由计算科学家与大学教授亲自编写并应用于真实科研写作流，兼顾排查被撤稿论文与失效引用，真实度高。",
+    "timing_desc_en": "Manuscript writing: Active during LaTeX and Markdown drafting sessions.",
+    "timing_desc_cn": "文稿编撰时：在利用 LaTeX、Markdown 或 Emacs 撰写学术手稿时实时校验。",
+    "why_chosen_en": "Created by an active academic scientist (Prof. John Kitchin), specifically catching retracted papers and hallucinated DOIs in scientific literature.",
+    "why_chosen_cn": "由知名计算化学学者 John Kitchin 教授打造，针对学术写作痛点，自动交叉比对 Crossref 与 PubMed，排查被撤稿论文与捏造条目。",
     "status": {
-      "stage": "Active Tooling",
-      "adoption": "jkitchin Scientific Ecosystem",
-      "trust_source": "Developed by university faculty for reproducible research"
+      "stage": "Mature Academic Tool",
+      "adoption": "Scientific Research Community",
+      "trust_source": "Built by academic faculty for LaTeX/Markdown scientific publishing"
     },
     "type": "SKILL.md",
     "url": "https://github.com/jkitchin/skillz",
-    "clients": ["Claude Code", "Emacs", "Antigravity"],
-    "target_persona": "Scientists, Academic Writers (LaTeX, Markdown)",
-    "summary_en": "Automatically validates bibliography items against Crossref and PubMed records, alerting users to phantom papers or retracted literature.",
-    "summary_cn": "批量校验学术论文参考文献条目，排查被撤稿论文和虚假引文，确保引用学术严谨性。",
+    "clients": [
+      "Claude Code",
+      "Emacs",
+      "Antigravity"
+    ],
+    "target_persona": "Scientists, Academic Writers, LaTeX/Markdown Users",
+    "summary_en": "Validates bibliography items against Crossref and PubMed records, alerting users to phantom papers or retracted literature.",
+    "summary_cn": "批量校验论文参考文献条目，排查被撤稿论文和虚假引文，确保文献实证依据坚实可靠。",
     "action_type": "install_code",
-    "action_content": "# Place citation-verifier inside .claude/skills/ or run via skillz"
+    "action_content": "git clone https://github.com/jkitchin/skillz.git && cp -R skillz/skills/citation-verifier .agents/skills/"
   },
   {
     "id": "aidd-fact-check",
@@ -306,73 +435,141 @@
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Journalistic refinement: Deconstructs article drafts into verifiable claim units.",
-    "timing_desc_cn": "文章精修阶段：将生成的大段分析解构为可独立验证的事实断言单元。",
-    "why_chosen_en": "Forces hedging on unverified claims rather than letting the AI present unproven hypotheses with confident journalistic prose.",
-    "why_chosen_cn": "杜绝 AI 假借流利文笔掩盖事实漏洞。对核验不到确切信源的断言，强制执行审慎对冲改写，降低虚假陈述风险。",
+    "timing_desc_en": "Article refinement: Triggered during editorial passes of long-form reports or articles.",
+    "timing_desc_cn": "文章定稿推敲：在长篇深度报告或新闻特稿最终定稿前进行精细化命题审校。",
+    "why_chosen_en": "Editorial-grade rigor. Deconstructs an article draft into atomic factual claims, forces external grounding, and rewrites unsupported statements with epistemic hedging.",
+    "why_chosen_cn": "新闻调查级的审慎实务。将文章拆解为原子化的事实命题逐一求证，对证据不足的论述强制进行认识论对冲重写，杜绝过满断言。",
     "status": {
-      "stage": "Production Pipeline",
-      "adoption": "AIDD Refine System",
-      "trust_source": "Designed specifically for professional publishing workflows"
+      "stage": "Active Framework",
+      "adoption": "aidd-refine Workflow Suite",
+      "trust_source": "Deconstructive claim-by-claim editorial verification protocol"
     },
     "type": "SKILL.md",
     "url": "https://github.com/aidd-refine/aidd-refine",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Journalists, Fact-Checkers, Content Creators",
-    "summary_en": "Decomposes draft text into discrete factual claims, forces multi-source web verification, and rewrites unverified statements with epistemic hedging.",
-    "summary_cn": "将文本拆解为独立的事实断言（Claims），强制调用搜索工具求证，并对缺少确切依据的句子施加审慎对冲修饰。",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Journalists, Long-form Writers, Editors",
+    "summary_en": "Decomposes draft articles into atomic verifiable propositions, forces search grounding, and rewrites unverified statements with epistemic hedging.",
+    "summary_cn": "将文本拆解为独立的事实断言，强制调用搜索求证，并对缺少确切依据的句子施加审慎对冲修饰。",
     "action_type": "install_code",
-    "action_content": "# Install via aidd-refine skill bundle"
+    "action_content": "git clone https://github.com/aidd-refine/aidd-refine.git && cp -R aidd-refine/skills/05-fact-check .agents/skills/"
   },
   {
     "id": "editorial-fact-check-protocol",
-    "name": "Editorial Fact-Check & Quote Drift Protocol",
+    "name": "Editorial Fact-Check & Quote Drift Protocol (anotherpanacea)",
     "category": "answers-to-trust",
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Copy-edit review: Apply after generating feature articles or investigative texts.",
-    "timing_desc_cn": "特稿校对阶段：在生成深度特稿、专栏或调查报道后进行逐字校对。",
-    "why_chosen_en": "Unpacks subtle journalistic hallucination types (Quote Drift and Authority Masks) that automated tools often miss, giving humans a practical auditing checklist.",
-    "why_chosen_cn": "揭露最容易让人受骗的高阶幻觉（微调名言原句的引语漂移，以及用大牌机构撑场面的权威掩饰），为人类提供敏锐的审读透镜。",
+    "timing_desc_en": "Editorial review: Run on quotes, statistics, and high-stakes factual paragraphs.",
+    "timing_desc_cn": "深度编辑审校：在审校关键引语、统计数据或政策断言时运行两阶段核查。",
+    "why_chosen_en": "Directly targets high-order hallucination vectors that automated scripts miss: Quote Drift (altering quoted language) and Authority Masks (substituting prestige for evidence).",
+    "why_chosen_cn": "来自调查新闻业真实实务。针对自动化工具易漏掉的高阶伪造：排查引语漂移（微调原话改变倾向）和权威掩饰（用头衔声望代替真实证据）。",
     "status": {
-      "stage": "Editorial Gist Standard",
-      "adoption": "Newsroom Practice",
-      "trust_source": "Sourced from investigative journalistic editing standards"
+      "stage": "Battle-Tested Gist",
+      "adoption": "Investigative Journalism Protocol",
+      "trust_source": "Sourced from public GitHub Gist by verified investigative editor"
     },
-    "type": "Prompt",
-    "url": "",
-    "clients": ["Universal Web Chat", "ChatGPT", "Claude.ai", "Gemini"],
-    "target_persona": "Journalists, Editors, Copywriters",
-    "summary_en": "A two-pass journalistic editorial review designed to catch advanced hallucinations such as Quote Drift (altering quoted words) and Authority Masks.",
-    "summary_cn": "两阶段新闻编辑级核查提示词，专门排查引语漂移（Quote Drift，微妙篡改原话）和权威掩饰（用权威声望代替事实证据）。",
-    "action_type": "copy_prompt",
-    "action_content": "Perform a two-pass editorial fact-check on the provided text.\nPass A: Claim Verification\nFor every quote, statistic, or cited fact, output a structured table with: Location (line/paragraph), Claim Type, The Exact Claim, and a Status (CRITICAL, SUPPORTED, or PASSING).\nPass B: Editorial Flags (Apply only after Pass A)\nAnalyze the text for the following advanced errors:\n* Ghost Citation: The source cannot be found.\n* Citation Identity Drift: The underlying source exists, but the identifiers are mismatched.\n* Quote Drift: The quoted language does not match the source exactly, altering meaning.\n* Paraphrase Inflation: The draft makes a stronger claim than the original source supports.\n* Authority Mask: The prestige of the cited source is doing the rhetorical work, but the citation adds no empirical evidence."
+    "type": "SKILL.md",
+    "url": "https://gist.github.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "Journalists, Editors, Fact-Checkers, Analysts",
+    "summary_en": "Implements an intensive two-pass editorial review that flags subtle hallucinations like Quote Drift and Authority Masks.",
+    "summary_cn": "两阶段新闻编辑级核查法，专门排查引语漂移（篡改原话）和权威掩饰（用权威声望代替事实证据）。",
+    "action_type": "install_code",
+    "action_content": "curl -sL https://gist.githubusercontent.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24/raw -o .agents/skills/editorial-fact-check/SKILL.md"
   },
   {
-    "id": "epistemic-humility-prompt",
-    "name": "Epistemic Humility & Evidence Tagging Prompt",
+    "id": "hallucination-risk-reviewer",
+    "name": "Hallucination Risk Reviewer (Notysoty/openagentskills)",
     "category": "answers-to-trust",
     "category_title_en": "Which answers can I trust?",
     "category_title_cn": "哪些回答能信？",
     "timing": "during-chat",
-    "timing_desc_en": "Prompt prefix: Prepend to research inquiries in any standard chat window.",
-    "timing_desc_cn": "提问前缀：在普通网页版对话中发起严肃知识咨询时作为前置约束添加。",
-    "why_chosen_en": "A zero-tool cognitive intervention that forces the model to label every claim as [VERIFIED], [INFERENCE], or [UNVERIFIED], instantly dampening overconfidence.",
-    "why_chosen_cn": "零工具依赖的认知干预提示词。强迫大模型在每一句断言后附上置信度标签，彻底消除其用笃定口吻胡说八道的空间。",
+    "timing_desc_en": "Risk triage: Executes a structured claim-level triage before users act on or publish AI output.",
+    "timing_desc_cn": "风险分级排查：在采纳或发布 AI 生成文本前，针对高危断言进行逐段分级排查。",
+    "why_chosen_en": "Provides an explicit risk-scoring rubric that targets version-specific claims, obscure dates, and exact URLs, preventing propagation of confident falsehoods.",
+    "why_chosen_cn": "提供严谨的断言级幻觉风险分级量表，针对易错的特定版本号、生僻时间线及 URL 进行精准排雷，评估错误传播的严重后果。",
     "status": {
-      "stage": "Universal Method",
-      "adoption": "Widely Cited Community Pattern",
-      "trust_source": "Philosophical & epistemic prompting standard"
+      "stage": "Production Pinned",
+      "adoption": "Open Agent Skills Catalog",
+      "trust_source": "Commit-pinned risk rubric with structured output contract"
     },
-    "type": "Prompt",
-    "url": "",
-    "clients": ["Universal Web Chat", "ChatGPT", "Claude.ai", "Gemini"],
-    "target_persona": "Desktop Researchers, Students, Knowledge Workers",
-    "summary_en": "Forces the model to tag every assertion as [VERIFIED], [INFERENCE], or [UNVERIFIED], suppressing hallucinated certainty.",
-    "summary_cn": "破除 AI 过度自信的作答模式，强行对输出中的每一句话进行证据置信度标注（[已证实]、[逻辑推论]、[未证实/假说]）。",
-    "action_type": "copy_prompt",
-    "action_content": "Please answer my inquiry with strict epistemic humility and evidentiary tagging.\nAdhere to these rules:\n1. For every assertion, append one of three tags:\n   - [VERIFIED: Source name / link] - If you have high confidence based on established consensus or verifiable documentation.\n   - [INFERENCE] - If the statement is a logical deduction rather than an empirical fact.\n   - [UNVERIFIED / HYPOTHESIS] - If the assertion lacks authoritative grounding or is subject to ongoing debate.\n2. If any piece of information cannot be verified, state \"I do not have verified evidence for this point\" rather than guessing."
+    "type": "SKILL.md",
+    "url": "https://github.com/Notysoty/openagentskills",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
+    "target_persona": "Knowledge Workers, Editors, Content Teams, Researchers",
+    "summary_en": "Performs claim-level hallucination-risk triage, scrutinizing citations, URLs, quotes, and version-specific assertions against an explicit consequence rubric.",
+    "summary_cn": "执行断言级幻觉风险分级排查，针对具体引文、URL、原话及高危行业断言进行严格审查与危害评估。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/Notysoty/openagentskills.git && cp -R openagentskills/skills/hallucination-risk-reviewer .agents/skills/"
+  },
+  {
+    "id": "vectara-hallucination-corrector",
+    "name": "Vectara Hallucination Corrector HHEM (vectara)",
+    "category": "answers-to-trust",
+    "category_title_en": "Which answers can I trust?",
+    "category_title_cn": "哪些回答能信？",
+    "timing": "during-chat",
+    "timing_desc_en": "Automated verification: Evaluates factual consistency against source documents and algorithmically strips ungrounded claims.",
+    "timing_desc_cn": "检索后一致性校正：根据检索源文档评估生成内容的事实一致性，算法级剔除无根据断言。",
+    "why_chosen_en": "Utilizes Vectara's industry-standard HHEM (Hughes Hallucination Evaluation Model). It never invents missing facts—it strictly removes or hedges unsupported claims.",
+    "why_chosen_cn": "依托业界广泛认可的 Vectara HHEM 幻觉评测基准。它绝不尝试凭空补全缺失事实，而是严格删除或对冲无证据支撑的断言。",
+    "status": {
+      "stage": "Production API Integration",
+      "adoption": "Vectara Agent Skills",
+      "trust_source": "Backed by Vectara Hughes Hallucination Evaluation Model"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/vectara/agent-skills",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Python Agents"
+    ],
+    "target_persona": "Enterprise Analysts, RAG Operators, Researchers",
+    "summary_en": "Evaluates factual consistency of generated text against source documents using HHEM, stripping ungrounded claims rather than guessing.",
+    "summary_cn": "通过 Vectara HHEM 事实一致性模型比对生成文本与源文档，算法级剔除缺乏实证依据的幻觉断言。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/vectara/agent-skills.git && cp -R agent-skills/skills/hallucination-corrector .agents/skills/"
+  },
+  {
+    "id": "kdense-peer-review",
+    "name": "K-Dense Scientific Peer Review (K-Dense-AI)",
+    "category": "answers-to-trust",
+    "category_title_en": "Which answers can I trust?",
+    "category_title_cn": "哪些回答能信？",
+    "timing": "during-chat",
+    "timing_desc_en": "Reasoning audit: Run on scientific proposals, experimental methodology, and statistical inferences.",
+    "timing_desc_cn": "推演论证审计：在审校科学实验方案、统计推断或复杂推论链条时介入。",
+    "why_chosen_en": "Brings academic peer-review scrutiny to complex analytical reasoning, testing whether mathematical derivations and empirical conclusions legitimately follow from stated premises.",
+    "why_chosen_cn": "将学术同行评审的严苛标准带入复杂分析，交叉检查数学推导与实验推论链是否具备逻辑自洽性，拒绝凭感觉轻信。",
+    "status": {
+      "stage": "Active Research Release",
+      "adoption": "Scientific Agent Skills",
+      "trust_source": "Multi-perspective derivation and statistical validation harness"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Scientists, Peer Reviewers, Quantitative Analysts",
+    "summary_en": "Performs rigorous academic peer-review verification on scientific drafts, validating logical derivation steps and empirical conclusions.",
+    "summary_cn": "对学术与科学草稿执行严谨的同行评审级核验，交叉验证逻辑推导步骤与实证推断的有效性。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/K-Dense-AI/scientific-agent-skills.git && cp -R scientific-agent-skills/skills/peer-review .agents/skills/"
   },
   {
     "id": "the-fool",
@@ -381,21 +578,25 @@
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Decision checkpoint: Invoke right before committing to an AI-assisted plan or strategic choice.",
-    "timing_desc_cn": "决策拍板前：在准备采纳 AI 给出的策略、产品方案或战略建议前强制调用。",
-    "why_chosen_en": "Explicitly refuses to make decisions or offer false comfort. Designed solely to challenge assumptions, execute pre-mortems, and shatter premature consensus.",
-    "why_chosen_cn": "明确界定人机责任。该技能明文规定“拒绝替用户做决定”，只专注拆穿方案里的隐性假设与盲区，通过事前尸检防止人机共谋犯错。",
+    "timing_desc_en": "Decision challenge: Triggered whenever the user is tempted to quickly adopt an AI plan or strategy.",
+    "timing_desc_cn": "方案反思时：在用户倾向于快速采纳 AI 规划或策略时主动召唤，以打破思维盲区。",
+    "why_chosen_en": "Explicity designed NOT to make decisions, but to shatter premature consensus through pre-mortems, assumption probing, and cognitive-bias scans.",
+    "why_chosen_cn": "核心设计原则是“不替人类做决定，只负责拆台”。通过事前尸检、隐性假设勘探与认知偏差扫描，有力打破虚假共识与盲从。",
     "status": {
-      "stage": "Production v2.0",
-      "adoption": "Tech Leads Club Catalog",
-      "trust_source": "Comprehensive behavioral rules with cognitive-bias scan"
+      "stage": "Production Stable",
+      "adoption": "tech-leads-club Catalog",
+      "trust_source": "Dialectical counterargument and pre-mortem methodology"
     },
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills",
-    "clients": ["Claude Code", "Antigravity", "Cursor"],
-    "target_persona": "Managers, Researchers, Founders, Strategic Planners",
-    "summary_en": "A dedicated decision challenger that explicitly refuses to make decisions. Executes assumption probing, dialectical counterarguments, pre-mortems, and cognitive-bias scans to shatter premature consensus.",
-    "summary_cn": "愚者决策挑战者。原则是“不替用户做决定，只负责拆台与质疑”，通过隐性假设探测、辩证反驳、事前尸检与认知偏差扫描粉碎虚假共识。",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "Managers, Founders, Strategists, Analysts",
+    "summary_en": "Acts as a deliberate devil's advocate that probes hidden assumptions, dialectical counterarguments, and failure modes to shatter premature consensus.",
+    "summary_cn": "充当专业反思者角色，执行隐性假设探测、辩证反驳、事前尸检与认知偏差扫描，粉碎盲从与虚假共识。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/tech-leads-club/agent-skills.git && cp -R \"agent-skills/packages/skills-catalog/skills/(decision-making)/the-fool\" ~/.claude/skills/the-fool"
   },
@@ -406,21 +607,25 @@
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Brainstorming & argument evaluation: Use when an AI seems too agreeable with your hypotheses.",
-    "timing_desc_cn": "方案推演中：当你感觉 AI 对你的思路过度吹捧、一路顺着你说的时候立即启动。",
-    "why_chosen_en": "Addresses persistent AI sycophancy. Enforces anti-appeasement rules that forbid the agent from softening critiques merely because the user expresses displeasure or pushback.",
-    "why_chosen_cn": "专门破解 AI 谄媚与阿谀奉承。内置防妥协机制，明确规定“无论用户如何辩解，只要未提供新的客观事实反证，坚决禁止撤销批评”。",
+    "timing_desc_en": "Iterative debate: Enforces anti-appeasement rules whenever you feel the AI is being too agreeable.",
+    "timing_desc_cn": "方案推敲时：当你感觉 AI 态度过于奉承赞同、缺乏锋芒时开启对抗模式。",
+    "why_chosen_en": "Directly cures the pervasive AI sycophancy flaw. Enforces strict anti-appeasement rules: forbids the agent from retreating from a critique merely because the user pushes back.",
+    "why_chosen_cn": "针对大模型普遍存在的“谄媚迎合”痼疾。强制设定不可退让的反迎合规则：除非用户提供真实确凿的新证据，否则严禁为了礼貌而放弃批评立场。",
     "status": {
-      "stage": "Active Stable",
-      "adoption": "PM Skills Repository",
-      "trust_source": "Verified anti-accommodation procedural ladders"
+      "stage": "Production Active",
+      "adoption": "pm-claude-skills Suite",
+      "trust_source": "Procedural anti-appeasement rules verified in iterative workflows"
     },
     "type": "SKILL.md",
     "url": "https://github.com/mohitagw15856/pm-claude-skills",
-    "clients": ["Claude Code", "Cursor", "Antigravity"],
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
     "target_persona": "Decision Makers, Product Managers, Founders",
-    "summary_en": "Flips the agent from agreement to adversarial critique. Enforces anti-sycophancy rules: forbids retreating from a critique unless the user provides fresh, dispositive evidence.",
-    "summary_cn": "反迎合专精技能。强行将助手从吹捧赞同切换为对立批判模式，且明确规定“除非用户提供实质性新证据，否则禁止因用户反复辩解而妥协退让”。",
+    "summary_en": "Flips the assistant into adversarial mode, forbidding it from softening critiques unless the user provides fresh, dispositive evidence.",
+    "summary_cn": "强行将助手切换为对抗批判模式，严禁因用户施压而轻易妥协，坚决反抗大模型的谄媚偏见。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/sycophancy-challenger .agents/skills/sycophancy-challenger"
   },
@@ -431,21 +636,24 @@
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Major architectural or policy review: Use to simulate multi-stakeholder debate before finalizing proposals.",
-    "timing_desc_cn": "重大方案评估时：在方案定稿前，通过模拟多方对立视角的辩论来排查盲区。",
-    "why_chosen_en": "Implements empirical Diverse Multi-Agent Debate (DMAD) using Inversion and Analogy to break single-agent groupthink, proven to increase failure detection.",
-    "why_chosen_cn": "基于 ArXiv 论文实证的多智能体辩论机制（DMAD），通过反向推演与跨领域类比，让 AI 自行组织红蓝对抗，消除单一大模型的盲信盲从。",
+    "timing_desc_en": "High-stakes crossroads: Use when evaluating major technical, business, or product architecture proposals.",
+    "timing_desc_cn": "重大方案评审：在做重大技术选型、战略制定或架构变更前调动多智能体辩论。",
+    "why_chosen_en": "Breaks single-agent tunnel vision. Implements a Diverse Multi-Agent Debate (DMAD) protocol with mandatory Devil's Advocate rounds to prevent groupthink.",
+    "why_chosen_cn": "打破单一大模型的盲目自洽。通过多样化多智能体辩论协议（DMAD），综合运用反演法、类比反思与强制魔鬼代言人轮次，消除思维狭隘。",
     "status": {
-      "stage": "Open Source Release",
-      "adoption": "Council Review Org",
-      "trust_source": "Based on empirical multi-agent debate research"
+      "stage": "Production Release",
+      "adoption": "Council Review Project",
+      "trust_source": "Diverse Multi-Agent Debate convergence detection"
     },
     "type": "SKILL.md",
     "url": "https://github.com/ngmeyer/council-review",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Product Managers, Strategists, Software Architects",
-    "summary_en": "Implements a Diverse Multi-Agent Debate (DMAD) protocol combining Inversion, Decomposition, Analogy, and a mandatory Devil's Advocate pass to shatter single-agent groupthink.",
-    "summary_cn": "多样化多智能体辩论（DMAD）协议，综合运用反演法、任务分解、类比反思与强制魔鬼代言人轮次，打破单一大模型的盲目自洽。",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Product Managers, Software Architects, Strategists",
+    "summary_en": "Implements a Diverse Multi-Agent Debate protocol combining Inversion, Decomposition, and Devil's Advocate passes to shatter single-agent groupthink.",
+    "summary_cn": "多样化多智能体辩论（DMAD）协议，综合运用反演法、任务分解与强制魔鬼代言人轮次，打破单一大模型的盲目自洽。",
     "action_type": "install_code",
     "action_content": "curl -L https://raw.githubusercontent.com/ngmeyer/council-review/main/SKILL.md -o .claude/skills/council-review.md"
   },
@@ -456,23 +664,26 @@
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Post-proposal generation: Instantly trigger an adversarial pass on your draft.",
-    "timing_desc_cn": "方案草拟完成后：一键激活反方审读，让 AI 全力寻找你思路中的致命缺陷。",
-    "why_chosen_en": "A zero-flattery critical sparring partner that challenges baseline premises without fabricating artificial doubt, keeping users grounded.",
-    "why_chosen_cn": "不带任何客套与吹捧的对抗性对练技能，专注检验底层前提是否牢靠，避免陷入过度自信。",
+    "timing_desc_en": "Pre-mortem check: Run when user needs a ruthless sparring partner to identify blind spots.",
+    "timing_desc_cn": "事前演练：在需要严苛对练伙伴挑刺、找出方案隐蔽盲区时执行。",
+    "why_chosen_en": "Transforms the agent into an adversarial sparring partner that explicitly attacks user assumptions and exposes sycophancy in AI-generated proposals.",
+    "why_chosen_cn": "强制将 AI 切换为“不留情面的反方辩友”，挑出用户方案中的逻辑漏洞、未明言假设与过度乐观倾向。",
     "status": {
-      "stage": "Community Skill",
-      "adoption": "orange2ai Collection",
-      "trust_source": "Clean unsparing critic behavioral contract"
+      "stage": "Production Active",
+      "adoption": "orange2ai Catalog",
+      "trust_source": "Adversarial assumption testing protocol"
     },
     "type": "SKILL.md",
     "url": "https://github.com/orange2ai/devils-advocate-skill",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Decision Makers, Policy Analysts, Product Leads",
-    "summary_en": "Transforms the agent into an unsparing critic that attacks user assumptions, identifies hidden blind spots, and counteracts AI sycophancy.",
-    "summary_cn": "强制将 AI 切换为“不留情面的反方辩友”，专门挑出用户方案中的逻辑漏洞、未明言假设与迎合（Sycophancy）倾向。",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Decision Makers, Product Managers, Policy Analysts",
+    "summary_en": "Transforms the agent into an adversarial sparring partner that explicitly attacks user assumptions and identifies blind spots.",
+    "summary_cn": "强制将 AI 切换为反方对练伙伴，专门挑出方案中的逻辑漏洞、盲点与过度乐观假设。",
     "action_type": "install_code",
-    "action_content": "git clone https://github.com/orange2ai/devils-advocate-skill .claude/skills/devils-advocate"
+    "action_content": "git clone https://github.com/orange2ai/devils-advocate-skill.git .agents/skills/devils-advocate"
   },
   {
     "id": "devils-advocate-mad-skills",
@@ -481,48 +692,141 @@
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Pre-commitment stress test: Subagent audit across 8 distinct failure modes.",
-    "timing_desc_cn": "对外承诺前压力测试：拉起独立的子智能体，从 8 个不同失败维度进行严苛质询。",
-    "why_chosen_en": "Isolates the devil's advocate role into a dedicated subagent so that the primary conversation's collaborative context is not polluted by debate noise.",
-    "why_chosen_cn": "将魔鬼代言人逻辑隔离在专属子智能体中运行，既提供了深度压力测试，又避免污染主对话的工作流上下文。",
+    "timing_desc_en": "Stress testing: Spawns an adversarial sub-agent to stress-test proposals across 8 failure modes.",
+    "timing_desc_cn": "压力测试：生成对抗性子智能体，在方案定稿前从 8 个不同失败维度进行压力测试。",
+    "why_chosen_en": "Offers systematic failure-mode testing across eight distinct vectors, preventing users from walking into predictable operational traps.",
+    "why_chosen_cn": "提供涵盖 8 个维度的系统化失败模式压力测试，防止用户陷入思维定势，主动预警潜在执行危机。",
     "status": {
-      "stage": "Active Repository",
-      "adoption": "mad-skills Toolkit",
-      "trust_source": "Subagent isolation architecture"
+      "stage": "Active Framework",
+      "adoption": "mad-skills Ecosystem",
+      "trust_source": "8-dimensional operational failure mode analysis"
     },
     "type": "SKILL.md",
     "url": "https://github.com/jihlenburg/mad-skills",
-    "clients": ["Claude Code", "Antigravity"],
-    "target_persona": "Strategists, Writers, Project Leads",
-    "summary_en": "Spawns an adversarial sub-agent to stress-test plans and drafts across 8 distinct failure modes before finalization.",
-    "summary_cn": "启动对抗性子智能体，在方案定稿前从 8 个不同失败维度进行极限压力测试。",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Strategists, Writers, System Architects",
+    "summary_en": "Spawns a critical sub-agent to stress-test plans and drafts across 8 distinct failure modes before proposals are committed.",
+    "summary_cn": "启动对抗性子智能体，在方案定稿前从 8 个不同失败维度进行系统化压力测试与风险评级。",
     "action_type": "install_code",
-    "action_content": "# Place devils-advocate inside .claude/skills/ from mad-skills"
+    "action_content": "git clone https://github.com/jihlenburg/mad-skills.git && cp -R mad-skills/skills/devils-advocate .agents/skills/"
   },
   {
-    "id": "over-reliance-interrogator",
-    "name": "The Over-Reliance Interrogator Prompt",
+    "id": "godfly-opposing-counsel",
+    "name": "Godfly Opposing Counsel (CassioRoos/godfly-skills)",
     "category": "when-not-to-listen",
     "category_title_en": "When should I NOT listen to AI?",
     "category_title_cn": "什么时候不能听 AI？",
     "timing": "during-chat",
-    "timing_desc_en": "Sanity check: Prompt the model immediately after receiving an overly polished recommendation.",
-    "timing_desc_cn": "警惕盲信自检：在收到看似完美无缺的 AI 建议后，立即以此提示词反问它。",
-    "why_chosen_en": "Forces the model to step outside its advisor persona and delineate the exact legal, ethical, and situational boundaries that humans must never offload.",
-    "why_chosen_cn": "强迫 AI 跳出赞同者人设，亲手指出自身方案在极端情境下的失效边界，并标明人类绝不能甩锅给算法的法定与伦理责任。",
+    "timing_desc_en": "Irreversible decisions: Generates an Opposing Brief attacking load-bearing assumptions for high-stakes commitments.",
+    "timing_desc_cn": "不可逆决策关口：针对重大商业合同或战略定稿，生成正式的“反对方辩护状”。",
+    "why_chosen_en": "Avoids performative contrarianism. Produces a formal Opposing Brief that explicitly names the irreversible costs of the chosen path and outlines how the alternative strategy would fundamentally win.",
+    "why_chosen_cn": "杜绝表面化的抬杠，输出高度严肃的“反对方辩护状”：精准测算选择当前路径的不可逆代价，明确界定在何种条件下竞争对手或备选方案将彻底胜出。",
     "status": {
-      "stage": "Universal Pattern",
-      "adoption": "Widely Used Prompt Template",
-      "trust_source": "Derived from cognitive automation-bias mitigation research"
+      "stage": "Production Pinned",
+      "adoption": "Godfly Skills Standard",
+      "trust_source": "Structured adversarial brief protocol for high-stakes decisions"
     },
-    "type": "Prompt",
-    "url": "",
-    "clients": ["Universal Web Chat", "ChatGPT", "Claude.ai", "Gemini"],
-    "target_persona": "Professionals evaluating high-stakes advice",
-    "summary_en": "Demands the AI to step out of the advisor role and interrogate its own proposal for hidden assumptions and non-delegable responsibilities.",
-    "summary_cn": "让 AI 亲手拆穿自己方案的软肋，指出在极端边界下为何会失效，以及人类绝不能甩锅给算法的责任。",
-    "action_type": "copy_prompt",
-    "action_content": "You just provided the recommendation above. Now, step out of the advisor role and act as an independent, skeptical auditor.\nAnswer these three questions honestly:\n1. Under what specific conditions or edge cases will this advice completely fail?\n2. What hidden assumptions have you made that I, as the human, must personally verify before acting?\n3. What ethical, legal, or contextual responsibilities cannot be delegated to an AI in this decision?"
+    "type": "SKILL.md",
+    "url": "https://github.com/CassioRoos/godfly-skills",
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code"
+    ],
+    "target_persona": "Executives, Team Leads, System Planners, Legal Counsel",
+    "summary_en": "Generates a structured Opposing Brief for high-stakes decisions by attacking load-bearing assumptions and quantifying irreversible costs.",
+    "summary_cn": "为重大决策起草正式的对抗性辩护状，攻击核心承重假设，量化不可逆成本，清晰指出失败临界点。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/CassioRoos/godfly-skills.git && cp -R godfly-skills/skills/devils-advocate .agents/skills/godfly-counsel"
+  },
+  {
+    "id": "devils-advocate-reviewer",
+    "name": "Devil's Advocate Reviewer Agent (Imbad0202)",
+    "category": "when-not-to-listen",
+    "category_title_en": "When should I NOT listen to AI?",
+    "category_title_cn": "什么时候不能听 AI？",
+    "timing": "during-chat",
+    "timing_desc_en": "Academic defense: Stress-tests research methodologies and theoretical foundations before journal submission.",
+    "timing_desc_cn": "学术方案答辩前：在论文投稿或答辩前，对研究方法和理论根基执行压力测试。",
+    "why_chosen_en": "Employs strict procedural ladders to prevent the AI from conceding critiques merely due to sustained user argumentation, exposing foundational theoretical flaws.",
+    "why_chosen_cn": "设立严格的程序化门禁阶梯，杜绝 AI 因为用户的反复辩解而轻易软化批评，专门探测学术论证中的根基性漏洞。",
+    "status": {
+      "stage": "Research Release",
+      "adoption": "Academic Research Skills",
+      "trust_source": "Rigorous anti-accommodation ladders for peer critique"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/Imbad0202/academic-research-skills",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Researchers, PhD Candidates, Academic Authors",
+    "summary_en": "Assumes an adversarial posture to locate logical gaps in research papers, featuring strict rules that prevent conceding critiques to user pressure.",
+    "summary_cn": "采取对抗性评审立场探测学术论文的逻辑漏洞，设定严格防退让规则，绝不因用户施压而撤回关键学术质疑。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/Imbad0202/academic-research-skills.git && cp -R academic-research-skills/skills/devils-advocate .agents/skills/"
+  },
+  {
+    "id": "red-team-review",
+    "name": "Multi-Perspective Red-Team Review (mohitagw15856)",
+    "category": "when-not-to-listen",
+    "category_title_en": "When should I NOT listen to AI?",
+    "category_title_cn": "什么时候不能听 AI？",
+    "timing": "during-chat",
+    "timing_desc_en": "Pre-commitment review: Stress-tests proposals through conflicting stakeholder lenses (finance, legal, competitor).",
+    "timing_desc_cn": "方案敲定前红队演练：从财务苛刻视角、法务合规视角及竞争对手视角全面发起攻击。",
+    "why_chosen_en": "Forces plans through conflicting adversarial personas, ranking blind spots by likelihood × impact and conducting an objective pre-mortem before converting proposals into real commitments.",
+    "why_chosen_cn": "将方案同时置于相互冲突的敌意视角下（严苛财务、法务合规、竞品攻防），以“发生概率 × 危害程度”对盲区排序，防止草率拍板。",
+    "status": {
+      "stage": "Production Pinned",
+      "adoption": "pm-claude-skills Suite",
+      "trust_source": "Multi-persona critique with ranked blind spot scoring matrix"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/mohitagw15856/pm-claude-skills",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
+    "target_persona": "Product Managers, Editors, Team Leads, Strategists",
+    "summary_en": "Stress-tests proposals through multiple deliberately conflicting stakeholder lenses, ranking blind spots by likelihood × impact and running pre-mortems.",
+    "summary_cn": "通过多维度对抗性视角对规划执行压力测试，以发生概率与破坏力为盲区评级，实施严谨的事前尸检。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/red-team-review .agents/skills/red-team-review"
+  },
+  {
+    "id": "anti-sycophancy-molly",
+    "name": "Devil's Advocate Anti-Sycophancy (molly-diversifiedfun)",
+    "category": "when-not-to-listen",
+    "category_title_en": "When should I NOT listen to AI?",
+    "category_title_cn": "什么时候不能听 AI？",
+    "timing": "during-chat",
+    "timing_desc_en": "Thinking partner: Engaged when drafting critical essays, strategic plans, or executive briefings.",
+    "timing_desc_cn": "深度方案构思：在撰写高管简报、战略企划或核心论文论证时调动反向思考。",
+    "why_chosen_en": "Encodes an uncompromising anti-sycophancy contract: forbids opening compliments, forbids diluting critiques to appease the user, and enforces mandatory 'Fatal Flaw' identification.",
+    "why_chosen_cn": "写入了零妥协的反迎合协议：严禁以客套夸奖开场，严禁为迎合用户而软化批判，强制在输出中排查出至少一项潜在致命缺陷（Fatal Flaw）。",
+    "status": {
+      "stage": "Commit Pinned",
+      "adoption": "Claude Skills Catalog",
+      "trust_source": "Zero-appeasement anti-sycophancy contract with fatal-flaw requirements"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/molly-diversifiedfun/claude-skills",
+    "clients": [
+      "Claude Code",
+      "Cursor",
+      "Antigravity"
+    ],
+    "target_persona": "Executives, Strategists, Authors, Researchers",
+    "summary_en": "Adversarial thinking partner built around pre-mortems and Socratic inquiry, enforcing an explicit anti-sycophancy contract that forbids conversational appeasement.",
+    "summary_cn": "基于事前尸检与苏格拉底诘问构建的反思伙伴，执行严格的反迎合准则，禁止以赞美开场或为取悦用户而妥协批评。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/molly-diversifiedfun/claude-skills.git && cp -R claude-skills/devils-advocate .agents/skills/devils-advocate"
   },
   {
     "id": "ai-provenance",
@@ -531,21 +835,25 @@
     "category_title_en": "Can the output be published directly?",
     "category_title_cn": "输出能不能直接发布？",
     "timing": "pre-handoff",
-    "timing_desc_en": "Artifact handoff & verification packaging: Generates audit trails and verifiable receipts for third parties.",
-    "timing_desc_cn": "成果交付与核验打包时：在把 AI 辅助的成果交由第三方前，生成可审计的证据轨迹。",
-    "why_chosen_en": "Directly serves third-party verifiability. Automatically logs model hashes, prompt history, and tool actions into an immutable ledger, giving recipients the exact keys to verify results.",
-    "why_chosen_cn": "真正服务于“让第三方好核查”。它自动记录模型哈希、关键 Prompt 和工具调用轨迹，交付成果时附带可信证据链，不让接收方盲信盲猜。",
+    "timing_desc_en": "Deliverable handoff: Run before submitting reports, articles, or code PRs to colleagues or clients.",
+    "timing_desc_cn": "成果交付前：在向同事、导师或客户提交最终报告、文章或代码 PR 之前生成可核验证明。",
+    "why_chosen_en": "Transforms vague disclosures into tamper-evident audits. Records model hashes, verification states, and prompt trails, reserving final validation for human verification.",
+    "why_chosen_cn": "将模糊的口头说明转为可验证的实证凭据。自动留存模型版本、提示词哈希与工具调用流水，并将最终核验权强制保留在人类手中。",
     "status": {
-      "stage": "Production Core",
-      "adoption": "f-ai2-r Project",
-      "trust_source": "Deterministic cryptographic hashing & local provenance logging"
+      "stage": "Production Pinned",
+      "adoption": "f-ai2-r Provenance Framework",
+      "trust_source": "Cryptographic hash tracking and human-confirmed verification ladder"
     },
     "type": "SKILL.md",
     "url": "https://github.com/noheton/f-ai2-r",
-    "clients": ["Antigravity", "Cursor", "Claude Code"],
+    "clients": [
+      "Antigravity",
+      "Cursor",
+      "Claude Code"
+    ],
     "target_persona": "Researchers, Journalists, Authors, Developers",
     "summary_en": "Maintains an immutable provenance record of AI-assisted work (model versions, prompt hashes, verification states) and derives human-readable AI-use disclosures.",
-    "summary_cn": "自动记录人机协作轨迹（模型版本、提示词哈希、工具调用与验证状态），并从中推导出可信的人类可读 AI 使用披露说明。",
+    "summary_cn": "自动记录人机协作轨迹（模型版本、提示词哈希、工具调用与验证状态），并推导出可信的人类可读 AI 使用披露说明。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/noheton/f-ai2-r.git .agents/skills/ai-provenance"
   },
@@ -556,21 +864,25 @@
     "category_title_en": "Can the output be published directly?",
     "category_title_cn": "输出能不能直接发布？",
     "timing": "pre-handoff",
-    "timing_desc_en": "Release gate: Physical permission separation before any content is published externally.",
-    "timing_desc_cn": "对外发布前检查：在任何 AI 参与的内容正式向外部平台发布之前执行硬阻断。",
-    "why_chosen_en": "Solves the fatal flaw of autonomous publication. The drafting agent is physically prohibited from publishing; an external human verification receipt is mandatory.",
-    "why_chosen_cn": "杜绝“智能体失控直接发布”。编写与审校智能体在权限上被物理剥夺直接发布能力，必须出具外部独立的人类核验签名回执方可放行。",
+    "timing_desc_en": "Publish authorization: Hard stop before any draft or campaign goes live to the public.",
+    "timing_desc_cn": "发布授权关卡：在任何文案、文章或营销活动正式对外公开前的硬性拦截门禁。",
+    "why_chosen_en": "Enforces physical separation between generative AI and publishing pipelines. Strips the writing agent of publishing rights, demanding a human PASS/FIX/BLOCK sign-off receipt.",
+    "why_chosen_cn": "从物理层面切断大模型直接对外的发布链路。写作智能体被明确剥夺发布权限，必须依赖外部独立的人类审阅授权回执（PASS/FIX/BLOCK）方可放行。",
     "status": {
-      "stage": "Production Workflow v0.7.1",
-      "adoption": "Editorial Team Standard",
-      "trust_source": "Strict separation of drafting vs. publishing authorization"
+      "stage": "Production Stable",
+      "adoption": "Newsroom & Publishing Teams",
+      "trust_source": "Strict fail-closed gate with human sign-off requirement"
     },
     "type": "SKILL.md",
     "url": "https://github.com/StiflerMaxwell/vertu-english-publishing-workflow",
-    "clients": ["Antigravity", "Cursor", "Claude Code"],
-    "target_persona": "Editors, Publishing Teams, Newsrooms",
-    "summary_en": "Enforces a strict PASS/FIX/BLOCK gate over drafts. Crucially, the writing/QA agent is forbidden from publishing directly; separate human authorization is required.",
-    "summary_cn": "对 AI 草稿执行 PASS/FIX/BLOCK 硬性发布门禁。编写与审校智能体被物理剥夺直接发布权限，必须依赖外部独立的人类授权回执。",
+    "clients": [
+      "Antigravity",
+      "Cursor",
+      "Claude Code"
+    ],
+    "target_persona": "Editors, Content Teams, Media Creators",
+    "summary_en": "Enforces a strict PASS/FIX/BLOCK gate over drafts. Crucially, the writing agent is forbidden from publishing directly; human authorization is required.",
+    "summary_cn": "对 AI 草稿执行 PASS/FIX/BLOCK 硬性发布门禁。编写与审校智能体被物理剥夺直接发布权限，必须依赖外部人类授权回执。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/StiflerMaxwell/vertu-english-publishing-workflow.git && cp -R vertu-english-publishing-workflow/skills/vertu-seo-publish-gate .agents/skills/"
   },
@@ -581,21 +893,25 @@
     "category_title_en": "Can the output be published directly?",
     "category_title_cn": "输出能不能直接发布？",
     "timing": "pre-handoff",
-    "timing_desc_en": "Code & documentation submission: Ensures pull requests explicitly declare AI contribution.",
-    "timing_desc_cn": "提交代码与文档 PR 时：确保向开源或团队仓库发起提交时公开透明。",
-    "why_chosen_en": "Transforms ethical disclosure into an automated CI/CD-style condition: if the required disclosure section is removed or disguised, the tool refuses to submit.",
-    "why_chosen_cn": "将披露从道德倡议转为刚性门禁：智能体在提交 PR 时强制嵌入透明声明，如果声明被篡改或隐瞒，工具直接拒绝提交，防隐蔽代写。",
+    "timing_desc_en": "Git commit / PR stage: Triggered automatically before pushing pull requests or release notes.",
+    "timing_desc_cn": "代码提交阶段：在推送 GitHub Pull Request 或生成版本发布说明（Release Notes）前拦截。",
+    "why_chosen_en": "Automates developer integrity. Embeds mandatory AI-assistance disclosure directly into PR bodies, and strictly refuses git submission if the disclosure is altered or bypassed.",
+    "why_chosen_cn": "将诚信披露做成代码提交流程的硬性门禁。在撰写 PR 时自动嵌入不可擅自删改的透明说明，防止滥用 AI 产生无意义的垃圾代码或隐瞒辅助事实。",
     "status": {
-      "stage": "Production Kit",
-      "adoption": "harlan-agent-kit Suite",
-      "trust_source": "Enforced via GitHub CLI / git pre-push contracts"
+      "stage": "Production Standard",
+      "adoption": "harlan-agent-kit Ecosystem",
+      "trust_source": "Machine-gated PR generation with mandatory transparency clauses"
     },
     "type": "SKILL.md",
     "url": "https://github.com/harlan-zw/harlan-agent-kit",
-    "clients": ["Claude Code", "Antigravity", "Cursor"],
-    "target_persona": "Open Source Maintainers, Technical Writers, Developers",
-    "summary_en": "Enforces a visible AI-writing disclosure whenever drafting release notes or PRs. The agent strictly refuses to submit or publish if the mandated disclosure is missing or altered.",
-    "summary_cn": "将 AI 披露做成代码提交与 PR 的机器强制门禁。在撰写说明时强制嵌入透明声明，声明若被删改则直接拒绝执行发布命令。",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Cursor"
+    ],
+    "target_persona": "Open Source Maintainers, Software Engineers, Technical Writers",
+    "summary_en": "Enforces a visible AI-writing disclosure whenever drafting PRs or release notes, refusing to submit if the mandated transparency disclosure is missing.",
+    "summary_cn": "将 AI 披露做成代码提交与 PR 的机器强制门禁。强制嵌入透明声明，声明若被删改则直接拒绝执行发布命令。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/harlan-zw/harlan-agent-kit.git && cp -R harlan-agent-kit/skills/pr .agents/skills/pr"
   },
@@ -606,47 +922,169 @@
     "category_title_en": "Can the output be published directly?",
     "category_title_cn": "输出能不能直接发布？",
     "timing": "post-session",
-    "timing_desc_en": "Session wrap-up & compliance audit: Run to archive prompts and verify IP cleanliness.",
-    "timing_desc_cn": "会话结束与归档时：在项目阶段性完结时导出对话痕迹并校验数据留存政策。",
-    "why_chosen_en": "Maintains persistent audit logs of code generation provenance, allowing teams and individuals to prove clean IP lineage during external reviews.",
-    "why_chosen_cn": "持久化保存代码与文字生成轨迹，在面对外部版权审查或机构审计时，能出具有效证据证明作品的独立性与辅助边界。",
+    "timing_desc_en": "Audit logging: Retains session provenance records for IP and privacy compliance review.",
+    "timing_desc_cn": "会话归档归宗：在项目结算时留存代码与文本的人机协作痕迹，以备知识产权与合规审计。",
+    "why_chosen_en": "Provides clear intellectual property provenance. Ensures developers and companies can demonstrate exact human vs machine contributions under copyright and GDPR standards.",
+    "why_chosen_cn": "提供清晰的知识产权与数据溯源凭据。确保团队在面对商业版权争议、开源授权协议及 GDPR 审计时，能出具有说服力的人机贡献明细。",
     "status": {
-      "stage": "Community Collection",
-      "adoption": "Awesome Copilot Skills",
-      "trust_source": "Verified data retention & attribution audit templates"
+      "stage": "Active Production",
+      "adoption": "awesome-copilot Standard",
+      "trust_source": "Audit-ready logging conforming to European data protection standards"
     },
     "type": "SKILL.md",
     "url": "https://github.com/awesome-copilot/skills",
-    "clients": ["GitHub Copilot", "Claude Code"],
-    "target_persona": "Software Developers, Compliance Officers",
-    "summary_en": "Enforces audit logging and data provenance records so developers can demonstrate compliance with IP and data retention rules.",
+    "clients": [
+      "GitHub Copilot",
+      "Claude Code"
+    ],
+    "target_persona": "Software Engineers, Compliance Officers, Legal Auditors",
+    "summary_en": "Enforces audit logging and data provenance records so developers can demonstrate compliance with IP and privacy standards.",
     "summary_cn": "记录代码与文本的生成轨迹与数据来源，为机构出具可信审计日志，明确人机贡献界限。",
     "action_type": "install_code",
-    "action_content": "# Install via awesome-copilot skills collection"
+    "action_content": "git clone https://github.com/awesome-copilot/skills.git && cp -R skills/skills/gdpr-compliant .agents/skills/"
   },
   {
-    "id": "aid-credit-disclosure-generator",
-    "name": "Third-Party Verifiability & Disclosure Generator",
+    "id": "publish-prep-review",
+    "name": "Publish Prep Review (45ck/content-machine)",
     "category": "can-publish-directly",
     "category_title_en": "Can the output be published directly?",
     "category_title_cn": "输出能不能直接发布？",
     "timing": "pre-handoff",
-    "timing_desc_en": "Deliverable packaging: Use right before sending an AI-assisted report, article, or thesis to clients/readers.",
-    "timing_desc_cn": "交付成果前打包：在将 AI 辅助完成的分析报告、文案或论文交给他人前运行。",
-    "why_chosen_en": "Moves beyond ritualistic disclaimers to true verifiability. Generates a clear audit brief detailing which data points were human-verified and where the recipient can check primary sources.",
-    "why_chosen_cn": "告别形式主义的免责声明，实现真正的“成果可查证”。自动生成一份结构化说明，清晰告知对方哪些数据是人类亲测核验的、原始出处何在、从哪里切入验证。",
+    "timing_desc_en": "Pre-upload gate: Blocks public release unless final artifacts, script citations, and rights metadata pass check.",
+    "timing_desc_cn": "公开上传门禁：在最终成稿或视频对外发布前介入，校验信源版权、模型版本哈希与可核验证据。",
+    "why_chosen_en": "Implements an explicit 'fail-closed' gate. Fails publication readiness whenever source rights evidence is absent or AI-generated assets lack verifiable workflow and model hashes.",
+    "why_chosen_cn": "采用硬性的“闭门拦截（Fail-closed）”机制。只要缺少信源版权证据，或生成的素材缺少明确的模型版本、工作流与哈希溯源信息，系统物理禁止放行。",
     "status": {
-      "stage": "Production Prompt Standard",
-      "adoption": "Universal Practice",
-      "trust_source": "Synthesizes third-party verifiability and human attestation best practices"
+      "stage": "Production Pinned",
+      "adoption": "content-machine Harness",
+      "trust_source": "Fail-closed public readiness check with asset-level provenance ledger"
     },
-    "type": "Prompt",
-    "url": "",
-    "clients": ["Universal Web Chat", "ChatGPT", "Claude.ai", "Gemini"],
-    "target_persona": "Academics, Researchers, Corporate Writers, Students",
-    "summary_en": "Interactive questionnaire that formulates a transparent, verifiable AI Disclosure Brief for third-party auditing.",
-    "summary_cn": "依照严谨可查证的交付规范，通过交互式问答自动生成一份向第三方清晰举证的 AI 使用说明与核验指引。",
-    "action_type": "copy_prompt",
-    "action_content": "I have used AI assistance while preparing my document. Generate an honest, professional AI Disclosure Statement suitable for inclusion in an academic appendix, corporate report, or article footnote.\n\nPlease ask me the following questions one by one, then formulate the statement:\n1. Which AI tool and model version were used? (e.g., Claude 3.7 Sonnet, ChatGPT-4o)\n2. For which specific tasks was AI employed? (e.g., brainstorming, proofreading, code generation, translation, literature scanning)\n3. What substantive portions were written entirely by humans?\n4. What human verification steps were performed on the AI output?"
+    "type": "SKILL.md",
+    "url": "https://github.com/45ck/content-machine",
+    "clients": [
+      "Claude Code",
+      "Antigravity",
+      "Codex CLI"
+    ],
+    "target_persona": "Content Creators, Editors, Media Production Teams",
+    "summary_en": "Gates finalized content before human upload review, verifying final artifacts, scripts, publishing metadata, and asset provenance against a fail-closed policy.",
+    "summary_cn": "在成果最终上传前进行闭环校验，核验最终成稿、引文版权、工作流模型哈希，缺少可核验证据时强制阻止发布。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/"
+  },
+  {
+    "id": "ai-attribution-framework",
+    "name": "AI Attribution Framework (ismet55555)",
+    "category": "can-publish-directly",
+    "category_title_en": "Can the output be published directly?",
+    "category_title_cn": "输出能不能直接发布？",
+    "timing": "pre-handoff",
+    "timing_desc_en": "Attribution ledger: Updates local AI_ATTRIBUTION.md whenever substantive logic or text is produced.",
+    "timing_desc_cn": "贡献度归属：在智能体产出核心方案、逻辑或架构时，实时更新本地 AI_ATTRIBUTION.md 文件。",
+    "why_chosen_en": "Replaces crude all-or-nothing disclaimers with a standardized 6-level creative control spectrum, enabling third parties to understand exactly what the human did vs what the AI suggested.",
+    "why_chosen_cn": "替代粗糙的形式化免责声明。通过标准的 6 级人机协作贡献阶梯，在本地维护 `AI_ATTRIBUTION.md`，让同事或审查者精准识别每一处逻辑的人机权责归属。",
+    "status": {
+      "stage": "Active Open Specification",
+      "adoption": "AI Attribution Standard",
+      "trust_source": "Standardized 6-level human-AI contribution spectrum ledger"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/ismet55555/ai-attribution",
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code"
+    ],
+    "target_persona": "Software Engineers, Authors, Technical Writers",
+    "summary_en": "Establishes a six-level creative control spectrum stored in a local AI_ATTRIBUTION.md file, precisely logging whether AI dictated architecture or merely assisted.",
+    "summary_cn": "通过本地 AI_ATTRIBUTION.md 文件建立 6 级人机贡献度阶梯，精确记录 AI 究竟是主导了架构还是仅充当辅助参谋。",
+    "action_type": "install_code",
+    "action_content": "curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md"
+  },
+  {
+    "id": "ai-disclosure-convention",
+    "name": "AI Disclosure Convention SPDX-style (ggfevans)",
+    "category": "can-publish-directly",
+    "category_title_en": "Can the output be published directly?",
+    "category_title_cn": "输出能不能直接发布？",
+    "timing": "pre-handoff",
+    "timing_desc_en": "Header tagging: Injects machine-readable SPDX-style tags directly into code comments or document frontmatter.",
+    "timing_desc_cn": "文件头标记：在代码文件头或 Markdown 前置元数据中注入机器可读的 SPDX 规范声明标签。",
+    "why_chosen_en": "Survives git rebases and file refactors. Injects lightweight, machine-readable W3C AI Content Disclosure tags directly into file headers, making attribution permanent and verifiable.",
+    "why_chosen_cn": "能够抵抗 Git Rebase 和文件重构的侵蚀。直接在代码或文件头注入轻量级机器可读 W3C/SPDX 标签，保证成果无论如何流转，第三方工具都能一键检测人机界限。",
+    "status": {
+      "stage": "Active Specification",
+      "adoption": "W3C-aligned Convention",
+      "trust_source": "Language-agnostic file-level attribution convention based on W3C vocabularies"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/ggfevans/ai-disclosure",
+    "clients": [
+      "Cursor",
+      "Antigravity",
+      "Claude Code",
+      "Copilot"
+    ],
+    "target_persona": "Developers, Authors, Compliance Officers",
+    "summary_en": "Embeds lightweight, machine-readable AI Content Disclosure tags into file header comments, ensuring provenance data survives git rebases.",
+    "summary_cn": "在文件头注释中嵌入轻量级、机器可读的 AI 披露标签（SPDX 风格），确保归属与审计信息在跨仓库流转中持久保留。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/ggfevans/ai-disclosure.git .agents/skills/ai-disclosure"
+  },
+  {
+    "id": "skill-provenance-tracker",
+    "name": "Skill Provenance Tracker (snapsynapse)",
+    "category": "can-publish-directly",
+    "category_title_en": "Can the output be published directly?",
+    "category_title_cn": "输出能不能直接发布？",
+    "timing": "post-session",
+    "timing_desc_en": "Session logging: Tracks exact skill versions, tool calls, and model seeds across multi-turn sessions.",
+    "timing_desc_cn": "执行审计记录：跨多轮会话精准追踪所调用的技能版本、参数、工具链与模型种子号。",
+    "why_chosen_en": "Provides cryptographic traceability for complex agent executions, producing verifiable execution receipts that prove which skills touched what data.",
+    "why_chosen_cn": "为复杂的智能体任务提供密码学级可溯源账本，生成具备可校验性的执行收据，证实具体哪个技能在何时接触了何种数据。",
+    "status": {
+      "stage": "Production Active",
+      "adoption": "snapsynapse Framework",
+      "trust_source": "Cryptographic execution and invocation ledger"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/snapsynapse/skill-provenance",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Auditors, Enterprise Researchers, System Architects",
+    "summary_en": "Tracks skill versions, invocation contexts, and data flow across agent sessions, generating tamper-evident execution receipts for compliance review.",
+    "summary_cn": "跨会话追踪智能体技能版本、调用上下文及数据流转，生成具备防篡改特性的执行收据以供合规审计。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/snapsynapse/skill-provenance.git .agents/skills/skill-provenance"
+  },
+  {
+    "id": "claude-session-audit",
+    "name": "Claude Code Session Audit Protocol (lghupan)",
+    "category": "can-publish-directly",
+    "category_title_en": "Can the output be published directly?",
+    "category_title_cn": "输出能不能直接发布？",
+    "timing": "post-session",
+    "timing_desc_en": "Session cleanup & export: Extracts structured interaction transcripts and creates human-auditable session logs.",
+    "timing_desc_cn": "会话归档与导出：在与 AI 会话结束后，自动提取结构化交互轨迹并输出可核查凭据。",
+    "why_chosen_en": "Allows everyday users to retain verifiable session prompt records without saving gigabytes of raw tokens, generating concise audit summaries ready for peer review.",
+    "why_chosen_cn": "帮助普通知识工作者轻松提取可信的交互全过程纪要，无需保存冗长的原始 Token 日志，一键输出便于同行复核的紧凑审计摘要。",
+    "status": {
+      "stage": "Verified Protocol Gist",
+      "adoption": "Claude Code Community",
+      "trust_source": "Public GitHub Gist tested on macOS/Linux session transcript extraction"
+    },
+    "type": "SKILL.md",
+    "url": "https://gist.github.com/lghupan/46d65f4035481ef6058d0e895bdeb73a",
+    "clients": [
+      "Claude Code",
+      "Antigravity"
+    ],
+    "target_persona": "Researchers, Knowledge Workers, Professional Writers",
+    "summary_en": "Extracts structured session transcripts and prompt history from agent storage, creating human-auditable session receipts for verifiable publication.",
+    "summary_cn": "从智能体存储中提取结构化会话记录与提示词流转日志，生成人类可审计的会话收据以备第三方核验。",
+    "action_type": "install_code",
+    "action_content": "curl -sL https://gist.githubusercontent.com/lghupan/46d65f4035481ef6058d0e895bdeb73a/raw -o .agents/skills/session-audit/SKILL.md"
   }
 ]

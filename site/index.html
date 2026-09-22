@@ -155,17 +155,17 @@
         </div>
       </div>
 
-      <!-- Secondary Filters & Search Bar -->
+      <!-- Secondary Controls & Search Bar -->
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/60">
         <div class="flex items-center gap-2">
-          <button data-type="all" class="active-type px-3 py-1 rounded-md text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white" id="t-type-all">全部格式</button>
-          <button data-type="SKILL.md" class="px-3 py-1 rounded-md text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">SKILL.md</button>
-          <button data-type="Prompt" class="px-3 py-1 rounded-md text-xs font-medium hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300">Prompt</button>
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+            📦 规范开源 SKILL.md
+          </span>
           <span id="items-count" class="text-xs text-slate-500 dark:text-slate-400 ml-2 font-mono"></span>
         </div>
 
         <div class="relative w-full sm:w-80">
-          <input type="text" id="search-input" placeholder="搜索技能、提示词、客户端或场景..." class="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          <input type="text" id="search-input" placeholder="搜索技能、客户端或场景..." class="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500" />
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
       </div>

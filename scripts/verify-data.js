@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 /**
  * Data integrity and schema verification script for items.json
+ * Validates the 3 core dimensions:
+ * 1. Why chosen (why_chosen_en, why_chosen_cn)
+ * 2. When to use / timing (timing, timing_desc_en, timing_desc_cn)
+ * 3. Status & Trust signals (status: stage, adoption, trust_source)
  */
 const fs = require('fs');
 const path = require('path');
 
 const dataPath = path.join(__dirname, '../site/data/items.json');
 
-console.log('🔍 Validating site/data/items.json against Item Schema...');
+console.log('🔍 Validating site/data/items.json against Enhanced Item Schema...');
 
 if (!fs.existsSync(dataPath)) {
   console.error('❌ Error: site/data/items.json not found!');
@@ -35,6 +39,13 @@ const allowedCategories = [
   'can-publish-directly'
 ];
 
+const allowedTimings = [
+  'pre-input',
+  'during-chat',
+  'pre-handoff',
+  'post-session'
+];
+
 const allowedTypes = ['SKILL.md', 'Prompt'];
 const allowedActionTypes = ['install_code', 'copy_prompt'];
 
@@ -44,7 +55,7 @@ let errors = 0;
 items.forEach((item, index) => {
   const prefix = `[Item #${index + 1} (${item.id || 'unnamed'})]`;
 
-  // Check required fields
+  // Check required base fields
   const requiredFields = [
     'id',
     'name',
@@ -56,12 +67,18 @@ items.forEach((item, index) => {
     'target_persona',
     'summary_en',
     'summary_cn',
+    'timing',
+    'timing_desc_en',
+    'timing_desc_cn',
+    'why_chosen_en',
+    'why_chosen_cn',
+    'status',
     'action_type',
     'action_content'
   ];
 
   requiredFields.forEach((field) => {
-    if (!item[field] || (typeof item[field] === 'string' && item[field].trim() === '')) {
+    if (item[field] === undefined || item[field] === null || (typeof item[field] === 'string' && item[field].trim() === '')) {
       console.error(`❌ ${prefix} Missing or empty required field: ${field}`);
       errors++;
     }
@@ -84,6 +101,27 @@ items.forEach((item, index) => {
   if (item.category && !allowedCategories.includes(item.category)) {
     console.error(`❌ ${prefix} Invalid category '${item.category}'. Allowed: ${allowedCategories.join(', ')}`);
     errors++;
+  }
+
+  // Check timing
+  if (item.timing && !allowedTimings.includes(item.timing)) {
+    console.error(`❌ ${prefix} Invalid timing '${item.timing}'. Allowed: ${allowedTimings.join(', ')}`);
+    errors++;
+  }
+
+  // Check status object
+  if (item.status) {
+    if (typeof item.status !== 'object') {
+      console.error(`❌ ${prefix} 'status' must be an object`);
+      errors++;
+    } else {
+      ['stage', 'adoption', 'trust_source'].forEach((statusField) => {
+        if (!item.status[statusField] || item.status[statusField].trim() === '') {
+          console.error(`❌ ${prefix} Missing status.${statusField}`);
+          errors++;
+        }
+      });
+    }
   }
 
   // Check type
@@ -109,6 +147,6 @@ if (errors > 0) {
   console.error(`\n❌ Validation failed with ${errors} error(s)!`);
   process.exit(1);
 } else {
-  console.log(`\n✅ Success! All ${items.length} items strictly conform to the Item Schema.`);
+  console.log(`\n✅ Success! All ${items.length} items strictly conform to the Enhanced Item Schema with 3 core dimensions.`);
   process.exit(0);
 }

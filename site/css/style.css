@@ -59,6 +59,17 @@ body {
   color: var(--on-surface-dark);
 }
 
+/* Accessibility Focus Visible */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline: 2px solid var(--primary-container);
+  outline-offset: 2px;
+}
+
 /* Hand-drawn Underline - DESIGN.md Special Accent */
 .hand-drawn-underline {
   position: relative;

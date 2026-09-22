@@ -181,6 +181,9 @@ function updateUI() {
   setText("nav-link-home", t.navLinkHome);
   setText("nav-link-about", t.navLinkAbout);
   setText("nav-link-putongren", t.navLinkPutongren);
+  setText("m-nav-home", t.navLinkHome);
+  setText("m-nav-about", t.navLinkAbout);
+  setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
 
   setText("hero-badge", t.heroBadge);

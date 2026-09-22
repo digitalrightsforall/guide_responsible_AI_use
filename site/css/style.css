@@ -1,64 +1,186 @@
-/* Custom Styling for Responsible AI Skills */
-:root {
-  --primary: #0f766e;
-  --primary-hover: #115e59;
-  --accent: #3b82f6;
-  --bg-light: #f8fafc;
-  --card-light: #ffffff;
-  --text-light: #0f172a;
-  --text-muted-light: #64748b;
-  --border-light: #e2e8f0;
+/* Design System for Responsible & Safe AI Use
+   Aligned with putongren.org / DESIGN.md
+*/
 
-  --bg-dark: #090d16;
-  --card-dark: #131b2e;
-  --text-dark: #f8fafc;
-  --text-muted-dark: #94a3b8;
-  --border-dark: #1e293b;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand Primary: Purple */
+  --primary: #5e40e0;
+  --primary-dim: #5130d4;
+  --primary-container: #c3b8ff;
+  --on-primary: #fcf7ff;
+  --on-primary-container: #3a00bd;
+
+  /* Secondary: Deep Blue (Information) */
+  --secondary: #455e93;
+  --secondary-container: #d8e2ff;
+  --on-secondary: #f9f8ff;
+  --on-secondary-container: #375184;
+
+  /* Tertiary: Gold / Amber (Action & Highlights) */
+  --tertiary: #715e00;
+  --tertiary-container: #fdd400;
+  --on-tertiary: #fff8ed;
+  --on-tertiary-container: #594a00;
+
+  /* Neutrals & Surfaces */
+  --bg-light: #f7f9fc;
+  --surface-light: #f7f9fc;
+  --surface-lowest: #ffffff;
+  --surface-low: #f1f4f7;
+  --surface-container: #eaeef3;
+  --surface-high: #e3e9ee;
+  --on-surface: #2d3338;
+  --on-surface-variant: #596065;
+  --outline: #757c81;
+  --outline-variant: #acb3b8;
+  --border-light: #e5e9ef;
+
+  /* Dark mode */
+  --bg-dark: #0d1117;
+  --surface-dark: #161b22;
+  --surface-lowest-dark: #1a202c;
+  --surface-low-dark: #12161f;
+  --on-surface-dark: #f0f6fc;
+  --on-surface-variant-dark: #8b949e;
+  --border-dark: #2d333b;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--on-surface);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .dark body {
   background-color: var(--bg-dark);
-  color: var(--text-dark);
+  color: var(--on-surface-dark);
 }
 
-/* Card Hover Elevation */
+/* Hand-drawn Underline - DESIGN.md Special Accent */
+.hand-drawn-underline {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hand-drawn-underline::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 2px;
+  height: 8px;
+  background: var(--tertiary-container);
+  opacity: 0.7;
+  border-radius: 100% 10% 80% 20%;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.dark .hand-drawn-underline::after {
+  background: #fdd400;
+  opacity: 0.5;
+}
+
+/* Glassmorphism Navbar */
+.nav-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark .nav-glass {
+  background: rgba(13, 17, 23, 0.85);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+/* Skill Card - DESIGN.md Card Aesthetics */
 .skill-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  border-radius: 1.5rem;
+  background-color: var(--surface-lowest);
+  border: 1px solid var(--border-light);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.dark .skill-card {
+  background-color: var(--surface-dark);
+  border-color: var(--border-dark);
 }
 
 .skill-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -10px rgba(94, 64, 224, 0.12);
+  border-color: rgba(94, 64, 224, 0.35);
 }
 
 .dark .skill-card:hover {
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.5);
+  border-color: rgba(195, 184, 255, 0.3);
+}
+
+/* Interactive Navigation Link Underline Animation */
+.nav-link-animated {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link-animated::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary);
+  transition: width 0.25s ease;
+  border-radius: 9999px;
+}
+
+.nav-link-animated:hover::after,
+.nav-link-animated.active::after {
+  width: 100%;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(94, 64, 224, 0.35);
 }
 
 /* Toast styling */
 #toast {
   visibility: hidden;
-  min-width: 250px;
-  background-color: #0f172a;
+  min-width: 260px;
+  background-color: #2d3338;
   color: #fff;
   text-align: center;
-  border-radius: 8px;
-  padding: 12px 20px;
+  border-radius: 9999px;
+  padding: 12px 24px;
   position: fixed;
   z-index: 1000;
-  bottom: 30px;
-  right: 30px;
+  bottom: 32px;
+  right: 32px;
   font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.25);
   opacity: 0;
-  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-  transform: translateY(10px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s, transform 0.3s;
+  transform: translateY(16px);
 }
 
 #toast.show {
@@ -68,23 +190,77 @@ body {
 }
 
 .dark #toast {
-  background-color: #1e293b;
-  color: #f8fafc;
-  border: 1px solid #334155;
+  background-color: #1a202c;
+  color: #f0f6fc;
+  border: 1px solid var(--border-dark);
 }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 .dark ::-webkit-scrollbar-thumb {
   background: #334155;
 }
+
+/* Category & Timing Filter Pills */
+.cat-pill {
+  background-color: var(--surface-low);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.dark .cat-pill {
+  background-color: var(--surface-low-dark);
+  color: var(--on-surface-variant-dark);
+  border-color: var(--border-dark);
+}
+
+.cat-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.cat-pill.active-cat {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px -2px rgba(94, 64, 224, 0.35);
+}
+
+.timing-pill {
+  background-color: var(--surface-low);
+  color: var(--on-surface-variant);
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.dark .timing-pill {
+  background-color: var(--surface-low-dark);
+  color: var(--on-surface-variant-dark);
+  border-color: var(--border-dark);
+}
+
+.timing-pill:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.timing-pill.active-timing {
+  background-color: var(--secondary) !important;
+  color: #ffffff !important;
+  border-color: var(--secondary) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px -2px rgba(69, 94, 147, 0.35);
+}
+

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://putongren.org/ai-skills/sitemap.xml

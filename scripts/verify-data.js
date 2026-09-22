@@ -145,6 +145,22 @@ items.forEach((item, index) => {
     console.error(`❌ ${prefix} 'clients' must be a non-empty array of strings`);
     errors++;
   }
+
+  // Check URL is a genuine public GitHub repository (no raw gists or synthetic placeholders)
+  if (!item.url || !item.url.startsWith('https://github.com/')) {
+    console.error(`❌ ${prefix} URL must start with 'https://github.com/': ${item.url}`);
+    errors++;
+  }
+  if (item.url && item.url.includes('gist.github.com')) {
+    console.error(`❌ ${prefix} Gist URLs are forbidden in production catalog: ${item.url}`);
+    errors++;
+  }
+
+  // Enforce zero prompts rule
+  if (/prompt/i.test(item.name) || /prompt/i.test(item.type)) {
+    console.error(`❌ ${prefix} Prompt items are forbidden. Only authentic SKILL.md entries allowed.`);
+    errors++;
+  }
 });
 
 if (errors > 0) {

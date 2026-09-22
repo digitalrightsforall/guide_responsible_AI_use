@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 38 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
+> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 39 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
 [English Version](README.md) | **中文版**
 
@@ -81,19 +81,6 @@
   git clone https://github.com/cyberxuan-XBX/skill-sanitizer.git .agents/skills/skill-sanitizer
   ```
 
-#### [`PII-Shield (gregmos/PII-Shield)`](https://github.com/gregmos/PII-Shield)
-* **使用时机：** ⏳ 输入前·防采集与隔离 — *文档批量处理时：在让智能体批量处理 PDF、Word 或 Markdown 文档前执行。*
-* **💡 为何普通人应该关心：** 日常跟 AI 聊天时，人们经常顺手粘贴了工作邮箱、手机号或内网地址。该技能利用轻量级本地模型在发送前拦截个人标识，避免商业大模型“记住”你的私人联系方式。
-* **🎯 为什么精选收录：** 零门槛且经过实测的文档脱敏工具，支持跨常见办公文件格式（Word、PDF）自动探测并替换个人身份信息，无需复杂运维。
-* **🛠️ 如何使用：** 作为本地代理或钩子安装，对话发送前自动匹配手机号、邮箱、身份证号并替换为无害占位符。
-* **📊 成熟度与可信背书：** `Production Ready` | ⭐ Open Agent Community | 🛡️ *Document-level token replacement tested on legal/financial docs*
-* **适用客户端：** Claude Code、Antigravity、Cursor
-* **适用人群：** General Knowledge Workers, Legal & Financial Analysts
-* **安装命令：**
-  ```bash
-  git clone https://github.com/gregmos/PII-Shield.git .agents/skills/pii-shield
-  ```
-
 #### [`PII Detection Pipeline (mukul975/Privacy-Data-Protection-Skills)`](https://github.com/mukul975/Privacy-Data-Protection-Skills)
 * **使用时机：** ⏳ 输入前·防采集与隔离 — *输入前门禁：在向大模型发送对话正文与附件前，在本地运行正则与命名实体识别，拦截电话、住址与身份证号。*
 * **💡 为何普通人应该关心：** 当使用 AI 整理长篇会议记录或访谈录音时，人工挑选敏感信息极其耗时。此工具基于国际规范自动分类和批量脱敏 20 类隐私数据，为普通人提供企业级的隐私防火墙。
@@ -105,32 +92,6 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/pii-detection-pipeline ~/.claude/skills/
-  ```
-
-#### [`Anonymize Documents with Presidio (schneidermichael)`](https://github.com/schneidermichael/anonymize-documents-with-presidio)
-* **使用时机：** ⏳ 输入前·防采集与隔离 — *预处理流水线：在把田野调查、定性访谈录音文本发给大模型前本地批处理运行。*
-* **💡 为何普通人应该关心：** 微软官方开源的成熟脱敏引擎（Presidio），经受过全球众多专业机构检验。普通人无需高深技术，也能借此在本地安全处理 PDF、Word 文档，避免商业公司窥探个人文档。
-* **🎯 为什么精选收录：** 将微软成熟的 Presidio 命名实体识别引擎引入桌面端，依靠高精度的确定性模型过滤敏感实体，而非依赖不可靠的 LLM 自觉脱敏。
-* **🛠️ 如何使用：** 执行安装命令并在本地准备好 Python 环境，处理文档前调用即可在本地生成脱敏后的清洁文档。
-* **📊 成熟度与可信背书：** `Active Open Source` | ⭐ Microsoft Presidio Ecosystem | 🛡️ *Backed by Microsoft Presidio NLP open-source engine*
-* **适用客户端：** Claude Code、Antigravity
-* **适用人群：** Qualitative Researchers, Sociologists, Analysts
-* **安装命令：**
-  ```bash
-  git clone https://github.com/schneidermichael/anonymize-documents-with-presidio.git .agents/skills/presidio-anonymizer
-  ```
-
-#### [`TrustBoost PII Sanitizer (teodorofodocrispin-cmyk)`](https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer)
-* **使用时机：** ⏳ 输入前·防采集与隔离 — *上流拦截门禁：在文本或文件内容上传至云端 LLM 接口之前进行多语言强行脱敏。*
-* **💡 为何普通人应该关心：** 普通人通常无法分辨哪些商业大模型厂商签署了“不拿用户数据做训练”的协议。这个工具采用“默认全部不可信”策略，在本地就抹除痕迹，不管云端怎么换厂商都高枕无忧。
-* **🎯 为什么精选收录：** 支持跨 8 种主流语言的上下文 PII 强脱敏，严格遵循 GDPR、LGPD 和 HIPAA 等国际隐私标准，特别适合跨国协作与金融法律团队。
-* **🛠️ 如何使用：** 放置于客户端技能目录，在处理涉及商业报价或用户名单的表格前激活，自动生成匿名占位符。
-* **📊 成熟度与可信背书：** `Production Stable` | ⭐ Multi-client Ecosystem | 🛡️ *Tested across 8 languages with compliance mapping*
-* **适用客户端：** Claude Code、Cursor、Windsurf
-* **适用人群：** Enterprise Knowledge Workers, Financial Analysts, Legal Professionals
-* **安装命令：**
-  ```bash
-  git clone https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer.git .agents/skills/trustboost-pii-sanitizer
   ```
 
 #### [`OpenMed Clinical Document Ingestion (maziyarpanahi)`](https://github.com/maziyarpanahi/openmed)
@@ -146,19 +107,6 @@
   git clone https://github.com/maziyarpanahi/openmed.git && cp -R openmed/skills/deidentifying-clinical-text .agents/skills/
   ```
 
-#### [`Claude Code Hook Redaction Strategy (ruvnet)`](https://gist.github.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9)
-* **使用时机：** ⏳ 输入前·防采集与隔离 — *工具调用拦截：在智能体执行 Bash 或文件读取前，利用 PreToolUse 钩子在操作系统层拦截。*
-* **💡 为何普通人应该关心：** 针对 Claude Code 桌面端工作流的底层门禁。普通人哪怕不小心在终端按了回车，底层的钩子也会在网络请求发出的前一毫秒强行拦截脱敏，避免“手滑”泄密。
-* **🎯 为什么精选收录：** 真正的客户端系统级硬防护。不依赖大模型自我约束，而是通过系统级 PreToolUse 钩子自动用占位符置换环境变量与 API Key，保证秘钥物理上不离开本地。
-* **🛠️ 如何使用：** 将 Gist 中的配置脚本添加到本地 `.claude/config`，终端会自动在每次提示词发出前执行脱敏过滤。
-* **📊 成熟度与可信背书：** `Verified Architecture` | ⭐ Claude Code Community Gist | 🛡️ *Client-side execution lifecycle hook verified on macOS/Linux*
-* **适用客户端：** Claude Code
-* **适用人群：** Developers, System Administrators, DevOps Engineers
-* **安装命令：**
-  ```bash
-  curl -sL https://gist.githubusercontent.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9/raw -o .claude/hooks/pre-tool-redact.sh && chmod +x .claude/hooks/pre-tool-redact.sh
-  ```
-
 #### [`AREX Presidio Anonymize Text (VectorSpaceLab)`](https://github.com/VectorSpaceLab/AREX-Skill)
 * **使用时机：** ⏳ 输入前·防采集与隔离 — *文档读取前过滤：在智能体读取包含企业机密的文本文件或会话记录前介入。*
 * **💡 为何普通人应该关心：** 专注短文本与日常聊天提示词脱敏。普通人复制微信聊天、邮件往来给 AI 做摘要时，几秒钟内就能在本地把人名和公司名换成“张某某”、“某企业”，彻底斩断数据溯源链。
@@ -170,6 +118,58 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/VectorSpaceLab/AREX-Skill.git && cp -R AREX-Skill/skills/repositories/repo-skills/presidio/sub-skills/anonymize-text .agents/skills/presidio-anonymize
+  ```
+
+#### [`SkillGuard (LLMSecurity/skillguard)`](https://github.com/LLMSecurity/skillguard)
+* **使用时机：** ⏳ 输入前·防采集与隔离 — *工具安装前：在将外部技能或插件引入智能体前，审查其权限、投毒隐患与数据窃取风险。*
+* **💡 为何普通人应该关心：** 普通人在为 AI 助手安装第三方 Skill 或扩展插件时，极易遭遇恶意代码注入或隐私窃取。SkillGuard 在工具链加载前构建第一道安全门禁。
+* **🎯 为什么精选收录：** 直接对齐 OWASP Agentic Top 10 与 MITRE ATLAS 权威安全标准，支持静态与动态审查 SKILL.md，防止第三方工具链恶意窃取用户对话与密钥。
+* **🛠️ 如何使用：** 通过 Agent 运行 audit 命令：传入目标 SKILL.md 文件路径或 GitHub 仓库链接，获取包含 OWASP 风险等级与缓解措施的安全体检报告。
+* **📊 成熟度与可信背书：** `Active Community Standard` | ⭐ OWASP Agentic Top 10 Mapping | 🛡️ *LLMSecurity open-source agent audit framework*
+* **适用客户端：** Claude Code、Cursor、Antigravity
+* **适用人群：** All AI Users, Developers, Security Conscious Citizens
+* **安装命令：**
+  ```bash
+  git clone https://github.com/LLMSecurity/skillguard.git && cp -R skillguard/skills/skillguard .agents/skills/
+  ```
+
+#### [`Skill Sentinel (EvolutionUnleashed/skill-sentinel)`](https://github.com/EvolutionUnleashed/skill-sentinel)
+* **使用时机：** ⏳ 输入前·防采集与隔离 — *工作区导入前：扫描 SKILL.md 自然语言指令，排查隐蔽提示词注入与未经授权的数据外泄风险。*
+* **💡 为何普通人应该关心：** 许多恶意 AI 技能表面看似正常，后台却包含隐蔽的数据外传指令。该技能让普通人无需懂黑客技术也能一键排查隐蔽外传指令。
+* **🎯 为什么精选收录：** 专注针对自然语言指令构成的 SKILL.md 进行启发式威胁特征匹配，有效防止大模型在不知情下将敏感信息发往攻击者服务器。
+* **🛠️ 如何使用：** 在对话中唤起技能：“扫描并排查此 SKILL.md 是否存在数据外泄或提示词注入风险”，查看红黄绿风险评级。
+* **📊 成熟度与可信背书：** `Active Release` | ⭐ Evolution Unleashed Framework | 🛡️ *Open-source heuristic skill scanner*
+* **适用客户端：** Claude Code、Cursor、Antigravity
+* **适用人群：** Knowledge Workers, Content Creators, Developers
+* **安装命令：**
+  ```bash
+  git clone https://github.com/EvolutionUnleashed/skill-sentinel.git && cp -R skill-sentinel/skills/skill-sentinel .agents/skills/
+  ```
+
+#### [`Nova Proximity (Nova-Hunting/nova-proximity)`](https://github.com/Nova-Hunting/nova-proximity)
+* **使用时机：** ⏳ 输入前·防采集与隔离 — *系统授权前：在启用连接本地终端、文件系统的 MCP 技能前进行权限与漏洞扫描。*
+* **💡 为何普通人应该关心：** 随着 AI 能够通过 MCP 操作本地文件和终端，越权访问和未经授权的数据读取成为普通人最大的数字安全隐患。
+* **🎯 为什么精选收录：** 首个将 MCP 上下文安全与 Agent 技能扫描融合的开源工具，覆盖动态参数检测与越权路径验证，严防 AI 接触本地私密凭证。
+* **🛠️ 如何使用：** 指定待审查的 MCP 配置文件或技能目录运行检测，输出高危工具列表与参数越权告警。
+* **📊 成熟度与可信背书：** `Production Stable (300+ ★)` | ⭐ Nova Security Scanner Ecosystem | 🛡️ *Nova-Hunting Open Security Project*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** All Agent Users, Small Business Owners, Power Users
+* **安装命令：**
+  ```bash
+  git clone https://github.com/Nova-Hunting/nova-proximity.git && cp -R nova-proximity/.agents/skills/nova-proximity .agents/skills/
+  ```
+
+#### [`Security Threat Model (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model)
+* **使用时机：** ⏳ 输入前·防采集与隔离 — *资料上传前：向大模型提供复杂代码或企业文档前，界定信任边界与绝对不可上传的涉密资产。*
+* **💡 为何普通人应该关心：** 很多团队与个人在让 AI 分析业务时，不经意间上传了核心系统架构与密钥。威胁建模帮助用户在输入前就划清哪些资产绝不能喂给 AI。
+* **🎯 为什么精选收录：** 源自 OpenAI 技能架构与 tech-leads-club (6.6k★) 认证规范，坚持基于实际资产证据（Repo-grounded）划分边界，杜绝核心资产误喂大模型。
+* **🛠️ 如何使用：** 在交互中输入“针对此项目进行威胁建模与数据边界梳理”，Agent 自动输出资产边界表与禁止输入清单。
+* **📊 成熟度与可信背书：** `Production Battle-Tested (6.6k ★)` | ⭐ Tech-Leads-Club Standard | 🛡️ *Curated from OpenAI and professional tech leads consortium*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Developers, Tech Leads, Enterprise Knowledge Workers
+* **安装命令：**
+  ```bash
+  git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(security\)/security-threat-model .agents/skills/
   ```
 
 ---
@@ -255,19 +255,6 @@
   git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/fact-check ~/.claude/skills/
   ```
 
-#### [`Editorial Fact-Check & Quote Drift Protocol (anotherpanacea)`](https://gist.github.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24)
-* **使用时机：** 💬 交互中·求证与防盲信 — *深度编辑审校：在审校关键引语、统计数据或政策断言时运行两阶段核查。*
-* **💡 为何普通人应该关心：** 资深编辑团队沉淀的事实核查流程。普通写作者拿它来审查商业软文或科普文章，能够有效避免把谣言和过时数据当做新闻传播。
-* **🎯 为什么精选收录：** 来自调查新闻业真实实务。针对自动化工具易漏掉的高阶伪造：排查引语漂移（微调原话改变倾向）和权威掩饰（用头衔声望代替真实证据）。
-* **🛠️ 如何使用：** 将 Gist 中的协议加载至客户端，AI 生成文章后会自动按新闻级事实标准执行多方交叉验证。
-* **📊 成熟度与可信背书：** `Battle-Tested Gist` | ⭐ Investigative Journalism Protocol | 🛡️ *Sourced from public GitHub Gist by verified investigative editor*
-* **适用客户端：** Claude Code、Antigravity、Cursor
-* **适用人群：** Journalists, Editors, Fact-Checkers, Analysts
-* **安装命令：**
-  ```bash
-  curl -sL https://gist.githubusercontent.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24/raw -o .agents/skills/editorial-fact-check/SKILL.md
-  ```
-
 #### [`Hallucination Risk Reviewer (Notysoty/openagentskills)`](https://github.com/Notysoty/openagentskills)
 * **使用时机：** 💬 交互中·求证与防盲信 — *风险分级排查：在采纳或发布 AI 生成文本前，针对高危断言进行逐段分级排查。*
 * **💡 为何普通人应该关心：** 在普通人看来，AI 说的每一句话都“看起来很有道理”。这个技能专门挑刺：给输出文字做“幻觉风险评级”，把缺乏可靠证据的猜测句一一标记出来提醒你。
@@ -307,6 +294,19 @@
   git clone https://github.com/K-Dense-AI/scientific-agent-skills.git && cp -R scientific-agent-skills/skills/peer-review .agents/skills/
   ```
 
+#### [`The Judge (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge)
+* **使用时机：** 💬 交互中·求证与防盲信 — *结论审查时：在采纳任何事实断言或技术结论前执行“没有证据就闭嘴”的法官审查，杜绝记忆胡编。*
+* **💡 为何普通人应该关心：** AI 最危险的毛病是“一本正经地胡说八道”。The Judge 确立了不可妥协的法官原则：没有证据就闭嘴，每条结论必须附带可复查的官方证据链接。
+* **🎯 为什么精选收录：** 在 tech-leads-club (6.6k★) 体系中确立严苛铁律：没有查验证据就保持沉默（Evidence or silence），严禁模型凭记忆作伪。
+* **🛠️ 如何使用：** 指令大模型：“以 The Judge 规范审查当前输出”，大模型必须给出每个结论的事实来源或自动撤回未经证实的猜想。
+* **📊 成熟度与可信背书：** `Production Standard (6.6k ★)` | ⭐ Tech-Leads-Club Quality Suite | 🛡️ *Evidence-first engineering review protocol*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Knowledge Workers, Students, Researchers, Engineers
+* **安装命令：**
+  ```bash
+  git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(quality\)/the-judge .agents/skills/
+  ```
+
 ---
 
 ### 3. 什么时候不能听 AI？
@@ -336,32 +336,6 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/sycophancy-challenger .agents/skills/sycophancy-challenger
-  ```
-
-#### [`Council Review (ngmeyer/council-review)`](https://github.com/ngmeyer/council-review)
-* **使用时机：** 💬 交互中·求证与防盲信 — *重大方案评审：在做重大技术选型、战略制定或架构变更前调动多智能体辩论。*
-* **💡 为何普通人应该关心：** 一个人向同一个 AI 提问很容易陷入思维定势。该技能模拟一个“多方专家陪审团”：保守派、激进派、风控官同时发难，防止你只听信单一大模型的偏听偏信。
-* **🎯 为什么精选收录：** 打破单一大模型的盲目自洽。通过多样化多智能体辩论协议（DMAD），综合运用反演法、类比反思与强制魔鬼代言人轮次，消除思维狭隘。
-* **🛠️ 如何使用：** 输入方案后呼叫技能，系统会拆解为多个对立视角轮番质询，最后汇总风险清单。
-* **📊 成熟度与可信背书：** `Production Release` | ⭐ Council Review Project | 🛡️ *Diverse Multi-Agent Debate convergence detection*
-* **适用客户端：** Claude Code、Antigravity
-* **适用人群：** Product Managers, Software Architects, Strategists
-* **安装命令：**
-  ```bash
-  curl -L https://raw.githubusercontent.com/ngmeyer/council-review/main/SKILL.md -o .claude/skills/council-review.md
-  ```
-
-#### [`orange2ai/devils-advocate-skill`](https://github.com/orange2ai/devils-advocate-skill)
-* **使用时机：** 💬 交互中·求证与防盲信 — *事前演练：在需要严苛对练伙伴挑刺、找出方案隐蔽盲区时执行。*
-* **💡 为何普通人应该关心：** 在买房、择业、投资等重大生活决策前，不要只让 AI 帮你找优点。魔鬼代言人技能会专门列出最坏情况和可能踩坑的隐形陷阱，帮你冷静踩刹车。
-* **🎯 为什么精选收录：** 强制将 AI 切换为“不留情面的反方辩友”，挑出用户方案中的逻辑漏洞、未明言假设与过度乐观倾向。
-* **🛠️ 如何使用：** 在方案敲定前调用，技能会强制输出三条最可能导致项目彻底失败的致命隐患。
-* **📊 成熟度与可信背书：** `Production Active` | ⭐ orange2ai Catalog | 🛡️ *Adversarial assumption testing protocol*
-* **适用客户端：** Claude Code、Antigravity
-* **适用人群：** Decision Makers, Product Managers, Policy Analysts
-* **安装命令：**
-  ```bash
-  git clone https://github.com/orange2ai/devils-advocate-skill.git .agents/skills/devils-advocate
   ```
 
 #### [`jihlenburg/mad-skills (devils-advocate)`](https://github.com/jihlenburg/mad-skills)
@@ -427,6 +401,32 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/molly-diversifiedfun/claude-skills.git && cp -R claude-skills/devils-advocate .agents/skills/devils-advocate
+  ```
+
+#### [`The Jury (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury)
+* **使用时机：** 💬 交互中·求证与防盲信 — *关键抉择时：唤起独立陪审员匿名盲审辩论，强制反顺从与反认知锚定，打破大模型对用户偏见的迎合。*
+* **💡 为何普通人应该关心：** 单一大模型极易顺从用户的错误假设（谄媚迎合），或者因首个输出产生认知锚定。陪审团机制通过背靠背盲审与法定反对者，防止盲听盲信。
+* **🎯 为什么精选收录：** 融合最新多智能体认知科学研究，通过背靠背盲审、法定少数派异见与反谄媚协议，彻底终结单一大模型盲目顺从迎合用户的恶习。
+* **🛠️ 如何使用：** 输入“召唤陪审团审议该方案”，模型通过盲审轮与辩论轮输出带有置信度与未被消解之异议的最终裁决。
+* **📊 成熟度与可信背书：** `Production Standard (6.6k ★)` | ⭐ Multi-Agent Anti-Sycophancy Protocol | 🛡️ *Tech-Leads-Club Decision-Making Suite*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Decision Makers, Researchers, Product Managers, General Users
+* **安装命令：**
+  ```bash
+  git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(decision-making\)/the-jury .agents/skills/
+  ```
+
+#### [`Discernment Nudge (anthropics/skills)`](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge)
+* **使用时机：** 💬 交互中·求证与防盲信 — *付诸行动前：在给出健康、财务或重大企划结论后，强制追加反思提问，提醒用户核实关键盲点。*
+* **💡 为何普通人应该关心：** 普通人面对大模型流畅自信的回答极易丧失警惕。Anthropic 官方设计的鉴别力提醒，在关键行动前推你一把：“这个前提你向医生/专家核验过了吗？”
+* **🎯 为什么精选收录：** Anthropic 官方开源规范（177k★），根植于 AI 批判性思维（AI Fluency）框架，针对事实核查、推理逻辑与缺失上下文进行精准设问，防止盲信。
+* **🛠️ 如何使用：** 导入到 Claude 或兼容 Agent 中，模型在给出长文建议后自动附带 2-3 个针对薄弱假设的灵魂反问供用户实地查证。
+* **📊 成熟度与可信背书：** `Official Core Skill (177k ★)` | ⭐ Anthropic Official Skills Repository | 🛡️ *Anthropic AI Fluency Framework*
+* **适用客户端：** Claude Code、Cursor、Antigravity
+* **适用人群：** Students, Patients, Consumers, Everyone using AI for advice
+* **安装命令：**
+  ```bash
+  git clone https://github.com/anthropics/skills.git && cp -R skills/skills/discernment-nudge .agents/skills/
   ```
 
 ---
@@ -538,17 +538,30 @@
   git clone https://github.com/snapsynapse/skill-provenance.git .agents/skills/skill-provenance
   ```
 
-#### [`Claude Code Session Audit Protocol (lghupan)`](https://gist.github.com/lghupan/46d65f4035481ef6058d0e895bdeb73a)
-* **使用时机：** 🧹 归档时·隐私与日志清理 — *会话归档与导出：在与 AI 会话结束后，自动提取结构化交互轨迹并输出可核查凭据。*
-* **💡 为何普通人应该关心：** 当你需要把 AI 辅助完成的工作向上级领导、客户或审计员汇报时，把冗长嘈杂的完整会话浓缩为精炼易读的“合规审计凭据”，既保护商业机密，又让成果 100% 可被复核。
-* **🎯 为什么精选收录：** 帮助普通知识工作者轻松提取可信的交互全过程纪要，无需保存冗长的原始 Token 日志，一键输出便于同行复核的紧凑审计摘要。
-* **🛠️ 如何使用：** 完成重要项目后，调用技能从会话中提取关键提示词、推理节点与证据链，导出 PDF/Markdown 交付包。
-* **📊 成熟度与可信背书：** `Verified Protocol Gist` | ⭐ Claude Code Community | 🛡️ *Public GitHub Gist tested on macOS/Linux session transcript extraction*
-* **适用客户端：** Claude Code、Antigravity
-* **适用人群：** Researchers, Knowledge Workers, Professional Writers
+#### [`Verification Before Completion (obra/superpowers)`](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion)
+* **使用时机：** 📤 交付前·合规与核验包 — *宣布完成前：强制执行“核验铁律”——无实测运行命令的通过证明，绝不宣称任务完成或直接交付。*
+* **💡 为何普通人应该关心：** 很多大模型在生成完后会说“我已经帮您修复并测试好了”，实际上一行代码都没跑。该技能将“必须出示实测证据”铸造为机器铁律，防止用户发布废品。
+* **🎯 为什么精选收录：** 知名 Agent 框架 superpowers (290k★) 的核心铁律（The Iron Law），彻底杜绝 AI 假装成功的敷衍漏洞，必须附带实测命令证据方可发布。
+* **🛠️ 如何使用：** 作为 Agent 的强制行为准则（Persistent Instruction）生效，拦截任何无实测命令输出的“完成了”空头支票。
+* **📊 成熟度与可信背书：** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Agent Framework | 🛡️ *Authored by Jesse Vincent (obra) & widespread agent community*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Developers, Editors, Writers, Operations Specialists
 * **安装命令：**
   ```bash
-  curl -sL https://gist.githubusercontent.com/lghupan/46d65f4035481ef6058d0e895bdeb73a/raw -o .agents/skills/session-audit/SKILL.md
+  git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/verification-before-completion .agents/skills/
+  ```
+
+#### [`Humanizer (blader/humanizer)`](https://github.com/blader/humanizer)
+* **使用时机：** 📤 交付前·合规与核验包 — *公开发布前润色：依据维基百科 AI 文本识别规范，剔除机械套话、虚假并列与假大空措辞。*
+* **💡 为何普通人应该关心：** AI 生成的内容常带有极强的“AI 味”（如“不仅...更...”、“总而言之”），直接发布不仅显得敷衍，还可能触发平台降权或受众反感。
+* **🎯 为什么精选收录：** 严格基于维基百科编辑社群的《AI 写作特征识别指引》，GitHub 超过 5.1 万星收藏，有效消除陈词滥调与 AI 机械腔调。
+* **🛠️ 如何使用：** 指示 Agent：“用 humanizer 检查并重写此段落”，自动滤除刻板连接词并还原作者本人的自然叙述风格。
+* **📊 成熟度与可信背书：** `Production Hit (51k ★)` | ⭐ Widely used in publishing and content workflows | 🛡️ *Blader open-source project based on Wikipedia standards*
+* **适用客户端：** Claude Code、Cursor、Antigravity
+* **适用人群：** Writers, Marketers, Journalists, Students, Anyone publishing text
+* **安装命令：**
+  ```bash
+  git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/
   ```
 
 ---

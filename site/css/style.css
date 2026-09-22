@@ -211,56 +211,83 @@ body {
   background: #334155;
 }
 
-/* Category & Timing Filter Pills */
-.cat-pill {
-  background-color: var(--surface-low);
-  color: var(--on-surface-variant);
-  border: 1px solid var(--border-light);
+/* Enhanced Interactive Filter Buttons */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.dark .filter-btn {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.filter-btn .filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9999px;
+  background-color: #f1f5f9;
+  color: #64748b;
   transition: all 0.2s ease;
 }
 
-.dark .cat-pill {
-  background-color: var(--surface-low-dark);
-  color: var(--on-surface-variant-dark);
-  border-color: var(--border-dark);
+.dark .filter-btn .filter-count {
+  background-color: #0f172a;
+  color: #94a3b8;
 }
 
-.cat-pill:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.cat-pill.active-cat {
+/* Active Category Button */
+.filter-btn.active-cat {
   background-color: var(--primary) !important;
   color: #ffffff !important;
   border-color: var(--primary) !important;
   font-weight: 700;
-  box-shadow: 0 4px 12px -2px rgba(94, 64, 224, 0.35);
+  box-shadow: 0 4px 14px -2px rgba(94, 64, 224, 0.4) !important;
+  outline: 2px solid rgba(94, 64, 224, 0.3);
+  outline-offset: 2px;
 }
 
-.timing-pill {
-  background-color: var(--surface-low);
-  color: var(--on-surface-variant);
-  border: 1px solid var(--border-light);
-  transition: all 0.2s ease;
+.filter-btn.active-cat .filter-count {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
 }
 
-.dark .timing-pill {
-  background-color: var(--surface-low-dark);
-  color: var(--on-surface-variant-dark);
-  border-color: var(--border-dark);
-}
-
-.timing-pill:hover {
-  border-color: var(--secondary);
-  color: var(--secondary);
-}
-
-.timing-pill.active-timing {
+/* Active Timing Button */
+.filter-btn.active-timing {
   background-color: var(--secondary) !important;
   color: #ffffff !important;
   border-color: var(--secondary) !important;
   font-weight: 700;
-  box-shadow: 0 4px 12px -2px rgba(69, 94, 147, 0.35);
+  box-shadow: 0 4px 14px -2px rgba(69, 94, 147, 0.4) !important;
+  outline: 2px solid rgba(69, 94, 147, 0.3);
+  outline-offset: 2px;
 }
+
+.filter-btn.active-timing .filter-count {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
 

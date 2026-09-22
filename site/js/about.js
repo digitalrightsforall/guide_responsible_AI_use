@@ -28,11 +28,11 @@ const aboutI18n = {
     inwardCardTitle: "对内·自我防护与边界",
     inwardCardDesc: "商业大模型厂商普遍通过默认勾选、静默采集将用户的日常提问、代码片段、私人未发布文稿纳入下一代模型的训练语料池。同时，大模型极具说服力的自信幻觉极易诱导盲信。<br/><br/><strong>实务对策：</strong>在输入前通过脱敏工具与本地隔离防御过采；在对话中引入交叉比对技能，守住个人判断力，严防向商业 AI 出让自主权。",
     outwardCardTitle: "对外·成果第三方可核验",
-    outwardCardDesc: "负责任不仅关乎自保，更关乎对社会和他人的尊重。当你将 AI 辅助生成的报告、论文、方案交付给同事、公众或客户时，不能只留下不可信的“黑盒”结论让对方猜疑。<br/><br/><strong>实务对策：</strong>主动附带原始提示词演进、事实证据链锚点与验证切入路径，让任何第三方都能够轻松复核、审计与证伪，建立经得起推敲的职业诚信。",
+    outwardCardDesc: "负责任不仅关乎自保，更关乎对社会和他人的尊重。当你将 AI 辅助生成的报告、论文、方案交付给同事、公众或客户时，不能只留下不可信的“黑盒”结论让对方猜疑。<br/><br/><strong>实务对策：</strong>主动附带会话推演记录、事实证据链锚点与验证切入路径，让任何第三方都能够轻松复核、审计与证伪，建立经得起推敲的职业诚信。",
 
     whySkillTitle: "为什么只收录开源成熟的规范技能，绝不凭空造词？",
     whySkillContent: `
-      <p>市面上充斥着大量虚妄的“AI 提示词秘籍”和自造概念。我们坚持开源与透明原则：</p>
+      <p>市面上充斥着大量缺乏可信度检验的 AI 营销噱头和自造概念。我们坚持开源与透明原则：</p>
       <ul class="list-disc list-inside space-y-2 pl-2">
         <li><strong>真实可信：</strong>所有收录项均来自全球活跃开发者维护的开源仓库（如 Cursor Directory、Anthropic Skills、Cline、Community Verified Tools），均有公开的 GitHub 源码链接。</li>
         <li><strong>规范结构：</strong>采用现代化 Agent 技能规范（SKILL.md），包含清晰的触发条件、执行流程与输入输出标准，可直接导入日常 IDE 与对话客户端。</li>
@@ -96,11 +96,11 @@ const aboutI18n = {
     inwardCardTitle: "Inward: Self-Defense & Boundaries",
     inwardCardDesc: "Commercial AI providers quietly scrape everyday chat queries, proprietary draft code, and unpublished writings into their next training datasets. Confident hallucinations also risk passive blind trust.<br/><br/><strong>Practical Guardrail:</strong> Use pre-input sanitization and local sandboxing to prevent over-harvesting; adopt multi-source verification skills to preserve critical human judgment.",
     outwardCardTitle: "Outward: Third-Party Verifiability",
-    outwardCardDesc: "Responsible use is not just self-defense—it is respect for colleagues, readers, and society. When delivering AI-assisted reports, code, or decisions, you must not hand over an unverifiable black box.<br/><br/><strong>Practical Guardrail:</strong> Proactively attach prompt histories, verification anchor points, and reproducible evidence chains so third parties can independently audit and verify your work.",
+    outwardCardDesc: "Responsible use is not just self-defense—it is respect for colleagues, readers, and society. When delivering AI-assisted reports, code, or decisions, you must not hand over an unverifiable black box.<br/><br/><strong>Practical Guardrail:</strong> Proactively attach session reasoning logs, verification anchor points, and reproducible evidence chains so third parties can independently audit and verify your work.",
 
     whySkillTitle: "Why Curated Open-Source SKILL.md Only?",
     whySkillContent: `
-      <p>The web is flooded with dubious prompt recipes and marketing buzzwords. We insist on open source and radical transparency:</p>
+      <p>The web is flooded with unverified marketing buzzwords. We insist on open source and radical transparency:</p>
       <ul class="list-disc list-inside space-y-2 pl-2">
         <li><strong>Authentic & Verifiable:</strong> Every skill comes from actively maintained open-source repositories (Cursor Directory, Anthropic Skills, Cline, Community repos) with public GitHub sources.</li>
         <li><strong>Standardized Format:</strong> Written in standard SKILL.md specs with clear trigger criteria, step-by-step logic, and input/output contracts.</li>

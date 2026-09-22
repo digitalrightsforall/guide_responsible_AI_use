@@ -46,8 +46,8 @@ const allowedTimings = [
   'post-session'
 ];
 
-const allowedTypes = ['SKILL.md', 'Prompt'];
-const allowedActionTypes = ['install_code', 'copy_prompt'];
+const allowedTypes = ['SKILL.md'];
+const allowedActionTypes = ['install_code'];
 
 const seenIds = new Set();
 let errors = 0;
@@ -72,6 +72,10 @@ items.forEach((item, index) => {
     'timing_desc_cn',
     'why_chosen_en',
     'why_chosen_cn',
+    'why_care_cn',
+    'why_care_en',
+    'how_to_use_cn',
+    'how_to_use_en',
     'status',
     'action_type',
     'action_content'

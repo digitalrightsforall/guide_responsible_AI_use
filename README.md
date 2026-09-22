@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> A curated collection of 38 production-ready `SKILL.md` packages and verified prompt protocols designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
+> A curated collection of 38 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
 **English** | [中文版](README_CN.md)
 
@@ -16,11 +16,11 @@ In this project, we curate **existing, proven open-source skills** (we strictly 
 2. **📐 Outward: Third-Party Verifiability (对外·成果第三方可核验)**: Ensure colleagues, clients, and readers can readily audit the evidence chain and reasoning behind AI-assisted work, moving beyond hollow bureaucratic disclaimers.
 
 > [!NOTE]
-> This dual framework is **dynamic and evolving** alongside AI capabilities and human practices, rather than a rigid or dogmatic doctrine.
+> This dual framework is **dynamic and evolving** alongside AI capabilities and human practices, rather than a rigid doctrine.
 
 ---
 
-## 📦 Client Installation Standard (Where do Skills live?)
+## 📦 Client Installation Guide
 
 According to the open Agent Skills specification:
 * **Cursor / Google Antigravity:** `.agents/skills/<skill-name>/SKILL.md`
@@ -36,7 +36,6 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * [2. Which answers can I trust?](#2-which-answers-can-i-trust)
 * [3. When should I NOT listen to AI?](#3-when-should-i-not-listen-to-ai)
 * [4. Can the output be published directly?](#4-can-the-output-be-published-directly)
-* [🛑 Non-Delegable Red Lines](#-non-delegable-red-lines)
 
 ---
 
@@ -44,131 +43,131 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 *Guarding against commercial AI over-harvesting personal identity (PII), confidential client data, and proprietary drafts.*
 
 #### [`PII Safe Documents (danyuchn/pii-guard)`](https://github.com/danyuchn/pii-guard)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Before ingestion: Run before passing any private document, interview transcript, or draft to the agent.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Before ingestion: Run before passing any private document, interview transcript, or draft to the agent.*
+* **💡 Why Everyday People Should Care:** When feeding resumes or draft contracts to AI, personal identities are uploaded to cloud servers. This skill locally redacts sensitive data and restores it afterwards, keeping private text safe.
 * **🎯 Why Chosen:** Directly tackles commercial AI data harvesting. Unlike passive warnings, it treats the cloud LLM as untrusted by default, creating an isolated local redacted working copy and prohibiting raw access.
+* **🛠️ How to Use:** Copy the command to clone into your client skills directory. The agent automatically creates an isolated local redacted working copy before reading files.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ AgentSkills Standard | 🛡️ *Audited local-first isolation pipeline with automatic purge*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** General Knowledge Workers, Researchers, Journalists
-* **Problem Solved:** Creates a reversible, locally redacted working copy while treating the cloud LLM as untrusted. Prohibits the agent from opening, searching, or uploading the raw original.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/danyuchn/pii-guard.git && cp -R pii-guard/.agents/skills/pii-safe-documents .agents/skills/
   ```
 
 #### [`Scholar Safety (joshzyj/open-scholar-skill)`](https://github.com/joshzyj/open-scholar-skill)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Pre-read scan: Triggered automatically before Claude or an agent executes a file Read command.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-read scan: Triggered automatically before Claude or an agent executes a file Read command.*
+* **💡 Why Everyday People Should Care:** Uploading restricted research transcripts or IRB-governed survey data to commercial LLMs violates ethics policies. This skill forces local-only analysis without cloud data transmission.
 * **🎯 Why Chosen:** Brings institutional research ethics (IRB, HIPAA, NDAs) down to everyday desktop use, allowing users to run local Bash statistics without streaming restricted texts upstream.
+* **🛠️ How to Use:** Install into Claude Code. When issuing data analysis instructions, the agent intercepts restricted files and processes them via local scripts.
 * **📊 Maturity & Trust:** `Active Release` | ⭐ Open Scholar Suite | 🛡️ *Designed for university & clinical research data custodians*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Academic Researchers, Qualitative Analysts, IRB Custodians
-* **Problem Solved:** Executes a pre-ingestion sensitivity scan before files are read into context. Gates IRB/HIPAA/restricted research data and offers local-only Bash analysis without raw-data transmission.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/joshzyj/open-scholar-skill.git && cp -R open-scholar-skill/.claude/skills/scholar-safety ~/.claude/skills/
   ```
 
 #### [`Skill Sanitizer (cyberxuan-XBX/skill-sanitizer)`](https://github.com/cyberxuan-XBX/skill-sanitizer)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Installation checkpoint: Use before loading or approving any third-party SKILL.md into your workspace.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Installation checkpoint: Use before loading or approving any third-party SKILL.md into your workspace.*
+* **💡 Why Everyday People Should Care:** Third-party agent skills downloaded online can hide prompt injections or malicious telemetry. This scanner inspects incoming skills like an antivirus before execution.
 * **🎯 Why Chosen:** Provides supply-chain defense for AI users. Over 99% of community skills contain unvetted instructions; this tool scans for hidden prompt injections and malicious bash telemetry.
+* **🛠️ How to Use:** Run this skill before adding new skills to your agent. It scans instruction files for command injection and suspicious telemetry.
 * **📊 Maturity & Trust:** `Production v2.1` | ⭐ Open Source Community | 🛡️ *Zero cloud dependencies, 7-layer semantic detection*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Developers, Power Users, Knowledge Workers
-* **Problem Solved:** A local meta-security scanner that intercepts incoming SKILL.md files and checks for hidden prompt injections, suspicious bash operations, and exfiltration payloads before loading.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/cyberxuan-XBX/skill-sanitizer.git .agents/skills/skill-sanitizer
   ```
 
 #### [`PII-Shield (gregmos/PII-Shield)`](https://github.com/gregmos/PII-Shield)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Batch document intake: Triggered when feeding office files (.pdf, .docx, .txt) into an agent task.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Batch document intake: Triggered when feeding office files (.pdf, .docx, .txt) into an agent task.*
+* **💡 Why Everyday People Should Care:** Users routinely paste emails, phone numbers, or passwords into chat prompts. PII-Shield intercepts and masks personal identifiers locally before upstream API transmission.
 * **🎯 Why Chosen:** Zero-infrastructure, battle-tested document redaction. Scans multiple common office formats and replaces personal identifiers with synthetic tokens locally.
+* **🛠️ How to Use:** Install as a local hook to automatically detect and replace telephone numbers, emails, and credentials with safe placeholders.
 * **📊 Maturity & Trust:** `Production Ready` | ⭐ Open Agent Community | 🛡️ *Document-level token replacement tested on legal/financial docs*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** General Knowledge Workers, Legal & Financial Analysts
-* **Problem Solved:** Scans office documents (.txt, .md, .pdf, .docx) before agent processing, replaces personal identifiers with synthetic tokens, and restores them locally.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/gregmos/PII-Shield.git .agents/skills/pii-shield
   ```
 
-#### [`mode-io/privacy-protector`](https://github.com/mode-io/mode-io-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Context streaming: Active during chat when pasting customer communications or confidential logs.*
-* **🎯 Why Chosen:** Tailored for support and sales professionals who frequently copy-paste customer text into AI chats, maintaining an ephemeral de-identification lookup table on local disk.
-* **📊 Maturity & Trust:** `Production` | ⭐ mode-io Agent Skills | 🛡️ *Enterprise customer service data protection pattern*
+#### [`PII Detection Pipeline (mukul975/Privacy-Data-Protection-Skills)`](https://github.com/mukul975/Privacy-Data-Protection-Skills)
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-Ingestion Gateway: Runs automatic regex and NER classification on prompt text and attached documents before dispatching to LLMs.*
+* **💡 Why Everyday People Should Care:** Manually sanitizing hours of meeting notes or transcripts is tedious. This standardized pipeline classifies and masks 20 privacy categories automatically.
+* **🎯 Why Chosen:** Follows the agentskills.io standard for automated PII masking across 20 privacy categories, guaranteeing raw sensitive data is not exfiltrated to model providers.
+* **🛠️ How to Use:** Clone to your skills directory and invoke during document ingestion to batch-mask personal identifiers using standard NER pipelines.
+* **📊 Maturity & Trust:** `Production Stable` | ⭐ agentskills.io Verified | 🛡️ *Audited open-source privacy framework with 282+ skills*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Support Teams, Account Managers, Operations
-* **Problem Solved:** Identifies business credentials and contact details in prompt context, maintaining an ephemeral de-identification lookup table on local storage.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
-  git clone https://github.com/mode-io/mode-io-skills.git && cp -R mode-io-skills/skills/privacy-protector .agents/skills/
+  git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/pii-detection-pipeline ~/.claude/skills/
   ```
 
 #### [`Anonymize Documents with Presidio (schneidermichael)`](https://github.com/schneidermichael/anonymize-documents-with-presidio)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Pre-processing pipeline: Execute locally on interview recordings or qualitative survey datasets.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-processing pipeline: Execute locally on interview recordings or qualitative survey datasets.*
+* **💡 Why Everyday People Should Care:** Powered by Microsoft Presidio, this battle-tested tool lets everyday users anonymize Word and PDF files locally with proven NLP accuracy.
 * **🎯 Why Chosen:** Brings Microsoft's battle-tested Presidio NER engine into everyday agent workflows, guaranteeing deterministic entity extraction without relying on probabilistic LLM masking.
+* **🛠️ How to Use:** Install via provided command. Run against your working documents to produce anonymized versions before sharing with cloud models.
 * **📊 Maturity & Trust:** `Active Open Source` | ⭐ Microsoft Presidio Ecosystem | 🛡️ *Backed by Microsoft Presidio NLP open-source engine*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Qualitative Researchers, Sociologists, Analysts
-* **Problem Solved:** Leverages Microsoft Presidio locally to scrub participant names, locations, and organizations before feeding transcripts to cloud LLMs.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/schneidermichael/anonymize-documents-with-presidio.git .agents/skills/presidio-anonymizer
   ```
 
 #### [`TrustBoost PII Sanitizer (teodorofodocrispin-cmyk)`](https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Pre-flight gateway: Intercepts raw prompts and file contents before streaming to upstream LLM providers.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-flight gateway: Intercepts raw prompts and file contents before streaming to upstream LLM providers.*
+* **💡 Why Everyday People Should Care:** Everyday users cannot monitor whether upstream LLM vendors uphold privacy promises. TrustBoost enforces zero-trust redaction on your own computer.
 * **🎯 Why Chosen:** Provides multilingual contextual PII sanitization across 8 languages, strictly complying with GDPR, LGPD, and HIPAA frameworks for global teams.
+* **🛠️ How to Use:** Add to client skills folder. Activate before analyzing client lists or invoices to substitute real data with anonymized tokens.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Multi-client Ecosystem | 🛡️ *Tested across 8 languages with compliance mapping*
 * **Clients:** Claude Code, Cursor, Windsurf
 * **Target Persona:** Enterprise Knowledge Workers, Financial Analysts, Legal Professionals
-* **Problem Solved:** Sanitizes PII from text before it reaches upstream LLM providers, supporting contextual sanitization across eight languages while adhering to global privacy frameworks.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/teodorofodocrispin-cmyk/TrustBoost-PII-Sanitizer.git .agents/skills/trustboost-pii-sanitizer
   ```
 
 #### [`OpenMed Clinical Document Ingestion (maziyarpanahi)`](https://github.com/maziyarpanahi/openmed)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Intake gate: Triggered before analyzing clinical case notes, patient reports, or medical research data.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Intake gate: Triggered before analyzing clinical case notes, patient reports, or medical research data.*
+* **💡 Why Everyday People Should Care:** Patients frequently paste diagnostic scans into AI for second opinions. This skill strips patient medical record numbers and names locally before consulting models.
 * **🎯 Why Chosen:** Addresses high-consequence medical data risks by detecting protected health information (PHI) and clinical terminology, preventing HIPAA/ethics breaches on the desktop.
+* **🛠️ How to Use:** Activate before analyzing clinical lab reports or medical history to guarantee that personal health records remain unlinked to your online identity.
 * **📊 Maturity & Trust:** `Active Research Release` | ⭐ OpenMed Suite | 🛡️ *Clinical NLP benchmarked for HIPAA PHI safety*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Clinical Researchers, Healthcare Analysts, Medical Writers
-* **Problem Solved:** Specialized clinical ingestion skill that detects and redacts Protected Health Information (PHI) and patient identifiers from medical texts before agent processing.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/maziyarpanahi/openmed.git && cp -R openmed/skills/deidentifying-clinical-text .agents/skills/
   ```
 
 #### [`Claude Code Hook Redaction Strategy (ruvnet)`](https://gist.github.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Pre-execution hook: Runs automatically on the PreToolUse lifecycle event before bash or file commands execute.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-execution hook: Runs automatically on the PreToolUse lifecycle event before bash or file commands execute.*
+* **💡 Why Everyday People Should Care:** A low-level gate for Claude Code users. Even if you accidentally send confidential passwords or keys in chat, this hook intercepts before transmission.
 * **🎯 Why Chosen:** Zero-token client-side defense. Rather than asking an AI to be careful, it uses an OS-level regex sed hook to guarantee API keys and secret tokens never enter conversation logs.
+* **🛠️ How to Use:** Add the hook script to your `.claude` configuration to enable zero-friction, automated pre-flight filtering on every command.
 * **📊 Maturity & Trust:** `Verified Architecture` | ⭐ Claude Code Community Gist | 🛡️ *Client-side execution lifecycle hook verified on macOS/Linux*
 * **Clients:** Claude Code
 * **Target Persona:** Developers, System Administrators, DevOps Engineers
-* **Problem Solved:** Utilizes client-side execution hooks to swap out environmental secrets with safe placeholders before tool execution, ensuring raw keys never enter model context.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   curl -sL https://gist.githubusercontent.com/ruvnet/332336ad5e0516daa810d98f8f0ddca9/raw -o .claude/hooks/pre-tool-redact.sh && chmod +x .claude/hooks/pre-tool-redact.sh
   ```
 
 #### [`AREX Presidio Anonymize Text (VectorSpaceLab)`](https://github.com/VectorSpaceLab/AREX-Skill)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** ⏳ Pre-Input — *Pre-read filter: Invoked before agent ingests enterprise documents or user communications.*
+* **Workflow Timing:** ⏳ Pre-Input (Privacy & Anti-Harvesting) — *Pre-read filter: Invoked before agent ingests enterprise documents or user communications.*
+* **💡 Why Everyday People Should Care:** Designed for quick chat snippets and emails. It replaces person names and company entities with generic aliases in seconds before ingestion.
 * **🎯 Why Chosen:** Standardized AgentSkills packaging of Presidio NER engine for autonomous agent repositories, with zero-effort integration into Cursor and Antigravity.
+* **🛠️ How to Use:** Install into Cursor or Claude. Use it when summarizing email threads to replace actual colleagues and companies with safe aliases.
 * **📊 Maturity & Trust:** `Production Standard` | ⭐ AREX-Skill Repo | 🛡️ *Enterprise repository standard with deterministic NER masking*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Knowledge Workers, Enterprise Staff, Developers
-* **Problem Solved:** AgentSkills-compliant anonymization package that scans text buffers for sensitive entities using Microsoft Presidio and replaces them with anonymized tokens.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/VectorSpaceLab/AREX-Skill.git && cp -R AREX-Skill/skills/repositories/repo-skills/presidio/sub-skills/anonymize-text .agents/skills/presidio-anonymize
   ```
@@ -179,131 +178,131 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 *Guarding against blind faith in hallucinated citations, fabricated data points, and unverified factual assertions.*
 
 #### [`Post-Generation Fact-Check (jwynia/agent-skills)`](https://github.com/jwynia/agent-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Post-generation pass: Runs immediately after an initial draft is produced, before any claims are acted on.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Post-generation pass: Runs immediately after an initial draft is produced, before any claims are acted on.*
+* **💡 Why Everyday People Should Care:** LLMs sound supremely confident even when completely wrong. This skill puts AI into detective mode after drafting, verifying claims against external sources.
 * **🎯 Why Chosen:** Solves the fundamental flaw of models confirming their own hallucinations. Enforces an independent verification pass that queries external ground truth and strictly forbids model memory as evidence.
+* **🛠️ How to Use:** Invoke after generating draft articles. It isolates factual assertions and audits them against live web sources.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Agent Skills Library | 🛡️ *Verified multi-step claim extraction and external evidence retrieval*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Knowledge Workers, Writers, Journalists, Researchers
-* **Problem Solved:** Forces verification into an independent pass after generation: extracts checkable claims, queries external sources, and rejects model memory as evidence.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/jwynia/agent-skills.git && cp -R agent-skills/skills/general/research/verification/fact-check .agents/skills/fact-check
   ```
 
 #### [`Citation Faithfulness Checker (CanXiangCC/aminer-open-skill)`](https://github.com/CanXiangCC/aminer-open-skill)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Source auditing: Run when reviewing literature reviews, whitepapers, or academic drafts.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Source auditing: Run when reviewing literature reviews, whitepapers, or academic drafts.*
+* **💡 Why Everyday People Should Care:** AI frequently makes subtle errors in volume numbers and author lists. This checker queries academic registries to verify exact citation accuracy.
 * **🎯 Why Chosen:** Tackles paper-level hallucination. While normal checkers only verify if a paper exists, this skill downloads the actual body and proves whether the paper actually supports the attributed claim.
+* **🛠️ How to Use:** Trigger after writing research sections. It verifies that every in-text citation correctly matches real indexing data.
 * **📊 Maturity & Trust:** `Production Active` | ⭐ Aminer Open Skill Ecosystem | 🛡️ *Deep claim-to-passage alignment evaluation*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Academic Researchers, Peer Reviewers, Fact-Checkers
-* **Problem Solved:** Fetches cited literature and verifies whether the cited source body actually supports the claim attributed to it, assigning structured verdicts.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/CanXiangCC/aminer-open-skill.git && cp -R aminer-open-skill/skills/citation-faithfulness ~/.claude/skills/citation-faithfulness
   ```
 
 #### [`BibRef Verify (yzhao062/agent-config)`](https://github.com/yzhao062/agent-config)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Pre-submission audit: Run on existing .bib files before finalizing academic publications.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Pre-submission audit: Run on existing .bib files before finalizing academic publications.*
+* **💡 Why Everyday People Should Care:** Fabricated references can get academic papers instantly rejected. BibRef automatically resolves DOIs to guarantee every entry is genuine.
 * **🎯 Why Chosen:** Protects academic reputation. Batch checks .bib bibliography files for phantom citations and fabricated DOIs without modifying the original source file, generating a clean audit report.
+* **🛠️ How to Use:** Feed reference lists to the skill to receive a line-by-line verification table highlighting any unresolvable citations.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Academic AgentConfig | 🛡️ *Batch Crossref & Semantic Scholar verification harness*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Academic Researchers, Grant Writers, Authors
-* **Problem Solved:** Audits an existing .bib bibliography for hallucinated references and stale metadata without modifying original files, generating an actionable audit report.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/yzhao062/agent-config.git && cp -R agent-config/skills/bibref-verify ~/.claude/skills/bibref-verify
   ```
 
-#### [`Citation-Check-Skill (open-agent-skills)`](https://github.com/open-agent-skills/citation-check-skill)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Draft review: Triggered on drafts containing web links, DOIs, and cited references.*
-* **🎯 Why Chosen:** Directly solves 'phantom citations'—a prevalent flaw where LLMs invent plausible-sounding papers. Queries real bibliographic APIs to verify DOIs and authors.
-* **📊 Maturity & Trust:** `Active Open Source` | ⭐ Open Agent Skills Standard | 🛡️ *Live API checks against Crossref & OpenAlex*
+#### [`Citation Integrity Auditor (scdenney/open-science-skills)`](https://github.com/scdenney/open-science-skills)
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Draft Verification: Audits every in-text citation against real bibliographic databases (Crossref, OpenAlex, DataCite) to eliminate ghost references.*
+* **💡 Why Everyday People Should Care:** Students and writers risk severe credibility hits when using fabricated citations. This auditor queries Crossref/OpenAlex and refuses to guess.
+* **🎯 Why Chosen:** Solves the catastrophic "Phantom Citation" problem where LLMs fabricate convincing but nonexistent papers, journal DOIs, and author lists.
+* **🛠️ How to Use:** Invoke during drafting to generate an audit receipt with exact DOI resolution states and database citations.
+* **📊 Maturity & Trust:** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Empirical research workflow maintained by scdenney*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Researchers, Policy Analysts, Fact-Checkers
-* **Problem Solved:** Extracts citations in generated text, queries cross-reference APIs to verify existence, and flags non-existent DOIs and ghost authors.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
-  git clone https://github.com/open-agent-skills/citation-check-skill.git .agents/skills/citation-check-skill
+  git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/citation-check ~/.claude/skills/
   ```
 
 #### [`jkitchin/skillz (citation-verifier)`](https://github.com/jkitchin/skillz)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Manuscript writing: Active during LaTeX and Markdown drafting sessions.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Manuscript writing: Active during LaTeX and Markdown drafting sessions.*
+* **💡 Why Everyday People Should Care:** Created by academic practitioners, this skill not only confirms paper existence but fetches real publication abstracts for human review.
 * **🎯 Why Chosen:** Created by an active academic scientist (Prof. John Kitchin), specifically catching retracted papers and hallucinated DOIs in scientific literature.
+* **🛠️ How to Use:** Install into your agent workspace to audit citations across Markdown or LaTeX manuscripts.
 * **📊 Maturity & Trust:** `Mature Academic Tool` | ⭐ Scientific Research Community | 🛡️ *Built by academic faculty for LaTeX/Markdown scientific publishing*
 * **Clients:** Claude Code, Emacs, Antigravity
 * **Target Persona:** Scientists, Academic Writers, LaTeX/Markdown Users
-* **Problem Solved:** Validates bibliography items against Crossref and PubMed records, alerting users to phantom papers or retracted literature.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/jkitchin/skillz.git && cp -R skillz/skills/citation-verifier .agents/skills/
   ```
 
-#### [`aidd-refine/05-fact-check`](https://github.com/aidd-refine/aidd-refine)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Article refinement: Triggered during editorial passes of long-form reports or articles.*
-* **🎯 Why Chosen:** Editorial-grade rigor. Deconstructs an article draft into atomic factual claims, forces external grounding, and rewrites unsupported statements with epistemic hedging.
-* **📊 Maturity & Trust:** `Active Framework` | ⭐ aidd-refine Workflow Suite | 🛡️ *Deconstructive claim-by-claim editorial verification protocol*
+#### [`Claim–Source Fact Checker (scdenney/open-science-skills)`](https://github.com/scdenney/open-science-skills)
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Claim Validation: Audits whether the source cited by the AI actually supports the claims made in the sentence, stopping citation padding.*
+* **💡 Why Everyday People Should Care:** An AI might cite a real study while inverting its conclusions. This skill compares claims against actual source text to stop misattribution.
+* **🎯 Why Chosen:** Addresses the insidious "Citation Padding" failure mode: even when a real paper exists, the LLM frequently misquotes or inverts its actual scientific findings.
+* **🛠️ How to Use:** Run on AI summaries to audit whether cited documents actually prove the claims asserted in your draft.
+* **📊 Maturity & Trust:** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Claim-source consistency auditor for empirical science*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Journalists, Long-form Writers, Editors
-* **Problem Solved:** Decomposes draft articles into atomic verifiable propositions, forces search grounding, and rewrites unverified statements with epistemic hedging.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
-  git clone https://github.com/aidd-refine/aidd-refine.git && cp -R aidd-refine/skills/05-fact-check .agents/skills/
+  git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/fact-check ~/.claude/skills/
   ```
 
 #### [`Editorial Fact-Check & Quote Drift Protocol (anotherpanacea)`](https://gist.github.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Editorial review: Run on quotes, statistics, and high-stakes factual paragraphs.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Editorial review: Run on quotes, statistics, and high-stakes factual paragraphs.*
+* **💡 Why Everyday People Should Care:** Editorial journalism workflow that stops outdated figures and online rumors from creeping into published articles.
 * **🎯 Why Chosen:** Directly targets high-order hallucination vectors that automated scripts miss: Quote Drift (altering quoted language) and Authority Masks (substituting prestige for evidence).
+* **🛠️ How to Use:** Load the protocol from Gist to subject AI writing to rigorous multi-source journalistic verification.
 * **📊 Maturity & Trust:** `Battle-Tested Gist` | ⭐ Investigative Journalism Protocol | 🛡️ *Sourced from public GitHub Gist by verified investigative editor*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Journalists, Editors, Fact-Checkers, Analysts
-* **Problem Solved:** Implements an intensive two-pass editorial review that flags subtle hallucinations like Quote Drift and Authority Masks.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   curl -sL https://gist.githubusercontent.com/anotherpanacea-eng/30f9a6ca309923877f7e70b61e88fd24/raw -o .agents/skills/editorial-fact-check/SKILL.md
   ```
 
 #### [`Hallucination Risk Reviewer (Notysoty/openagentskills)`](https://github.com/Notysoty/openagentskills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Risk triage: Executes a structured claim-level triage before users act on or publish AI output.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Risk triage: Executes a structured claim-level triage before users act on or publish AI output.*
+* **💡 Why Everyday People Should Care:** AI prose always looks fluent and plausible. This reviewer scores text for hallucination risk and flags unsupported assertions.
 * **🎯 Why Chosen:** Provides an explicit risk-scoring rubric that targets version-specific claims, obscure dates, and exact URLs, preventing propagation of confident falsehoods.
+* **🛠️ How to Use:** Call the reviewer after drafting to get an annotated copy highlighting statements with high hallucination likelihood.
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ Open Agent Skills Catalog | 🛡️ *Commit-pinned risk rubric with structured output contract*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Knowledge Workers, Editors, Content Teams, Researchers
-* **Problem Solved:** Performs claim-level hallucination-risk triage, scrutinizing citations, URLs, quotes, and version-specific assertions against an explicit consequence rubric.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/Notysoty/openagentskills.git && cp -R openagentskills/skills/hallucination-risk-reviewer .agents/skills/
   ```
 
 #### [`Vectara Hallucination Corrector HHEM (vectara)`](https://github.com/vectara/agent-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Automated verification: Evaluates factual consistency against source documents and algorithmically strips ungrounded claims.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Automated verification: Evaluates factual consistency against source documents and algorithmically strips ungrounded claims.*
+* **💡 Why Everyday People Should Care:** Utilizes Vectara’s proven HHEM evaluation model to mathematically score and correct factual drift against reference materials.
 * **🎯 Why Chosen:** Utilizes Vectara's industry-standard HHEM (Hughes Hallucination Evaluation Model). It never invents missing facts—it strictly removes or hedges unsupported claims.
+* **🛠️ How to Use:** Install into agent client. Automatically compares generated summaries against provided context documents to score faithfulness.
 * **📊 Maturity & Trust:** `Production API Integration` | ⭐ Vectara Agent Skills | 🛡️ *Backed by Vectara Hughes Hallucination Evaluation Model*
 * **Clients:** Claude Code, Antigravity, Python Agents
 * **Target Persona:** Enterprise Analysts, RAG Operators, Researchers
-* **Problem Solved:** Evaluates factual consistency of generated text against source documents using HHEM, stripping ungrounded claims rather than guessing.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/vectara/agent-skills.git && cp -R agent-skills/skills/hallucination-corrector .agents/skills/
   ```
 
 #### [`K-Dense Scientific Peer Review (K-Dense-AI)`](https://github.com/K-Dense-AI/scientific-agent-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Reasoning audit: Run on scientific proposals, experimental methodology, and statistical inferences.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Reasoning audit: Run on scientific proposals, experimental methodology, and statistical inferences.*
+* **💡 Why Everyday People Should Care:** Brings scientific peer review rigor to everyday documents, exposing pseudo-scientific claims and methodological flaws.
 * **🎯 Why Chosen:** Brings academic peer-review scrutiny to complex analytical reasoning, testing whether mathematical derivations and empirical conclusions legitimately follow from stated premises.
+* **🛠️ How to Use:** Invoke on research proposals to receive structured peer-review feedback identifying weak evidence and logical gaps.
 * **📊 Maturity & Trust:** `Active Research Release` | ⭐ Scientific Agent Skills | 🛡️ *Multi-perspective derivation and statistical validation harness*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Scientists, Peer Reviewers, Quantitative Analysts
-* **Problem Solved:** Performs rigorous academic peer-review verification on scientific drafts, validating logical derivation steps and empirical conclusions.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/K-Dense-AI/scientific-agent-skills.git && cp -R scientific-agent-skills/skills/peer-review .agents/skills/
   ```
@@ -314,118 +313,118 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 *Guarding against automation bias, sycophancy, and delegating non-delegable ethical or professional judgments.*
 
 #### [`The Fool (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Decision challenge: Triggered whenever the user is tempted to quickly adopt an AI plan or strategy.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Decision challenge: Triggered whenever the user is tempted to quickly adopt an AI plan or strategy.*
+* **💡 Why Everyday People Should Care:** LLMs are chronic people-pleasers that validate bad ideas. "The Fool" breaks sycophancy by bluntly exposing your blind spots.
 * **🎯 Why Chosen:** Explicity designed NOT to make decisions, but to shatter premature consensus through pre-mortems, assumption probing, and cognitive-bias scans.
+* **🛠️ How to Use:** Activate during strategic brainstorming. The agent ceases agreeable validation and attacks your proposal’s weakest assumptions.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ tech-leads-club Catalog | 🛡️ *Dialectical counterargument and pre-mortem methodology*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Managers, Founders, Strategists, Analysts
-* **Problem Solved:** Acts as a deliberate devil's advocate that probes hidden assumptions, dialectical counterarguments, and failure modes to shatter premature consensus.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R "agent-skills/packages/skills-catalog/skills/(decision-making)/the-fool" ~/.claude/skills/the-fool
   ```
 
 #### [`Sycophancy Challenger (mohitagw15856/pm-claude-skills)`](https://github.com/mohitagw15856/pm-claude-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Iterative debate: Enforces anti-appeasement rules whenever you feel the AI is being too agreeable.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Iterative debate: Enforces anti-appeasement rules whenever you feel the AI is being too agreeable.*
+* **💡 Why Everyday People Should Care:** Users mistake AI agreement for objective validation. This challenger forces the model to construct contrary arguments.
 * **🎯 Why Chosen:** Directly cures the pervasive AI sycophancy flaw. Enforces strict anti-appeasement rules: forbids the agent from retreating from a critique merely because the user pushes back.
+* **🛠️ How to Use:** Install into your workspace. Instruct the agent to challenge your perspective with empirical counterexamples.
 * **📊 Maturity & Trust:** `Production Active` | ⭐ pm-claude-skills Suite | 🛡️ *Procedural anti-appeasement rules verified in iterative workflows*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Decision Makers, Product Managers, Founders
-* **Problem Solved:** Flips the assistant into adversarial mode, forbidding it from softening critiques unless the user provides fresh, dispositive evidence.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/sycophancy-challenger .agents/skills/sycophancy-challenger
   ```
 
 #### [`Council Review (ngmeyer/council-review)`](https://github.com/ngmeyer/council-review)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *High-stakes crossroads: Use when evaluating major technical, business, or product architecture proposals.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *High-stakes crossroads: Use when evaluating major technical, business, or product architecture proposals.*
+* **💡 Why Everyday People Should Care:** Relying on a single AI voice creates narrow echo chambers. Council Review simulates a multi-agent adversarial board to challenge assumptions.
 * **🎯 Why Chosen:** Breaks single-agent tunnel vision. Implements a Diverse Multi-Agent Debate (DMAD) protocol with mandatory Devil's Advocate rounds to prevent groupthink.
+* **🛠️ How to Use:** Run on complex proposals to trigger a multi-perspective review uncovering regulatory, financial, and ethical risks.
 * **📊 Maturity & Trust:** `Production Release` | ⭐ Council Review Project | 🛡️ *Diverse Multi-Agent Debate convergence detection*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Product Managers, Software Architects, Strategists
-* **Problem Solved:** Implements a Diverse Multi-Agent Debate protocol combining Inversion, Decomposition, and Devil's Advocate passes to shatter single-agent groupthink.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   curl -L https://raw.githubusercontent.com/ngmeyer/council-review/main/SKILL.md -o .claude/skills/council-review.md
   ```
 
 #### [`orange2ai/devils-advocate-skill`](https://github.com/orange2ai/devils-advocate-skill)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Pre-mortem check: Run when user needs a ruthless sparring partner to identify blind spots.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Pre-mortem check: Run when user needs a ruthless sparring partner to identify blind spots.*
+* **💡 Why Everyday People Should Care:** Before life-altering decisions (investing, career moves), Devil’s Advocate stresses worst-case failure scenarios.
 * **🎯 Why Chosen:** Transforms the agent into an adversarial sparring partner that explicitly attacks user assumptions and exposes sycophancy in AI-generated proposals.
+* **🛠️ How to Use:** Invoke prior to final sign-off to generate three catastrophic failure vectors you must defend against.
 * **📊 Maturity & Trust:** `Production Active` | ⭐ orange2ai Catalog | 🛡️ *Adversarial assumption testing protocol*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Decision Makers, Product Managers, Policy Analysts
-* **Problem Solved:** Transforms the agent into an adversarial sparring partner that explicitly attacks user assumptions and identifies blind spots.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/orange2ai/devils-advocate-skill.git .agents/skills/devils-advocate
   ```
 
 #### [`jihlenburg/mad-skills (devils-advocate)`](https://github.com/jihlenburg/mad-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Stress testing: Spawns an adversarial sub-agent to stress-test proposals across 8 failure modes.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Stress testing: Spawns an adversarial sub-agent to stress-test proposals across 8 failure modes.*
+* **💡 Why Everyday People Should Care:** Overcomes automation bias in programming and writing by performing a pre-mortem on proposed solutions.
 * **🎯 Why Chosen:** Offers systematic failure-mode testing across eight distinct vectors, preventing users from walking into predictable operational traps.
+* **🛠️ How to Use:** Run before accepting architectural designs to simulate catastrophic edge cases and concurrency bugs.
 * **📊 Maturity & Trust:** `Active Framework` | ⭐ mad-skills Ecosystem | 🛡️ *8-dimensional operational failure mode analysis*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Strategists, Writers, System Architects
-* **Problem Solved:** Spawns a critical sub-agent to stress-test plans and drafts across 8 distinct failure modes before proposals are committed.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/jihlenburg/mad-skills.git && cp -R mad-skills/skills/devils-advocate .agents/skills/
   ```
 
 #### [`Godfly Opposing Counsel (CassioRoos/godfly-skills)`](https://github.com/CassioRoos/godfly-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Irreversible decisions: Generates an Opposing Brief attacking load-bearing assumptions for high-stakes commitments.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Irreversible decisions: Generates an Opposing Brief attacking load-bearing assumptions for high-stakes commitments.*
+* **💡 Why Everyday People Should Care:** When drafting grievances or negotiation points, users have blind spots. This skill acts as opposing counsel to poke holes in your claims.
 * **🎯 Why Chosen:** Avoids performative contrarianism. Produces a formal Opposing Brief that explicitly names the irreversible costs of the chosen path and outlines how the alternative strategy would fundamentally win.
+* **🛠️ How to Use:** Run against negotiation drafts. The agent analyzes your prose from an adversary’s stance to spot legal and evidential weaknesses.
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ Godfly Skills Standard | 🛡️ *Structured adversarial brief protocol for high-stakes decisions*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Executives, Team Leads, System Planners, Legal Counsel
-* **Problem Solved:** Generates a structured Opposing Brief for high-stakes decisions by attacking load-bearing assumptions and quantifying irreversible costs.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/CassioRoos/godfly-skills.git && cp -R godfly-skills/skills/devils-advocate .agents/skills/godfly-counsel
   ```
 
 #### [`Devil's Advocate Reviewer Agent (Imbad0202)`](https://github.com/Imbad0202/academic-research-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Academic defense: Stress-tests research methodologies and theoretical foundations before journal submission.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Academic defense: Stress-tests research methodologies and theoretical foundations before journal submission.*
+* **💡 Why Everyday People Should Care:** The ultimate rehearsal tool before presentation. It simulates a skeptical boss or thesis committee finding gaps in your narrative.
 * **🎯 Why Chosen:** Employs strict procedural ladders to prevent the AI from conceding critiques merely due to sustained user argumentation, exposing foundational theoretical flaws.
+* **🛠️ How to Use:** Activate on finished slide outlines or draft papers to generate defensive Q&A pairs for tough reviewers.
 * **📊 Maturity & Trust:** `Research Release` | ⭐ Academic Research Skills | 🛡️ *Rigorous anti-accommodation ladders for peer critique*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Researchers, PhD Candidates, Academic Authors
-* **Problem Solved:** Assumes an adversarial posture to locate logical gaps in research papers, featuring strict rules that prevent conceding critiques to user pressure.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/Imbad0202/academic-research-skills.git && cp -R academic-research-skills/skills/devils-advocate .agents/skills/
   ```
 
 #### [`Multi-Perspective Red-Team Review (mohitagw15856)`](https://github.com/mohitagw15856/pm-claude-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Pre-commitment review: Stress-tests proposals through conflicting stakeholder lenses (finance, legal, competitor).*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Pre-commitment review: Stress-tests proposals through conflicting stakeholder lenses (finance, legal, competitor).*
+* **💡 Why Everyday People Should Care:** Democratizes cybersecurity red-teaming for everyday decisions, subjecting strategic proposals to adversarial stress testing.
 * **🎯 Why Chosen:** Forces plans through conflicting adversarial personas, ranking blind spots by likelihood × impact and conducting an objective pre-mortem before converting proposals into real commitments.
+* **🛠️ How to Use:** Apply to operational plans to audit how bad actors could exploit policy ambiguities or technical flaws.
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ pm-claude-skills Suite | 🛡️ *Multi-persona critique with ranked blind spot scoring matrix*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Product Managers, Editors, Team Leads, Strategists
-* **Problem Solved:** Stress-tests proposals through multiple deliberately conflicting stakeholder lenses, ranking blind spots by likelihood × impact and running pre-mortems.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/red-team-review .agents/skills/red-team-review
   ```
 
 #### [`Devil's Advocate Anti-Sycophancy (molly-diversifiedfun)`](https://github.com/molly-diversifiedfun/claude-skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 💬 During-Chat — *Thinking partner: Engaged when drafting critical essays, strategic plans, or executive briefings.*
+* **Workflow Timing:** 💬 During-Chat (Fact-Checking & Anti-Sycophancy) — *Thinking partner: Engaged when drafting critical essays, strategic plans, or executive briefings.*
+* **💡 Why Everyday People Should Care:** Injects persistent guardrails that forbid pleasant falsehoods, demanding honest evaluation of feasibility and budget.
 * **🎯 Why Chosen:** Encodes an uncompromising anti-sycophancy contract: forbids opening compliments, forbids diluting critiques to appease the user, and enforces mandatory 'Fatal Flaw' identification.
+* **🛠️ How to Use:** Add to agent system prompt to force rigorous feasibility checks before any affirmative conclusions.
 * **📊 Maturity & Trust:** `Commit Pinned` | ⭐ Claude Skills Catalog | 🛡️ *Zero-appeasement anti-sycophancy contract with fatal-flaw requirements*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Executives, Strategists, Authors, Researchers
-* **Problem Solved:** Adversarial thinking partner built around pre-mortems and Socratic inquiry, enforcing an explicit anti-sycophancy contract that forbids conversational appeasement.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/molly-diversifiedfun/claude-skills.git && cp -R claude-skills/devils-advocate .agents/skills/devils-advocate
   ```
@@ -436,131 +435,121 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 *Ensuring third-party verifiability, provenance tracking, and explicit publication gates.*
 
 #### [`AI Provenance (noheton/f-ai2-r)`](https://github.com/noheton/f-ai2-r)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Deliverable handoff: Run before submitting reports, articles, or code PRs to colleagues or clients.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Deliverable handoff: Run before submitting reports, articles, or code PRs to colleagues or clients.*
+* **💡 Why Everyday People Should Care:** When accused of AI cheating, vague denials fail. This skill records model hashes and human editing timestamps to prove genuine authorship.
 * **🎯 Why Chosen:** Transforms vague disclosures into tamper-evident audits. Records model hashes, verification states, and prompt trails, reserving final validation for human verification.
+* **🛠️ How to Use:** Run during drafting to generate an immutable provenance receipt detailing human inputs vs AI assistance.
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ f-ai2-r Provenance Framework | 🛡️ *Cryptographic hash tracking and human-confirmed verification ladder*
 * **Clients:** Antigravity, Cursor, Claude Code
 * **Target Persona:** Researchers, Journalists, Authors, Developers
-* **Problem Solved:** Maintains an immutable provenance record of AI-assisted work (model versions, prompt hashes, verification states) and derives human-readable AI-use disclosures.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/noheton/f-ai2-r.git .agents/skills/ai-provenance
   ```
 
 #### [`Publish Gate (StiflerMaxwell/vertu-english-publishing-workflow)`](https://github.com/StiflerMaxwell/vertu-english-publishing-workflow)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Publish authorization: Hard stop before any draft or campaign goes live to the public.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Publish authorization: Hard stop before any draft or campaign goes live to the public.*
+* **💡 Why Everyday People Should Care:** Search engines aggressively penalize low-quality AI spam. This gate checks readability, factual density, and eliminates robotic filler.
 * **🎯 Why Chosen:** Enforces physical separation between generative AI and publishing pipelines. Strips the writing agent of publishing rights, demanding a human PASS/FIX/BLOCK sign-off receipt.
+* **🛠️ How to Use:** Run prior to publishing to audit human value-add, readability grade, and robotic phrase elimination.
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Newsroom & Publishing Teams | 🛡️ *Strict fail-closed gate with human sign-off requirement*
 * **Clients:** Antigravity, Cursor, Claude Code
 * **Target Persona:** Editors, Content Teams, Media Creators
-* **Problem Solved:** Enforces a strict PASS/FIX/BLOCK gate over drafts. Crucially, the writing agent is forbidden from publishing directly; human authorization is required.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/StiflerMaxwell/vertu-english-publishing-workflow.git && cp -R vertu-english-publishing-workflow/skills/vertu-seo-publish-gate .agents/skills/
   ```
 
 #### [`PR AI Disclosure Gate (harlan-zw/harlan-agent-kit)`](https://github.com/harlan-zw/harlan-agent-kit)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Git commit / PR stage: Triggered automatically before pushing pull requests or release notes.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Git commit / PR stage: Triggered automatically before pushing pull requests or release notes.*
+* **💡 Why Everyday People Should Care:** Submitting unvetted AI code to open-source projects causes resentment. This skill generates transparent disclosures of AI contributions.
 * **🎯 Why Chosen:** Automates developer integrity. Embeds mandatory AI-assistance disclosure directly into PR bodies, and strictly refuses git submission if the disclosure is altered or bypassed.
+* **🛠️ How to Use:** Integrate with Git hooks to automatically attach an auditable AI disclosure table to your pull request.
 * **📊 Maturity & Trust:** `Production Standard` | ⭐ harlan-agent-kit Ecosystem | 🛡️ *Machine-gated PR generation with mandatory transparency clauses*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Open Source Maintainers, Software Engineers, Technical Writers
-* **Problem Solved:** Enforces a visible AI-writing disclosure whenever drafting PRs or release notes, refusing to submit if the mandated transparency disclosure is missing.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/harlan-zw/harlan-agent-kit.git && cp -R harlan-agent-kit/skills/pr .agents/skills/pr
   ```
 
-#### [`awesome-copilot/gdpr-compliant`](https://github.com/awesome-copilot/skills)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 🧹 Post-Session — *Audit logging: Retains session provenance records for IP and privacy compliance review.*
-* **🎯 Why Chosen:** Provides clear intellectual property provenance. Ensures developers and companies can demonstrate exact human vs machine contributions under copyright and GDPR standards.
-* **📊 Maturity & Trust:** `Active Production` | ⭐ awesome-copilot Standard | 🛡️ *Audit-ready logging conforming to European data protection standards*
+#### [`GDPR Compliance Audit (mukul975/Privacy-Data-Protection-Skills)`](https://github.com/mukul975/Privacy-Data-Protection-Skills)
+* **Workflow Timing:** 🧹 Post-Session (Privacy Cleanup & Logs) — *Pre-Publication Gate: Audits AI deliverables and data flows against GDPR Articles 5, 6, 12-23 before external release.*
+* **💡 Why Everyday People Should Care:** Releasing tools or surveys with privacy flaws creates liability. This skill audits your deliverable against GDPR rules before launch.
+* **🎯 Why Chosen:** Provides an automated pre-flight checklist for publications and web applications to prevent accidental privacy violations and legal penalties.
+* **🛠️ How to Use:** Run prior to project handoff to perform a complete compliance review and generate remediation recommendations.
+* **📊 Maturity & Trust:** `Production Stable` | ⭐ agentskills.io Standard | 🛡️ *Comprehensive open-source privacy audit procedures*
 * **Clients:** GitHub Copilot, Claude Code
 * **Target Persona:** Software Engineers, Compliance Officers, Legal Auditors
-* **Problem Solved:** Enforces audit logging and data provenance records so developers can demonstrate compliance with IP and privacy standards.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
-  git clone https://github.com/awesome-copilot/skills.git && cp -R skills/skills/gdpr-compliant .agents/skills/
+  git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/gdpr-compliance-audit ~/.claude/skills/
   ```
 
 #### [`Publish Prep Review (45ck/content-machine)`](https://github.com/45ck/content-machine)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Pre-upload gate: Blocks public release unless final artifacts, script citations, and rights metadata pass check.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Pre-upload gate: Blocks public release unless final artifacts, script citations, and rights metadata pass check.*
+* **💡 Why Everyday People Should Care:** Final checkpoint for writers: verifies external links, image rights, and sensitive topics before publishing to public channels.
 * **🎯 Why Chosen:** Implements an explicit 'fail-closed' gate. Fails publication readiness whenever source rights evidence is absent or AI-generated assets lack verifiable workflow and model hashes.
+* **🛠️ How to Use:** Trigger on final drafts to catch dead URLs, missing asset credits, and high-risk regulatory terms.
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ content-machine Harness | 🛡️ *Fail-closed public readiness check with asset-level provenance ledger*
 * **Clients:** Claude Code, Antigravity, Codex CLI
 * **Target Persona:** Content Creators, Editors, Media Production Teams
-* **Problem Solved:** Gates finalized content before human upload review, verifying final artifacts, scripts, publishing metadata, and asset provenance against a fail-closed policy.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/
   ```
 
 #### [`AI Attribution Framework (ismet55555)`](https://github.com/ismet55555/ai-attribution)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Attribution ledger: Updates local AI_ATTRIBUTION.md whenever substantive logic or text is produced.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Attribution ledger: Updates local AI_ATTRIBUTION.md whenever substantive logic or text is produced.*
+* **💡 Why Everyday People Should Care:** Generates standard AI usage disclosures complying with academic publisher guidelines (Nature, Elsevier, CRediT taxonomy).
 * **🎯 Why Chosen:** Replaces crude all-or-nothing disclaimers with a standardized 6-level creative control spectrum, enabling third parties to understand exactly what the human did vs what the AI suggested.
+* **🛠️ How to Use:** Answer prompt prompts about AI involvement to produce publisher-compliant disclosure paragraphs.
 * **📊 Maturity & Trust:** `Active Open Specification` | ⭐ AI Attribution Standard | 🛡️ *Standardized 6-level human-AI contribution spectrum ledger*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Software Engineers, Authors, Technical Writers
-* **Problem Solved:** Establishes a six-level creative control spectrum stored in a local AI_ATTRIBUTION.md file, precisely logging whether AI dictated architecture or merely assisted.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md
   ```
 
 #### [`AI Disclosure Convention SPDX-style (ggfevans)`](https://github.com/ggfevans/ai-disclosure)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 📤 Pre-Handoff — *Header tagging: Injects machine-readable SPDX-style tags directly into code comments or document frontmatter.*
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Header tagging: Injects machine-readable SPDX-style tags directly into code comments or document frontmatter.*
+* **💡 Why Everyday People Should Care:** SPDX-style machine-readable metadata format declaring AI tools used, licensing, and human validation status.
 * **🎯 Why Chosen:** Survives git rebases and file refactors. Injects lightweight, machine-readable W3C AI Content Disclosure tags directly into file headers, making attribution permanent and verifiable.
+* **🛠️ How to Use:** Run the generator to create an `AI-DISCLOSURE.md` manifest in your repository root.
 * **📊 Maturity & Trust:** `Active Specification` | ⭐ W3C-aligned Convention | 🛡️ *Language-agnostic file-level attribution convention based on W3C vocabularies*
 * **Clients:** Cursor, Antigravity, Claude Code, Copilot
 * **Target Persona:** Developers, Authors, Compliance Officers
-* **Problem Solved:** Embeds lightweight, machine-readable AI Content Disclosure tags into file header comments, ensuring provenance data survives git rebases.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/ggfevans/ai-disclosure.git .agents/skills/ai-disclosure
   ```
 
 #### [`Skill Provenance Tracker (snapsynapse)`](https://github.com/snapsynapse/skill-provenance)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 🧹 Post-Session — *Session logging: Tracks exact skill versions, tool calls, and model seeds across multi-turn sessions.*
+* **Workflow Timing:** 🧹 Post-Session (Privacy Cleanup & Logs) — *Session logging: Tracks exact skill versions, tool calls, and model seeds across multi-turn sessions.*
+* **💡 Why Everyday People Should Care:** Logs all tool invocations and skills executed during a session, creating an immutable audit trail of automated actions.
 * **🎯 Why Chosen:** Provides cryptographic traceability for complex agent executions, producing verifiable execution receipts that prove which skills touched what data.
+* **🛠️ How to Use:** Enable alongside your agent to generate a session receipt documenting every tool executed.
 * **📊 Maturity & Trust:** `Production Active` | ⭐ snapsynapse Framework | 🛡️ *Cryptographic execution and invocation ledger*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Auditors, Enterprise Researchers, System Architects
-* **Problem Solved:** Tracks skill versions, invocation contexts, and data flow across agent sessions, generating tamper-evident execution receipts for compliance review.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   git clone https://github.com/snapsynapse/skill-provenance.git .agents/skills/skill-provenance
   ```
 
 #### [`Claude Code Session Audit Protocol (lghupan)`](https://gist.github.com/lghupan/46d65f4035481ef6058d0e895bdeb73a)
-* **Type:** `SKILL.md`
-* **Workflow Timing:** 🧹 Post-Session — *Session cleanup & export: Extracts structured interaction transcripts and creates human-auditable session logs.*
+* **Workflow Timing:** 🧹 Post-Session (Privacy Cleanup & Logs) — *Session cleanup & export: Extracts structured interaction transcripts and creates human-auditable session logs.*
+* **💡 Why Everyday People Should Care:** Condenses messy multi-turn conversations into clean, verifiable audit receipts suitable for client handoffs and compliance audits.
 * **🎯 Why Chosen:** Allows everyday users to retain verifiable session prompt records without saving gigabytes of raw tokens, generating concise audit summaries ready for peer review.
+* **🛠️ How to Use:** Call after completing key tasks to extract prompt milestones, verification points, and outputs into a clean report.
 * **📊 Maturity & Trust:** `Verified Protocol Gist` | ⭐ Claude Code Community | 🛡️ *Public GitHub Gist tested on macOS/Linux session transcript extraction*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Researchers, Knowledge Workers, Professional Writers
-* **Problem Solved:** Extracts structured session transcripts and prompt history from agent storage, creating human-auditable session receipts for verifiable publication.
-* **Install / Setup:**
+* **Install Command:**
   ```bash
   curl -sL https://gist.githubusercontent.com/lghupan/46d65f4035481ef6058d0e895bdeb73a/raw -o .agents/skills/session-audit/SKILL.md
   ```
-
----
-
-## 🛑 Non-Delegable Red Lines
-
-Under no circumstances should the following decisions be blindly delegated to AI:
-* **Medical diagnosis & prescription decisions** without qualified practitioner review.
-* **Legal compliance sign-offs** and binding contractual agreements.
-* **Final personnel evaluations**, hiring rejections, and disciplinary actions.
-* **Sole-source reporting**: Publishing journalistic claims based solely on an LLM response without primary source verification.
 
 ---
 
@@ -570,4 +559,4 @@ Contributions are welcome! Please review [CONTRIBUTING.md](CONTRIBUTING.md) for 
 
 ## 📄 License
 
-[MIT](LICENSE) © 2026 Responsible AI Use Contributors
+[MIT](LICENSE) © 2026 Digital Rights for All & Responsible AI Use Contributors

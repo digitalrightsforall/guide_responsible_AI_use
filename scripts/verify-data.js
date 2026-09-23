@@ -161,6 +161,31 @@ items.forEach((item, index) => {
     console.error(`❌ ${prefix} Prompt items are forbidden. Only authentic SKILL.md entries allowed.`);
     errors++;
   }
+
+  // Validate third-party references and supporting materials
+  if (!Array.isArray(item.references) || item.references.length === 0) {
+    console.error(`❌ ${prefix} 'references' must be a non-empty array of third-party evidence items`);
+    errors++;
+  } else {
+    const allowedRefTypes = ['blog', 'report', 'catalog_inclusion', 'community_review'];
+    item.references.forEach((ref, refIdx) => {
+      const refPrefix = `${prefix} Reference #${refIdx + 1}`;
+      if (!allowedRefTypes.includes(ref.type)) {
+        console.error(`❌ ${refPrefix} Invalid reference type '${ref.type}'. Allowed: ${allowedRefTypes.join(', ')}`);
+        errors++;
+      }
+      if (!ref.url || !ref.url.startsWith('http')) {
+        console.error(`❌ ${refPrefix} Invalid reference url: ${ref.url}`);
+        errors++;
+      }
+      ['source', 'title_zh', 'title_en', 'takeaway_zh', 'takeaway_en'].forEach((k) => {
+        if (!ref[k] || ref[k].trim() === '') {
+          console.error(`❌ ${refPrefix} Missing or empty field: ${k}`);
+          errors++;
+        }
+      });
+    });
+  }
 });
 
 if (errors > 0) {

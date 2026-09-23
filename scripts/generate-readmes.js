@@ -118,6 +118,13 @@ function generateReadmeEn() {
       md += `* **Clients:** ${item.clients.join(', ')}\n`;
       md += `* **Target Persona:** ${item.target_persona}\n`;
 
+      if (item.references && item.references.length > 0) {
+        md += `* **📚 Third-Party Evaluations & Evidence:**\n`;
+        item.references.forEach((ref) => {
+          md += `  - [${ref.source}: ${ref.title_en}](${ref.url}) — *${ref.takeaway_en}*\n`;
+        });
+      }
+
       if (item.action_content) {
         md += `* **Install Command:**\n`;
         md += `  \`\`\`bash\n  ${item.action_content}\n  \`\`\`\n\n`;
@@ -186,6 +193,13 @@ function generateReadmeCn() {
       md += `* **📊 成熟度与可信背书：** \`${item.status.stage}\` | ⭐ ${item.status.adoption} | 🛡️ *${item.status.trust_source}*\n`;
       md += `* **适用客户端：** ${item.clients.join('、')}\n`;
       md += `* **适用人群：** ${item.target_persona}\n`;
+
+      if (item.references && item.references.length > 0) {
+        md += `* **📚 第三方评价与实证材料：**\n`;
+        item.references.forEach((ref) => {
+          md += `  - [${ref.source}：${ref.title_zh}](${ref.url}) — *${ref.takeaway_zh}*\n`;
+        });
+      }
 
       if (item.action_content) {
         md += `* **安装命令：**\n`;

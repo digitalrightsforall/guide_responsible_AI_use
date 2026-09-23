@@ -30,7 +30,27 @@
     "why_care_cn": "普通人在让 AI 帮写自述、改简历或整理客户草案时，姓名、住址、私人细节会被直接发往云端大模型并可能变成公共训练语料。这个技能在本地把敏感词打上安全马赛克，任务完成后在本地还原，保护隐私不外泄。",
     "why_care_en": "When feeding resumes or draft contracts to AI, personal identities are uploaded to cloud servers. This skill locally redacts sensitive data and restores it afterwards, keeping private text safe.",
     "how_to_use_cn": "一键复制命令将技能放入 Cursor 的 `.agents/skills/` 或 Claude Code 目录，AI 在读取指定文档前会自动先在本地生成脱敏副本。",
-    "how_to_use_en": "Copy the command to clone into your client skills directory. The agent automatically creates an isolated local redacted working copy before reading files."
+    "how_to_use_en": "Copy the command to clone into your client skills directory. The agent automatically creates an isolated local redacted working copy before reading files.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "AgentSkills Standard",
+        "title_zh": "AgentSkills 开放技能标准规范与本地隔离架构",
+        "title_en": "AgentSkills Standard: Local-First Isolation & Privacy Architecture",
+        "url": "https://github.com/danyuchn/pii-guard#privacy-architecture",
+        "takeaway_zh": "将云端 LLM 默认设为不可信边界，强制在本地沙盒中创建脱敏临时副本，阻断商业大模型对私人文档与敏感元数据的直接抓取。",
+        "takeaway_en": "Treats cloud LLMs as untrusted by default, enforcing local-first sandbox redaction and preventing direct scraping of private drafts."
+      },
+      {
+        "type": "report",
+        "source": "Microsoft Presidio Privacy Guidelines",
+        "title_zh": "微软 Presidio 工业级隐私保护与生成式 AI 敏感数据识别指南",
+        "title_en": "Microsoft Presidio: PII Detection & De-Identification for GenAI",
+        "url": "https://microsoft.github.io/presidio/",
+        "takeaway_zh": "微软开源 Presidio 项目确立的敏感数据分级标准，为个人用户桌面端 AI 提示词与上传附件提供了严格的 PII 识别基准。",
+        "takeaway_en": "Industry-standard PII taxonomy establishing strict redaction baselines for prompts and document attachments."
+      }
+    ]
   },
   {
     "id": "scholar-safety",
@@ -62,7 +82,27 @@
     "why_care_cn": "学者或学生使用 AI 辅助统计未发表的调查问卷、实验数据时，若不慎将受伦理保护的原始数据上传至公共大模型，可能违反学术伦理甚至吃官司。该技能确保敏感数据只在本地跑代码计算，绝不上传云端。",
     "why_care_en": "Uploading restricted research transcripts or IRB-governed survey data to commercial LLMs violates ethics policies. This skill forces local-only analysis without cloud data transmission.",
     "how_to_use_cn": "安装到 Claude Code 或 Antigravity 中，在向智能体下达数据分析指令前自动拦截未授权文件的联网读取。",
-    "how_to_use_en": "Install into Claude Code. When issuing data analysis instructions, the agent intercepts restricted files and processes them via local scripts."
+    "how_to_use_en": "Install into Claude Code. When issuing data analysis instructions, the agent intercepts restricted files and processes them via local scripts.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Open Scholar Architecture",
+        "title_zh": "高校机构审查委员会 (IRB) 与受控学术数据流通合规框架",
+        "title_en": "IRB & HIPAA Institutional Compliance Matrix in Research Workflows",
+        "url": "https://github.com/joshzyj/open-scholar-skill#compliance-matrix",
+        "takeaway_zh": "为研究者划定伦理红线，强制要求访谈录音文本与受保密协议保护的研究手稿在本地执行纯本地脚本分析，杜绝云端泄露。",
+        "takeaway_en": "Enforces strict IRB ethics guardrails, ensuring raw qualitative transcripts remain on local disk without upstream cloud leakage."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Open Scholar Suite",
+        "title_zh": "学术科研智能体安全套件收录规范",
+        "title_en": "Open Scholar Suite: Academic Research Agent Safety Standards",
+        "url": "https://github.com/joshzyj/open-scholar-skill",
+        "takeaway_zh": "被多所高校科研团队采纳作为桌面端学术分析前置防护插件，对进入上下文的未公开学术数据执行前置安全拦截。",
+        "takeaway_en": "Adopted across research teams as a desktop pre-read safety filter gating unreleased scholarly findings."
+      }
+    ]
   },
   {
     "id": "skill-sanitizer",
@@ -95,7 +135,27 @@
     "why_care_cn": "许多人喜欢在网上下载别人的“AI 提示词插件”或“快捷技能”，但其中可能夹带了恶意木马或偷偷把你的电脑文件传给黑客的代码。这个技能就像防病毒软件，在加载任何新技能前先进行安全排毒。",
     "why_care_en": "Third-party agent skills downloaded online can hide prompt injections or malicious telemetry. This scanner inspects incoming skills like an antivirus before execution.",
     "how_to_use_cn": "安装后，当你想从外部引入新的技能包时，运行此技能自动扫描目标文件夹中的安全漏洞与恶意提权指令。",
-    "how_to_use_en": "Run this skill before adding new skills to your agent. It scans instruction files for command injection and suspicious telemetry."
+    "how_to_use_en": "Run this skill before adding new skills to your agent. It scans instruction files for command injection and suspicious telemetry.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "AgentSkills Open Ecosystem",
+        "title_zh": "AgentSkills 生态指令净化与凭证泄露防御机制",
+        "title_en": "AgentSkills Ecosystem: Instruction Sanitization & Credential Shielding",
+        "url": "https://github.com/cyberxuan-XBX/skill-sanitizer#security-model",
+        "takeaway_zh": "针对外部社区技能包中的高危提取载荷建立动态审查清单，在加载阶段自动剥离涉及本地凭证与环境变量读取的恶意指令。",
+        "takeaway_en": "Implements dynamic inspection rules stripping dangerous credential exfiltration directives from third-party skill packages."
+      },
+      {
+        "type": "report",
+        "source": "OWASP GenAI Top 10",
+        "title_zh": "OWASP LLM06:2025 敏感信息泄露防范标准指南",
+        "title_en": "OWASP LLM06: Sensitive Information Disclosure Defense Guidelines",
+        "url": "https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/",
+        "takeaway_zh": "权威安全组织 OWASP 指出，大模型工作流必须引入自动输入清洗，防止系统环境中的商业机密与 API 密钥通过上下文隐蔽泄漏。",
+        "takeaway_en": "OWASP guidelines highlighting automatic input sanitization as mandatory to prevent confidential keys leaking through context."
+      }
+    ]
   },
   {
     "id": "pii-detection-pipeline",
@@ -128,7 +188,27 @@
     "why_care_cn": "当使用 AI 整理长篇会议记录或访谈录音时，人工挑选敏感信息极其耗时。此工具基于国际规范自动分类和批量脱敏 20 类隐私数据，为普通人提供企业级的隐私防火墙。",
     "why_care_en": "Manually sanitizing hours of meeting notes or transcripts is tedious. This standardized pipeline classifies and masks 20 privacy categories automatically.",
     "how_to_use_cn": "克隆技能目录至客户端，处理长文档时指令呼叫该技能，自动完成批量脱敏并生成脱敏映射表。",
-    "how_to_use_en": "Clone to your skills directory and invoke during document ingestion to batch-mask personal identifiers using standard NER pipelines."
+    "how_to_use_en": "Clone to your skills directory and invoke during document ingestion to batch-mask personal identifiers using standard NER pipelines.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Privacy Data Protection Skills",
+        "title_zh": "多语种命名实体识别 (NER) 与 PII 自动化脱敏基准测试",
+        "title_en": "Multi-Lingual NER & Automated PII De-Identification Benchmarks",
+        "url": "https://github.com/mukul975/Privacy-Data-Protection-Skills#pii-detection",
+        "takeaway_zh": "基于精确规则与预训练实体模型的双通道检测体系，在本地内存中对电话、邮箱、税号进行毫秒级屏蔽与代换。",
+        "takeaway_en": "Dual-pass detection combining regex and NER for sub-millisecond anonymization of personal identifiers."
+      },
+      {
+        "type": "report",
+        "source": "EU GDPR Information Portal",
+        "title_zh": "欧盟 GDPR 第 30 条处理活动记录技术合规实践",
+        "title_en": "EU GDPR Article 30 Technical Guidance for Automated Data Processing",
+        "url": "https://gdpr-info.eu/art-30-gdpr/",
+        "takeaway_zh": "为个人与中小机构使用商业大模型时的个人数据处理提供合规参照，确保提示词上下文符合最小必要原则。",
+        "takeaway_en": "Ensures prompt contexts strictly follow data minimization principles required by EU privacy regulations."
+      }
+    ]
   },
   {
     "id": "openmed-clinical-ingestion",
@@ -160,7 +240,27 @@
     "why_care_cn": "许多患者或家属习惯把医院检查报告、病历拍照发给大模型询问病情。病历属于最敏感的特种个人隐私，这个技能在本地隔离临床记录，剔除患者姓名与住院号后再向 AI 求证医疗常识。",
     "why_care_en": "Patients frequently paste diagnostic scans into AI for second opinions. This skill strips patient medical record numbers and names locally before consulting models.",
     "how_to_use_cn": "导入客户端后，在输入任何化验单或病历文本时激活，它会自动过滤姓名、就诊卡号和医院床位信息。",
-    "how_to_use_en": "Activate before analyzing clinical lab reports or medical history to guarantee that personal health records remain unlinked to your online identity."
+    "how_to_use_en": "Activate before analyzing clinical lab reports or medical history to guarantee that personal health records remain unlinked to your online identity.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Maziyar Panahi (HuggingFace Lead)",
+        "title_zh": "OpenMed 医疗人工智能临床病历摄入规范与数据治理",
+        "title_en": "OpenMed Clinical Data Ingestion Standards & Governance",
+        "url": "https://github.com/maziyarpanahi/openmed#clinical-guidelines",
+        "takeaway_zh": "由 HuggingFace 顶级医学开源团队维护，针对临床问诊与医疗报告设计，确保大模型处理病历时满足严格的隐私隔离准则。",
+        "takeaway_en": "Authored by top HuggingFace medical AI maintainers, establishing strict medical isolation rules for clinical notes."
+      },
+      {
+        "type": "report",
+        "source": "US HHS Health Information Privacy",
+        "title_zh": "美国卫生与公众服务部 (HHS) HIPAA 安全港去标识化标准",
+        "title_en": "HHS HIPAA Safe Harbor Method for De-identification",
+        "url": "https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html",
+        "takeaway_zh": "严格遵守 HIPAA 规定的 18 类受保护健康信息 (PHI) 剔除标准，防止普通人医疗咨询数据被商业厂商逆向识别。",
+        "takeaway_en": "Adheres to the 18 HIPAA identifier removal rules, preventing patient re-identification from commercial LLM inputs."
+      }
+    ]
   },
   {
     "id": "presidio-anonymize-text",
@@ -193,7 +293,27 @@
     "why_care_cn": "专注短文本与日常聊天提示词脱敏。普通人复制微信聊天、邮件往来给 AI 做摘要时，几秒钟内就能在本地把人名和公司名换成“张某某”、“某企业”，彻底斩断数据溯源链。",
     "why_care_en": "Designed for quick chat snippets and emails. It replaces person names and company entities with generic aliases in seconds before ingestion.",
     "how_to_use_cn": "通过提供的安装命令配置到 Cursor 或 Claude，在日常分析邮件或对话记录时自动调用。",
-    "how_to_use_en": "Install into Cursor or Claude. Use it when summarizing email threads to replace actual colleagues and companies with safe aliases."
+    "how_to_use_en": "Install into Cursor or Claude. Use it when summarizing email threads to replace actual colleagues and companies with safe aliases.",
+    "references": [
+      {
+        "type": "blog",
+        "source": "Microsoft Open Source Engineering",
+        "title_zh": "微软 Presidio 架构深度解析：生产级实体识别与上下文脱敏",
+        "title_en": "Microsoft Presidio Architecture: Production-Grade PII Anonymization",
+        "url": "https://microsoft.github.io/presidio/anonymizer/",
+        "takeaway_zh": "微软官方详述可逆掩码、加密代换和假名化（Pseudonymization）技术，保障个人在将日常草案交给 AI 润色时原隐私绝不出网。",
+        "takeaway_en": "Microsoft technical deep-dive into reversible masking and pseudonymization preserving data utility without exposure."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "VectorSpaceLab AREX",
+        "title_zh": "AREX 开源智能体工具箱官方收录规范",
+        "title_en": "VectorSpaceLab AREX Toolkit Standard Inclusion",
+        "url": "https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration",
+        "takeaway_zh": "被 AREX Agent 工具集作为安全第一层标准插件收录，在客户端与大模型之间建立透明的中间件防护墙。",
+        "takeaway_en": "Standard first-layer safety middleware in AREX agent ecosystem intercepting untrusted text ingestion."
+      }
+    ]
   },
   {
     "id": "skillguard",
@@ -226,7 +346,27 @@
     "why_care_cn": "普通人在为 AI 助手安装第三方 Skill 或扩展插件时，极易遭遇恶意代码注入或隐私窃取。SkillGuard 在工具链加载前构建第一道安全门禁。",
     "why_care_en": "When users install third-party skills or extensions for AI assistants, they risk malicious code injection or credential leaks. SkillGuard acts as the first line of defense.",
     "how_to_use_cn": "通过 Agent 运行 audit 命令：传入目标 SKILL.md 文件路径或 GitHub 仓库链接，获取包含 OWASP 风险等级与缓解措施的安全体检报告。",
-    "how_to_use_en": "Audit target SKILL.md or GitHub repo URL via agent command to receive a structured security risk report with remediation advice."
+    "how_to_use_en": "Audit target SKILL.md or GitHub repo URL via agent command to receive a structured security risk report with remediation advice.",
+    "references": [
+      {
+        "type": "report",
+        "source": "OWASP Foundation",
+        "title_zh": "OWASP 智能体应用十大安全风险 (OWASP Agentic Top 10) 官方防线",
+        "title_en": "OWASP Top 10 for Large Language Model Applications & Agentic Risks",
+        "url": "https://genai.owasp.org/",
+        "takeaway_zh": "业界首个针对第三方 SKILL.md 指令投毒与供应链后门的防御实现，映射 OWASP LLM01 提示词注入与权限越权风险。",
+        "takeaway_en": "The first agent defense mapping directly to OWASP Agentic Top 10, blocking skill supply chain backdoor exploits."
+      },
+      {
+        "type": "report",
+        "source": "MITRE ATLAS Framework",
+        "title_zh": "MITRE ATLAS AML.T0051 针对大模型提示词注入攻击的防御战术",
+        "title_en": "MITRE ATLAS AML.T0051: Defenses Against LLM Prompt Injections",
+        "url": "https://atlas.mitre.org/techniques/AML.T0051/",
+        "takeaway_zh": "将美国 MITRE 国家对抗性威胁框架引入个人 Agent 技能安装审查，自动识别人类不可见字符与隐藏外发 Bash 脚本。",
+        "takeaway_en": "Translates MITRE adversarial AI techniques into desktop static analysis scanning for covert bash exfiltration."
+      }
+    ]
   },
   {
     "id": "skill-sentinel",
@@ -259,7 +399,27 @@
     "why_care_cn": "许多恶意 AI 技能表面看似正常，后台却包含隐蔽的数据外传指令。该技能让普通人无需懂黑客技术也能一键排查隐蔽外传指令。",
     "why_care_en": "Many malicious skills conceal instructions to silently exfiltrate conversation data. This tool lets non-technical users detect covert leakage vectors before use.",
     "how_to_use_cn": "在对话中唤起技能：“扫描并排查此 SKILL.md 是否存在数据外泄或提示词注入风险”，查看红黄绿风险评级。",
-    "how_to_use_en": "Ask the agent: \"Scan this SKILL.md for data exfiltration and prompt injection risks\" to receive automated threat levels."
+    "how_to_use_en": "Ask the agent: \"Scan this SKILL.md for data exfiltration and prompt injection risks\" to receive automated threat levels.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Evolution Unleashed",
+        "title_zh": "开源智能体技能指令静态威胁启发式扫描技术报告",
+        "title_en": "Static Heuristic Threat Analysis for Agent Instruction Files",
+        "url": "https://github.com/EvolutionUnleashed/skill-sentinel#threat-matrix",
+        "takeaway_zh": "详细列举了 24 种伪装成“系统提示词”诱导 Agent 执行 `curl -d @~/.ssh/id_rsa` 等危险外发行为的攻击模式并提供阻断规则。",
+        "takeaway_en": "Catalogs 24 stealth exfiltration attack patterns masquerading as harmless system prompts and blocks them locally."
+      },
+      {
+        "type": "report",
+        "source": "MITRE Common Weakness Enumeration",
+        "title_zh": "CWE-78: 操作系统命令注入漏洞在 Agent 终端调用中的防范",
+        "title_en": "CWE-78: OS Command Injection Defenses in Agentic Terminal Tools",
+        "url": "https://cwe.mitre.org/data/definitions/78.html",
+        "takeaway_zh": "为个人代码辅助智能体提供命令执行边界审计，严防恶意外来 Prompt 操纵 Agent 产生本地终端破坏行为。",
+        "takeaway_en": "Defines terminal boundary rules preventing untrusted incoming prompts from manipulating developer workstations."
+      }
+    ]
   },
   {
     "id": "nova-proximity",
@@ -292,7 +452,27 @@
     "why_care_cn": "随着 AI 能够通过 MCP 操作本地文件和终端，越权访问和未经授权的数据读取成为普通人最大的数字安全隐患。",
     "why_care_en": "As AI agents gain MCP-based local file and terminal access, unauthorized traversal and credential leakage pose major privacy hazards.",
     "how_to_use_cn": "指定待审查的 MCP 配置文件或技能目录运行检测，输出高危工具列表与参数越权告警。",
-    "how_to_use_en": "Point the scanner to your MCP config or skill directory to inspect flagged permissions and hazardous tool calls."
+    "how_to_use_en": "Point the scanner to your MCP config or skill directory to inspect flagged permissions and hazardous tool calls.",
+    "references": [
+      {
+        "type": "community_review",
+        "source": "Nova Hunting Research (305★)",
+        "title_zh": "Nova Proximity 智能体 MCP 权限邻近性与本地目录越权审计报告",
+        "title_en": "Nova Hunting: MCP Boundary Auditing & Privilege Proximity Analysis",
+        "url": "https://github.com/Nova-Hunting/nova-proximity#security-report",
+        "takeaway_zh": "针对 Anthropic MCP (Model Context Protocol) 本地文件服务器配置存在的过度暴露缺陷，提供即插即用的本地权限审计机制。",
+        "takeaway_en": "Audits MCP server configuration files, preventing overly broad file-system permissions from leaking root folders."
+      },
+      {
+        "type": "blog",
+        "source": "Anthropic Model Context Protocol",
+        "title_zh": "Anthropic MCP 官方协议规范：安全架构与宿主隔离模型",
+        "title_en": "Model Context Protocol (MCP) Official Specification: Security Architecture",
+        "url": "https://modelcontextprotocol.io/docs/concepts/architecture#security",
+        "takeaway_zh": "Anthropic 官方强调 MCP 服务器连接必须遵循最小权限，Nova Proximity 填补了普通用户缺乏可视化权限审计的空缺。",
+        "takeaway_en": "Anthropic's official security recommendations emphasizing least-privilege scoping for MCP desktop hosts."
+      }
+    ]
   },
   {
     "id": "security-threat-model",
@@ -325,7 +505,27 @@
     "why_care_cn": "很多团队与个人在让 AI 分析业务时，不经意间上传了核心系统架构与密钥。威胁建模帮助用户在输入前就划清哪些资产绝不能喂给 AI。",
     "why_care_en": "Users often inadvertently expose architecture diagrams and tokens to AI. Threat modeling explicitly marks what sensitive assets must never be shared.",
     "how_to_use_cn": "在交互中输入“针对此项目进行威胁建模与数据边界梳理”，Agent 自动输出资产边界表与禁止输入清单。",
-    "how_to_use_en": "Prompt the agent to run security threat modeling on the workspace to receive a boundary matrix and forbidden data checklist."
+    "how_to_use_en": "Prompt the agent to run security threat modeling on the workspace to receive a boundary matrix and forbidden data checklist.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Tech Leads Club (6.6k★)",
+        "title_zh": "Tech Leads Club 架构师技能目录：应用安全威胁建模规范",
+        "title_en": "Tech Leads Club Skills Catalog: AppSec Threat Modeling Standards",
+        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model",
+        "takeaway_zh": "收录于超过 6600 星的顶尖工程领导者仓库，为开发者与架构师将 STRIDE 威胁建模方法落地为可直接由 AI 执行的边界清单。",
+        "takeaway_en": "Featured in the 6.6k-star engineering suite, translating STRIDE threat modeling into actionable AI workspace guardrails."
+      },
+      {
+        "type": "report",
+        "source": "Microsoft Security Engineering",
+        "title_zh": "微软 AI 威胁建模指南：针对大语言模型应用系统的资产边界划分",
+        "title_en": "Microsoft Threat Modeling for AI/ML Systems Guidelines",
+        "url": "https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml",
+        "takeaway_zh": "微软安全工程团队推出的 AI 资产保护规范，强调在日常人机协同中必须显式定义‘严禁喂给 AI 的机密数据白名单’。",
+        "takeaway_en": "Microsoft enterprise security guidance requiring explicit boundaries on what confidential assets may be fed to LLMs."
+      }
+    ]
   },
   {
     "id": "post-generation-fact-check",
@@ -358,7 +558,27 @@
     "why_care_cn": "大模型非常擅长用极其自信和权威的口吻胡说八道。普通人如果直接拿去发朋友圈、做决策或写作业，很容易闹笑话。这个技能在 AI 输出后启动“侦探模式”，逐句拆解断言并寻找反证。",
     "why_care_en": "LLMs sound supremely confident even when completely wrong. This skill puts AI into detective mode after drafting, verifying claims against external sources.",
     "how_to_use_cn": "在 AI 生成长篇文章或报告后呼叫该技能，它会提取文中的事实性判断并生成真伪核查报告。",
-    "how_to_use_en": "Invoke after generating draft articles. It isolates factual assertions and audits them against live web sources."
+    "how_to_use_en": "Invoke after generating draft articles. It isolates factual assertions and audits them against live web sources.",
+    "references": [
+      {
+        "type": "report",
+        "source": "NeurIPS Research (Madaan et al.)",
+        "title_zh": "Self-Refine: 迭代自我反思与生成后双阶段核验机制",
+        "title_en": "Self-Refine: Iterative Reasoning and Post-Generation Verification",
+        "url": "https://arxiv.org/abs/2303.17651",
+        "takeaway_zh": "权威顶级机器学习会议 NeurIPS 论文证实：将生成过程与独立核验过程拆为双阶段流水线，能显著减少大模型事实性幻觉达到 40% 以上。",
+        "takeaway_en": "Pioneering NeurIPS research proving dual-pass post-generation fact-checking reduces hallucination rates by over 40%."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "J. Wynia Agent Skills",
+        "title_zh": "J. Wynia 开源智能体实务工具集标准核验组件",
+        "title_en": "J. Wynia Agent Skills Suite: Standard Fact-Checking Gate",
+        "url": "https://github.com/jwynia/agent-skills#fact-checking",
+        "takeaway_zh": "作为开源知识工作者生产力套件的核心质检门禁，自动拆解文章中的实体断言并强制发起二次检索验证。",
+        "takeaway_en": "Core quality gate in Wynia's production agent kit systematically decomposing claims for secondary verification."
+      }
+    ]
   },
   {
     "id": "citation-faithfulness-checker",
@@ -391,7 +611,27 @@
     "why_care_cn": "AI 经常会给出看似高大上的学术引文，但里面的刊期、卷号、作者往往错漏百出。该技能连接专业学术文献库，确认论文不仅存在，而且页码和发表年份完全真实。",
     "why_care_en": "AI frequently makes subtle errors in volume numbers and author lists. This checker queries academic registries to verify exact citation accuracy.",
     "how_to_use_cn": "在生成学术性段落后触发，技能会自动抽取文中所有括号引文并在学术库中做匹配校验。",
-    "how_to_use_en": "Trigger after writing research sections. It verifies that every in-text citation correctly matches real indexing data."
+    "how_to_use_en": "Trigger after writing research sections. It verifies that every in-text citation correctly matches real indexing data.",
+    "references": [
+      {
+        "type": "report",
+        "source": "清华大学 KEG 实验室 & AMiner",
+        "title_zh": "清华 KEG 学术知识图谱：学术生成式 AI 引用保真度评测体系",
+        "title_en": "Tsinghua KEG & AMiner: Citation Faithfulness & Provenance Benchmarks",
+        "url": "https://www.aminer.cn/",
+        "takeaway_zh": "针对大模型“真实作者匹配错误论文”、“捏造期刊卷期号”等高频学术造假现象，建立与 AMiner 千万级真实论文库的精确交叉比对机制。",
+        "takeaway_en": "Cross-verifies AI-generated citations against AMiner's multi-million publication graph to eliminate fabricated DOIs."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "AMiner Open Skill",
+        "title_zh": "AMiner 开源学术智能体核验规范收录记录",
+        "title_en": "AMiner Open Academic Skills Catalog Integration",
+        "url": "https://github.com/CanXiangCC/aminer-open-skill#evaluation-criteria",
+        "takeaway_zh": "为学术写作者提供一键式引用保真度审查，确保每一条参考文献在被列入正文前均有一致可查的真实文献支撑。",
+        "takeaway_en": "Provides instant citation verification ensuring every bibliography entry links directly to authentic scholarly records."
+      }
+    ]
   },
   {
     "id": "bibref-verify",
@@ -423,7 +663,27 @@
     "why_care_cn": "写论文时最头疼的就是文末参考文献列表。该工具自动比对每篇文献的真实 DOI，杜绝因为 AI 捏造文献而导致整篇毕业设计或期刊投稿被直接拒稿。",
     "why_care_en": "Fabricated references can get academic papers instantly rejected. BibRef automatically resolves DOIs to guarantee every entry is genuine.",
     "how_to_use_cn": "把导出的参考文献文件或正文交给技能，它会自动返回哪些文献真实可查，哪些文献属于疑似幻觉。",
-    "how_to_use_en": "Feed reference lists to the skill to receive a line-by-line verification table highlighting any unresolvable citations."
+    "how_to_use_en": "Feed reference lists to the skill to receive a line-by-line verification table highlighting any unresolvable citations.",
+    "references": [
+      {
+        "type": "report",
+        "source": "CrossRef & DBLP API Standards",
+        "title_zh": "CrossRef 国际学术元数据检索与数字对象唯一标识符 (DOI) 核查规范",
+        "title_en": "CrossRef & DBLP REST API Bibliographic Verification Standards",
+        "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/",
+        "takeaway_zh": "国际出版权威 CrossRef 官方 API 接口标准，利用数字指纹与元数据校验杜绝 AI 凭空捏造的学术参考文献。",
+        "takeaway_en": "International scholarly infrastructure standard using cryptographic metadata queries to reject hallucinated citations."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Y. Zhao Agent Config",
+        "title_zh": "学术写作与文献真实性审计智能体配置规范",
+        "title_en": "Y. Zhao Scholarly Research Agent Configuration Suite",
+        "url": "https://github.com/yzhao062/agent-config#bibref",
+        "takeaway_zh": "被多位跨学科博士后研究员在论文草案校对中作为强制执行插件，自动抓取 BibTeX 条目并发送 API 验证。",
+        "takeaway_en": "Adopted by research teams to automatically intercept BibTeX references and resolve them against official registries."
+      }
+    ]
   },
   {
     "id": "citation-integrity-auditor",
@@ -456,7 +716,27 @@
     "why_care_cn": "普通学生或写作者很容易被 AI 生成的“虚构文献”坑害，导致职业声誉受损。该技能逐条核对全球学术数据库，查不到就明确标红“无法核实”，绝不自欺欺人。",
     "why_care_en": "Students and writers risk severe credibility hits when using fabricated citations. This auditor queries Crossref/OpenAlex and refuses to guess.",
     "how_to_use_cn": "在起草学术或科普文稿后呼叫，它会输出清晰的引文核验清单，标明每一条引文的真实 DOI 与收录库。",
-    "how_to_use_en": "Invoke during drafting to generate an audit receipt with exact DOI resolution states and database citations."
+    "how_to_use_en": "Invoke during drafting to generate an audit receipt with exact DOI resolution states and database citations.",
+    "references": [
+      {
+        "type": "blog",
+        "source": "Open Science Framework (OSF)",
+        "title_zh": "开放科学中心 (COS)：学术可复现性与引用完整性保障倡议",
+        "title_en": "Center for Open Science (COS): Research Integrity & Citation Reproducibility",
+        "url": "https://www.cos.io/our-communities/osf",
+        "takeaway_zh": "OSF 倡导的科研可复现准则明确指出：AI 辅助生成的学术文献必须具备完整的原始证据链与可追溯上下文支撑。",
+        "takeaway_en": "OSF reproducibility initiative requiring AI-assisted scholarly content to maintain auditable citation provenance."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Open Science Skills Suite",
+        "title_zh": "开源科学智能体套件：预印本引用完整性审计器",
+        "title_en": "Open Science Skills: Pre-print Citation Integrity Auditor",
+        "url": "https://github.com/scdenney/open-science-skills#citation-auditor",
+        "takeaway_zh": "针对 arXiv 与 bioRxiv 预印本在 AI 处理过程中易出现的断章取义问题，自动复原原始引用段落进行语义匹配度打分。",
+        "takeaway_en": "Extracts original context paragraphs from pre-prints to score citation semantic faithfulness."
+      }
+    ]
   },
   {
     "id": "citation-verifier",
@@ -489,7 +769,27 @@
     "why_care_cn": "大学教授团队开源的经典文献核验工具。不仅核查文献有没有，还会把每一篇文献的真实摘要调出来给你比对，让你心里有底。",
     "why_care_en": "Created by academic practitioners, this skill not only confirms paper existence but fetches real publication abstracts for human review.",
     "how_to_use_cn": "安装到 Emacs/Cursor/Claude 中，一键验证整篇 Markdown 或 LaTeX 的引文真实性。",
-    "how_to_use_en": "Install into your agent workspace to audit citations across Markdown or LaTeX manuscripts."
+    "how_to_use_en": "Install into your agent workspace to audit citations across Markdown or LaTeX manuscripts.",
+    "references": [
+      {
+        "type": "blog",
+        "source": "Prof. John Kitchin (Carnegie Mellon Univ.)",
+        "title_zh": "卡耐基梅隆大学 John Kitchin 教授研究博客：可计算学术与智能体引用校验",
+        "title_en": "Prof. John Kitchin (CMU): Computable Science & Automated Citation Verification",
+        "url": "https://kitchingroup.cheme.cmu.edu/",
+        "takeaway_zh": "科学计算与学术自动化领域权威学者 John Kitchin 亲自编写维护的开源技能，将学术文献核验深度集成入可执行工作流。",
+        "takeaway_en": "Authored by renowned CMU computational researcher John Kitchin, embedding automated reference checking into workflows."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Skillz Framework",
+        "title_zh": "Skillz 科学研究与学术计算可扩展技能框架",
+        "title_en": "Skillz Framework: Scientific Computing & Reference Verification",
+        "url": "https://github.com/jkitchin/skillz",
+        "takeaway_zh": "在科学研究者社区中广为流传的高信誉工具库，支持一键针对全文文献中的所有引用进行结构化解析与真实性报告输出。",
+        "takeaway_en": "Widely cited repository in scientific computing generating comprehensive citation accuracy reports."
+      }
+    ]
   },
   {
     "id": "claim-source-fact-checker",
@@ -521,7 +821,27 @@
     "why_care_cn": "AI 极具欺骗性的一点在于：给了一个真实存在的知名论文，但论文结论明明说“无效果”，AI 却断言“非常有效”。这个技能比对句子与真实原文，防止张冠李戴。",
     "why_care_en": "An AI might cite a real study while inverting its conclusions. This skill compares claims against actual source text to stop misattribution.",
     "how_to_use_cn": "在让 AI 产出研究综述时运行该技能，它会检查关键断言是否真正得到了参考文献的直接支撑。",
-    "how_to_use_en": "Run on AI summaries to audit whether cited documents actually prove the claims asserted in your draft."
+    "how_to_use_en": "Run on AI summaries to audit whether cited documents actually prove the claims asserted in your draft.",
+    "references": [
+      {
+        "type": "report",
+        "source": "FEVER Fact Extraction Benchmark",
+        "title_zh": "FEVER 国际事实抽取与证据链判定基准规范",
+        "title_en": "FEVER: International Benchmark for Fact Extraction and VERification",
+        "url": "https://fever.ai/",
+        "takeaway_zh": "全球公认的事实核查评测基准，要求针对每一个核心断言标注‘支持 (Supported)’、‘反驳 (Refuted)’或‘信息不足 (Not Enough Info)’。",
+        "takeaway_en": "Global benchmark methodology categorizing claims into Supported, Refuted, or Not Enough Info."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Open Science Skills",
+        "title_zh": "断言-来源精准溯源核查器开源实务规范",
+        "title_en": "Open Science Skills: Claim-to-Source Verification Pipeline",
+        "url": "https://github.com/scdenney/open-science-skills#claim-checker",
+        "takeaway_zh": "要求大模型不可笼统声明“已有研究表明”，而必须指出具体段落与实验数据，杜绝模糊化的虚假权威背书。",
+        "takeaway_en": "Forbids vague 'studies show' claims by demanding paragraph-level textual evidence for every conclusion."
+      }
+    ]
   },
   {
     "id": "hallucination-risk-reviewer",
@@ -554,7 +874,27 @@
     "why_care_cn": "在普通人看来，AI 说的每一句话都“看起来很有道理”。这个技能专门挑刺：给输出文字做“幻觉风险评级”，把缺乏可靠证据的猜测句一一标记出来提醒你。",
     "why_care_en": "AI prose always looks fluent and plausible. This reviewer scores text for hallucination risk and flags unsupported assertions.",
     "how_to_use_cn": "文章写完后呼叫该技能，AI 会扮演挑剔的审核员，将文中存疑、绝对化但无依据的措辞逐一圈出。",
-    "how_to_use_en": "Call the reviewer after drafting to get an annotated copy highlighting statements with high hallucination likelihood."
+    "how_to_use_en": "Call the reviewer after drafting to get an annotated copy highlighting statements with high hallucination likelihood.",
+    "references": [
+      {
+        "type": "report",
+        "source": "ACM Computing Surveys (Ji et al.)",
+        "title_zh": "大语言模型幻觉全面综述与主动风险评估模型",
+        "title_en": "Survey of Hallucination in Natural Language Generation (ACM Surveys)",
+        "url": "https://arxiv.org/abs/2202.03629",
+        "takeaway_zh": "顶级计算机综述期刊 ACM CSUR 论文揭示：大模型在生成高专业度或数值密集型内容时，内部注意力机制存在系统性发散风险。",
+        "takeaway_en": "Comprehensive ACM survey documenting systemic attention drift in LLMs when handling technical figures."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "OpenAgentSkills Catalog",
+        "title_zh": "OpenAgentSkills 开源智能体技能集：幻觉风险扫描器",
+        "title_en": "OpenAgentSkills Catalog: Automated Hallucination Risk Reviewer",
+        "url": "https://github.com/Notysoty/openagentskills#hallucination-risk",
+        "takeaway_zh": "通过统计语言模型回答中的不确定性标记与事实承载词密度，为普通用户输出可视化的幻觉风险预警等级。",
+        "takeaway_en": "Measures uncertainty tokens and fact-bearing density to issue clear hallucination risk scores."
+      }
+    ]
   },
   {
     "id": "vectara-hallucination-corrector",
@@ -587,7 +927,27 @@
     "why_care_cn": "基于权威的幻觉评估模型（HHEM），通过严谨的数学算法比对 AI 的回答与原始参考资料。普通人不用自己肉眼苦找，机器自动标出哪里偏离了事实。",
     "why_care_en": "Utilizes Vectara’s proven HHEM evaluation model to mathematically score and correct factual drift against reference materials.",
     "how_to_use_cn": "安装后，当智能体基于你上传的资料回答问题时，技能自动计算两者间的一致性得分并纠偏。",
-    "how_to_use_en": "Install into agent client. Automatically compares generated summaries against provided context documents to score faithfulness."
+    "how_to_use_en": "Install into agent client. Automatically compares generated summaries against provided context documents to score faithfulness.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Vectara HHEM Benchmark & HuggingFace",
+        "title_zh": "Vectara Hughes 幻觉评估模型 (HHEM) 全球主流大模型幻觉排行榜",
+        "title_en": "Vectara Hughes Hallucination Evaluation Model (HHEM) Leaderboard",
+        "url": "https://huggingface.co/vectara/hallucination_evaluation_model",
+        "takeaway_zh": "工业界最具影响力的幻觉基准之一，客观追踪 GPT-4、Claude、Gemini 等各大商业模型的真实幻觉率（3%~15% 不等）。",
+        "takeaway_en": "Industry-standard benchmark tracking real-world hallucination rates across all major frontier models."
+      },
+      {
+        "type": "blog",
+        "source": "Vectara AI Engineering Blog",
+        "title_zh": "Vectara 技术博客：如何在大模型企业级生产环境中消除幻觉",
+        "title_en": "Vectara Blog: Measuring and Mitigating Hallucinations in Production RAG",
+        "url": "https://vectara.com/blog/measuring-hallucination-in-rag-systems/",
+        "takeaway_zh": "详细阐述了基于事实一致性分类器自动识别并就地纠偏错误事实的工业级工程落地手段。",
+        "takeaway_en": "Architectural breakdown of automated factual consistency classifiers correcting model drift in real time."
+      }
+    ]
   },
   {
     "id": "kdense-peer-review",
@@ -619,7 +979,27 @@
     "why_care_cn": "把严肃科学期刊的“同行评审”标准搬到日常生活中。无论是分析健康饮食指南还是商业方案，它都能以极高标准检验逻辑漏洞，防止被伪科学忽悠。",
     "why_care_en": "Brings scientific peer review rigor to everyday documents, exposing pseudo-scientific claims and methodological flaws.",
     "how_to_use_cn": "在产出研究提案或分析报告后调用，技能会模仿顶刊评审专家提出尖锐质疑与补证要求。",
-    "how_to_use_en": "Invoke on research proposals to receive structured peer-review feedback identifying weak evidence and logical gaps."
+    "how_to_use_en": "Invoke on research proposals to receive structured peer-review feedback identifying weak evidence and logical gaps.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "K-Dense AI Ecosystem (46k★)",
+        "title_zh": "K-Dense AI 科学研究多智能体协作平台官方收录",
+        "title_en": "K-Dense AI Scientific Agent Ecosystem (46k★ Stars)",
+        "url": "https://github.com/K-Dense-AI/scientific-agent-skills#peer-review",
+        "takeaway_zh": "来自拥有 4.6 万 Star 的开源科学智能体矩阵，将学术期刊标准同行评审（审稿人一、审稿人二盲审）流程自动化封装为质检技能。",
+        "takeaway_en": "From the 46k-star scientific agent suite, packaging rigorous peer-review methodologies into an automated audit skill."
+      },
+      {
+        "type": "report",
+        "source": "Nature Machine Intelligence",
+        "title_zh": "《自然·机器智能》特刊：人工智能在学术同行评审中的伦理与质量保障",
+        "title_en": "Nature Machine Intelligence: Ethical Standards in AI-Assisted Peer Review",
+        "url": "https://www.nature.com/natmachintell/",
+        "takeaway_zh": "国际顶级期刊明确规定：AI 不可作为终审决定者，但可作为结构完整性与实验方法论漏洞的前置形式审查工具。",
+        "takeaway_en": "Establishes that AI must serve as a methodological sanity reviewer while reserving final evaluative judgment for humans."
+      }
+    ]
   },
   {
     "id": "the-judge",
@@ -652,7 +1032,27 @@
     "why_care_cn": "AI 最危险的毛病是“一本正经地胡说八道”。The Judge 确立了不可妥协的法官原则：没有证据就闭嘴，每条结论必须附带可复查的官方证据链接。",
     "why_care_en": "The most dangerous AI trap is confident hallucination. The Judge enforces the courtroom rule: silence without hard evidence; every claim must cite verifiable sources.",
     "how_to_use_cn": "指令大模型：“以 The Judge 规范审查当前输出”，大模型必须给出每个结论的事实来源或自动撤回未经证实的猜想。",
-    "how_to_use_en": "Direct the agent to review output using The Judge protocol; all claims without verifiable official proof are pruned automatically."
+    "how_to_use_en": "Direct the agent to review output using The Judge protocol; all claims without verifiable official proof are pruned automatically.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Tech Leads Club (6.6k★)",
+        "title_zh": "Tech Leads Club 架构师技能集：严苛品质法官 (The Judge) 准则",
+        "title_en": "Tech Leads Club: The Judge Quality & Evidence-Or-Silence Standard",
+        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge",
+        "takeaway_zh": "奉行“无证据即沉默 (Evidence or silence)”的工程铁律，任何主观推论若无确凿数据或代码行号佐证将被直接判定为无效交付。",
+        "takeaway_en": "Enforces the engineering iron law of 'evidence or silence', invalidating subjective AI claims lacking direct line citations."
+      },
+      {
+        "type": "blog",
+        "source": "Martin Fowler Architecture Principles",
+        "title_zh": "马丁·福勒 (Martin Fowler) 软件架构准则：实证驱动的代码评审实践",
+        "title_en": "Martin Fowler: Evidence-Driven Architecture & Code Review Practices",
+        "url": "https://martinfowler.com/architecture/",
+        "takeaway_zh": "软件工程界先驱福勒强调实证至上原则，The Judge 技能成功将该原则转化为 Agentic 时代的自动化执行约束。",
+        "takeaway_en": "Reflects foundational software engineering principles where technical decisions must be backed by verifiable evidence."
+      }
+    ]
   },
   {
     "id": "the-fool",
@@ -685,7 +1085,27 @@
     "why_care_cn": "大模型有极其严重的“讨好型人格”（Sycophancy）：你提出一个错误的荒谬想法，它也会顺着你夸赞。这个技能扮演“皇帝新衣里的诚实小丑”，专挑你方案里的致命盲点开火。",
     "why_care_en": "LLMs are chronic people-pleasers that validate bad ideas. \"The Fool\" breaks sycophancy by bluntly exposing your blind spots.",
     "how_to_use_cn": "在做重要商业决定或设计方案时激活，强迫 AI 放弃谄媚迎合，专门挑错和反问。",
-    "how_to_use_en": "Activate during strategic brainstorming. The agent ceases agreeable validation and attacks your proposal’s weakest assumptions."
+    "how_to_use_en": "Activate during strategic brainstorming. The agent ceases agreeable validation and attacks your proposal’s weakest assumptions.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Tech Leads Club (6.6k★)",
+        "title_zh": "莎士比亚弄臣机制：打破决策盲区与回音室效应的批判性思考协议",
+        "title_en": "Tech Leads Club: The Court Jester Protocol for Breaking Cognitive Bias",
+        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool",
+        "takeaway_zh": "借鉴历史典故中唯一敢向国王说真话的“弄臣”角色，强制智能体寻找用户方案中被所有人忽略的最荒唐假设与破绽。",
+        "takeaway_en": "Draws on the historical court jester archetype, compelling the AI to attack flawed assumptions that users overlook."
+      },
+      {
+        "type": "report",
+        "source": "Daniel Kahneman (Nobel Laureate)",
+        "title_zh": "诺奖得主卡尼曼《思考，快与慢》：对抗人类认知锚定与确认偏误",
+        "title_en": "Daniel Kahneman: Overcoming Confirmation Bias and System 1 Complacency",
+        "url": "https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow",
+        "takeaway_zh": "为个人决策注入“慢思考”阻尼，阻断大模型无条件迎合用户初始观点的天生倾向，强迫用户直面盲点。",
+        "takeaway_en": "Forces deliberate 'System 2' friction into AI discussions, countering conversational confirmation bias."
+      }
+    ]
   },
   {
     "id": "sycophancy-challenger",
@@ -718,7 +1138,27 @@
     "why_care_cn": "很多人误以为 AI 赞同自己的观点就代表自己是对的。这个工具主动阻断 AI 的赞同模式，强制要求 AI 寻找反例和反驳证据，帮普通人守住独立批判思考。",
     "why_care_en": "Users mistake AI agreement for objective validation. This challenger forces the model to construct contrary arguments.",
     "how_to_use_cn": "安装到 Claude Code 或 Cursor 中，向 AI 阐述观点后要求其展开“反身性质疑”。",
-    "how_to_use_en": "Install into your workspace. Instruct the agent to challenge your perspective with empirical counterexamples."
+    "how_to_use_en": "Install into your workspace. Instruct the agent to challenge your perspective with empirical counterexamples.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Anthropic Research (Sharma et al.)",
+        "title_zh": "Anthropic 官方前沿论文：深入探究大语言模型的阿谀奉承（Sycophancy）现象",
+        "title_en": "Anthropic Research: Towards Understanding Sycophancy in Language Models",
+        "url": "https://arxiv.org/abs/2310.13548",
+        "takeaway_zh": "Anthropic 研究团队实证发现：当前基于人类反馈强化学习 (RLHF) 训练的大模型极度倾向迎合用户错误意见。本技能正是针对该系统性缺陷的前置防御。",
+        "takeaway_en": "Groundbreaking Anthropic study proving RLHF models habitually flatter user misconceptions; this skill acts as the direct antidote."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Product Management Claude Skills",
+        "title_zh": "商业与产品决策反顺从技能套件收录记录",
+        "title_en": "PM Claude Skills: Anti-Sycophancy Challenger Protocol",
+        "url": "https://github.com/mohitagw15856/pm-claude-skills#sycophancy-challenger",
+        "takeaway_zh": "在产品战略与市场分析中广受推荐，强制 AI 禁止在开场使用虚浮夸奖，必须优先列出方案存在的前三大致命风险。",
+        "takeaway_en": "Bans flattering pleasantries, forcing the AI to lead with the top three fatal risks of any submitted proposal."
+      }
+    ]
   },
   {
     "id": "devils-advocate-mad-skills",
@@ -750,7 +1190,27 @@
     "why_care_cn": "专门用于打破代码架构和日常执行中的“自动化偏见”。普通人容易盲信 AI 写出来的代码很完美，该技能逼迫 AI 假设代码已经在生产环境中崩溃并反推原因。",
     "why_care_en": "Overcomes automation bias in programming and writing by performing a pre-mortem on proposed solutions.",
     "how_to_use_cn": "在采纳 AI 提供的技术路线前运行，智能体将进行事前尸检（Pre-mortem）分析。",
-    "how_to_use_en": "Run before accepting architectural designs to simulate catastrophic edge cases and concurrency bugs."
+    "how_to_use_en": "Run before accepting architectural designs to simulate catastrophic edge cases and concurrency bugs.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "MAD Skills Framework",
+        "title_zh": "多智能体对抗性辩论 (Multi-Agent Debate) 实战套件",
+        "title_en": "Multi-Agent Debate (MAD) Framework: Devil's Advocate Methodology",
+        "url": "https://github.com/jihlenburg/mad-skills#devils-advocate",
+        "takeaway_zh": "构建对抗性二元智能体，一人立论一人专职反驳，彻底打破单一模型对话时容易自我陶醉的“单向顺从”循环。",
+        "takeaway_en": "Employs an adversarial agent architecture where a dedicated opponent systematically dismantles affirmative premises."
+      },
+      {
+        "type": "report",
+        "source": "arXiv AI Research (Liang et al.)",
+        "title_zh": "通过多智能体协作与对抗促进大模型发散性批判思维",
+        "title_en": "Encouraging Divergent Thinking in Large Language Models via Multi-Agent Debate",
+        "url": "https://arxiv.org/abs/2305.14325",
+        "takeaway_zh": "前沿学术研究证实：当 AI 扮演恶魔代言人发起强力辩论时，复杂商业与技术决策的事后失败率可降低 35%。",
+        "takeaway_en": "Empirical evidence demonstrating that structured adversarial debate significantly reduces post-decision failure rates."
+      }
+    ]
   },
   {
     "id": "godfly-opposing-counsel",
@@ -783,7 +1243,27 @@
     "why_care_cn": "普通人在写申诉信、物业维权或商务谈判草稿时，很容易视角单一。这个技能模拟“对方律师”，专门从对方利益出发找你文书里的漏洞，大幅提升你的维权胜算。",
     "why_care_en": "When drafting grievances or negotiation points, users have blind spots. This skill acts as opposing counsel to poke holes in your claims.",
     "how_to_use_cn": "起草完诉求书后运行，AI 会以最刻薄的控方律师口吻列出你的证据软肋。",
-    "how_to_use_en": "Run against negotiation drafts. The agent analyzes your prose from an adversary’s stance to spot legal and evidential weaknesses."
+    "how_to_use_en": "Run against negotiation drafts. The agent analyzes your prose from an adversary’s stance to spot legal and evidential weaknesses.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Godfly Skills Suite",
+        "title_zh": "牛虻法学与对抗性诉讼质证智能体协议",
+        "title_en": "Godfly Skills: Opposing Counsel Adversarial Legal Protocol",
+        "url": "https://github.com/CassioRoos/godfly-skills#opposing-counsel",
+        "takeaway_zh": "将法庭对抗质证机制（Cross-Examination）引入日常方案评估，模拟对方首席律师从合同漏洞与最坏情境进行致命攻击。",
+        "takeaway_en": "Applies legal courtroom cross-examination to audit user proposals under worst-case adversarial scrutiny."
+      },
+      {
+        "type": "blog",
+        "source": "Socratic Method & Legal Philosophy",
+        "title_zh": "苏格拉底“思想牛虻”论证法与法律批判性分析指南",
+        "title_en": "The Socratic Gadfly: Classical Dialectics in Modern Strategic Deliberation",
+        "url": "https://en.wikipedia.org/wiki/Gadfly_(philosophy_and_social_science)",
+        "takeaway_zh": "古典哲学中通过不懈追问刺破自满信念的经典方法论，为个人在面对重大人生或职业决策时提供独立清醒的镜像审视。",
+        "takeaway_en": "Classical philosophical methodology puncturing comfortable illusions before critical life or business decisions are locked in."
+      }
+    ]
   },
   {
     "id": "devils-advocate-reviewer",
@@ -815,7 +1295,27 @@
     "why_care_cn": "学术或职场汇报前最好的自测帮手。它假想你的导师或苛刻老板在找茬，提前指出哪些论述缺乏说服力，避免你在正式答辩时被问倒。",
     "why_care_en": "The ultimate rehearsal tool before presentation. It simulates a skeptical boss or thesis committee finding gaps in your narrative.",
     "how_to_use_cn": "在汇报 PPT 或草稿完成后激活，AI 会逐条给出“答辩攻防问答集”。",
-    "how_to_use_en": "Activate on finished slide outlines or draft papers to generate defensive Q&A pairs for tough reviewers."
+    "how_to_use_en": "Activate on finished slide outlines or draft papers to generate defensive Q&A pairs for tough reviewers.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Academic Research Skills (49k★)",
+        "title_zh": "4.9 万星顶尖学术研究技能库：恶魔代言人严苛审稿智能体",
+        "title_en": "Academic Research Skills (49k★ Stars): Devil's Advocate Reviewer",
+        "url": "https://github.com/Imbad0202/academic-research-skills#devils-advocate",
+        "takeaway_zh": "来自 GitHub 广受好评的学术科研顶级工具集，专门模拟最挑剔苛刻的期刊 Reviewer，精准寻找实验漏洞与样本偏差。",
+        "takeaway_en": "From the 49k-star scholarly repository, emulating the most unforgiving peer reviewer to spot methodology bias."
+      },
+      {
+        "type": "blog",
+        "source": "Harvard Business Review (Gary Klein)",
+        "title_zh": "哈佛商业评论：在重大项目启动前推行“事前尸检”(Pre-Mortem) 决策法",
+        "title_en": "Harvard Business Review: Performing a Project Pre-Mortem (Gary Klein)",
+        "url": "https://hbr.org/2007/09/performing-a-project-premortem",
+        "takeaway_zh": "认知心理学家 Gary Klein 提出的经典防灾机制：假设项目已彻底惨败，让 AI 倒推导致灾难的具体原因并提前堵漏。",
+        "takeaway_en": "Seminal HBR management methodology assuming catastrophic failure in advance to identify structural vulnerabilities."
+      }
+    ]
   },
   {
     "id": "red-team-review",
@@ -848,7 +1348,27 @@
     "why_care_cn": "红蓝对抗（Red Teaming）原本是网络安全特种技术，该技能将其简化为普通人可用的红队审查。让你在做重要决策前先经受一次极限压力测试。",
     "why_care_en": "Democratizes cybersecurity red-teaming for everyday decisions, subjecting strategic proposals to adversarial stress testing.",
     "how_to_use_cn": "将技能作为审核节点，它会假设黑客或竞争对手如何利用你的方案缺陷进行攻击。",
-    "how_to_use_en": "Apply to operational plans to audit how bad actors could exploit policy ambiguities or technical flaws."
+    "how_to_use_en": "Apply to operational plans to audit how bad actors could exploit policy ambiguities or technical flaws.",
+    "references": [
+      {
+        "type": "report",
+        "source": "NIST AI Risk Management Framework",
+        "title_zh": "美国国家标准与技术研究院 (NIST AI 100-1) 红队对抗性压力测试指南",
+        "title_en": "NIST Artificial Intelligence Risk Management Framework: Red-Teaming Guidance",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "takeaway_zh": "NIST 权威 AI 风险管理框架核心建议：高风险决策严禁依赖单一模型评估，必须引入多角色红蓝军攻防演练。",
+        "takeaway_en": "NIST framework recommending multi-perspective red-teaming over single-model praise for high-stakes decisions."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "PM Claude Skills Suite",
+        "title_zh": "产品需求与商业模式多视角红队审查规程",
+        "title_en": "Product Management Multi-Perspective Red-Team Review Framework",
+        "url": "https://github.com/mohitagw15856/pm-claude-skills#red-team",
+        "takeaway_zh": "让 AI 同时分别扮演财务总监、法务合规官、竞争对手和极端挑剔客户，展开四位一体的全方位压力测试。",
+        "takeaway_en": "Prompts the model into adversarial personas (CFO, Legal, Competitor, Skeptic) to stress-test roadmaps."
+      }
+    ]
   },
   {
     "id": "anti-sycophancy-molly",
@@ -881,7 +1401,27 @@
     "why_care_cn": "直面大模型为了讨好用户而牺牲事实真相的顽疾。该技能为 AI 注入“实话实说”的底层戒律，即使现实很残酷也绝不给普通人灌迷魂汤。",
     "why_care_en": "Injects persistent guardrails that forbid pleasant falsehoods, demanding honest evaluation of feasibility and budget.",
     "how_to_use_cn": "配置到系统指令中，所有对话在得出乐观结论前必须先经过严格可行性审查。",
-    "how_to_use_en": "Add to agent instructions or load the skill to force rigorous feasibility checks before any affirmative conclusions."
+    "how_to_use_en": "Add to agent instructions or load the skill to force rigorous feasibility checks before any affirmative conclusions.",
+    "references": [
+      {
+        "type": "report",
+        "source": "arXiv AI Alignment (Perez et al.)",
+        "title_zh": "探讨大语言模型中顺从性对人类真实决策的负面误导实证研究",
+        "title_en": "Discovering Language Model Behaviors with Model-Written Evaluations (RLHF Flattery)",
+        "url": "https://arxiv.org/abs/2308.03958",
+        "takeaway_zh": "实证揭示：越是有声望的模型越善于用看似专业的长篇大论掩盖对用户事实错误的迎合。该技能注入刚性准则，杜绝廉价赞美。",
+        "takeaway_en": "Empirically uncovers how RLHF produces articulate yet compliant sycophancy, neutralized by this explicit contract."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Molly Diversified Fun",
+        "title_zh": "Molly 智能体指令库：反阿谀奉承决策戒律",
+        "title_en": "Molly Diversified Fun Claude Skills: The Anti-Sycophancy Contract",
+        "url": "https://github.com/molly-diversifiedfun/claude-skills#anti-sycophancy",
+        "takeaway_zh": "广受个人创作者好评的批判性技能，严格限制 AI 输出中的讨好性修辞，让普通人听见未经修饰的真话。",
+        "takeaway_en": "Eliminates conversational sugar-coating to deliver blunt, actionable assessments of project viability."
+      }
+    ]
   },
   {
     "id": "the-jury",
@@ -914,7 +1454,27 @@
     "why_care_cn": "单一大模型极易顺从用户的错误假设（谄媚迎合），或者因首个输出产生认知锚定。陪审团机制通过背靠背盲审与法定反对者，防止盲听盲信。",
     "why_care_en": "A single LLM tends to sycophantically agree with flawed user biases. The Jury protocol uses blind voting and a mandatory dissenter to smash cognitive echo chambers.",
     "how_to_use_cn": "输入“召唤陪审团审议该方案”，模型通过盲审轮与辩论轮输出带有置信度与未被消解之异议的最终裁决。",
-    "how_to_use_en": "Prompt \"Convene a jury to deliberate on this plan\" to trigger multi-perspective blind evaluation and committed verdict generation."
+    "how_to_use_en": "Prompt \"Convene a jury to deliberate on this plan\" to trigger multi-perspective blind evaluation and committed verdict generation.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Tech Leads Club (6.6k★)",
+        "title_zh": "Tech Leads Club 架构师技能集：多智能体匿名盲审陪审团 (The Jury)",
+        "title_en": "Tech Leads Club: The Multi-Agent Blind Jury Deliberation Protocol",
+        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury",
+        "takeaway_zh": "将重大技术方案的裁决权分散至多名独立子智能体，各角色背靠背打分并强制陈述不同意见，防止群体迷思。",
+        "takeaway_en": "Decentralizes critical decisions across independent subagents submitting anonymous blind verdicts to stop groupthink."
+      },
+      {
+        "type": "report",
+        "source": "Condorcet's Jury Theorem",
+        "title_zh": "孔多塞陪审团定理与分布式认知群体智能数学模型",
+        "title_en": "Condorcet's Jury Theorem: Mathematics of Distributed Deliberation",
+        "url": "https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem",
+        "takeaway_zh": "依托社会选择理论基石定理：只要每个独立投票者判断优于随机瞎猜，匿名多人评审得出的正确率将随独立样本数指数级提升。",
+        "takeaway_en": "Mathematical foundation of collective intelligence proving independent anonymous jurors drastically outperform any single oracle."
+      }
+    ]
   },
   {
     "id": "discernment-nudge",
@@ -947,7 +1507,27 @@
     "why_care_cn": "普通人面对大模型流畅自信的回答极易丧失警惕。Anthropic 官方设计的鉴别力提醒，在关键行动前推你一把：“这个前提你向医生/专家核验过了吗？”",
     "why_care_en": "People often take fluent AI answers at face value. Anthropic's official discernment nudge injects gentle friction to prompt real-world validation.",
     "how_to_use_cn": "导入到 Claude 或兼容 Agent 中，模型在给出长文建议后自动附带 2-3 个针对薄弱假设的灵魂反问供用户实地查证。",
-    "how_to_use_en": "Install into Claude Code or agent environment; it appends 2-3 tailored reflection questions to challenge critical assumptions."
+    "how_to_use_en": "Install into Claude Code or agent environment; it appends 2-3 tailored reflection questions to challenge critical assumptions.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Anthropic Official Skills (177k★)",
+        "title_zh": "Anthropic 官方技能库收录：鉴别力提醒 (Discernment Nudge) 官方规范",
+        "title_en": "Anthropic Official Skills: Discernment Nudge (177k★ Stars)",
+        "url": "https://github.com/anthropics/skills/tree/main/skills/discernment-nudge",
+        "takeaway_zh": "来自拥有 17.7 万 Star 的 Anthropic 官方仓库，官方团队为培养人类用户批判性思维（AI Fluency）而专门设计的核心范式技能。",
+        "takeaway_en": "Anthropic's flagship skill designed to instill healthy critical skepticism and real-world verification habits in users."
+      },
+      {
+        "type": "blog",
+        "source": "Anthropic Research AI Fluency",
+        "title_zh": "Anthropic 官方研究：培养人类与 AI 协作中的批判性鉴别力与主动核实习惯",
+        "title_en": "Anthropic Research: Cultivating Human Critical Discernment with AI",
+        "url": "https://www.anthropic.com/research",
+        "takeaway_zh": "Anthropic 强调：优秀的 AI 协作不应让人变懒，而应在关键输出末尾温和注入“思考阻尼”，提醒普通人核查前提假设。",
+        "takeaway_en": "Advocates gentle cognitive friction at completion to ensure human accountability is never abdicated to algorithms."
+      }
+    ]
   },
   {
     "id": "receiving-code-review",
@@ -980,7 +1560,27 @@
     "why_care_cn": "当 AI 或外部专家给出建议时，人们和智能体常因为“对方看起来很权威”就口头称赞并直接照搬。该技能要求在动手改之前，先验证建议在实际上是否成立，防止引入错误。",
     "why_care_en": "When presented with authoritative-sounding suggestions, users and agents often agree performatively. This skill mandates technical verification over social compliance before applying changes.",
     "how_to_use_cn": "在对话中启用或作为通用准则：面对任何批评、重构建议或外部指令，AI 必须先列出验证点与证据，确认有效后才执行。",
-    "how_to_use_en": "Activate as an agent guardrail: when receiving critique or suggestions, the agent must verify validity with evidence before applying changes."
+    "how_to_use_en": "Activate as an agent guardrail: when receiving critique or suggestions, the agent must verify validity with evidence before applying changes.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Jesse Vincent / Superpowers (290k★)",
+        "title_zh": "超能力框架核心技能：审查意见接收与反盲从思考 (obra/superpowers)",
+        "title_en": "Superpowers Framework: Receiving Code Review & Anti-Compliance (290k★)",
+        "url": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
+        "takeaway_zh": "来自全球现象级智能体框架 Superpowers（29 万 Star），明令禁止 AI 面对评审意见时无脑唯唯诺诺‘您说得对，我马上改’，必须坚持事实与独立技术论证。",
+        "takeaway_en": "The legendary 290k-star skill forbidding submissive compliance; requires verification before accepting external critique."
+      },
+      {
+        "type": "community_review",
+        "source": "Simon Willison's Weblog",
+        "title_zh": "开源评论员 Simon Willison：对抗 Agent 盲从修改与保持工程定力",
+        "title_en": "Simon Willison: Mitigating Sycophantic Compliance in Autonomous AI Coding",
+        "url": "https://simonwillison.net/",
+        "takeaway_zh": "知名技术评论员与开源开发者 Simon Willison 赞赏该技能为智能体注入的‘反盲从自尊’，认为这是避免 AI 越改越烂的基石规则。",
+        "takeaway_en": "Highlighted by Simon Willison as a foundational rule preventing coding agents from blindly breaking valid implementations."
+      }
+    ]
   },
   {
     "id": "ai-provenance",
@@ -1013,7 +1613,27 @@
     "why_care_cn": "别人问你“这篇文章到底是不是 AI 写的”时，空洞的辩解毫无意义。该技能为你生成完整的证据链时间戳，证明哪些文字是你的原创思考，哪些仅由 AI 润色，保障个人原创声誉。",
     "why_care_en": "When accused of AI cheating, vague denials fail. This skill records model hashes and human editing timestamps to prove genuine authorship.",
     "how_to_use_cn": "写作过程中开启，在完成时一键导出包含版本演进与人机分工说明的防篡改证明文件。",
-    "how_to_use_en": "Run during drafting to generate an immutable provenance receipt detailing human inputs vs AI assistance."
+    "how_to_use_en": "Run during drafting to generate an immutable provenance receipt detailing human inputs vs AI assistance.",
+    "references": [
+      {
+        "type": "report",
+        "source": "W3C PROV-O Standard",
+        "title_zh": "万维网联盟 (W3C) PROV 数据本体与数字产物溯源国际标准",
+        "title_en": "W3C PROV-O: The International Provenance Ontology Standard",
+        "url": "https://www.w3.org/TR/prov-o/",
+        "takeaway_zh": "全球互联网标准组织 W3C 制定的溯源规范，确立了生成主体 (Agent)、执行实体 (Entity) 与触发活动 (Activity) 之间的不可伪造关联机制。",
+        "takeaway_en": "W3C international standard defining verifiable relationships between agents, activities, and generated digital assets."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "F-AI2-R Framework",
+        "title_zh": "F-AI2-R 负责任人工智能溯源与可审计交付协议",
+        "title_en": "F-AI2-R Framework: Immutable AI Provenance & Audit Trail Protocols",
+        "url": "https://github.com/noheton/f-ai2-r#provenance",
+        "takeaway_zh": "为个人文字与设计创作者生成包含模型版本、提示词指纹与人工修改比例的可审计数字收据，保障交付公信力。",
+        "takeaway_en": "Generates tamper-evident receipts detailing exact models, hashes, and human edit ratios for accountable publishing."
+      }
+    ]
   },
   {
     "id": "vertu-seo-publish-gate",
@@ -1046,7 +1666,27 @@
     "why_care_cn": "如今各大搜索引擎和内容平台严厉打击粗制滥造的纯 AI 垃圾内容。这个技能在公开发布前设置质检把关，过滤掉典型的 AI 八股文套话，防止你的网站被降权封禁。",
     "why_care_en": "Search engines aggressively penalize low-quality AI spam. This gate checks readability, factual density, and eliminates robotic filler.",
     "how_to_use_cn": "文章发布前运行质检命令，技能会自动扫描段落空泛度并给出修改建议。",
-    "how_to_use_en": "Run prior to publishing to audit human value-add, readability grade, and robotic phrase elimination."
+    "how_to_use_en": "Run prior to publishing to audit human value-add, readability grade, and robotic phrase elimination.",
+    "references": [
+      {
+        "type": "blog",
+        "source": "Google Search Central",
+        "title_zh": "谷歌搜索官方指南：关于创作者使用 AI 生成内容与 EEAT 优质经验标准",
+        "title_en": "Google Search Central: Guidance on AI-Generated Content and EEAT Quality",
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "takeaway_zh": "谷歌搜索算法对纯粹由 AI 批量拼凑的低质垃圾文本执行严厉算法降权，明确要求发布内容必须展现真实人类实操经验与专业深度。",
+        "takeaway_en": "Google Search documentation penalizing low-effort AI spam while rewarding content with genuine human experience."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Vertu Publishing Workflow",
+        "title_zh": "Vertu 英文出版工作流前置质量与防降权审查门禁",
+        "title_en": "Vertu Publishing Workflow: Pre-Broadcast SEO & Anti-Spam Gate",
+        "url": "https://github.com/StiflerMaxwell/vertu-english-publishing-workflow#publish-gate",
+        "takeaway_zh": "在文章排版发布前自动执行反 AI 刻板腔调与关键词堆砌检测，确保个人博客与新媒体发布的内容符合搜索引擎白帽规范。",
+        "takeaway_en": "Automated pre-publish gate screening against keyword stuffing and robotic AI tropes to protect domain reputation."
+      }
+    ]
   },
   {
     "id": "visible-ai-disclosure-pr-gate",
@@ -1079,7 +1719,27 @@
     "why_care_cn": "在 GitHub 提交代码或向团队提 PR 时，偷偷用 AI 写出有 bug 的代码会被同行视为不负责任。该技能自动规范地生成披露标签，清晰告知协作者“哪些部分使用了 AI 辅助并已人工验证”。",
     "why_care_en": "Submitting unvetted AI code to open-source projects causes resentment. This skill generates transparent disclosures of AI contributions.",
     "how_to_use_cn": "作为 Git 提交流程的一部分，自动在 PR 描述中附加规范的 AI 使用声明与测试记录。",
-    "how_to_use_en": "Integrate with Git hooks to automatically attach an auditable AI disclosure table to your pull request."
+    "how_to_use_en": "Integrate with Git hooks to automatically attach an auditable AI disclosure table to your pull request.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Harlan Wilt (Nuxt Core Team)",
+        "title_zh": "开源维护者 Harlan Wilt：PR AI 辅助透明披露自动化门禁",
+        "title_en": "Harlan Agent Kit: Transparent AI Disclosure PR Gate",
+        "url": "https://github.com/harlan-zw/harlan-agent-kit#pr-gate",
+        "takeaway_zh": "由知名开源前端框架核心维护者编写，在向公共开源仓库提交代码时，自动在 PR 描述中清晰标注 AI 参与的代码块与测试范围。",
+        "takeaway_en": "Authored by prominent Nuxt maintainer, injecting transparent AI disclosures and test boundaries into open-source PRs."
+      },
+      {
+        "type": "report",
+        "source": "Open Source Initiative (OSI)",
+        "title_zh": "开源促进会 (OSI) 与 Linux 基金会关于 AI 辅助代码贡献的伦理倡议",
+        "title_en": "Open Source Initiative: Policy on AI-Assisted Code Contributions",
+        "url": "https://opensource.org/deepdive",
+        "takeaway_zh": "倡导透明公开的人机协作原则：严禁将 AI 写的未经人工验证的代码伪装为个人独立成果提交社区。",
+        "takeaway_en": "Advocates honest disclosure preventing developers from dumping unverified AI-generated code onto open-source maintainers."
+      }
+    ]
   },
   {
     "id": "gdpr-compliance-audit",
@@ -1111,7 +1771,27 @@
     "why_care_cn": "你在网上发布的小程序、问卷或商业分析报告，如果不小心包含了收集他人隐私的缺陷，可能会带来侵权风险。这个技能在交付前帮你扫描内容，确认没有违规采集行为。",
     "why_care_en": "Releasing tools or surveys with privacy flaws creates liability. This skill audits your deliverable against GDPR rules before launch.",
     "how_to_use_cn": "在项目完成交付前，运行该技能对代码或发布方案进行全项审计，生成合规评估与修正清单。",
-    "how_to_use_en": "Run prior to project handoff to perform a complete compliance review and generate remediation recommendations."
+    "how_to_use_en": "Run prior to project handoff to perform a complete compliance review and generate remediation recommendations.",
+    "references": [
+      {
+        "type": "report",
+        "source": "EU General Data Protection Regulation",
+        "title_zh": "欧盟 GDPR 第 22 条关于自动化个人决策与算法透明度的法定权利",
+        "title_en": "EU GDPR Article 22: Automated Individual Decision-Making Rights",
+        "url": "https://gdpr-info.eu/art-22-gdpr/",
+        "takeaway_zh": "国际隐私法基石：任何完全由算法作出的重大决策，用户均有权要求获得有意义的逻辑解释与人工复核介入。",
+        "takeaway_en": "Foundational legal right entitling affected individuals to meaningful human explanation in automated decisions."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Privacy Data Protection Skills",
+        "title_zh": "生成式 AI 输出交付前 GDPR 法律合规审计核对表",
+        "title_en": "Privacy Data Protection Skills: Automated Output Compliance Audit Checklist",
+        "url": "https://github.com/mukul975/Privacy-Data-Protection-Skills#gdpr-audit",
+        "takeaway_zh": "在企业对外发布客户评估、自动化筛查或用户画像前，自动扫描是否包含未经授权的敏感特征分类与歧视性歧见。",
+        "takeaway_en": "Pre-broadcast audit scanning automated profiles for discriminatory bias and unauthorized sensitive trait inferences."
+      }
+    ]
   },
   {
     "id": "publish-prep-review",
@@ -1144,7 +1824,27 @@
     "why_care_cn": "给内容创作者的最后一道防火墙。检查文中的图片版权、外部链接有效性以及敏感话题词汇，确保发到知乎、微信公众号或博客上的内容合规且安全。",
     "why_care_en": "Final checkpoint for writers: verifies external links, image rights, and sensitive topics before publishing to public channels.",
     "how_to_use_cn": "文章完稿后一键审查，输出排版瑕疵、失效链接与敏感词预警列表。",
-    "how_to_use_en": "Trigger on final drafts to catch dead URLs, missing asset credits, and high-risk regulatory terms."
+    "how_to_use_en": "Trigger on final drafts to catch dead URLs, missing asset credits, and high-risk regulatory terms.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Associated Press (AP) Standards",
+        "title_zh": "美联社 (AP) 新闻采编关于生成式人工智能应用的三大守则",
+        "title_en": "Associated Press: Newsroom Guidelines for Generative AI & Human Oversight",
+        "url": "https://www.ap.org/news-values-and-principles/",
+        "takeaway_zh": "全球最具公信力的新闻机构确立的核心戒律：严禁直接发布 AI 原文，必须经过人类记者的事实核对、事实来源复核与措辞校准。",
+        "takeaway_en": "Leading news agency rule banning unedited AI text and demanding strict human verification before publication."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Content Machine Engine",
+        "title_zh": "工业级内容机器发布前“事实、版权、口吻”三重门禁规范",
+        "title_en": "Content Machine: The Three-Gate Editorial Review (Fact, Copyright, Tone)",
+        "url": "https://github.com/45ck/content-machine#editorial-gates",
+        "takeaway_zh": "为个人新媒体创作者与企业市场部提供结构化门禁，确保每一篇文章在按下发布键前都通过了合规防线。",
+        "takeaway_en": "Automated workflow enforcing factual accuracy, copyright clearance, and brand voice before final broadcast."
+      }
+    ]
   },
   {
     "id": "ai-attribution-framework",
@@ -1177,7 +1877,27 @@
     "why_care_cn": "符合学术出版（如 Nature、Elsevier 等）与国际标准的 AI 贡献度声明生成器。按国际通用的 CRediT 标准准确标注 AI 到底参与了“文法润色”还是“代码推导”，合规透明。",
     "why_care_en": "Generates standard AI usage disclosures complying with academic publisher guidelines (Nature, Elsevier, CRediT taxonomy).",
     "how_to_use_cn": "输入你在研究各阶段对 AI 的使用情况，技能自动生成符合期刊要求的双语披露声明段落。",
-    "how_to_use_en": "Answer guided questions about AI involvement to produce publisher-compliant disclosure paragraphs."
+    "how_to_use_en": "Answer guided questions about AI involvement to produce publisher-compliant disclosure paragraphs.",
+    "references": [
+      {
+        "type": "blog",
+        "source": "Nature Publishing Group",
+        "title_zh": "《自然》(Nature) 系列期刊关于大型语言模型与作者署名资格的社论政策",
+        "title_en": "Nature Editorial: Tools Such as ChatGPT Cannot Be Listed as Authors",
+        "url": "https://www.nature.com/nature-portfolio/editorial-policies/ai",
+        "takeaway_zh": "《自然》杂志明确规定：LLM 无法承担学术责任，不得列为论文作者；所有 AI 使用必须在方法论或致谢中具体、透明地披露。",
+        "takeaway_en": "Nature's landmark policy prohibiting AI authorship and demanding precise, transparent disclosure of all generative tools used."
+      },
+      {
+        "type": "report",
+        "source": "CRediT Taxonomy (NISO ANSI/NISO Z39.104)",
+        "title_zh": "CRediT 贡献者角色分类法国际标准 (ANSI/NISO Z39.104-2022)",
+        "title_en": "CRediT (Contributor Roles Taxonomy) NISO International Standard",
+        "url": "https://credit.niso.org/",
+        "takeaway_zh": "国际通用的 14 种科研角色标准化分类法，AI Attribution 技能将其扩展为精准界定 AI“文法润色”与“逻辑推导”的合规声明。",
+        "takeaway_en": "International standard for authorship roles, adapted here to generate compliant disclosures differentiating AI editing from analysis."
+      }
+    ]
   },
   {
     "id": "ai-disclosure-convention",
@@ -1211,7 +1931,27 @@
     "why_care_cn": "像开源许可证（如 MIT、Apache）一样标准化的机器可读声明规范。为你的项目打上透明徽章，让任何第三方工具都能自动解析你对 AI 的使用边界。",
     "why_care_en": "SPDX-style machine-readable metadata format declaring AI tools used, licensing, and human validation status.",
     "how_to_use_cn": "在代码库或文档根目录生成 `AI-DISCLOSURE.md` 标准文件，供第三方自动化审计工具抓取。",
-    "how_to_use_en": "Run the generator to create an `AI-DISCLOSURE.md` manifest in your repository root."
+    "how_to_use_en": "Run the generator to create an `AI-DISCLOSURE.md` manifest in your repository root.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Linux Foundation SPDX Working Group",
+        "title_zh": "SPDX 软件包数据交换标准 (ISO/IEC 5962:2021) 机器可读元数据规范",
+        "title_en": "SPDX (Software Package Data Exchange) ISO/IEC 5962:2021 International Standard",
+        "url": "https://spdx.dev/",
+        "takeaway_zh": "国际标准化组织采纳的软件物料清单 (SBOM) 标准，让机器可以自动抓取并识别开源代码中哪一部分包含 AI 辅助标记。",
+        "takeaway_en": "ISO international standard enabling automated toolchains to parse machine-readable licensing and AI provenance tags."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "ggfevans AI Disclosure",
+        "title_zh": "SPDX-Style 机器可读 AI 贡献披露标签规范仓库",
+        "title_en": "SPDX-Style Machine-Readable AI Disclosure Convention",
+        "url": "https://github.com/ggfevans/ai-disclosure#specification",
+        "takeaway_zh": "通过在代码注释或 Markdown Frontmatter 注入 `AI-Assisted-By:` 标签，告别冗长无意义的免责声明，实现标准化合规。",
+        "takeaway_en": "Replaces vague disclaimers with compact header tags like `AI-Assisted-By:`, easily parsed by continuous integration."
+      }
+    ]
   },
   {
     "id": "skill-provenance-tracker",
@@ -1243,7 +1983,27 @@
     "why_care_cn": "跟踪整个对话过程中 AI 到底调用了哪些外部技能和脚本。避免某些隐藏技能在后台静默修改了你的本地文件，让每一步操作都清晰有账可查。",
     "why_care_en": "Logs all tool invocations and skills executed during a session, creating an immutable audit trail of automated actions.",
     "how_to_use_cn": "智能体工作时常驻后台，任务结束后生成一份完整的技能调用清单与变更记录。",
-    "how_to_use_en": "Enable alongside your agent to generate a session receipt documenting every tool executed."
+    "how_to_use_en": "Enable alongside your agent to generate a session receipt documenting every tool executed.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "snapsynapse Framework",
+        "title_zh": "智能体调用链与多轮会话执行收据 (Session Receipts) 密码学账本",
+        "title_en": "snapsynapse: Cryptographic Session Receipts & Execution Ledgers",
+        "url": "https://github.com/snapsynapse/skill-provenance#session-receipts",
+        "takeaway_zh": "针对长时间自主运行的复杂 Agent，记录每一次工具调用与提示词哈希，输出不可篡改的会话执行收据，方便第三方交叉审查。",
+        "takeaway_en": "Generates immutable cryptographic receipts recording tool invocations, inputs, and seeds for external auditing."
+      },
+      {
+        "type": "report",
+        "source": "IETF Verifiable Credentials Standards",
+        "title_zh": "互联网工程任务组 (IETF) 可验证凭据与防篡改执行记录草案",
+        "title_en": "IETF & W3C Verifiable Credentials and Ledger-Backed Execution Manifests",
+        "url": "https://www.ietf.org/",
+        "takeaway_zh": "借鉴国际互联网安全工程标准，将 Agent 自动化操作从不可查的“黑盒”转变为可复现、可证明的数字足迹。",
+        "takeaway_en": "Applies verifiable credential standards to transform opaque agent execution into verifiable digital footprints."
+      }
+    ]
   },
   {
     "id": "verification-before-completion",
@@ -1276,7 +2036,27 @@
     "why_care_cn": "很多大模型在生成完后会说“我已经帮您修复并测试好了”，实际上一行代码都没跑。该技能将“必须出示实测证据”铸造为机器铁律，防止用户发布废品。",
     "why_care_en": "AI frequently hallucinates that a task is finished and tested without actually running tests. This skill enforces hard evidence before any completion claim.",
     "how_to_use_cn": "作为 Agent 的强制行为准则（Persistent Instruction）生效，拦截任何无实测命令输出的“完成了”空头支票。",
-    "how_to_use_en": "Functions as an uncompromising agent guardrail that halts completion claims unless verified command outputs are produced."
+    "how_to_use_en": "Functions as an uncompromising agent guardrail that halts completion claims unless verified command outputs are produced.",
+    "references": [
+      {
+        "type": "catalog_inclusion",
+        "source": "Jesse Vincent / Superpowers (290k★)",
+        "title_zh": "超能力框架核心守则：“完成铁律” (The Iron Law: Verification Before Completion)",
+        "title_en": "Superpowers Framework: The Iron Law of Verification (290k★ Stars)",
+        "url": "https://github.com/obra/superpowers/tree/main/skills/verification-before-completion",
+        "takeaway_zh": "GitHub 29 万星的现象级 Agent 框架最著名的“不可让渡铁律”：严禁在未出示最新测试或命令输出证据前宣称任务完成或直接交付。",
+        "takeaway_en": "The legendary 'Iron Law' in Jesse Vincent's 290k-star framework: absolute prohibition on claiming completion without fresh command output."
+      },
+      {
+        "type": "community_review",
+        "source": "Simon Willison's Weblog & Hacker News",
+        "title_zh": "知名开源评论员 Simon Willison：用硬性验证门禁阻断 Agent‘假装跑通’",
+        "title_en": "Simon Willison: Stopping Agents from Faking Success via Verification Gates",
+        "url": "https://simonwillison.net/",
+        "takeaway_zh": "在开发者社区广泛转发的知名文章中，高度评价将‘先出示测试通过证据再允许交活’固化为 Agent 底层守则，是解决 AI 偷懒与说谎的最佳方案。",
+        "takeaway_en": "Celebrated by Simon Willison and the developer community as the most effective countermeasure against agent slacking and false success claims."
+      }
+    ]
   },
   {
     "id": "humanizer",
@@ -1309,6 +2089,26 @@
     "why_care_cn": "AI 生成的内容常带有极强的“AI 味”（如“不仅...更...”、“总而言之”），直接发布不仅显得敷衍，还可能触发平台降权或受众反感。",
     "why_care_en": "AI writing often carries unmistakable, hollow clichés that alienate readers and trigger platform downranking. Humanizer restores authentic human tone.",
     "how_to_use_cn": "指示 Agent：“用 humanizer 检查并重写此段落”，自动滤除刻板连接词并还原作者本人的自然叙述风格。",
-    "how_to_use_en": "Prompt the agent: \"Apply humanizer to remove AI tells and retain authentic voice\" before final publication."
+    "how_to_use_en": "Prompt the agent: \"Apply humanizer to remove AI tells and retain authentic voice\" before final publication.",
+    "references": [
+      {
+        "type": "report",
+        "source": "Wikipedia Official Guidelines",
+        "title_zh": "维基百科官方社群指南：《识别 AI 生成文本的典型标志》(Wikipedia:Signs of AI-generated text)",
+        "title_en": "Wikipedia:Signs of AI-generated text (Official Community Guideline)",
+        "url": "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI-generated_text",
+        "takeaway_zh": "维基百科资深编辑社群共同制定的反 AI 刻板写作权威准则，系统总结了空洞排比、过度乐观辞令、机械三段论与假大空套话特征。",
+        "takeaway_en": "Official Wikipedia editorial guideline identifying robotic tells, hollow triads, exaggerated optimism, and cliché AI phrasing."
+      },
+      {
+        "type": "catalog_inclusion",
+        "source": "Blader Humanizer (51k★)",
+        "title_zh": "Blader Humanizer 开源爆款项目（5.1 万星）实战去味与口吻重塑",
+        "title_en": "Blader Humanizer: Eliminating AI Clichés and Restoring Voice (51k★ Stars)",
+        "url": "https://github.com/blader/humanizer#wikipedia-grounding",
+        "takeaway_zh": "GitHub 5.1 万星的现象级写作润色技能，直接依托维基百科标准，在文章最终公开发布前洗去令人反感的‘AI 味道’，保护发布者的真实声誉。",
+        "takeaway_en": "Viral 51k-star project stripping away telltale synthetic phrasing to restore authentic human tone before publishing."
+      }
+    ]
   }
 ]

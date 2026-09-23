@@ -41,6 +41,11 @@ const i18n = {
     whyChosenLabel: "🎯 为什么精选收录：",
     whenToUseLabel: "⏰ 准确使用时机：",
     howToUseLabel: "🛠️ 如何使用：",
+    referencesLabel: "📚 第三方评价与实证材料：",
+    refTypeBlog: "📝 深度博客",
+    refTypeReport: "📊 基准/论文",
+    refTypeCatalog: "📦 权威收录",
+    refTypeReview: "⭐ 社区评价",
     statusLabel: "📊 成熟度与可信背书：",
     targetPersona: "适用人群：",
     supportedClients: "适用客户端：",
@@ -97,6 +102,11 @@ const i18n = {
     whyChosenLabel: "🎯 Why This Was Chosen:",
     whenToUseLabel: "⏰ When to Use:",
     howToUseLabel: "🛠️ How to Use:",
+    referencesLabel: "📚 Third-Party Evaluations & Evidence:",
+    refTypeBlog: "📝 Tech Blog",
+    refTypeReport: "📊 Report / Paper",
+    refTypeCatalog: "📦 Official Catalog",
+    refTypeReview: "⭐ Community Review",
     statusLabel: "📊 Maturity & Trust Signals:",
     targetPersona: "Target:",
     supportedClients: "Clients:",
@@ -633,6 +643,68 @@ function openModal(id) {
           </button>
         </div>
       </div>
+
+      ${(() => {
+        if (!item.references || item.references.length === 0) return "";
+        const typeBadges = {
+          blog: {
+            label: t.refTypeBlog || "📝 深度博客",
+            style: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+          },
+          report: {
+            label: t.refTypeReport || "📊 基准/论文",
+            style: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+          },
+          catalog_inclusion: {
+            label: t.refTypeCatalog || "📦 权威收录",
+            style: "bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800"
+          },
+          community_review: {
+            label: t.refTypeReview || "⭐ 社区评价",
+            style: "bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+          }
+        };
+
+        const refCards = item.references.map((ref) => {
+          const typeMeta = typeBadges[ref.type] || {
+            label: ref.type,
+            style: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+          };
+          const title = currentLang === "zh" ? ref.title_zh : ref.title_en;
+          const takeaway = currentLang === "zh" ? ref.takeaway_zh : ref.takeaway_en;
+
+          return `
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${typeMeta.style}">
+                  ${typeMeta.label}
+                </span>
+                <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+                  🏷️ ${escapeHtml(ref.source)}
+                </span>
+              </div>
+              <div>
+                <a href="${escapeHtml(ref.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-900 dark:text-slate-100 hover:text-brand dark:hover:text-brand-container text-xs sm:text-sm inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(title)}</span>
+                  <span class="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
+                </a>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs mt-1">${escapeHtml(takeaway)}</p>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="p-4 rounded-2xl bg-indigo-50/50 dark:bg-slate-800/40 border border-indigo-100 dark:border-slate-800 space-y-2.5">
+            <h4 class="font-extrabold text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5 text-xs sm:text-sm">
+              ${t.referencesLabel}
+            </h4>
+            <div class="space-y-2">
+              ${refCards}
+            </div>
+          </div>
+        `;
+      })()}
 
       <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
         <h4 class="font-bold text-slate-800 dark:text-slate-200">${t.statusLabel}</h4>

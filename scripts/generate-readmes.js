@@ -114,7 +114,7 @@ function generateReadmeEn() {
       md += `* **💡 Why Everyday People Should Care:** ${item.why_care_en}\n`;
       md += `* **🎯 Why Chosen:** ${item.why_chosen_en}\n`;
       md += `* **🛠️ How to Use:** ${item.how_to_use_en}\n`;
-      md += `* **📊 Maturity & Trust:** \`${item.status.stage}\` | ⭐ ${item.status.adoption} | 🛡️ *${item.status.trust_source}*\n`;
+      md += `* **📦 Operational Status & Verified Evidence:** \`${item.status.stage_en || item.status.stage}\` | ${item.status.adoption_en || item.status.adoption} | 🛡️ *${item.status.trust_source_en || item.status.trust_source}*\n`;
       md += `* **Clients:** ${item.clients.join(', ')}\n`;
       md += `* **Target Persona:** ${item.target_persona}\n`;
 
@@ -194,7 +194,7 @@ function generateReadmeCn() {
       md += `* **💡 为何普通人应该关心：** ${item.why_care_cn}\n`;
       md += `* **🎯 为什么精选收录：** ${item.why_chosen_cn}\n`;
       md += `* **🛠️ 如何使用：** ${item.how_to_use_cn}\n`;
-      md += `* **📊 成熟度与可信背书：** \`${item.status.stage}\` | ⭐ ${item.status.adoption} | 🛡️ *${item.status.trust_source}*\n`;
+      md += `* **📦 运行状态与实证指标：** \`${item.status.stage_cn || item.status.stage}\` | ${item.status.adoption_cn || item.status.adoption} | 🛡️ *${item.status.trust_source_cn || item.status.trust_source}*\n`;
       md += `* **适用客户端：** ${item.clients.join('、')}\n`;
       md += `* **适用人群：** ${item.target_persona}\n`;
 

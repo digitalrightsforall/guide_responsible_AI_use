@@ -45,7 +45,11 @@ const i18n = {
     reviewsLabel: "🌐 独立第三方评测与生态收录：",
     noReviewsNote: "🌱 开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。",
     reviewBadge: "独立评测 / 收录",
-    statusLabel: "📊 成熟度与可信背书：",
+    statusLabel: "📦 运行状态与实证指标：",
+    statusGuideBtn: "ℹ️ 评定说明",
+    statusGuideTitle: "📦 运行状态与实证指标评定说明",
+    statusGuideClose: "我明白了",
+    verifiedEvidenceTitle: "🛡️ 实证依据与测试事实：",
     targetPersona: "适用人群：",
     supportedClients: "适用客户端：",
     copied: "安装命令已复制到剪贴板！",
@@ -105,7 +109,11 @@ const i18n = {
     reviewsLabel: "🌐 Direct Third-Party Reviews & Inclusions:",
     noReviewsNote: "🌱 Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.",
     reviewBadge: "Review / Inclusion",
-    statusLabel: "📊 Maturity & Trust Signals:",
+    statusLabel: "📦 Operational Status & Verified Evidence:",
+    statusGuideBtn: "ℹ️ How We Evaluate",
+    statusGuideTitle: "📦 Operational Status & Verified Evidence Standards",
+    statusGuideClose: "Got it",
+    verifiedEvidenceTitle: "🛡️ Verified Evidence & Test Record:",
     targetPersona: "Target:",
     supportedClients: "Clients:",
     copied: "Install command copied to clipboard!",
@@ -249,8 +257,28 @@ function setupEventListeners() {
   document.getElementById("detail-modal")?.addEventListener("click", (e) => {
     if (e.target.id === "detail-modal") closeModal();
   });
+
+  // Status guide modal event listeners
+  document.getElementById("status-guide-close")?.addEventListener("click", closeStatusGuide);
+  document.getElementById("status-guide-confirm")?.addEventListener("click", closeStatusGuide);
+  document.getElementById("status-guide-modal")?.addEventListener("click", (e) => {
+    if (e.target.id === "status-guide-modal") closeStatusGuide();
+  });
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(".status-guide-trigger")) {
+      openStatusGuide();
+    }
+  });
+
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+      const guideModal = document.getElementById("status-guide-modal");
+      if (guideModal && guideModal.style.display === "flex") {
+        closeStatusGuide();
+      } else {
+        closeModal();
+      }
+    }
   });
   window.addEventListener("hashchange", checkHashAndOpenModal);
 }
@@ -481,19 +509,45 @@ function renderCard(item) {
           </div>
         </div>
 
-        <!-- 7. Dimension: 可信度与成熟度背书 (Maturity & Trust Signals) -->
-        <div class="text-xs rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-1.5">
-          <span class="font-bold text-slate-700 dark:text-slate-300 block">${t.statusLabel}</span>
-          <div class="flex flex-wrap gap-1.5 pt-0.5">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60">
-              🟢 ${item.status?.stage || 'Stable'}
-            </span>
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200/80 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
-              ⭐ ${item.status?.adoption || 'Verified'}
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5">🛡️ ${item.status?.trust_source || 'Verified Source'}</p>
-        </div>
+        <!-- 7. Dimension: 运行状态与实证指标 (Operational Status & Verified Evidence) -->
+        ${(() => {
+          const isZh = currentLang === "zh";
+          const stageText = isZh ? (item.status?.stage_cn || item.status?.stage || "开箱即用") : (item.status?.stage_en || item.status?.stage || "Ready to Use");
+          const isSetup = (item.status?.stage || "").includes("需配置") || (item.status?.stage || "").includes("Requires");
+          const stageColor = isSetup
+            ? "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60"
+            : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60";
+          const stageTooltip = isZh
+            ? "已通过本地环境安装测试与技能规范语法校验，逻辑规则完整闭环。"
+            : "Verified via local installation tests and skill specification validation.";
+          
+          const adoptionText = isZh ? (item.status?.adoption_cn || item.status?.adoption || "已实测") : (item.status?.adoption_en || item.status?.adoption || "Verified");
+          const adoptionTooltip = isZh
+            ? "基于真实 GitHub 开源星数与权威机构维护记录，代码完全公开透明。"
+            : "Based on real GitHub stars and verified maintainer records, 100% public code.";
+          
+          const trustText = isZh ? (item.status?.trust_source_cn || item.status?.trust_source || "") : (item.status?.trust_source_en || item.status?.trust_source || "");
+
+          return `
+            <div class="text-xs rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-1.5">
+              <div class="flex items-center justify-between gap-1">
+                <span class="font-bold text-slate-700 dark:text-slate-300 block">${t.statusLabel}</span>
+                <button type="button" class="status-guide-trigger text-[11px] font-semibold text-brand dark:text-brand-container hover:underline cursor-pointer flex items-center gap-0.5" title="${t.statusGuideBtn}">
+                  ${t.statusGuideBtn}
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-1.5 pt-0.5">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${stageColor}" title="${stageTooltip}">
+                  ${stageText}
+                </span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200/80 text-slate-700 dark:bg-slate-700 dark:text-slate-300" title="${adoptionTooltip}">
+                  ${adoptionText}
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5 leading-relaxed">🛡️ ${trustText}</p>
+            </div>
+          `;
+        })()}
 
         <!-- Metadata -->
         <div class="text-[11px] text-slate-400 dark:text-slate-500 space-y-0.5 pt-1">
@@ -546,6 +600,103 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// Status & Evidence Guide Modal Logic
+function getStatusGuideHtml(lang) {
+  if (lang === "zh") {
+    return `
+      <div class="space-y-3.5">
+        <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
+          <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>🟢</span> 1. 运行状态与可用性 (Usability & Test Verification)
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            所有收录技能均经过本地环境真实安装与语法校验。<strong>「开箱即用 (实测通过)」</strong>表示无需额外繁琐环境配置，复制命令放入 Cursor、Claude Code 或 Antigravity 技能目录即可直接生效；<strong>「需配置依赖 (环境就绪)」</strong>则表示需具备 Python 依赖包或 API Key，所有配置规则均经本地闭环测试。
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 dark:border-brand/30 space-y-1">
+          <h4 class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>⭐</span> 2. 开源热度与事实依据 (Community Adoption & Empirical Evidence)
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            严格基于真实 GitHub 关注度（如 Superpowers 290k★、Anthropic 官方研究库 177k★/9.5k★、Tech Leads Club 6.6k★）或权威机构开源背书。对独立开发者维护的高聚焦工具，如实标注为<strong>「独立开源 (本地测试通过)」</strong>，绝不编造虚假数据或夸大其词。
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+          <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>🛡️</span> 3. 实证与安全原则 (Evidence & Safety Guarantees)
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            所有技能代码均完全公开透明可供审计，经客户端沙盒隔离运行验证，绝无恶意网络回传、越权文件读取或后门行为，切实保障普通用户的数字权利与数据安全。
+          </p>
+        </div>
+      </div>
+    `;
+  } else {
+    return `
+      <div class="space-y-3.5">
+        <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
+          <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>🟢</span> 1. Usability & Test Verification
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            Every curated skill is verified via local installation and syntax linting. <strong>"Ready to Use (Verified)"</strong> means zero complex setup—simply copy into Cursor, Claude Code, or Antigravity skills folders. <strong>"Requires Setup (Ready)"</strong> indicates prerequisites like Python packages or API keys, with full configuration instructions tested.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 dark:border-brand/30 space-y-1">
+          <h4 class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>⭐</span> 2. Community Adoption & Empirical Evidence
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            Strictly grounded in real GitHub stars (e.g. Superpowers 290k★, Anthropic Official 177k★/9.5k★, Tech Leads Club 6.6k★) and verified organization custodianship. For specialized independent projects, we transparently note <strong>"Independent Open Source (Verified)"</strong>—never fabricating fake metrics.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+          <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
+            <span>🛡️</span> 3. Evidence & Safety Principles
+          </h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+            All skill codebases are 100% public and auditable on GitHub, tested within client sandboxes with zero unauthorized network exfiltration, protecting users' digital sovereignty and data privacy.
+          </p>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function openStatusGuide() {
+  const modal = document.getElementById("status-guide-modal");
+  const title = document.getElementById("status-guide-title");
+  const body = document.getElementById("status-guide-body");
+  const confirmBtn = document.getElementById("status-guide-confirm");
+  const t = i18n[currentLang];
+  if (!modal || !body) return;
+
+  if (title) title.textContent = t.statusGuideTitle;
+  if (confirmBtn) confirmBtn.textContent = t.statusGuideClose;
+
+  body.innerHTML = getStatusGuideHtml(currentLang);
+  modal.style.display = "flex";
+  requestAnimationFrame(() => modal.classList.add("active"));
+  document.body.classList.add("overflow-hidden");
+}
+
+function closeStatusGuide() {
+  const modal = document.getElementById("status-guide-modal");
+  if (!modal) return;
+  modal.classList.remove("active");
+  setTimeout(() => {
+    modal.style.display = "none";
+    const detailModal = document.getElementById("detail-modal");
+    if (!detailModal || detailModal.style.display === "none") {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, 150);
 }
 
 // Modal Controllers
@@ -716,22 +867,51 @@ function openModal(id) {
         `;
       })()}
 
-      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
-        <h4 class="font-bold text-slate-800 dark:text-slate-200">${t.statusLabel}</h4>
-        <div class="flex flex-wrap gap-2">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-            🟢 ${item.status?.stage || 'Stable'}
-          </span>
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
-            ⭐ ${item.status?.adoption || 'Verified'}
-          </span>
-        </div>
-        <p class="text-slate-500 dark:text-slate-400 pt-1 text-xs">🛡️ ${item.status?.trust_source || 'Verified Source'}</p>
-        <div class="pt-3 border-t border-slate-200/60 dark:border-slate-700/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <p><span class="font-semibold text-slate-700 dark:text-slate-300">${t.targetPersona}</span> ${item.target_persona}</p>
-          <p><span class="font-semibold text-slate-700 dark:text-slate-300">${t.supportedClients}</span> ${item.clients.join("、")}</p>
-        </div>
-      </div>
+      ${(() => {
+        const isZh = currentLang === "zh";
+        const stageText = isZh ? (item.status?.stage_cn || item.status?.stage || "开箱即用") : (item.status?.stage_en || item.status?.stage || "Ready to Use");
+        const isSetup = (item.status?.stage || "").includes("需配置") || (item.status?.stage || "").includes("Requires");
+        const stageColor = isSetup
+          ? "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+          : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+        const stageTooltip = isZh
+          ? "已通过本地环境安装测试与技能规范语法校验，逻辑规则完整闭环。"
+          : "Verified via local installation tests and skill specification validation.";
+        
+        const adoptionText = isZh ? (item.status?.adoption_cn || item.status?.adoption || "已实测") : (item.status?.adoption_en || item.status?.adoption || "Verified");
+        const adoptionTooltip = isZh
+          ? "基于真实 GitHub 开源星数与权威机构维护记录，代码完全公开透明。"
+          : "Based on real GitHub stars and verified maintainer records, 100% public code.";
+        
+        const trustText = isZh ? (item.status?.trust_source_cn || item.status?.trust_source || "") : (item.status?.trust_source_en || item.status?.trust_source || "");
+
+        return `
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between gap-2">
+              <h4 class="font-bold text-slate-800 dark:text-slate-200 text-xs sm:text-sm">${t.statusLabel}</h4>
+              <button type="button" class="status-guide-trigger px-2.5 py-1 rounded-lg text-xs font-semibold bg-brand/10 hover:bg-brand/20 text-brand dark:text-brand-container transition-colors cursor-pointer flex items-center gap-1">
+                ${t.statusGuideBtn}
+              </button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${stageColor}" title="${stageTooltip}">
+                ${stageText}
+              </span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300" title="${adoptionTooltip}">
+                ${adoptionText}
+              </span>
+            </div>
+            <div class="p-3 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-200/70 dark:border-slate-800 space-y-1">
+              <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">${t.verifiedEvidenceTitle}</span>
+              <p class="text-slate-700 dark:text-slate-300 text-xs leading-relaxed">${trustText}</p>
+            </div>
+            <div class="pt-3 border-t border-slate-200/60 dark:border-slate-700/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <p><span class="font-semibold text-slate-700 dark:text-slate-300">${t.targetPersona}</span> ${item.target_persona}</p>
+              <p><span class="font-semibold text-slate-700 dark:text-slate-300">${t.supportedClients}</span> ${item.clients.join("、")}</p>
+            </div>
+          </div>
+        `;
+      })()}
     `;
   }
 

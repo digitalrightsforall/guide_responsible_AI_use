@@ -56,7 +56,8 @@ Every submitted item (whether for the README or the website dataset) must provid
 | `clients` | `array` | Supported AI platforms/clients | `["Claude Code", "Antigravity", "Cursor"]` |
 | `target_persona` | `string` | Primary user group | `General Knowledge Workers`, `Researchers`, `Writers` |
 | `summary` | `string` | 1-2 sentence plain-language description | Explains what risk it prevents or what task it accomplishes. |
-| `references` | `array` | Third-party evaluations, lists, blogs, or reports | Array of verified reference objects (`type`, `source`, `title_zh/en`, `url`, `takeaway_zh/en`) |
+| `standard_alignment` | `object` | Underlying technical / international standard aligned | `{ "name_zh": "...", "name_en": "...", "organization": "...", "url": "...", "how_aligned_zh": "...", "how_aligned_en": "..." }` |
+| `third_party_reviews` | `array` | Direct third-party media reviews or catalog inclusions | Array of `{ "source": "...", "title_zh": "...", "title_en": "...", "url": "...", "excerpt_zh": "...", "excerpt_en": "..." }` (empty array `[]` if none) |
 | `artifact` | `object` | Actionable installation command | See template below. |
 
 ---
@@ -76,10 +77,15 @@ Every submitted item (whether for the README or the website dataset) must provid
 - **Supported Clients**: Claude Code, Antigravity, Cursor
 - **Target Persona**: General Knowledge Workers
 - **What it does**: Briefly describe what problem it solves in 1-2 sentences.
-- **Third-Party Evidence / References**:
-  - Source: Tech blog / benchmark / paper / official catalog
-  - URL: Direct link to evidence
-  - Takeaway: Key findings or quotes
+- **Technical & Standard Alignment**:
+  - Standard Name: ISO / IEEE / W3C / OWASP / Academic standard aligned
+  - Organization: Authoritative standard body or institution
+  - URL: Direct link to standard specification
+  - How Aligned: Concrete explanation of how the skill adheres to this standard
+- **Direct Third-Party Reviews & Inclusions (if any)**:
+  - Source: Tech blog / newsletter / catalog entry
+  - URL: Direct link to external review
+  - Excerpt: Direct takeaway or evaluation
 - **Install / Placement**:
   ```bash
   git clone https://github.com/owner/repo.git && cp -R repo/skills/skill-name .agents/skills/

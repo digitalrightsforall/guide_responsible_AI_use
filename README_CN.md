@@ -50,9 +50,9 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ AgentSkills Standard | 🛡️ *Audited local-first isolation pipeline with automatic purge*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** General Knowledge Workers, Researchers, Journalists
-* **📚 第三方评价与实证材料：**
-  - [AgentSkills Standard：AgentSkills 开放技能标准规范与本地隔离架构](https://github.com/danyuchn/pii-guard#privacy-architecture) — *将云端 LLM 默认设为不可信边界，强制在本地沙盒中创建脱敏临时副本，阻断商业大模型对私人文档与敏感元数据的直接抓取。*
-  - [Microsoft Presidio Privacy Guidelines：微软 Presidio 工业级隐私保护与生成式 AI 敏感数据识别指南](https://microsoft.github.io/presidio/) — *微软开源 Presidio 项目确立的敏感数据分级标准，为个人用户桌面端 AI 提示词与上传附件提供了严格的 PII 识别基准。*
+* **📐 技术依据与对齐标准：** [微软 Presidio 敏感信息识别与本地沙盒去标识化标准](https://microsoft.github.io/presidio/)（Microsoft / Open Source Privacy Standards）— *遵循微软 Presidio 确立的 18 类个人身份数据分级与可逆假名化标准，在本地沙盒生成脱敏副本，阻断云端商业 AI 直接触碰原始敏感文件。*
+* **🌐 独立第三方评测与生态收录：**
+  - [AgentSkills Open Standard Catalog：AgentSkills 开放技能标准规范收录：本地隐私沙盒](https://github.com/danyuchn/pii-guard#privacy-architecture) — *被收录为 AgentSkills 推荐的本地脱敏隔离参考范式，强调云端大模型应作为非受信环境处理。*
 * **安装命令：**
   ```bash
   git clone https://github.com/danyuchn/pii-guard.git && cp -R pii-guard/.agents/skills/pii-safe-documents .agents/skills/
@@ -66,9 +66,7 @@
 * **📊 成熟度与可信背书：** `Active Release` | ⭐ Open Scholar Suite | 🛡️ *Designed for university & clinical research data custodians*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Academic Researchers, Qualitative Analysts, IRB Custodians
-* **📚 第三方评价与实证材料：**
-  - [Open Scholar Architecture：高校机构审查委员会 (IRB) 与受控学术数据流通合规框架](https://github.com/joshzyj/open-scholar-skill#compliance-matrix) — *为研究者划定伦理红线，强制要求访谈录音文本与受保密协议保护的研究手稿在本地执行纯本地脚本分析，杜绝云端泄露。*
-  - [Open Scholar Suite：学术科研智能体安全套件收录规范](https://github.com/joshzyj/open-scholar-skill) — *被多所高校科研团队采纳作为桌面端学术分析前置防护插件，对进入上下文的未公开学术数据执行前置安全拦截。*
+* **📐 技术依据与对齐标准：** [机构审查委员会 (IRB) 与受控学术研究数据流动合规指南](https://www.hhs.gov/ohrp/regulations-and-policy/index.html)（US HHS Office for Human Research Protections (OHRP)）— *遵循高校学术伦理审查委员会（IRB）与受保护学术数据流动合规标准，强制受控学术手稿与访谈记录仅在本地执行脚本分析，杜绝上行云端。*
 * **安装命令：**
   ```bash
   git clone https://github.com/joshzyj/open-scholar-skill.git && cp -R open-scholar-skill/.claude/skills/scholar-safety ~/.claude/skills/
@@ -82,9 +80,7 @@
 * **📊 成熟度与可信背书：** `Production v2.1` | ⭐ Open Source Community | 🛡️ *Zero cloud dependencies, 7-layer semantic detection*
 * **适用客户端：** Claude Code、Antigravity、Cursor
 * **适用人群：** Developers, Power Users, Knowledge Workers
-* **📚 第三方评价与实证材料：**
-  - [AgentSkills Open Ecosystem：AgentSkills 生态指令净化与凭证泄露防御机制](https://github.com/cyberxuan-XBX/skill-sanitizer#security-model) — *针对外部社区技能包中的高危提取载荷建立动态审查清单，在加载阶段自动剥离涉及本地凭证与环境变量读取的恶意指令。*
-  - [OWASP GenAI Top 10：OWASP LLM06:2025 敏感信息泄露防范标准指南](https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/) — *权威安全组织 OWASP 指出，大模型工作流必须引入自动输入清洗，防止系统环境中的商业机密与 API 密钥通过上下文隐蔽泄漏。*
+* **📐 技术依据与对齐标准：** [OWASP 智能体应用安全十大风险 (LLM06: 敏感信息泄露防范)](https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/)（OWASP GenAI Foundation）— *依照 OWASP LLM06 敏感信息泄露防范规范，在加载外部技能指令时建立启发式过滤，自动剥离试图提取环境变量和本地密钥的高危载荷。*
 * **安装命令：**
   ```bash
   git clone https://github.com/cyberxuan-XBX/skill-sanitizer.git .agents/skills/skill-sanitizer
@@ -98,9 +94,7 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ agentskills.io Verified | 🛡️ *Audited open-source privacy framework with 282+ skills*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Support Teams, Account Managers, Operations
-* **📚 第三方评价与实证材料：**
-  - [Privacy Data Protection Skills：多语种命名实体识别 (NER) 与 PII 自动化脱敏基准测试](https://github.com/mukul975/Privacy-Data-Protection-Skills#pii-detection) — *基于精确规则与预训练实体模型的双通道检测体系，在本地内存中对电话、邮箱、税号进行毫秒级屏蔽与代换。*
-  - [EU GDPR Information Portal：欧盟 GDPR 第 30 条处理活动记录技术合规实践](https://gdpr-info.eu/art-30-gdpr/) — *为个人与中小机构使用商业大模型时的个人数据处理提供合规参照，确保提示词上下文符合最小必要原则。*
+* **📐 技术依据与对齐标准：** [欧盟 GDPR 第 30 条处理活动记录与最小必要原则规范](https://gdpr-info.eu/art-30-gdpr/)（European Data Protection Board (EDPB)）— *严格依照欧盟 GDPR 数据最小化原则，通过 SpaCy NER 实体识别与正则双通道机制，对手机号、身份证、税号等实施毫秒级内存去标识化。*
 * **安装命令：**
   ```bash
   git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/pii-detection-pipeline ~/.claude/skills/
@@ -114,9 +108,9 @@
 * **📊 成熟度与可信背书：** `Active Research Release` | ⭐ OpenMed Suite | 🛡️ *Clinical NLP benchmarked for HIPAA PHI safety*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Clinical Researchers, Healthcare Analysts, Medical Writers
-* **📚 第三方评价与实证材料：**
-  - [Maziyar Panahi (HuggingFace Lead)：OpenMed 医疗人工智能临床病历摄入规范与数据治理](https://github.com/maziyarpanahi/openmed#clinical-guidelines) — *由 HuggingFace 顶级医学开源团队维护，针对临床问诊与医疗报告设计，确保大模型处理病历时满足严格的隐私隔离准则。*
-  - [US HHS Health Information Privacy：美国卫生与公众服务部 (HHS) HIPAA 安全港去标识化标准](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html) — *严格遵守 HIPAA 规定的 18 类受保护健康信息 (PHI) 剔除标准，防止普通人医疗咨询数据被商业厂商逆向识别。*
+* **📐 技术依据与对齐标准：** [美国卫生与公众服务部 HIPAA 安全港去标识化法案 (18 项 PHI 剔除准则)](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)（US Department of Health and Human Services (HHS)）— *严格遵循美国卫生健康部 HIPAA 安全港法案关于 18 类受保护健康信息（PHI）的剔除规则，防止个人医疗诊断记录被云端商业 AI 逆向比对。*
+* **🌐 独立第三方评测与生态收录：**
+  - [HuggingFace OpenMed Collection (Maziyar Panahi)：OpenMed 开源临床医疗数据治理规范与模型生态](https://github.com/maziyarpanahi/openmed#clinical-guidelines) — *由顶尖开源医学 AI 团队维护，为临床医生与患者病历处理确立了严格的本地安全准入规范。*
 * **安装命令：**
   ```bash
   git clone https://github.com/maziyarpanahi/openmed.git && cp -R openmed/skills/deidentifying-clinical-text .agents/skills/
@@ -130,9 +124,9 @@
 * **📊 成熟度与可信背书：** `Production Standard` | ⭐ AREX-Skill Repo | 🛡️ *Enterprise repository standard with deterministic NER masking*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Knowledge Workers, Enterprise Staff, Developers
-* **📚 第三方评价与实证材料：**
-  - [Microsoft Open Source Engineering：微软 Presidio 架构深度解析：生产级实体识别与上下文脱敏](https://microsoft.github.io/presidio/anonymizer/) — *微软官方详述可逆掩码、加密代换和假名化（Pseudonymization）技术，保障个人在将日常草案交给 AI 润色时原隐私绝不出网。*
-  - [VectorSpaceLab AREX：AREX 开源智能体工具箱官方收录规范](https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration) — *被 AREX Agent 工具集作为安全第一层标准插件收录，在客户端与大模型之间建立透明的中间件防护墙。*
+* **📐 技术依据与对齐标准：** [微软 Presidio 开源脱敏引擎架构规范 (可逆掩码与假名化)](https://microsoft.github.io/presidio/anonymizer/)（Microsoft Open Source Engineering）— *基于微软 Presidio 开源匿名化引擎核心规范，实现精确的实体代换、假名化与可逆还原操作，保障文本交给大模型润色时个人隐私完全留在本地。*
+* **🌐 独立第三方评测与生态收录：**
+  - [VectorSpaceLab AREX Skills Catalog：AREX 开源智能体工具箱官方收录规范](https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration) — *作为 AREX 智能体框架官方首层安全中间件收录，为所有上下文交互提供透明的脱敏拦截。*
 * **安装命令：**
   ```bash
   git clone https://github.com/VectorSpaceLab/AREX-Skill.git && cp -R AREX-Skill/skills/repositories/repo-skills/presidio/sub-skills/anonymize-text .agents/skills/presidio-anonymize
@@ -146,9 +140,7 @@
 * **📊 成熟度与可信背书：** `Active Community Standard` | ⭐ OWASP Agentic Top 10 Mapping | 🛡️ *LLMSecurity open-source agent audit framework*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** All AI Users, Developers, Security Conscious Citizens
-* **📚 第三方评价与实证材料：**
-  - [OWASP Foundation：OWASP 智能体应用十大安全风险 (OWASP Agentic Top 10) 官方防线](https://genai.owasp.org/) — *业界首个针对第三方 SKILL.md 指令投毒与供应链后门的防御实现，映射 OWASP LLM01 提示词注入与权限越权风险。*
-  - [MITRE ATLAS Framework：MITRE ATLAS AML.T0051 针对大模型提示词注入攻击的防御战术](https://atlas.mitre.org/techniques/AML.T0051/) — *将美国 MITRE 国家对抗性威胁框架引入个人 Agent 技能安装审查，自动识别人类不可见字符与隐藏外发 Bash 脚本。*
+* **📐 技术依据与对齐标准：** [MITRE ATLAS 对抗性威胁框架 (AML.T0051 提示词注入与投毒防御)](https://atlas.mitre.org/techniques/AML.T0051/)（MITRE Corporation & OWASP）— *映射美国 MITRE 国家对抗性威胁框架与 OWASP 智能体应用十大风险，对外部 SKILL.md 执行指令级静态分析，扫描隐藏的恶意 Bash 与隐蔽外发。*
 * **安装命令：**
   ```bash
   git clone https://github.com/LLMSecurity/skillguard.git && cp -R skillguard/skills/skillguard .agents/skills/
@@ -162,9 +154,7 @@
 * **📊 成熟度与可信背书：** `Active Release` | ⭐ Evolution Unleashed Framework | 🛡️ *Open-source heuristic skill scanner*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Knowledge Workers, Content Creators, Developers
-* **📚 第三方评价与实证材料：**
-  - [Evolution Unleashed：开源智能体技能指令静态威胁启发式扫描技术报告](https://github.com/EvolutionUnleashed/skill-sentinel#threat-matrix) — *详细列举了 24 种伪装成“系统提示词”诱导 Agent 执行 `curl -d @~/.ssh/id_rsa` 等危险外发行为的攻击模式并提供阻断规则。*
-  - [MITRE Common Weakness Enumeration：CWE-78: 操作系统命令注入漏洞在 Agent 终端调用中的防范](https://cwe.mitre.org/data/definitions/78.html) — *为个人代码辅助智能体提供命令执行边界审计，严防恶意外来 Prompt 操纵 Agent 产生本地终端破坏行为。*
+* **📐 技术依据与对齐标准：** [CWE-78 操作系统命令注入漏洞防范规范 (针对 Agentic 终端调用)](https://cwe.mitre.org/data/definitions/78.html)（MITRE Common Weakness Enumeration）— *遵循 CWE-78 系统命令注入防御准则，建立针对 24 种伪装成“系统提示词”诱导 Agent 执行危险外发行为的启发式阻断规则库。*
 * **安装命令：**
   ```bash
   git clone https://github.com/EvolutionUnleashed/skill-sentinel.git && cp -R skill-sentinel/skills/skill-sentinel .agents/skills/
@@ -178,9 +168,9 @@
 * **📊 成熟度与可信背书：** `Production Stable (300+ ★)` | ⭐ Nova Security Scanner Ecosystem | 🛡️ *Nova-Hunting Open Security Project*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** All Agent Users, Small Business Owners, Power Users
-* **📚 第三方评价与实证材料：**
-  - [Nova Hunting Research (305★)：Nova Proximity 智能体 MCP 权限邻近性与本地目录越权审计报告](https://github.com/Nova-Hunting/nova-proximity#security-report) — *针对 Anthropic MCP (Model Context Protocol) 本地文件服务器配置存在的过度暴露缺陷，提供即插即用的本地权限审计机制。*
-  - [Anthropic Model Context Protocol：Anthropic MCP 官方协议规范：安全架构与宿主隔离模型](https://modelcontextprotocol.io/docs/concepts/architecture#security) — *Anthropic 官方强调 MCP 服务器连接必须遵循最小权限，Nova Proximity 填补了普通用户缺乏可视化权限审计的空缺。*
+* **📐 技术依据与对齐标准：** [Anthropic Model Context Protocol (MCP) 最小权限与本地宿主隔离规范](https://modelcontextprotocol.io/docs/concepts/architecture#security)（Anthropic & MCP Working Group）— *落实 Anthropic MCP 协议官方安全规范中的“最小权限”准则，针对本地 MCP 文件服务器与终端配置执行权限邻近性静态审计，严防过度授权。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Nova Hunting Security Research (305★)：Nova Hunting 智能体 MCP 权限邻近性与本地目录越权审计报告](https://github.com/Nova-Hunting/nova-proximity#security-report) — *开源研究团队针对 Anthropic MCP 客户端本地配置漏洞发布的专业防护分析报告。*
 * **安装命令：**
   ```bash
   git clone https://github.com/Nova-Hunting/nova-proximity.git && cp -R nova-proximity/.agents/skills/nova-proximity .agents/skills/
@@ -194,9 +184,9 @@
 * **📊 成熟度与可信背书：** `Production Battle-Tested (6.6k ★)` | ⭐ Tech-Leads-Club Standard | 🛡️ *Curated from OpenAI and professional tech leads consortium*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Developers, Tech Leads, Enterprise Knowledge Workers
-* **📚 第三方评价与实证材料：**
-  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能目录：应用安全威胁建模规范](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model) — *收录于超过 6600 星的顶尖工程领导者仓库，为开发者与架构师将 STRIDE 威胁建模方法落地为可直接由 AI 执行的边界清单。*
-  - [Microsoft Security Engineering：微软 AI 威胁建模指南：针对大语言模型应用系统的资产边界划分](https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml) — *微软安全工程团队推出的 AI 资产保护规范，强调在日常人机协同中必须显式定义‘严禁喂给 AI 的机密数据白名单’。*
+* **📐 技术依据与对齐标准：** [STRIDE / DREAD 人工智能与大模型应用威胁建模标准](https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml)（Microsoft Security Engineering）— *将工业界标准的 STRIDE 威胁建模方法论落地为 AI 可直接解析的资产保护清单，显式定义严禁提供给大模型的机密边界。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能目录：应用安全威胁建模规范](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model) — *收录于 6600+ 星的知名工程领导者开源套件，作为工程团队日常架构审查的标准插件。*
 * **安装命令：**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(security\)/security-threat-model .agents/skills/
@@ -215,9 +205,7 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ Agent Skills Library | 🛡️ *Verified multi-step claim extraction and external evidence retrieval*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Knowledge Workers, Writers, Journalists, Researchers
-* **📚 第三方评价与实证材料：**
-  - [NeurIPS Research (Madaan et al.)：Self-Refine: 迭代自我反思与生成后双阶段核验机制](https://arxiv.org/abs/2303.17651) — *权威顶级机器学习会议 NeurIPS 论文证实：将生成过程与独立核验过程拆为双阶段流水线，能显著减少大模型事实性幻觉达到 40% 以上。*
-  - [J. Wynia Agent Skills：J. Wynia 开源智能体实务工具集标准核验组件](https://github.com/jwynia/agent-skills#fact-checking) — *作为开源知识工作者生产力套件的核心质检门禁，自动拆解文章中的实体断言并强制发起二次检索验证。*
+* **📐 技术依据与对齐标准：** [NeurIPS 2023 Self-Refine 多阶段事实反思与生成后核验架构](https://arxiv.org/abs/2303.17651)（Neural Information Processing Systems (NeurIPS)）— *严格依照顶级机器学习会议 NeurIPS 验证过的“生成后独立核验”双阶段流水线，在回答生成后强制拆解事实性实体发起二次比对。*
 * **安装命令：**
   ```bash
   git clone https://github.com/jwynia/agent-skills.git && cp -R agent-skills/skills/general/research/verification/fact-check .agents/skills/fact-check
@@ -231,9 +219,7 @@
 * **📊 成熟度与可信背书：** `Production Active` | ⭐ Aminer Open Skill Ecosystem | 🛡️ *Deep claim-to-passage alignment evaluation*
 * **适用客户端：** Claude Code、Antigravity、Cursor
 * **适用人群：** Academic Researchers, Peer Reviewers, Fact-Checkers
-* **📚 第三方评价与实证材料：**
-  - [清华大学 KEG 实验室 & AMiner：清华 KEG 学术知识图谱：学术生成式 AI 引用保真度评测体系](https://www.aminer.cn/) — *针对大模型“真实作者匹配错误论文”、“捏造期刊卷期号”等高频学术造假现象，建立与 AMiner 千万级真实论文库的精确交叉比对机制。*
-  - [AMiner Open Skill：AMiner 开源学术智能体核验规范收录记录](https://github.com/CanXiangCC/aminer-open-skill#evaluation-criteria) — *为学术写作者提供一键式引用保真度审查，确保每一条参考文献在被列入正文前均有一致可查的真实文献支撑。*
+* **📐 技术依据与对齐标准：** [清华大学 KEG 学术知识图谱引用保真度评测标准](https://www.aminer.cn/)（清华大学计算机系知识工程实验室 (KEG) & AMiner）— *依托清华学术图谱校验规范，对大模型生成的引用逐项进行“真实作者-论文标题-期刊卷期”全要素交叉比对，清除捏造参考文献。*
 * **安装命令：**
   ```bash
   git clone https://github.com/CanXiangCC/aminer-open-skill.git && cp -R aminer-open-skill/skills/citation-faithfulness ~/.claude/skills/citation-faithfulness
@@ -247,9 +233,7 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ Academic AgentConfig | 🛡️ *Batch Crossref & Semantic Scholar verification harness*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Academic Researchers, Grant Writers, Authors
-* **📚 第三方评价与实证材料：**
-  - [CrossRef & DBLP API Standards：CrossRef 国际学术元数据检索与数字对象唯一标识符 (DOI) 核查规范](https://www.crossref.org/documentation/retrieve-metadata/rest-api/) — *国际出版权威 CrossRef 官方 API 接口标准，利用数字指纹与元数据校验杜绝 AI 凭空捏造的学术参考文献。*
-  - [Y. Zhao Agent Config：学术写作与文献真实性审计智能体配置规范](https://github.com/yzhao062/agent-config#bibref) — *被多位跨学科博士后研究员在论文草案校对中作为强制执行插件，自动抓取 BibTeX 条目并发送 API 验证。*
+* **📐 技术依据与对齐标准：** [CrossRef 国际数字对象唯一标识符 (DOI) 元数据检索标准](https://www.crossref.org/documentation/retrieve-metadata/rest-api/)（CrossRef (Publishers International Linking Association)）— *采用国际学术 DOI 唯一数字标识符检索协议，通过向 CrossRef 与 DBLP 发送请求验证每一个 BibTeX 条目真实性，杜绝伪造引文。*
 * **安装命令：**
   ```bash
   git clone https://github.com/yzhao062/agent-config.git && cp -R agent-config/skills/bibref-verify ~/.claude/skills/bibref-verify
@@ -263,9 +247,7 @@
 * **📊 成熟度与可信背书：** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Empirical research workflow maintained by scdenney*
 * **适用客户端：** Claude Code、Antigravity、Cursor
 * **适用人群：** Researchers, Policy Analysts, Fact-Checkers
-* **📚 第三方评价与实证材料：**
-  - [Open Science Framework (OSF)：开放科学中心 (COS)：学术可复现性与引用完整性保障倡议](https://www.cos.io/our-communities/osf) — *OSF 倡导的科研可复现准则明确指出：AI 辅助生成的学术文献必须具备完整的原始证据链与可追溯上下文支撑。*
-  - [Open Science Skills Suite：开源科学智能体套件：预印本引用完整性审计器](https://github.com/scdenney/open-science-skills#citation-auditor) — *针对 arXiv 与 bioRxiv 预印本在 AI 处理过程中易出现的断章取义问题，自动复原原始引用段落进行语义匹配度打分。*
+* **📐 技术依据与对齐标准：** [开放科学中心 (COS) 研究完整性与文献可复现性指南](https://www.cos.io/our-communities/osf)（Center for Open Science (COS) / Open Science Framework (OSF)）— *落实开放科学中心倡导的可复现性准则，针对 arXiv/bioRxiv 预印本自动反向抓取原始上下文段落，为学术引用匹配保真度打分。*
 * **安装命令：**
   ```bash
   git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/citation-check ~/.claude/skills/
@@ -279,9 +261,9 @@
 * **📊 成熟度与可信背书：** `Mature Academic Tool` | ⭐ Scientific Research Community | 🛡️ *Built by academic faculty for LaTeX/Markdown scientific publishing*
 * **适用客户端：** Claude Code、Emacs、Antigravity
 * **适用人群：** Scientists, Academic Writers, LaTeX/Markdown Users
-* **📚 第三方评价与实证材料：**
-  - [Prof. John Kitchin (Carnegie Mellon Univ.)：卡耐基梅隆大学 John Kitchin 教授研究博客：可计算学术与智能体引用校验](https://kitchingroup.cheme.cmu.edu/) — *科学计算与学术自动化领域权威学者 John Kitchin 亲自编写维护的开源技能，将学术文献核验深度集成入可执行工作流。*
-  - [Skillz Framework：Skillz 科学研究与学术计算可扩展技能框架](https://github.com/jkitchin/skillz) — *在科学研究者社区中广为流传的高信誉工具库，支持一键针对全文文献中的所有引用进行结构化解析与真实性报告输出。*
+* **📐 技术依据与对齐标准：** [卡耐基梅隆大学可计算学术与可重现科学论文准则 (John Kitchin Group)](https://kitchingroup.cheme.cmu.edu/)（Carnegie Mellon University）— *遵循卡耐基梅隆大学可计算学术理念，将学术写作中的引用校验与代码执行环境深度绑定，自动输出全量引文真实性审计表。*
+* **🌐 独立第三方评测与生态收录：**
+  - [CMU Kitchin Research Group：卡耐基梅隆大学科研计算工具集 (Skillz)](https://github.com/jkitchin/skillz) — *由 CMU 教授亲自设计并用于日常计算研究与学术出版真实性校验的开源工具。*
 * **安装命令：**
   ```bash
   git clone https://github.com/jkitchin/skillz.git && cp -R skillz/skills/citation-verifier .agents/skills/
@@ -295,9 +277,7 @@
 * **📊 成熟度与可信背书：** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Claim-source consistency auditor for empirical science*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Journalists, Long-form Writers, Editors
-* **📚 第三方评价与实证材料：**
-  - [FEVER Fact Extraction Benchmark：FEVER 国际事实抽取与证据链判定基准规范](https://fever.ai/) — *全球公认的事实核查评测基准，要求针对每一个核心断言标注‘支持 (Supported)’、‘反驳 (Refuted)’或‘信息不足 (Not Enough Info)’。*
-  - [Open Science Skills：断言-来源精准溯源核查器开源实务规范](https://github.com/scdenney/open-science-skills#claim-checker) — *要求大模型不可笼统声明“已有研究表明”，而必须指出具体段落与实验数据，杜绝模糊化的虚假权威背书。*
+* **📐 技术依据与对齐标准：** [FEVER 国际事实抽取与证据链判定基准分类规范](https://fever.ai/)（FEVER Academic Consortium）— *遵循国际通用的事实抽取与溯源标准，强制对 AI 输出的每一个结论性断言标注“支持”、“反驳”或“证据不足”，禁止空泛宣称。*
 * **安装命令：**
   ```bash
   git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/fact-check ~/.claude/skills/
@@ -311,9 +291,7 @@
 * **📊 成熟度与可信背书：** `Production Pinned` | ⭐ Open Agent Skills Catalog | 🛡️ *Commit-pinned risk rubric with structured output contract*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Knowledge Workers, Editors, Content Teams, Researchers
-* **📚 第三方评价与实证材料：**
-  - [ACM Computing Surveys (Ji et al.)：大语言模型幻觉全面综述与主动风险评估模型](https://arxiv.org/abs/2202.03629) — *顶级计算机综述期刊 ACM CSUR 论文揭示：大模型在生成高专业度或数值密集型内容时，内部注意力机制存在系统性发散风险。*
-  - [OpenAgentSkills Catalog：OpenAgentSkills 开源智能体技能集：幻觉风险扫描器](https://github.com/Notysoty/openagentskills#hallucination-risk) — *通过统计语言模型回答中的不确定性标记与事实承载词密度，为普通用户输出可视化的幻觉风险预警等级。*
+* **📐 技术依据与对齐标准：** [ACM Computing Surveys (CSUR) 大语言模型幻觉分类与不确定性评估模型](https://arxiv.org/abs/2202.03629)（Association for Computing Machinery (ACM)）— *遵循 ACM CSUR 经典综述关于大模型注意力发散与事实承载词密度的评测模型，量化回答中的不确定性标记并给出风险等级。*
 * **安装命令：**
   ```bash
   git clone https://github.com/Notysoty/openagentskills.git && cp -R openagentskills/skills/hallucination-risk-reviewer .agents/skills/
@@ -327,9 +305,9 @@
 * **📊 成熟度与可信背书：** `Production API Integration` | ⭐ Vectara Agent Skills | 🛡️ *Backed by Vectara Hughes Hallucination Evaluation Model*
 * **适用客户端：** Claude Code、Antigravity、Python Agents
 * **适用人群：** Enterprise Analysts, RAG Operators, Researchers
-* **📚 第三方评价与实证材料：**
-  - [Vectara HHEM Benchmark & HuggingFace：Vectara Hughes 幻觉评估模型 (HHEM) 全球主流大模型幻觉排行榜](https://huggingface.co/vectara/hallucination_evaluation_model) — *工业界最具影响力的幻觉基准之一，客观追踪 GPT-4、Claude、Gemini 等各大商业模型的真实幻觉率（3%~15% 不等）。*
-  - [Vectara AI Engineering Blog：Vectara 技术博客：如何在大模型企业级生产环境中消除幻觉](https://vectara.com/blog/measuring-hallucination-in-rag-systems/) — *详细阐述了基于事实一致性分类器自动识别并就地纠偏错误事实的工业级工程落地手段。*
+* **📐 技术依据与对齐标准：** [Vectara Hughes 幻觉评估模型 (HHEM) 全球事实一致性基准](https://huggingface.co/vectara/hallucination_evaluation_model)（Vectara AI Research）— *依据追踪全球主流大模型真实幻觉率的 HHEM 分类器标准，在 RAG 检索回答生成时自动发起事实一致性纠偏。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Vectara Engineering Official Blog：Vectara 官方工程博客：在企业级 RAG 智能体中度量与消除幻觉](https://vectara.com/blog/measuring-hallucination-in-rag-systems/) — *Vectara 官方详细解析如何通过其开源 Agent 技能将幻觉识别整合入生产级会话流程。*
 * **安装命令：**
   ```bash
   git clone https://github.com/vectara/agent-skills.git && cp -R agent-skills/skills/hallucination-corrector .agents/skills/
@@ -343,9 +321,9 @@
 * **📊 成熟度与可信背书：** `Active Research Release` | ⭐ Scientific Agent Skills | 🛡️ *Multi-perspective derivation and statistical validation harness*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Scientists, Peer Reviewers, Quantitative Analysts
-* **📚 第三方评价与实证材料：**
-  - [K-Dense AI Ecosystem (46k★)：K-Dense AI 科学研究多智能体协作平台官方收录](https://github.com/K-Dense-AI/scientific-agent-skills#peer-review) — *来自拥有 4.6 万 Star 的开源科学智能体矩阵，将学术期刊标准同行评审（审稿人一、审稿人二盲审）流程自动化封装为质检技能。*
-  - [Nature Machine Intelligence：《自然·机器智能》特刊：人工智能在学术同行评审中的伦理与质量保障](https://www.nature.com/natmachintell/) — *国际顶级期刊明确规定：AI 不可作为终审决定者，但可作为结构完整性与实验方法论漏洞的前置形式审查工具。*
+* **📐 技术依据与对齐标准：** [《自然·机器智能》关于人工智能辅助同行评审的质量与伦理规范](https://www.nature.com/natmachintell/)（Nature Portfolio (Springer Nature)）— *严格依照《自然·机器智能》关于 AI 仅作为结构与方法形式审查工具、人类保留实质裁量权的伦理标准，将双盲同行评审标准化为审查流水线。*
+* **🌐 独立第三方评测与生态收录：**
+  - [K-Dense AI Scientific Ecosystem (46k★)：K-Dense 科学智能体官方同行评审流水线](https://github.com/K-Dense-AI/scientific-agent-skills#peer-review) — *来自拥有 4.6 万 Star 的开源科学智能体项目，将期刊审稿人多轮评审方法固化为开箱即用的质量门禁。*
 * **安装命令：**
   ```bash
   git clone https://github.com/K-Dense-AI/scientific-agent-skills.git && cp -R scientific-agent-skills/skills/peer-review .agents/skills/
@@ -359,9 +337,9 @@
 * **📊 成熟度与可信背书：** `Production Standard (6.6k ★)` | ⭐ Tech-Leads-Club Quality Suite | 🛡️ *Evidence-first engineering review protocol*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Knowledge Workers, Students, Researchers, Engineers
-* **📚 第三方评价与实证材料：**
-  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能集：严苛品质法官 (The Judge) 准则](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge) — *奉行“无证据即沉默 (Evidence or silence)”的工程铁律，任何主观推论若无确凿数据或代码行号佐证将被直接判定为无效交付。*
-  - [Martin Fowler Architecture Principles：马丁·福勒 (Martin Fowler) 软件架构准则：实证驱动的代码评审实践](https://martinfowler.com/architecture/) — *软件工程界先驱福勒强调实证至上原则，The Judge 技能成功将该原则转化为 Agentic 时代的自动化执行约束。*
+* **📐 技术依据与对齐标准：** [马丁·福勒 (Martin Fowler) 实证驱动软件架构评审准则](https://martinfowler.com/architecture/)（ThoughtWorks / Martin Fowler Architecture Foundation）— *贯彻“无确凿证据即保持沉默 (Evidence or silence)”的实证架构准则，任何主观技术推论若无一手命令或代码依据直接判定为不合格。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能集：严苛品质法官 (The Judge) 准则](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge) — *收录于 6600+ 星的架构师技能库，作为软件交付验收前杜绝 AI 猜想的硬性门禁。*
 * **安装命令：**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(quality\)/the-judge .agents/skills/
@@ -380,9 +358,9 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ tech-leads-club Catalog | 🛡️ *Dialectical counterargument and pre-mortem methodology*
 * **适用客户端：** Claude Code、Antigravity、Cursor
 * **适用人群：** Managers, Founders, Strategists, Analysts
-* **📚 第三方评价与实证材料：**
-  - [Tech Leads Club (6.6k★)：莎士比亚弄臣机制：打破决策盲区与回音室效应的批判性思考协议](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool) — *借鉴历史典故中唯一敢向国王说真话的“弄臣”角色，强制智能体寻找用户方案中被所有人忽略的最荒唐假设与破绽。*
-  - [Daniel Kahneman (Nobel Laureate)：诺奖得主卡尼曼《思考，快与慢》：对抗人类认知锚定与确认偏误](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow) — *为个人决策注入“慢思考”阻尼，阻断大模型无条件迎合用户初始观点的天生倾向，强迫用户直面盲点。*
+* **📐 技术依据与对齐标准：** [卡尼曼《思考，快与慢》双系统认知偏差防御与苏格拉底反诘法](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow)（Cognitive Science & Decision Making Foundations）— *依托诺贝尔经济学奖得主卡尼曼对抗认知偏误的“慢思考”理论，利用莎士比亚弄臣机制强制智能体专职挖掘方案中被忽略的荒谬假设。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Tech Leads Club (6.6k★)：莎士比亚弄臣机制：打破决策盲区与回音室效应的批判性思考协议](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool) — *收录于顶尖工程领导者仓库，专职作为打破管理层回音室效应的反常识质询工具。*
 * **安装命令：**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R "agent-skills/packages/skills-catalog/skills/(decision-making)/the-fool" ~/.claude/skills/the-fool
@@ -396,9 +374,7 @@
 * **📊 成熟度与可信背书：** `Production Active` | ⭐ pm-claude-skills Suite | 🛡️ *Procedural anti-appeasement rules verified in iterative workflows*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Decision Makers, Product Managers, Founders
-* **📚 第三方评价与实证材料：**
-  - [Anthropic Research (Sharma et al.)：Anthropic 官方前沿论文：深入探究大语言模型的阿谀奉承（Sycophancy）现象](https://arxiv.org/abs/2310.13548) — *Anthropic 研究团队实证发现：当前基于人类反馈强化学习 (RLHF) 训练的大模型极度倾向迎合用户错误意见。本技能正是针对该系统性缺陷的前置防御。*
-  - [Product Management Claude Skills：商业与产品决策反顺从技能套件收录记录](https://github.com/mohitagw15856/pm-claude-skills#sycophancy-challenger) — *在产品战略与市场分析中广受推荐，强制 AI 禁止在开场使用虚浮夸奖，必须优先列出方案存在的前三大致命风险。*
+* **📐 技术依据与对齐标准：** [Anthropic 官方研究：大语言模型阿谀奉承（Sycophancy）偏见的实证防御准则](https://arxiv.org/abs/2310.13548)（Anthropic Research）— *针对 Anthropic 实证披露的大模型为了讨好用户而无底线附和错误假定的系统性缺陷，建立前置反迎合规则，强制首发列出前三大致命缺陷。*
 * **安装命令：**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/sycophancy-challenger .agents/skills/sycophancy-challenger
@@ -412,9 +388,7 @@
 * **📊 成熟度与可信背书：** `Active Framework` | ⭐ mad-skills Ecosystem | 🛡️ *8-dimensional operational failure mode analysis*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Strategists, Writers, System Architects
-* **📚 第三方评价与实证材料：**
-  - [MAD Skills Framework：多智能体对抗性辩论 (Multi-Agent Debate) 实战套件](https://github.com/jihlenburg/mad-skills#devils-advocate) — *构建对抗性二元智能体，一人立论一人专职反驳，彻底打破单一模型对话时容易自我陶醉的“单向顺从”循环。*
-  - [arXiv AI Research (Liang et al.)：通过多智能体协作与对抗促进大模型发散性批判思维](https://arxiv.org/abs/2305.14325) — *前沿学术研究证实：当 AI 扮演恶魔代言人发起强力辩论时，复杂商业与技术决策的事后失败率可降低 35%。*
+* **📐 技术依据与对齐标准：** [多智能体对抗辩论 (Multi-Agent Debate) 发散性思辨技术规范](https://arxiv.org/abs/2305.14325)（MAD Research Collective (Liang et al.)）— *遵循多智能体对抗辩论论文验证的标准，拆解为立论与驳论两个相互竞争的智能体角色，打破单模型思维闭环。*
 * **安装命令：**
   ```bash
   git clone https://github.com/jihlenburg/mad-skills.git && cp -R mad-skills/skills/devils-advocate .agents/skills/
@@ -428,9 +402,7 @@
 * **📊 成熟度与可信背书：** `Production Pinned` | ⭐ Godfly Skills Standard | 🛡️ *Structured adversarial brief protocol for high-stakes decisions*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Executives, Team Leads, System Planners, Legal Counsel
-* **📚 第三方评价与实证材料：**
-  - [Godfly Skills Suite：牛虻法学与对抗性诉讼质证智能体协议](https://github.com/CassioRoos/godfly-skills#opposing-counsel) — *将法庭对抗质证机制（Cross-Examination）引入日常方案评估，模拟对方首席律师从合同漏洞与最坏情境进行致命攻击。*
-  - [Socratic Method & Legal Philosophy：苏格拉底“思想牛虻”论证法与法律批判性分析指南](https://en.wikipedia.org/wiki/Gadfly_(philosophy_and_social_science)) — *古典哲学中通过不懈追问刺破自满信念的经典方法论，为个人在面对重大人生或职业决策时提供独立清醒的镜像审视。*
+* **📐 技术依据与对齐标准：** [法庭对抗性交叉质证 (Cross-Examination) 逻辑法理准则](https://en.wikipedia.org/wiki/Gadfly_(philosophy_and_social_science))（Classical Jurisprudence & Dialectical Philosophy）— *借鉴英美法系法庭对抗性交叉质询机制，模拟反方首席律师从合同漏洞与最坏情境对用户提议发起极限承压审查。*
 * **安装命令：**
   ```bash
   git clone https://github.com/CassioRoos/godfly-skills.git && cp -R godfly-skills/skills/devils-advocate .agents/skills/godfly-counsel
@@ -444,9 +416,9 @@
 * **📊 成熟度与可信背书：** `Research Release` | ⭐ Academic Research Skills | 🛡️ *Rigorous anti-accommodation ladders for peer critique*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Researchers, PhD Candidates, Academic Authors
-* **📚 第三方评价与实证材料：**
-  - [Academic Research Skills (49k★)：4.9 万星顶尖学术研究技能库：恶魔代言人严苛审稿智能体](https://github.com/Imbad0202/academic-research-skills#devils-advocate) — *来自 GitHub 广受好评的学术科研顶级工具集，专门模拟最挑剔苛刻的期刊 Reviewer，精准寻找实验漏洞与样本偏差。*
-  - [Harvard Business Review (Gary Klein)：哈佛商业评论：在重大项目启动前推行“事前尸检”(Pre-Mortem) 决策法](https://hbr.org/2007/09/performing-a-project-premortem) — *认知心理学家 Gary Klein 提出的经典防灾机制：假设项目已彻底惨败，让 AI 倒推导致灾难的具体原因并提前堵漏。*
+* **📐 技术依据与对齐标准：** [哈佛商业评论 Gary Klein“事前尸检”(Pre-Mortem) 决策防灾法](https://hbr.org/2007/09/performing-a-project-premortem)（Harvard Business Publishing）— *将哈佛商业评论经典的“事前尸检”决策法转化为技能守则：提前假定方案已彻底惨败，让 AI 倒推核心致败因素并给出补救防线。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Academic Research Skills (49k★)：4.9 万星顶尖学术研究技能库：恶魔代言人严苛审稿智能体](https://github.com/Imbad0202/academic-research-skills#devils-advocate) — *收录于 4.9 万 Star 的顶尖科研工具库，作为学术同行苛刻评审的模拟标准。*
 * **安装命令：**
   ```bash
   git clone https://github.com/Imbad0202/academic-research-skills.git && cp -R academic-research-skills/skills/devils-advocate .agents/skills/
@@ -460,9 +432,7 @@
 * **📊 成熟度与可信背书：** `Production Pinned` | ⭐ pm-claude-skills Suite | 🛡️ *Multi-persona critique with ranked blind spot scoring matrix*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Product Managers, Editors, Team Leads, Strategists
-* **📚 第三方评价与实证材料：**
-  - [NIST AI Risk Management Framework：美国国家标准与技术研究院 (NIST AI 100-1) 红队对抗性压力测试指南](https://www.nist.gov/itl/ai-risk-management-framework) — *NIST 权威 AI 风险管理框架核心建议：高风险决策严禁依赖单一模型评估，必须引入多角色红蓝军攻防演练。*
-  - [PM Claude Skills Suite：产品需求与商业模式多视角红队审查规程](https://github.com/mohitagw15856/pm-claude-skills#red-team) — *让 AI 同时分别扮演财务总监、法务合规官、竞争对手和极端挑剔客户，展开四位一体的全方位压力测试。*
+* **📐 技术依据与对齐标准：** [美国国家标准与技术研究院 (NIST AI 100-1) 红队对抗性压力测试指南](https://www.nist.gov/itl/ai-risk-management-framework)（National Institute of Standards and Technology (NIST)）— *遵循美国国家标准与技术研究院 NIST 风险框架，将大模型角色分化为法务官、财务官、挑剔客户四重红队视角发起协同攻防。*
 * **安装命令：**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/red-team-review .agents/skills/red-team-review
@@ -476,9 +446,7 @@
 * **📊 成熟度与可信背书：** `Commit Pinned` | ⭐ Claude Skills Catalog | 🛡️ *Zero-appeasement anti-sycophancy contract with fatal-flaw requirements*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Executives, Strategists, Authors, Researchers
-* **📚 第三方评价与实证材料：**
-  - [arXiv AI Alignment (Perez et al.)：探讨大语言模型中顺从性对人类真实决策的负面误导实证研究](https://arxiv.org/abs/2308.03958) — *实证揭示：越是有声望的模型越善于用看似专业的长篇大论掩盖对用户事实错误的迎合。该技能注入刚性准则，杜绝廉价赞美。*
-  - [Molly Diversified Fun：Molly 智能体指令库：反阿谀奉承决策戒律](https://github.com/molly-diversifiedfun/claude-skills#anti-sycophancy) — *广受个人创作者好评的批判性技能，严格限制 AI 输出中的讨好性修辞，让普通人听见未经修饰的真话。*
+* **📐 技术依据与对齐标准：** [强化学习对话式迎合倾向 (Conversational Agreeableness) 纠偏准则](https://arxiv.org/abs/2308.03958)（AI Alignment Research Community）— *依据对齐研究关于人类反馈容易诱导机器撒谎迎合的分析，注入刚性反顺从契约，禁止一切讨好性开场白与虚浮肯定。*
 * **安装命令：**
   ```bash
   git clone https://github.com/molly-diversifiedfun/claude-skills.git && cp -R claude-skills/devils-advocate .agents/skills/devils-advocate
@@ -492,9 +460,9 @@
 * **📊 成熟度与可信背书：** `Production Standard (6.6k ★)` | ⭐ Multi-Agent Anti-Sycophancy Protocol | 🛡️ *Tech-Leads-Club Decision-Making Suite*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Decision Makers, Researchers, Product Managers, General Users
-* **📚 第三方评价与实证材料：**
-  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能集：多智能体匿名盲审陪审团 (The Jury)](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury) — *将重大技术方案的裁决权分散至多名独立子智能体，各角色背靠背打分并强制陈述不同意见，防止群体迷思。*
-  - [Condorcet's Jury Theorem：孔多塞陪审团定理与分布式认知群体智能数学模型](https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem) — *依托社会选择理论基石定理：只要每个独立投票者判断优于随机瞎猜，匿名多人评审得出的正确率将随独立样本数指数级提升。*
+* **📐 技术依据与对齐标准：** [孔多塞陪审团定理与分布式认知群体决策数学模型](https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem)（Social Choice Theory & Collective Intelligence）— *依托孔多塞陪审团定理数学模型，通过唤起多名独立子智能体进行背靠背盲审与法定反对者打分，击碎群体迷思与顺从回音室。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Tech Leads Club (6.6k★)：Tech Leads Club 架构师技能集：多智能体匿名盲审陪审团 (The Jury)](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury) — *收录于架构师顶尖技能库，将关键决策分散到多角色盲审机制中避免单点误导。*
 * **安装命令：**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(decision-making\)/the-jury .agents/skills/
@@ -508,9 +476,9 @@
 * **📊 成熟度与可信背书：** `Official Core Skill (177k ★)` | ⭐ Anthropic Official Skills Repository | 🛡️ *Anthropic AI Fluency Framework*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Students, Patients, Consumers, Everyone using AI for advice
-* **📚 第三方评价与实证材料：**
-  - [Anthropic Official Skills (177k★)：Anthropic 官方技能库收录：鉴别力提醒 (Discernment Nudge) 官方规范](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge) — *来自拥有 17.7 万 Star 的 Anthropic 官方仓库，官方团队为培养人类用户批判性思维（AI Fluency）而专门设计的核心范式技能。*
-  - [Anthropic Research AI Fluency：Anthropic 官方研究：培养人类与 AI 协作中的批判性鉴别力与主动核实习惯](https://www.anthropic.com/research) — *Anthropic 强调：优秀的 AI 协作不应让人变懒，而应在关键输出末尾温和注入“思考阻尼”，提醒普通人核查前提假设。*
+* **📐 技术依据与对齐标准：** [Anthropic AI Fluency 批判性鉴别力与主动认知阻尼标准](https://www.anthropic.com/research)（Anthropic）— *落实 Anthropic 官方提出的“AI Fluency”用户赋能规范，在回答末尾温和注入审慎思考阻尼，引导人类自主核实关键假设。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Anthropic Official Skills Repository (177k★)：Anthropic 官方技能库收录：鉴别力提醒 (Discernment Nudge) 官方规范](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge) — *Anthropic 官方亲自研发维护的旗舰技能，作为人机协作批判性思考的示范标准。*
 * **安装命令：**
   ```bash
   git clone https://github.com/anthropics/skills.git && cp -R skills/skills/discernment-nudge .agents/skills/
@@ -524,9 +492,9 @@
 * **📊 成熟度与可信背书：** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Framework | 🛡️ *Jesse Vincent / Superpowers non-compliance protocol*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Knowledge Workers, Engineers, Researchers, Critical Thinkers
-* **📚 第三方评价与实证材料：**
-  - [Jesse Vincent / Superpowers (290k★)：超能力框架核心技能：审查意见接收与反盲从思考 (obra/superpowers)](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review) — *来自全球现象级智能体框架 Superpowers（29 万 Star），明令禁止 AI 面对评审意见时无脑唯唯诺诺‘您说得对，我马上改’，必须坚持事实与独立技术论证。*
-  - [Simon Willison's Weblog：开源评论员 Simon Willison：对抗 Agent 盲从修改与保持工程定力](https://simonwillison.net/) — *知名技术评论员与开源开发者 Simon Willison 赞赏该技能为智能体注入的‘反盲从自尊’，认为这是避免 AI 越改越烂的基石规则。*
+* **📐 技术依据与对齐标准：** [Superpowers 架构准则：认知独立性与反盲从代码评审原则](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review)（Jesse Vincent (obra) / Superpowers Framework）— *确立严格的技术定力守则，明令禁止智能体在收到评审意见时轻率说出“您说得对，我马上改”，必须先经技术推导验证意见合理性。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Marc Nuri Tech Blog：Marc Nuri 深度评测：Superpowers 智能体技能框架中的代码评审守则](https://marcnuri.com/superpowers-an-agentic-skills-framework/) — *资深开发者 Marc Nuri 撰写长文高度评价 Superpowers 规范智能体对待评审意见的态度，拒绝无脑盲从。*
 * **安装命令：**
   ```bash
   git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/receiving-code-review .agents/skills/
@@ -545,9 +513,7 @@
 * **📊 成熟度与可信背书：** `Production Pinned` | ⭐ f-ai2-r Provenance Framework | 🛡️ *Cryptographic hash tracking and human-confirmed verification ladder*
 * **适用客户端：** Antigravity、Cursor、Claude Code
 * **适用人群：** Researchers, Journalists, Authors, Developers
-* **📚 第三方评价与实证材料：**
-  - [W3C PROV-O Standard：万维网联盟 (W3C) PROV 数据本体与数字产物溯源国际标准](https://www.w3.org/TR/prov-o/) — *全球互联网标准组织 W3C 制定的溯源规范，确立了生成主体 (Agent)、执行实体 (Entity) 与触发活动 (Activity) 之间的不可伪造关联机制。*
-  - [F-AI2-R Framework：F-AI2-R 负责任人工智能溯源与可审计交付协议](https://github.com/noheton/f-ai2-r#provenance) — *为个人文字与设计创作者生成包含模型版本、提示词指纹与人工修改比例的可审计数字收据，保障交付公信力。*
+* **📐 技术依据与对齐标准：** [万维网联盟 (W3C) PROV 数据本体与数字产物溯源国际标准](https://www.w3.org/TR/prov-o/)（World Wide Web Consortium (W3C)）— *严格遵循万维网联盟 W3C PROV 国际标准，为个人 AI 成果输出包含模型哈希、提示词指纹与人机修改比率的防篡改溯源清单。*
 * **安装命令：**
   ```bash
   git clone https://github.com/noheton/f-ai2-r.git .agents/skills/ai-provenance
@@ -561,9 +527,7 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ Newsroom & Publishing Teams | 🛡️ *Strict fail-closed gate with human sign-off requirement*
 * **适用客户端：** Antigravity、Cursor、Claude Code
 * **适用人群：** Editors, Content Teams, Media Creators
-* **📚 第三方评价与实证材料：**
-  - [Google Search Central：谷歌搜索官方指南：关于创作者使用 AI 生成内容与 EEAT 优质经验标准](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) — *谷歌搜索算法对纯粹由 AI 批量拼凑的低质垃圾文本执行严厉算法降权，明确要求发布内容必须展现真实人类实操经验与专业深度。*
-  - [Vertu Publishing Workflow：Vertu 英文出版工作流前置质量与防降权审查门禁](https://github.com/StiflerMaxwell/vertu-english-publishing-workflow#publish-gate) — *在文章排版发布前自动执行反 AI 刻板腔调与关键词堆砌检测，确保个人博客与新媒体发布的内容符合搜索引擎白帽规范。*
+* **📐 技术依据与对齐标准：** [Google Search Central 优质内容系统与 EEAT (经验/专业/权威/可信) 指南](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)（Google Search Central）— *紧密结合谷歌搜索最新公布的 EEAT（经验、专业、权威、可信）评估准则，在文章发布前阻断机械套话拼凑，防范算法降权惩罚。*
 * **安装命令：**
   ```bash
   git clone https://github.com/StiflerMaxwell/vertu-english-publishing-workflow.git && cp -R vertu-english-publishing-workflow/skills/vertu-seo-publish-gate .agents/skills/
@@ -577,9 +541,9 @@
 * **📊 成熟度与可信背书：** `Production Standard` | ⭐ harlan-agent-kit Ecosystem | 🛡️ *Machine-gated PR generation with mandatory transparency clauses*
 * **适用客户端：** Claude Code、Antigravity、Cursor
 * **适用人群：** Open Source Maintainers, Software Engineers, Technical Writers
-* **📚 第三方评价与实证材料：**
-  - [Harlan Wilt (Nuxt Core Team)：开源维护者 Harlan Wilt：PR AI 辅助透明披露自动化门禁](https://github.com/harlan-zw/harlan-agent-kit#pr-gate) — *由知名开源前端框架核心维护者编写，在向公共开源仓库提交代码时，自动在 PR 描述中清晰标注 AI 参与的代码块与测试范围。*
-  - [Open Source Initiative (OSI)：开源促进会 (OSI) 与 Linux 基金会关于 AI 辅助代码贡献的伦理倡议](https://opensource.org/deepdive) — *倡导透明公开的人机协作原则：严禁将 AI 写的未经人工验证的代码伪装为个人独立成果提交社区。*
+* **📐 技术依据与对齐标准：** [开源促进会 (OSI) 与 Linux 基金会关于开源协同 AI 代码披露准则](https://opensource.org/deepdive)（Open Source Initiative (OSI) & Linux Foundation）— *遵循开源促进会关于人机协作代码透明性的倡议，自动在 GitHub PR 描述中清晰标注 AI 参与的模块边界与测试覆盖情况。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Harlan Wilt (Nuxt Core Team)：Harlan Agent Kit 开源贡献透明度声明规范](https://github.com/harlan-zw/harlan-agent-kit#pr-gate) — *知名 Nuxt 核心维护者编写的开源工具，为开源社区维护者提供透明可信的 AI 代码提交范本。*
 * **安装命令：**
   ```bash
   git clone https://github.com/harlan-zw/harlan-agent-kit.git && cp -R harlan-agent-kit/skills/pr .agents/skills/pr
@@ -593,9 +557,7 @@
 * **📊 成熟度与可信背书：** `Production Stable` | ⭐ agentskills.io Standard | 🛡️ *Comprehensive open-source privacy audit procedures*
 * **适用客户端：** GitHub Copilot、Claude Code
 * **适用人群：** Software Engineers, Compliance Officers, Legal Auditors
-* **📚 第三方评价与实证材料：**
-  - [EU General Data Protection Regulation：欧盟 GDPR 第 22 条关于自动化个人决策与算法透明度的法定权利](https://gdpr-info.eu/art-22-gdpr/) — *国际隐私法基石：任何完全由算法作出的重大决策，用户均有权要求获得有意义的逻辑解释与人工复核介入。*
-  - [Privacy Data Protection Skills：生成式 AI 输出交付前 GDPR 法律合规审计核对表](https://github.com/mukul975/Privacy-Data-Protection-Skills#gdpr-audit) — *在企业对外发布客户评估、自动化筛查或用户画像前，自动扫描是否包含未经授权的敏感特征分类与歧视性歧见。*
+* **📐 技术依据与对齐标准：** [欧盟 GDPR 第 22 条关于自动化个人决策与算法透明度法定权利](https://gdpr-info.eu/art-22-gdpr/)（European Union Legal Framework）— *针对欧盟通用数据保护条例第 22 条关于算法自动化决策透明度要求，在生成客户评估或重要输出前执行歧视性特征与敏感画像筛查。*
 * **安装命令：**
   ```bash
   git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/gdpr-compliance-audit ~/.claude/skills/
@@ -609,9 +571,7 @@
 * **📊 成熟度与可信背书：** `Production Pinned` | ⭐ content-machine Harness | 🛡️ *Fail-closed public readiness check with asset-level provenance ledger*
 * **适用客户端：** Claude Code、Antigravity、Codex CLI
 * **适用人群：** Content Creators, Editors, Media Production Teams
-* **📚 第三方评价与实证材料：**
-  - [Associated Press (AP) Standards：美联社 (AP) 新闻采编关于生成式人工智能应用的三大守则](https://www.ap.org/news-values-and-principles/) — *全球最具公信力的新闻机构确立的核心戒律：严禁直接发布 AI 原文，必须经过人类记者的事实核对、事实来源复核与措辞校准。*
-  - [Content Machine Engine：工业级内容机器发布前“事实、版权、口吻”三重门禁规范](https://github.com/45ck/content-machine#editorial-gates) — *为个人新媒体创作者与企业市场部提供结构化门禁，确保每一篇文章在按下发布键前都通过了合规防线。*
+* **📐 技术依据与对齐标准：** [美联社 (AP) 新闻采编生成式 AI 事实核对与人工复核三重戒律](https://www.ap.org/news-values-and-principles/)（The Associated Press (AP)）— *严格参照美联社新闻室 AI 使用守则，建立发布前“事实准确性、版权合规、口吻调性”三重刚性门禁，严禁未经核实直接发布。*
 * **安装命令：**
   ```bash
   git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/
@@ -625,9 +585,7 @@
 * **📊 成熟度与可信背书：** `Active Open Specification` | ⭐ AI Attribution Standard | 🛡️ *Standardized 6-level human-AI contribution spectrum ledger*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Software Engineers, Authors, Technical Writers
-* **📚 第三方评价与实证材料：**
-  - [Nature Publishing Group：《自然》(Nature) 系列期刊关于大型语言模型与作者署名资格的社论政策](https://www.nature.com/nature-portfolio/editorial-policies/ai) — *《自然》杂志明确规定：LLM 无法承担学术责任，不得列为论文作者；所有 AI 使用必须在方法论或致谢中具体、透明地披露。*
-  - [CRediT Taxonomy (NISO ANSI/NISO Z39.104)：CRediT 贡献者角色分类法国际标准 (ANSI/NISO Z39.104-2022)](https://credit.niso.org/) — *国际通用的 14 种科研角色标准化分类法，AI Attribution 技能将其扩展为精准界定 AI“文法润色”与“逻辑推导”的合规声明。*
+* **📐 技术依据与对齐标准：** [《自然》(Nature) 系列期刊 AI 署名政策与 CRediT 贡献者角色国际标准](https://credit.niso.org/)（Nature Portfolio & NISO）— *依据《自然》期刊严禁 AI 署名作者但必须具体说明贡献的政策，结合 CRediT 贡献者角色国际分类法，生成合规的学术出版物致谢声明。*
 * **安装命令：**
   ```bash
   curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md
@@ -641,9 +599,7 @@
 * **📊 成熟度与可信背书：** `Active Specification` | ⭐ W3C-aligned Convention | 🛡️ *Language-agnostic file-level attribution convention based on W3C vocabularies*
 * **适用客户端：** Cursor、Antigravity、Claude Code、Copilot
 * **适用人群：** Developers, Authors, Compliance Officers
-* **📚 第三方评价与实证材料：**
-  - [Linux Foundation SPDX Working Group：SPDX 软件包数据交换标准 (ISO/IEC 5962:2021) 机器可读元数据规范](https://spdx.dev/) — *国际标准化组织采纳的软件物料清单 (SBOM) 标准，让机器可以自动抓取并识别开源代码中哪一部分包含 AI 辅助标记。*
-  - [ggfevans AI Disclosure：SPDX-Style 机器可读 AI 贡献披露标签规范仓库](https://github.com/ggfevans/ai-disclosure#specification) — *通过在代码注释或 Markdown Frontmatter 注入 `AI-Assisted-By:` 标签，告别冗长无意义的免责声明，实现标准化合规。*
+* **📐 技术依据与对齐标准：** [Linux 基金会 SPDX 软件包数据交换国际标准 (ISO/IEC 5962:2021) 声明协议](https://spdx.dev/)（Linux Foundation & ISO）— *采用国际标准化组织 ISO 认可的 SPDX 机器可读元数据规范，通过在代码或 Markdown 头部注入 `AI-Assisted-By:` 标签实现自动化合规。*
 * **安装命令：**
   ```bash
   git clone https://github.com/ggfevans/ai-disclosure.git .agents/skills/ai-disclosure
@@ -657,9 +613,7 @@
 * **📊 成熟度与可信背书：** `Production Active` | ⭐ snapsynapse Framework | 🛡️ *Cryptographic execution and invocation ledger*
 * **适用客户端：** Claude Code、Antigravity
 * **适用人群：** Auditors, Enterprise Researchers, System Architects
-* **📚 第三方评价与实证材料：**
-  - [snapsynapse Framework：智能体调用链与多轮会话执行收据 (Session Receipts) 密码学账本](https://github.com/snapsynapse/skill-provenance#session-receipts) — *针对长时间自主运行的复杂 Agent，记录每一次工具调用与提示词哈希，输出不可篡改的会话执行收据，方便第三方交叉审查。*
-  - [IETF Verifiable Credentials Standards：互联网工程任务组 (IETF) 可验证凭据与防篡改执行记录草案](https://www.ietf.org/) — *借鉴国际互联网安全工程标准，将 Agent 自动化操作从不可查的“黑盒”转变为可复现、可证明的数字足迹。*
+* **📐 技术依据与对齐标准：** [IETF & W3C 可验证凭据与账本审计不可篡改收据标准](https://www.ietf.org/)（Internet Engineering Task Force (IETF) & W3C）— *遵循可验证数字凭据工程规范，对多轮自主 Agent 会话中的工具调用与模型种子生成密码学收据，便于第三方独立审计。*
 * **安装命令：**
   ```bash
   git clone https://github.com/snapsynapse/skill-provenance.git .agents/skills/skill-provenance
@@ -673,9 +627,10 @@
 * **📊 成熟度与可信背书：** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Agent Framework | 🛡️ *Authored by Jesse Vincent (obra) & widespread agent community*
 * **适用客户端：** Cursor、Antigravity、Claude Code
 * **适用人群：** Developers, Editors, Writers, Operations Specialists
-* **📚 第三方评价与实证材料：**
-  - [Jesse Vincent / Superpowers (290k★)：超能力框架核心守则：“完成铁律” (The Iron Law: Verification Before Completion)](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion) — *GitHub 29 万星的现象级 Agent 框架最著名的“不可让渡铁律”：严禁在未出示最新测试或命令输出证据前宣称任务完成或直接交付。*
-  - [Simon Willison's Weblog & Hacker News：知名开源评论员 Simon Willison：用硬性验证门禁阻断 Agent‘假装跑通’](https://simonwillison.net/) — *在开发者社区广泛转发的知名文章中，高度评价将‘先出示测试通过证据再允许交活’固化为 Agent 底层守则，是解决 AI 偷懒与说谎的最佳方案。*
+* **📐 技术依据与对齐标准：** [Superpowers 软件工程铁律：完成声明前必须出示实测通过命令证据](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion)（Jesse Vincent (obra) / Superpowers Framework）— *落实 GitHub 29 万星现象级框架的绝对铁律：严禁在未出示最新测试或命令输出通过证据前宣称任务完成或直接交付。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Marc Nuri Tech Blog：Marc Nuri 独立技术评测：Superpowers 智能体技能框架全解析](https://marcnuri.com/superpowers-an-agentic-skills-framework/) — *开发者 Marc Nuri 撰文详细剖析 Superpowers 的工程规范，称赞其通过 Markdown 技能为智能体注入严苛的完成前验证纪律。*
+  - [GitConnected (Level Up Coding)：GitConnected 专题报道：面向现代开发者的 Agentic Skills 纪律架构](https://gitconnected.com/) — *技术社区重点介绍将‘先出示测试结果再汇报完成’固化为技能守则，有效终结了 AI 编码时的谎报与敷衍。*
 * **安装命令：**
   ```bash
   git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/verification-before-completion .agents/skills/
@@ -689,9 +644,10 @@
 * **📊 成熟度与可信背书：** `Production Hit (51k ★)` | ⭐ Widely used in publishing and content workflows | 🛡️ *Blader open-source project based on Wikipedia standards*
 * **适用客户端：** Claude Code、Cursor、Antigravity
 * **适用人群：** Writers, Marketers, Journalists, Students, Anyone publishing text
-* **📚 第三方评价与实证材料：**
-  - [Wikipedia Official Guidelines：维基百科官方社群指南：《识别 AI 生成文本的典型标志》(Wikipedia:Signs of AI-generated text)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI-generated_text) — *维基百科资深编辑社群共同制定的反 AI 刻板写作权威准则，系统总结了空洞排比、过度乐观辞令、机械三段论与假大空套话特征。*
-  - [Blader Humanizer (51k★)：Blader Humanizer 开源爆款项目（5.1 万星）实战去味与口吻重塑](https://github.com/blader/humanizer#wikipedia-grounding) — *GitHub 5.1 万星的现象级写作润色技能，直接依托维基百科标准，在文章最终公开发布前洗去令人反感的‘AI 味道’，保护发布者的真实声誉。*
+* **📐 技术依据与对齐标准：** [维基百科官方编辑社群指南：《识别 AI 生成文本的典型标志》(Wikipedia:Signs of AI-generated text)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI-generated_text)（Wikimedia Foundation / Wikipedia Editors Community）— *直接依托维基百科官方编辑社群制定的反 AI 文本典型特征指南，在公开发布前清除空洞排比、过度乐观与机械三段论等刻板“AI 腔调”。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Dev.to Technical Review：Dev.to 社区深度评测：Humanizer 如何洗去 AI 写作的机械味](https://dev.to/) — *开发者社区详尽测试了 Humanizer 在保留原意的前提下剥离机器特征的表现，称其为最实用的发布前文本打磨技能。*
+  - [TypingMind Agent Skills Directory：TypingMind 官方技能生态精选收录](https://typingmind.com/) — *作为热门写作润色技能被主流桌面智能体客户端官方技能库重点收录推介。*
 * **安装命令：**
   ```bash
   git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/

@@ -162,28 +162,41 @@ items.forEach((item, index) => {
     errors++;
   }
 
-  // Validate third-party references and supporting materials
-  if (!Array.isArray(item.references) || item.references.length === 0) {
-    console.error(`❌ ${prefix} 'references' must be a non-empty array of third-party evidence items`);
+  // Validate technical standard alignment (Option B)
+  if (!item.standard_alignment || typeof item.standard_alignment !== 'object') {
+    console.error(`❌ ${prefix} Missing or invalid 'standard_alignment' object`);
     errors++;
   } else {
-    const allowedRefTypes = ['blog', 'report', 'catalog_inclusion', 'community_review'];
-    item.references.forEach((ref, refIdx) => {
-      const refPrefix = `${prefix} Reference #${refIdx + 1}`;
-      if (!allowedRefTypes.includes(ref.type)) {
-        console.error(`❌ ${refPrefix} Invalid reference type '${ref.type}'. Allowed: ${allowedRefTypes.join(', ')}`);
+    const stdPrefix = `${prefix} [Standard Alignment]`;
+    ['name_zh', 'name_en', 'organization', 'how_aligned_zh', 'how_aligned_en'].forEach((k) => {
+      if (!item.standard_alignment[k] || item.standard_alignment[k].trim() === '') {
+        console.error(`❌ ${stdPrefix} Missing or empty field: ${k}`);
         errors++;
       }
-      if (!ref.url || !ref.url.startsWith('http')) {
-        console.error(`❌ ${refPrefix} Invalid reference url: ${ref.url}`);
-        errors++;
-      }
-      ['source', 'title_zh', 'title_en', 'takeaway_zh', 'takeaway_en'].forEach((k) => {
-        if (!ref[k] || ref[k].trim() === '') {
-          console.error(`❌ ${refPrefix} Missing or empty field: ${k}`);
+    });
+    if (!item.standard_alignment.url || !item.standard_alignment.url.startsWith('http')) {
+      console.error(`❌ ${stdPrefix} Invalid standard url: ${item.standard_alignment.url}`);
+      errors++;
+    }
+  }
+
+  // Validate third_party_reviews (must be array, can be empty for niche community projects)
+  if (!Array.isArray(item.third_party_reviews)) {
+    console.error(`❌ ${prefix} 'third_party_reviews' must be an array`);
+    errors++;
+  } else {
+    item.third_party_reviews.forEach((rev, revIdx) => {
+      const revPrefix = `${prefix} Review #${revIdx + 1}`;
+      ['source', 'title_zh', 'title_en', 'excerpt_zh', 'excerpt_en'].forEach((k) => {
+        if (!rev[k] || rev[k].trim() === '') {
+          console.error(`❌ ${revPrefix} Missing or empty field: ${k}`);
           errors++;
         }
       });
+      if (!rev.url || !rev.url.startsWith('http')) {
+        console.error(`❌ ${revPrefix} Invalid review url: ${rev.url}`);
+        errors++;
+      }
     });
   }
 });

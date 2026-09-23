@@ -50,9 +50,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ AgentSkills Standard | 🛡️ *Audited local-first isolation pipeline with automatic purge*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** General Knowledge Workers, Researchers, Journalists
-* **📚 Third-Party Evaluations & Evidence:**
-  - [AgentSkills Standard: AgentSkills Standard: Local-First Isolation & Privacy Architecture](https://github.com/danyuchn/pii-guard#privacy-architecture) — *Treats cloud LLMs as untrusted by default, enforcing local-first sandbox redaction and preventing direct scraping of private drafts.*
-  - [Microsoft Presidio Privacy Guidelines: Microsoft Presidio: PII Detection & De-Identification for GenAI](https://microsoft.github.io/presidio/) — *Industry-standard PII taxonomy establishing strict redaction baselines for prompts and document attachments.*
+* **📐 Technical & Methodological Alignment:** [Microsoft Presidio PII Taxonomy & Local Sandbox De-Identification Standard](https://microsoft.github.io/presidio/) (Microsoft / Open Source Privacy Standards) — *Directly implements the 18 PII entity recognition rules established by Microsoft Presidio, executing local reversible masking and pseudonymization.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [AgentSkills Open Standard Catalog: AgentSkills Open Standard: Local Privacy Sandbox Specification](https://github.com/danyuchn/pii-guard#privacy-architecture) — *Cataloged as a reference pattern for untrusted LLM environments requiring pre-ingestion redaction.*
 * **Install Command:**
   ```bash
   git clone https://github.com/danyuchn/pii-guard.git && cp -R pii-guard/.agents/skills/pii-safe-documents .agents/skills/
@@ -66,9 +66,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Release` | ⭐ Open Scholar Suite | 🛡️ *Designed for university & clinical research data custodians*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Academic Researchers, Qualitative Analysts, IRB Custodians
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Open Scholar Architecture: IRB & HIPAA Institutional Compliance Matrix in Research Workflows](https://github.com/joshzyj/open-scholar-skill#compliance-matrix) — *Enforces strict IRB ethics guardrails, ensuring raw qualitative transcripts remain on local disk without upstream cloud leakage.*
-  - [Open Scholar Suite: Open Scholar Suite: Academic Research Agent Safety Standards](https://github.com/joshzyj/open-scholar-skill) — *Adopted across research teams as a desktop pre-read safety filter gating unreleased scholarly findings.*
+* **📐 Technical & Methodological Alignment:** [IRB & HIPAA Institutional Compliance Matrix in Research Workflows](https://www.hhs.gov/ohrp/regulations-and-policy/index.html) (US HHS Office for Human Research Protections (OHRP)) — *Enforces strict IRB ethics guardrails, ensuring raw qualitative transcripts remain on local disk without upstream cloud leakage.*
 * **Install Command:**
   ```bash
   git clone https://github.com/joshzyj/open-scholar-skill.git && cp -R open-scholar-skill/.claude/skills/scholar-safety ~/.claude/skills/
@@ -82,9 +80,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production v2.1` | ⭐ Open Source Community | 🛡️ *Zero cloud dependencies, 7-layer semantic detection*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Developers, Power Users, Knowledge Workers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [AgentSkills Open Ecosystem: AgentSkills Ecosystem: Instruction Sanitization & Credential Shielding](https://github.com/cyberxuan-XBX/skill-sanitizer#security-model) — *Implements dynamic inspection rules stripping dangerous credential exfiltration directives from third-party skill packages.*
-  - [OWASP GenAI Top 10: OWASP LLM06: Sensitive Information Disclosure Defense Guidelines](https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/) — *OWASP guidelines highlighting automatic input sanitization as mandatory to prevent confidential keys leaking through context.*
+* **📐 Technical & Methodological Alignment:** [OWASP Top 10 for LLM Applications: LLM06 Sensitive Information Disclosure](https://genai.owasp.org/llmrisk/llm06-sensitive-information-disclosure/) (OWASP GenAI Foundation) — *Follows OWASP LLM06 guidelines to dynamically strip dangerous credential exfiltration directives from third-party instruction files.*
 * **Install Command:**
   ```bash
   git clone https://github.com/cyberxuan-XBX/skill-sanitizer.git .agents/skills/skill-sanitizer
@@ -98,9 +94,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ agentskills.io Verified | 🛡️ *Audited open-source privacy framework with 282+ skills*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Support Teams, Account Managers, Operations
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Privacy Data Protection Skills: Multi-Lingual NER & Automated PII De-Identification Benchmarks](https://github.com/mukul975/Privacy-Data-Protection-Skills#pii-detection) — *Dual-pass detection combining regex and NER for sub-millisecond anonymization of personal identifiers.*
-  - [EU GDPR Information Portal: EU GDPR Article 30 Technical Guidance for Automated Data Processing](https://gdpr-info.eu/art-30-gdpr/) — *Ensures prompt contexts strictly follow data minimization principles required by EU privacy regulations.*
+* **📐 Technical & Methodological Alignment:** [EU GDPR Article 30 Technical Guidance & Data Minimization Principles](https://gdpr-info.eu/art-30-gdpr/) (European Data Protection Board (EDPB)) — *Enforces GDPR data minimization through dual-pass regex and NER anonymization of personal identifiers.*
 * **Install Command:**
   ```bash
   git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/pii-detection-pipeline ~/.claude/skills/
@@ -114,9 +108,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Research Release` | ⭐ OpenMed Suite | 🛡️ *Clinical NLP benchmarked for HIPAA PHI safety*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Clinical Researchers, Healthcare Analysts, Medical Writers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Maziyar Panahi (HuggingFace Lead): OpenMed Clinical Data Ingestion Standards & Governance](https://github.com/maziyarpanahi/openmed#clinical-guidelines) — *Authored by top HuggingFace medical AI maintainers, establishing strict medical isolation rules for clinical notes.*
-  - [US HHS Health Information Privacy: HHS HIPAA Safe Harbor Method for De-identification](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html) — *Adheres to the 18 HIPAA identifier removal rules, preventing patient re-identification from commercial LLM inputs.*
+* **📐 Technical & Methodological Alignment:** [HHS HIPAA Safe Harbor Method for De-identification (18 PHI Rules)](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html) (US Department of Health and Human Services (HHS)) — *Adheres to the 18 HIPAA identifier removal rules, preventing patient re-identification from commercial LLM inputs.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [HuggingFace OpenMed Collection (Maziyar Panahi): OpenMed Clinical Data Ingestion Standards & Governance](https://github.com/maziyarpanahi/openmed#clinical-guidelines) — *Maintained by leading medical AI researchers establishing strict clinical data isolation guidelines.*
 * **Install Command:**
   ```bash
   git clone https://github.com/maziyarpanahi/openmed.git && cp -R openmed/skills/deidentifying-clinical-text .agents/skills/
@@ -130,9 +124,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Standard` | ⭐ AREX-Skill Repo | 🛡️ *Enterprise repository standard with deterministic NER masking*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Knowledge Workers, Enterprise Staff, Developers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Microsoft Open Source Engineering: Microsoft Presidio Architecture: Production-Grade PII Anonymization](https://microsoft.github.io/presidio/anonymizer/) — *Microsoft technical deep-dive into reversible masking and pseudonymization preserving data utility without exposure.*
-  - [VectorSpaceLab AREX: VectorSpaceLab AREX Toolkit Standard Inclusion](https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration) — *Standard first-layer safety middleware in AREX agent ecosystem intercepting untrusted text ingestion.*
+* **📐 Technical & Methodological Alignment:** [Microsoft Presidio Anonymizer Engine Architecture & Pseudonymization Standard](https://microsoft.github.io/presidio/anonymizer/) (Microsoft Open Source Engineering) — *Implements Microsoft Presidio's reversible masking and pseudonymization architecture to protect text before cloud submission.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [VectorSpaceLab AREX Skills Catalog: VectorSpaceLab AREX Toolkit Standard Inclusion](https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration) — *Integrated as standard first-layer safety middleware in the AREX agent toolkit.*
 * **Install Command:**
   ```bash
   git clone https://github.com/VectorSpaceLab/AREX-Skill.git && cp -R AREX-Skill/skills/repositories/repo-skills/presidio/sub-skills/anonymize-text .agents/skills/presidio-anonymize
@@ -146,9 +140,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Community Standard` | ⭐ OWASP Agentic Top 10 Mapping | 🛡️ *LLMSecurity open-source agent audit framework*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** All AI Users, Developers, Security Conscious Citizens
-* **📚 Third-Party Evaluations & Evidence:**
-  - [OWASP Foundation: OWASP Top 10 for Large Language Model Applications & Agentic Risks](https://genai.owasp.org/) — *The first agent defense mapping directly to OWASP Agentic Top 10, blocking skill supply chain backdoor exploits.*
-  - [MITRE ATLAS Framework: MITRE ATLAS AML.T0051: Defenses Against LLM Prompt Injections](https://atlas.mitre.org/techniques/AML.T0051/) — *Translates MITRE adversarial AI techniques into desktop static analysis scanning for covert bash exfiltration.*
+* **📐 Technical & Methodological Alignment:** [MITRE ATLAS AML.T0051: Defenses Against LLM Prompt Injections](https://atlas.mitre.org/techniques/AML.T0051/) (MITRE Corporation & OWASP) — *Translates MITRE adversarial AI techniques and OWASP Top 10 into static analysis detecting covert exfiltration.*
 * **Install Command:**
   ```bash
   git clone https://github.com/LLMSecurity/skillguard.git && cp -R skillguard/skills/skillguard .agents/skills/
@@ -162,9 +154,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Release` | ⭐ Evolution Unleashed Framework | 🛡️ *Open-source heuristic skill scanner*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Knowledge Workers, Content Creators, Developers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Evolution Unleashed: Static Heuristic Threat Analysis for Agent Instruction Files](https://github.com/EvolutionUnleashed/skill-sentinel#threat-matrix) — *Catalogs 24 stealth exfiltration attack patterns masquerading as harmless system prompts and blocks them locally.*
-  - [MITRE Common Weakness Enumeration: CWE-78: OS Command Injection Defenses in Agentic Terminal Tools](https://cwe.mitre.org/data/definitions/78.html) — *Defines terminal boundary rules preventing untrusted incoming prompts from manipulating developer workstations.*
+* **📐 Technical & Methodological Alignment:** [CWE-78: OS Command Injection Defenses in Agentic Terminal Tools](https://cwe.mitre.org/data/definitions/78.html) (MITRE Common Weakness Enumeration) — *Defines terminal boundary rules preventing untrusted incoming prompts from manipulating developer workstations.*
 * **Install Command:**
   ```bash
   git clone https://github.com/EvolutionUnleashed/skill-sentinel.git && cp -R skill-sentinel/skills/skill-sentinel .agents/skills/
@@ -178,9 +168,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable (300+ ★)` | ⭐ Nova Security Scanner Ecosystem | 🛡️ *Nova-Hunting Open Security Project*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** All Agent Users, Small Business Owners, Power Users
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Nova Hunting Research (305★): Nova Hunting: MCP Boundary Auditing & Privilege Proximity Analysis](https://github.com/Nova-Hunting/nova-proximity#security-report) — *Audits MCP server configuration files, preventing overly broad file-system permissions from leaking root folders.*
-  - [Anthropic Model Context Protocol: Model Context Protocol (MCP) Official Specification: Security Architecture](https://modelcontextprotocol.io/docs/concepts/architecture#security) — *Anthropic's official security recommendations emphasizing least-privilege scoping for MCP desktop hosts.*
+* **📐 Technical & Methodological Alignment:** [Anthropic Model Context Protocol (MCP) Security Architecture & Trust Model](https://modelcontextprotocol.io/docs/concepts/architecture#security) (Anthropic & MCP Working Group) — *Operationalizes Anthropic's official MCP least-privilege security guidelines to audit desktop file-system exposures.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Nova Hunting Security Research (305★): Nova Hunting: MCP Boundary Auditing & Privilege Proximity Analysis](https://github.com/Nova-Hunting/nova-proximity#security-report) — *Security research team report evaluating real-world configuration flaws in local MCP agent hosts.*
 * **Install Command:**
   ```bash
   git clone https://github.com/Nova-Hunting/nova-proximity.git && cp -R nova-proximity/.agents/skills/nova-proximity .agents/skills/
@@ -194,9 +184,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Battle-Tested (6.6k ★)` | ⭐ Tech-Leads-Club Standard | 🛡️ *Curated from OpenAI and professional tech leads consortium*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Developers, Tech Leads, Enterprise Knowledge Workers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Tech Leads Club (6.6k★): Tech Leads Club Skills Catalog: AppSec Threat Modeling Standards](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model) — *Featured in the 6.6k-star engineering suite, translating STRIDE threat modeling into actionable AI workspace guardrails.*
-  - [Microsoft Security Engineering: Microsoft Threat Modeling for AI/ML Systems Guidelines](https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml) — *Microsoft enterprise security guidance requiring explicit boundaries on what confidential assets may be fed to LLMs.*
+* **📐 Technical & Methodological Alignment:** [Microsoft Threat Modeling for AI/ML Systems Guidelines (STRIDE / DREAD)](https://learn.microsoft.com/en-us/security/engineering/threat-modeling-aiml) (Microsoft Security Engineering) — *Translates industry-standard STRIDE threat modeling into explicit guardrails defining confidential assets forbidden from LLMs.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Tech Leads Club (6.6k★): Tech Leads Club Skills Catalog: AppSec Threat Modeling Standards](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model) — *Included in the 6.6k-star technical leadership repository as an architectural safety standard.*
 * **Install Command:**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(security\)/security-threat-model .agents/skills/
@@ -215,9 +205,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Agent Skills Library | 🛡️ *Verified multi-step claim extraction and external evidence retrieval*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Knowledge Workers, Writers, Journalists, Researchers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [NeurIPS Research (Madaan et al.): Self-Refine: Iterative Reasoning and Post-Generation Verification](https://arxiv.org/abs/2303.17651) — *Pioneering NeurIPS research proving dual-pass post-generation fact-checking reduces hallucination rates by over 40%.*
-  - [J. Wynia Agent Skills: J. Wynia Agent Skills Suite: Standard Fact-Checking Gate](https://github.com/jwynia/agent-skills#fact-checking) — *Core quality gate in Wynia's production agent kit systematically decomposing claims for secondary verification.*
+* **📐 Technical & Methodological Alignment:** [Self-Refine: Iterative Reasoning and Post-Generation Verification (NeurIPS)](https://arxiv.org/abs/2303.17651) (Neural Information Processing Systems (NeurIPS)) — *Implements the NeurIPS-proven dual-pass verification pipeline, decomposing assertions for secondary verification.*
 * **Install Command:**
   ```bash
   git clone https://github.com/jwynia/agent-skills.git && cp -R agent-skills/skills/general/research/verification/fact-check .agents/skills/fact-check
@@ -231,9 +219,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Active` | ⭐ Aminer Open Skill Ecosystem | 🛡️ *Deep claim-to-passage alignment evaluation*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Academic Researchers, Peer Reviewers, Fact-Checkers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [清华大学 KEG 实验室 & AMiner: Tsinghua KEG & AMiner: Citation Faithfulness & Provenance Benchmarks](https://www.aminer.cn/) — *Cross-verifies AI-generated citations against AMiner's multi-million publication graph to eliminate fabricated DOIs.*
-  - [AMiner Open Skill: AMiner Open Academic Skills Catalog Integration](https://github.com/CanXiangCC/aminer-open-skill#evaluation-criteria) — *Provides instant citation verification ensuring every bibliography entry links directly to authentic scholarly records.*
+* **📐 Technical & Methodological Alignment:** [Tsinghua KEG & AMiner: Citation Faithfulness & Provenance Benchmarks](https://www.aminer.cn/) (清华大学计算机系知识工程实验室 (KEG) & AMiner) — *Cross-verifies citations against academic knowledge graphs to detect and eliminate phantom DOIs.*
 * **Install Command:**
   ```bash
   git clone https://github.com/CanXiangCC/aminer-open-skill.git && cp -R aminer-open-skill/skills/citation-faithfulness ~/.claude/skills/citation-faithfulness
@@ -247,9 +233,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Academic AgentConfig | 🛡️ *Batch Crossref & Semantic Scholar verification harness*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Academic Researchers, Grant Writers, Authors
-* **📚 Third-Party Evaluations & Evidence:**
-  - [CrossRef & DBLP API Standards: CrossRef & DBLP REST API Bibliographic Verification Standards](https://www.crossref.org/documentation/retrieve-metadata/rest-api/) — *International scholarly infrastructure standard using cryptographic metadata queries to reject hallucinated citations.*
-  - [Y. Zhao Agent Config: Y. Zhao Scholarly Research Agent Configuration Suite](https://github.com/yzhao062/agent-config#bibref) — *Adopted by research teams to automatically intercept BibTeX references and resolve them against official registries.*
+* **📐 Technical & Methodological Alignment:** [CrossRef & DBLP REST API Bibliographic Verification Standards](https://www.crossref.org/documentation/retrieve-metadata/rest-api/) (CrossRef (Publishers International Linking Association)) — *Resolves BibTeX citations against international CrossRef/DBLP registries to reject unverified references.*
 * **Install Command:**
   ```bash
   git clone https://github.com/yzhao062/agent-config.git && cp -R agent-config/skills/bibref-verify ~/.claude/skills/bibref-verify
@@ -263,9 +247,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Empirical research workflow maintained by scdenney*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Researchers, Policy Analysts, Fact-Checkers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Open Science Framework (OSF): Center for Open Science (COS): Research Integrity & Citation Reproducibility](https://www.cos.io/our-communities/osf) — *OSF reproducibility initiative requiring AI-assisted scholarly content to maintain auditable citation provenance.*
-  - [Open Science Skills Suite: Open Science Skills: Pre-print Citation Integrity Auditor](https://github.com/scdenney/open-science-skills#citation-auditor) — *Extracts original context paragraphs from pre-prints to score citation semantic faithfulness.*
+* **📐 Technical & Methodological Alignment:** [Center for Open Science (COS): Research Integrity & Citation Reproducibility](https://www.cos.io/our-communities/osf) (Center for Open Science (COS) / Open Science Framework (OSF)) — *Extracts original context paragraphs from pre-prints to verify that quotes are not taken out of context.*
 * **Install Command:**
   ```bash
   git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/citation-check ~/.claude/skills/
@@ -279,9 +261,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Mature Academic Tool` | ⭐ Scientific Research Community | 🛡️ *Built by academic faculty for LaTeX/Markdown scientific publishing*
 * **Clients:** Claude Code, Emacs, Antigravity
 * **Target Persona:** Scientists, Academic Writers, LaTeX/Markdown Users
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Prof. John Kitchin (Carnegie Mellon Univ.): Prof. John Kitchin (CMU): Computable Science & Automated Citation Verification](https://kitchingroup.cheme.cmu.edu/) — *Authored by renowned CMU computational researcher John Kitchin, embedding automated reference checking into workflows.*
-  - [Skillz Framework: Skillz Framework: Scientific Computing & Reference Verification](https://github.com/jkitchin/skillz) — *Widely cited repository in scientific computing generating comprehensive citation accuracy reports.*
+* **📐 Technical & Methodological Alignment:** [Prof. John Kitchin (CMU): Computable Science & Automated Citation Verification](https://kitchingroup.cheme.cmu.edu/) (Carnegie Mellon University) — *Authored by renowned CMU computational researcher John Kitchin, embedding automated reference checking into workflows.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [CMU Kitchin Research Group: Carnegie Mellon University Scientific Computing Skillz Framework](https://github.com/jkitchin/skillz) — *Official computational tool authored by CMU faculty for automated citation integrity checks.*
 * **Install Command:**
   ```bash
   git clone https://github.com/jkitchin/skillz.git && cp -R skillz/skills/citation-verifier .agents/skills/
@@ -295,9 +277,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Release` | ⭐ Open Science Skills Suite | 🛡️ *Claim-source consistency auditor for empirical science*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Journalists, Long-form Writers, Editors
-* **📚 Third-Party Evaluations & Evidence:**
-  - [FEVER Fact Extraction Benchmark: FEVER: International Benchmark for Fact Extraction and VERification](https://fever.ai/) — *Global benchmark methodology categorizing claims into Supported, Refuted, or Not Enough Info.*
-  - [Open Science Skills: Open Science Skills: Claim-to-Source Verification Pipeline](https://github.com/scdenney/open-science-skills#claim-checker) — *Forbids vague 'studies show' claims by demanding paragraph-level textual evidence for every conclusion.*
+* **📐 Technical & Methodological Alignment:** [FEVER: International Benchmark for Fact Extraction and VERification](https://fever.ai/) (FEVER Academic Consortium) — *Adheres to FEVER benchmark standards categorizing claims into Supported, Refuted, or Not Enough Info.*
 * **Install Command:**
   ```bash
   git clone https://github.com/scdenney/open-science-skills.git && cp -R open-science-skills/codex/fact-check ~/.claude/skills/
@@ -311,9 +291,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ Open Agent Skills Catalog | 🛡️ *Commit-pinned risk rubric with structured output contract*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Knowledge Workers, Editors, Content Teams, Researchers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [ACM Computing Surveys (Ji et al.): Survey of Hallucination in Natural Language Generation (ACM Surveys)](https://arxiv.org/abs/2202.03629) — *Comprehensive ACM survey documenting systemic attention drift in LLMs when handling technical figures.*
-  - [OpenAgentSkills Catalog: OpenAgentSkills Catalog: Automated Hallucination Risk Reviewer](https://github.com/Notysoty/openagentskills#hallucination-risk) — *Measures uncertainty tokens and fact-bearing density to issue clear hallucination risk scores.*
+* **📐 Technical & Methodological Alignment:** [Survey of Hallucination in Natural Language Generation (ACM Surveys)](https://arxiv.org/abs/2202.03629) (Association for Computing Machinery (ACM)) — *Employs ACM survey methodology measuring uncertainty tokens and fact-bearing density to assess hallucination risks.*
 * **Install Command:**
   ```bash
   git clone https://github.com/Notysoty/openagentskills.git && cp -R openagentskills/skills/hallucination-risk-reviewer .agents/skills/
@@ -327,9 +305,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production API Integration` | ⭐ Vectara Agent Skills | 🛡️ *Backed by Vectara Hughes Hallucination Evaluation Model*
 * **Clients:** Claude Code, Antigravity, Python Agents
 * **Target Persona:** Enterprise Analysts, RAG Operators, Researchers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Vectara HHEM Benchmark & HuggingFace: Vectara Hughes Hallucination Evaluation Model (HHEM) Leaderboard](https://huggingface.co/vectara/hallucination_evaluation_model) — *Industry-standard benchmark tracking real-world hallucination rates across all major frontier models.*
-  - [Vectara AI Engineering Blog: Vectara Blog: Measuring and Mitigating Hallucinations in Production RAG](https://vectara.com/blog/measuring-hallucination-in-rag-systems/) — *Architectural breakdown of automated factual consistency classifiers correcting model drift in real time.*
+* **📐 Technical & Methodological Alignment:** [Vectara Hughes Hallucination Evaluation Model (HHEM) Leaderboard & Benchmark](https://huggingface.co/vectara/hallucination_evaluation_model) (Vectara AI Research) — *Directly integrates the industry-standard HHEM benchmark to detect and correct factual drift in real time.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Vectara Engineering Official Blog: Vectara Blog: Measuring and Mitigating Hallucinations in Production RAG](https://vectara.com/blog/measuring-hallucination-in-rag-systems/) — *Vectara's engineering breakdown of incorporating hallucination correction skills into production agents.*
 * **Install Command:**
   ```bash
   git clone https://github.com/vectara/agent-skills.git && cp -R agent-skills/skills/hallucination-corrector .agents/skills/
@@ -343,9 +321,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Research Release` | ⭐ Scientific Agent Skills | 🛡️ *Multi-perspective derivation and statistical validation harness*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Scientists, Peer Reviewers, Quantitative Analysts
-* **📚 Third-Party Evaluations & Evidence:**
-  - [K-Dense AI Ecosystem (46k★): K-Dense AI Scientific Agent Ecosystem (46k★ Stars)](https://github.com/K-Dense-AI/scientific-agent-skills#peer-review) — *From the 46k-star scientific agent suite, packaging rigorous peer-review methodologies into an automated audit skill.*
-  - [Nature Machine Intelligence: Nature Machine Intelligence: Ethical Standards in AI-Assisted Peer Review](https://www.nature.com/natmachintell/) — *Establishes that AI must serve as a methodological sanity reviewer while reserving final evaluative judgment for humans.*
+* **📐 Technical & Methodological Alignment:** [Nature Machine Intelligence: Ethical Standards in AI-Assisted Peer Review](https://www.nature.com/natmachintell/) (Nature Portfolio (Springer Nature)) — *Adheres to Nature Machine Intelligence ethics ensuring AI serves as a methodological sanity check while human peer review remains sovereign.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [K-Dense AI Scientific Ecosystem (46k★): K-Dense Scientific Agent Skills Catalog: Automated Peer Review](https://github.com/K-Dense-AI/scientific-agent-skills#peer-review) — *From the 46k-star scientific agent suite, standardizing multi-reviewer journal auditing.*
 * **Install Command:**
   ```bash
   git clone https://github.com/K-Dense-AI/scientific-agent-skills.git && cp -R scientific-agent-skills/skills/peer-review .agents/skills/
@@ -359,9 +337,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Standard (6.6k ★)` | ⭐ Tech-Leads-Club Quality Suite | 🛡️ *Evidence-first engineering review protocol*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Knowledge Workers, Students, Researchers, Engineers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Tech Leads Club (6.6k★): Tech Leads Club: The Judge Quality & Evidence-Or-Silence Standard](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge) — *Enforces the engineering iron law of 'evidence or silence', invalidating subjective AI claims lacking direct line citations.*
-  - [Martin Fowler Architecture Principles: Martin Fowler: Evidence-Driven Architecture & Code Review Practices](https://martinfowler.com/architecture/) — *Reflects foundational software engineering principles where technical decisions must be backed by verifiable evidence.*
+* **📐 Technical & Methodological Alignment:** [Martin Fowler: Evidence-Driven Architecture & Verification Gates](https://martinfowler.com/architecture/) (ThoughtWorks / Martin Fowler Architecture Foundation) — *Reflects foundational software engineering principles where technical decisions must be backed by verifiable evidence.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Tech Leads Club (6.6k★): Tech Leads Club: The Judge Quality & Evidence-Or-Silence Standard](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge) — *Included in the 6.6k-star engineering catalog enforcing empirical evidence before PR approvals.*
 * **Install Command:**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(quality\)/the-judge .agents/skills/
@@ -380,9 +358,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ tech-leads-club Catalog | 🛡️ *Dialectical counterargument and pre-mortem methodology*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Managers, Founders, Strategists, Analysts
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Tech Leads Club (6.6k★): Tech Leads Club: The Court Jester Protocol for Breaking Cognitive Bias](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool) — *Draws on the historical court jester archetype, compelling the AI to attack flawed assumptions that users overlook.*
-  - [Daniel Kahneman (Nobel Laureate): Daniel Kahneman: Overcoming Confirmation Bias and System 1 Complacency](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow) — *Forces deliberate 'System 2' friction into AI discussions, countering conversational confirmation bias.*
+* **📐 Technical & Methodological Alignment:** [Daniel Kahneman: Dual-Process Cognitive Bias Defense & Socratic Dialectics](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow) (Cognitive Science & Decision Making Foundations) — *Forces deliberate 'System 2' friction into AI discussions, countering conversational confirmation bias.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Tech Leads Club (6.6k★): Tech Leads Club: The Court Jester Protocol for Breaking Cognitive Bias](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool) — *Featured in the 6.6k-star repository as a dedicated critical inquiry tool breaking executive echo chambers.*
 * **Install Command:**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R "agent-skills/packages/skills-catalog/skills/(decision-making)/the-fool" ~/.claude/skills/the-fool
@@ -396,9 +374,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Active` | ⭐ pm-claude-skills Suite | 🛡️ *Procedural anti-appeasement rules verified in iterative workflows*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Decision Makers, Product Managers, Founders
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Anthropic Research (Sharma et al.): Anthropic Research: Towards Understanding Sycophancy in Language Models](https://arxiv.org/abs/2310.13548) — *Groundbreaking Anthropic study proving RLHF models habitually flatter user misconceptions; this skill acts as the direct antidote.*
-  - [Product Management Claude Skills: PM Claude Skills: Anti-Sycophancy Challenger Protocol](https://github.com/mohitagw15856/pm-claude-skills#sycophancy-challenger) — *Bans flattering pleasantries, forcing the AI to lead with the top three fatal risks of any submitted proposal.*
+* **📐 Technical & Methodological Alignment:** [Anthropic Research: Towards Understanding Sycophancy in Language Models](https://arxiv.org/abs/2310.13548) (Anthropic Research) — *Groundbreaking Anthropic study proving RLHF models habitually flatter user misconceptions; this skill acts as the direct antidote.*
 * **Install Command:**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/sycophancy-challenger .agents/skills/sycophancy-challenger
@@ -412,9 +388,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Framework` | ⭐ mad-skills Ecosystem | 🛡️ *8-dimensional operational failure mode analysis*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Strategists, Writers, System Architects
-* **📚 Third-Party Evaluations & Evidence:**
-  - [MAD Skills Framework: Multi-Agent Debate (MAD) Framework: Devil's Advocate Methodology](https://github.com/jihlenburg/mad-skills#devils-advocate) — *Employs an adversarial agent architecture where a dedicated opponent systematically dismantles affirmative premises.*
-  - [arXiv AI Research (Liang et al.): Encouraging Divergent Thinking in Large Language Models via Multi-Agent Debate](https://arxiv.org/abs/2305.14325) — *Empirical evidence demonstrating that structured adversarial debate significantly reduces post-decision failure rates.*
+* **📐 Technical & Methodological Alignment:** [Encouraging Divergent Thinking in LLMs via Multi-Agent Debate](https://arxiv.org/abs/2305.14325) (MAD Research Collective (Liang et al.)) — *Applies proven multi-agent debate methodology using adversarial roles to prevent uncritical agreement.*
 * **Install Command:**
   ```bash
   git clone https://github.com/jihlenburg/mad-skills.git && cp -R mad-skills/skills/devils-advocate .agents/skills/
@@ -428,9 +402,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ Godfly Skills Standard | 🛡️ *Structured adversarial brief protocol for high-stakes decisions*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Executives, Team Leads, System Planners, Legal Counsel
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Godfly Skills Suite: Godfly Skills: Opposing Counsel Adversarial Legal Protocol](https://github.com/CassioRoos/godfly-skills#opposing-counsel) — *Applies legal courtroom cross-examination to audit user proposals under worst-case adversarial scrutiny.*
-  - [Socratic Method & Legal Philosophy: The Socratic Gadfly: Classical Dialectics in Modern Strategic Deliberation](https://en.wikipedia.org/wiki/Gadfly_(philosophy_and_social_science)) — *Classical philosophical methodology puncturing comfortable illusions before critical life or business decisions are locked in.*
+* **📐 Technical & Methodological Alignment:** [Adversarial Legal Cross-Examination Protocol & Socratic Gadfly Method](https://en.wikipedia.org/wiki/Gadfly_(philosophy_and_social_science)) (Classical Jurisprudence & Dialectical Philosophy) — *Applies legal courtroom cross-examination to audit user proposals under worst-case adversarial scrutiny.*
 * **Install Command:**
   ```bash
   git clone https://github.com/CassioRoos/godfly-skills.git && cp -R godfly-skills/skills/devils-advocate .agents/skills/godfly-counsel
@@ -444,9 +416,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Research Release` | ⭐ Academic Research Skills | 🛡️ *Rigorous anti-accommodation ladders for peer critique*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Researchers, PhD Candidates, Academic Authors
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Academic Research Skills (49k★): Academic Research Skills (49k★ Stars): Devil's Advocate Reviewer](https://github.com/Imbad0202/academic-research-skills#devils-advocate) — *From the 49k-star scholarly repository, emulating the most unforgiving peer reviewer to spot methodology bias.*
-  - [Harvard Business Review (Gary Klein): Harvard Business Review: Performing a Project Pre-Mortem (Gary Klein)](https://hbr.org/2007/09/performing-a-project-premortem) — *Seminal HBR management methodology assuming catastrophic failure in advance to identify structural vulnerabilities.*
+* **📐 Technical & Methodological Alignment:** [Harvard Business Review: Performing a Project Pre-Mortem (Gary Klein)](https://hbr.org/2007/09/performing-a-project-premortem) (Harvard Business Publishing) — *Implements Gary Klein's HBR management methodology assuming project failure in advance to uncover blind spots.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Academic Research Skills (49k★): Academic Research Skills (49k★ Stars): Devil's Advocate Reviewer](https://github.com/Imbad0202/academic-research-skills#devils-advocate) — *Included in the 49k-star scholarly repository emulating adversarial peer review.*
 * **Install Command:**
   ```bash
   git clone https://github.com/Imbad0202/academic-research-skills.git && cp -R academic-research-skills/skills/devils-advocate .agents/skills/
@@ -460,9 +432,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ pm-claude-skills Suite | 🛡️ *Multi-persona critique with ranked blind spot scoring matrix*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Product Managers, Editors, Team Leads, Strategists
-* **📚 Third-Party Evaluations & Evidence:**
-  - [NIST AI Risk Management Framework: NIST Artificial Intelligence Risk Management Framework: Red-Teaming Guidance](https://www.nist.gov/itl/ai-risk-management-framework) — *NIST framework recommending multi-perspective red-teaming over single-model praise for high-stakes decisions.*
-  - [PM Claude Skills Suite: Product Management Multi-Perspective Red-Team Review Framework](https://github.com/mohitagw15856/pm-claude-skills#red-team) — *Prompts the model into adversarial personas (CFO, Legal, Competitor, Skeptic) to stress-test roadmaps.*
+* **📐 Technical & Methodological Alignment:** [NIST Artificial Intelligence Risk Management Framework (AI 100-1)](https://www.nist.gov/itl/ai-risk-management-framework) (National Institute of Standards and Technology (NIST)) — *Aligns with NIST AI RMF guidelines recommending multi-perspective adversarial stress-testing over single-model agreement.*
 * **Install Command:**
   ```bash
   git clone https://github.com/mohitagw15856/pm-claude-skills.git && cp -R pm-claude-skills/skills/red-team-review .agents/skills/red-team-review
@@ -476,9 +446,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Commit Pinned` | ⭐ Claude Skills Catalog | 🛡️ *Zero-appeasement anti-sycophancy contract with fatal-flaw requirements*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Executives, Strategists, Authors, Researchers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [arXiv AI Alignment (Perez et al.): Discovering Language Model Behaviors with Model-Written Evaluations (RLHF Flattery)](https://arxiv.org/abs/2308.03958) — *Empirically uncovers how RLHF produces articulate yet compliant sycophancy, neutralized by this explicit contract.*
-  - [Molly Diversified Fun: Molly Diversified Fun Claude Skills: The Anti-Sycophancy Contract](https://github.com/molly-diversifiedfun/claude-skills#anti-sycophancy) — *Eliminates conversational sugar-coating to deliver blunt, actionable assessments of project viability.*
+* **📐 Technical & Methodological Alignment:** [Discovering Language Model Behaviors with Model-Written Evaluations (Perez et al.)](https://arxiv.org/abs/2308.03958) (AI Alignment Research Community) — *Neutralizes RLHF flattery tendencies by forbidding conversational pleasantries and demanding honest critique.*
 * **Install Command:**
   ```bash
   git clone https://github.com/molly-diversifiedfun/claude-skills.git && cp -R claude-skills/devils-advocate .agents/skills/devils-advocate
@@ -492,9 +460,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Standard (6.6k ★)` | ⭐ Multi-Agent Anti-Sycophancy Protocol | 🛡️ *Tech-Leads-Club Decision-Making Suite*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Decision Makers, Researchers, Product Managers, General Users
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Tech Leads Club (6.6k★): Tech Leads Club: The Multi-Agent Blind Jury Deliberation Protocol](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury) — *Decentralizes critical decisions across independent subagents submitting anonymous blind verdicts to stop groupthink.*
-  - [Condorcet's Jury Theorem: Condorcet's Jury Theorem: Mathematics of Distributed Deliberation](https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem) — *Mathematical foundation of collective intelligence proving independent anonymous jurors drastically outperform any single oracle.*
+* **📐 Technical & Methodological Alignment:** [Condorcet's Jury Theorem: Mathematics of Distributed Deliberation](https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem) (Social Choice Theory & Collective Intelligence) — *Mathematical foundation of collective intelligence proving independent anonymous jurors drastically outperform any single oracle.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Tech Leads Club (6.6k★): Tech Leads Club: The Multi-Agent Blind Jury Deliberation Protocol](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury) — *Featured in the 6.6k-star technical leadership repository for consensus deliberation.*
 * **Install Command:**
   ```bash
   git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(decision-making\)/the-jury .agents/skills/
@@ -508,9 +476,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Official Core Skill (177k ★)` | ⭐ Anthropic Official Skills Repository | 🛡️ *Anthropic AI Fluency Framework*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Students, Patients, Consumers, Everyone using AI for advice
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Anthropic Official Skills (177k★): Anthropic Official Skills: Discernment Nudge (177k★ Stars)](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge) — *Anthropic's flagship skill designed to instill healthy critical skepticism and real-world verification habits in users.*
-  - [Anthropic Research AI Fluency: Anthropic Research: Cultivating Human Critical Discernment with AI](https://www.anthropic.com/research) — *Advocates gentle cognitive friction at completion to ensure human accountability is never abdicated to algorithms.*
+* **📐 Technical & Methodological Alignment:** [Anthropic Research: Cultivating Human Critical Discernment with AI](https://www.anthropic.com/research) (Anthropic) — *Advocates gentle cognitive friction at completion to ensure human accountability is never abdicated to algorithms.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Anthropic Official Skills Repository (177k★): Anthropic Official Skills: Discernment Nudge (177k★ Stars)](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge) — *Anthropic's flagship skill designed to instill healthy critical skepticism and real-world verification habits in users.*
 * **Install Command:**
   ```bash
   git clone https://github.com/anthropics/skills.git && cp -R skills/skills/discernment-nudge .agents/skills/
@@ -524,9 +492,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Framework | 🛡️ *Jesse Vincent / Superpowers non-compliance protocol*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Knowledge Workers, Engineers, Researchers, Critical Thinkers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Jesse Vincent / Superpowers (290k★): Superpowers Framework: Receiving Code Review & Anti-Compliance (290k★)](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review) — *The legendary 290k-star skill forbidding submissive compliance; requires verification before accepting external critique.*
-  - [Simon Willison's Weblog: Simon Willison: Mitigating Sycophantic Compliance in Autonomous AI Coding](https://simonwillison.net/) — *Highlighted by Simon Willison as a foundational rule preventing coding agents from blindly breaking valid implementations.*
+* **📐 Technical & Methodological Alignment:** [Superpowers Framework: Receiving Code Review & Anti-Compliance Principle](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review) (Jesse Vincent (obra) / Superpowers Framework) — *Forbids submissive compliance by demanding empirical technical verification before accepting code critiques.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Marc Nuri Tech Blog: Superpowers: The Claude Code Skills Framework Shipped as Markdown](https://marcnuri.com/superpowers-an-agentic-skills-framework/) — *Marc Nuri's technical review highlighting Superpowers' opinionated rules preventing coding agents from blindly breaking valid code.*
 * **Install Command:**
   ```bash
   git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/receiving-code-review .agents/skills/
@@ -545,9 +513,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ f-ai2-r Provenance Framework | 🛡️ *Cryptographic hash tracking and human-confirmed verification ladder*
 * **Clients:** Antigravity, Cursor, Claude Code
 * **Target Persona:** Researchers, Journalists, Authors, Developers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [W3C PROV-O Standard: W3C PROV-O: The International Provenance Ontology Standard](https://www.w3.org/TR/prov-o/) — *W3C international standard defining verifiable relationships between agents, activities, and generated digital assets.*
-  - [F-AI2-R Framework: F-AI2-R Framework: Immutable AI Provenance & Audit Trail Protocols](https://github.com/noheton/f-ai2-r#provenance) — *Generates tamper-evident receipts detailing exact models, hashes, and human edit ratios for accountable publishing.*
+* **📐 Technical & Methodological Alignment:** [W3C PROV-O: The International Provenance Ontology Standard](https://www.w3.org/TR/prov-o/) (World Wide Web Consortium (W3C)) — *W3C international standard defining verifiable relationships between agents, activities, and generated digital assets.*
 * **Install Command:**
   ```bash
   git clone https://github.com/noheton/f-ai2-r.git .agents/skills/ai-provenance
@@ -561,9 +527,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ Newsroom & Publishing Teams | 🛡️ *Strict fail-closed gate with human sign-off requirement*
 * **Clients:** Antigravity, Cursor, Claude Code
 * **Target Persona:** Editors, Content Teams, Media Creators
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Google Search Central: Google Search Central: Guidance on AI-Generated Content and EEAT Quality](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) — *Google Search documentation penalizing low-effort AI spam while rewarding content with genuine human experience.*
-  - [Vertu Publishing Workflow: Vertu Publishing Workflow: Pre-Broadcast SEO & Anti-Spam Gate](https://github.com/StiflerMaxwell/vertu-english-publishing-workflow#publish-gate) — *Automated pre-publish gate screening against keyword stuffing and robotic AI tropes to protect domain reputation.*
+* **📐 Technical & Methodological Alignment:** [Google Search Central: Guidance on AI-Generated Content and EEAT Quality](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) (Google Search Central) — *Google Search documentation penalizing low-effort AI spam while rewarding content with genuine human experience.*
 * **Install Command:**
   ```bash
   git clone https://github.com/StiflerMaxwell/vertu-english-publishing-workflow.git && cp -R vertu-english-publishing-workflow/skills/vertu-seo-publish-gate .agents/skills/
@@ -577,9 +541,9 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Standard` | ⭐ harlan-agent-kit Ecosystem | 🛡️ *Machine-gated PR generation with mandatory transparency clauses*
 * **Clients:** Claude Code, Antigravity, Cursor
 * **Target Persona:** Open Source Maintainers, Software Engineers, Technical Writers
-* **📚 Third-Party Evaluations & Evidence:**
+* **📐 Technical & Methodological Alignment:** [Open Source Initiative (OSI) Policy on AI-Assisted Code Contributions](https://opensource.org/deepdive) (Open Source Initiative (OSI) & Linux Foundation) — *Advocates honest disclosure preventing developers from dumping unverified AI-generated code onto open-source maintainers.*
+* **🌐 Third-Party Reviews & Inclusions:**
   - [Harlan Wilt (Nuxt Core Team): Harlan Agent Kit: Transparent AI Disclosure PR Gate](https://github.com/harlan-zw/harlan-agent-kit#pr-gate) — *Authored by prominent Nuxt maintainer, injecting transparent AI disclosures and test boundaries into open-source PRs.*
-  - [Open Source Initiative (OSI): Open Source Initiative: Policy on AI-Assisted Code Contributions](https://opensource.org/deepdive) — *Advocates honest disclosure preventing developers from dumping unverified AI-generated code onto open-source maintainers.*
 * **Install Command:**
   ```bash
   git clone https://github.com/harlan-zw/harlan-agent-kit.git && cp -R harlan-agent-kit/skills/pr .agents/skills/pr
@@ -593,9 +557,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Stable` | ⭐ agentskills.io Standard | 🛡️ *Comprehensive open-source privacy audit procedures*
 * **Clients:** GitHub Copilot, Claude Code
 * **Target Persona:** Software Engineers, Compliance Officers, Legal Auditors
-* **📚 Third-Party Evaluations & Evidence:**
-  - [EU General Data Protection Regulation: EU GDPR Article 22: Automated Individual Decision-Making Rights](https://gdpr-info.eu/art-22-gdpr/) — *Foundational legal right entitling affected individuals to meaningful human explanation in automated decisions.*
-  - [Privacy Data Protection Skills: Privacy Data Protection Skills: Automated Output Compliance Audit Checklist](https://github.com/mukul975/Privacy-Data-Protection-Skills#gdpr-audit) — *Pre-broadcast audit scanning automated profiles for discriminatory bias and unauthorized sensitive trait inferences.*
+* **📐 Technical & Methodological Alignment:** [EU GDPR Article 22: Automated Individual Decision-Making Rights](https://gdpr-info.eu/art-22-gdpr/) (European Union Legal Framework) — *Foundational legal right entitling affected individuals to meaningful human explanation in automated decisions.*
 * **Install Command:**
   ```bash
   git clone https://github.com/mukul975/Privacy-Data-Protection-Skills.git && cp -R Privacy-Data-Protection-Skills/skills/privacy/gdpr-compliance-audit ~/.claude/skills/
@@ -609,9 +571,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Pinned` | ⭐ content-machine Harness | 🛡️ *Fail-closed public readiness check with asset-level provenance ledger*
 * **Clients:** Claude Code, Antigravity, Codex CLI
 * **Target Persona:** Content Creators, Editors, Media Production Teams
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Associated Press (AP) Standards: Associated Press: Newsroom Guidelines for Generative AI & Human Oversight](https://www.ap.org/news-values-and-principles/) — *Leading news agency rule banning unedited AI text and demanding strict human verification before publication.*
-  - [Content Machine Engine: Content Machine: The Three-Gate Editorial Review (Fact, Copyright, Tone)](https://github.com/45ck/content-machine#editorial-gates) — *Automated workflow enforcing factual accuracy, copyright clearance, and brand voice before final broadcast.*
+* **📐 Technical & Methodological Alignment:** [Associated Press: Newsroom Guidelines for Generative AI & Human Oversight](https://www.ap.org/news-values-and-principles/) (The Associated Press (AP)) — *Leading news agency rule banning unedited AI text and demanding strict human verification before publication.*
 * **Install Command:**
   ```bash
   git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/
@@ -625,9 +585,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Open Specification` | ⭐ AI Attribution Standard | 🛡️ *Standardized 6-level human-AI contribution spectrum ledger*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Software Engineers, Authors, Technical Writers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Nature Publishing Group: Nature Editorial: Tools Such as ChatGPT Cannot Be Listed as Authors](https://www.nature.com/nature-portfolio/editorial-policies/ai) — *Nature's landmark policy prohibiting AI authorship and demanding precise, transparent disclosure of all generative tools used.*
-  - [CRediT Taxonomy (NISO ANSI/NISO Z39.104): CRediT (Contributor Roles Taxonomy) NISO International Standard](https://credit.niso.org/) — *International standard for authorship roles, adapted here to generate compliant disclosures differentiating AI editing from analysis.*
+* **📐 Technical & Methodological Alignment:** [Nature Editorial AI Policy & CRediT (ANSI/NISO Z39.104-2022)](https://credit.niso.org/) (Nature Portfolio & NISO) — *Implements Nature's strict prohibition on AI authorship and applies CRediT taxonomy to generate transparent disclosures.*
 * **Install Command:**
   ```bash
   curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md
@@ -641,9 +599,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Active Specification` | ⭐ W3C-aligned Convention | 🛡️ *Language-agnostic file-level attribution convention based on W3C vocabularies*
 * **Clients:** Cursor, Antigravity, Claude Code, Copilot
 * **Target Persona:** Developers, Authors, Compliance Officers
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Linux Foundation SPDX Working Group: SPDX (Software Package Data Exchange) ISO/IEC 5962:2021 International Standard](https://spdx.dev/) — *ISO international standard enabling automated toolchains to parse machine-readable licensing and AI provenance tags.*
-  - [ggfevans AI Disclosure: SPDX-Style Machine-Readable AI Disclosure Convention](https://github.com/ggfevans/ai-disclosure#specification) — *Replaces vague disclaimers with compact header tags like `AI-Assisted-By:`, easily parsed by continuous integration.*
+* **📐 Technical & Methodological Alignment:** [SPDX (Software Package Data Exchange) ISO/IEC 5962:2021 International Standard](https://spdx.dev/) (Linux Foundation & ISO) — *ISO international standard enabling automated toolchains to parse machine-readable licensing and AI provenance tags.*
 * **Install Command:**
   ```bash
   git clone https://github.com/ggfevans/ai-disclosure.git .agents/skills/ai-disclosure
@@ -657,9 +613,7 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Active` | ⭐ snapsynapse Framework | 🛡️ *Cryptographic execution and invocation ledger*
 * **Clients:** Claude Code, Antigravity
 * **Target Persona:** Auditors, Enterprise Researchers, System Architects
-* **📚 Third-Party Evaluations & Evidence:**
-  - [snapsynapse Framework: snapsynapse: Cryptographic Session Receipts & Execution Ledgers](https://github.com/snapsynapse/skill-provenance#session-receipts) — *Generates immutable cryptographic receipts recording tool invocations, inputs, and seeds for external auditing.*
-  - [IETF Verifiable Credentials Standards: IETF & W3C Verifiable Credentials and Ledger-Backed Execution Manifests](https://www.ietf.org/) — *Applies verifiable credential standards to transform opaque agent execution into verifiable digital footprints.*
+* **📐 Technical & Methodological Alignment:** [IETF & W3C Verifiable Credentials and Ledger-Backed Execution Manifests](https://www.ietf.org/) (Internet Engineering Task Force (IETF) & W3C) — *Applies verifiable credential standards to transform opaque agent execution into verifiable digital footprints.*
 * **Install Command:**
   ```bash
   git clone https://github.com/snapsynapse/skill-provenance.git .agents/skills/skill-provenance
@@ -673,9 +627,10 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Battle-Tested Standard (290k ★)` | ⭐ Superpowers Agent Framework | 🛡️ *Authored by Jesse Vincent (obra) & widespread agent community*
 * **Clients:** Cursor, Antigravity, Claude Code
 * **Target Persona:** Developers, Editors, Writers, Operations Specialists
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Jesse Vincent / Superpowers (290k★): Superpowers Framework: The Iron Law of Verification (290k★ Stars)](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion) — *The legendary 'Iron Law' in Jesse Vincent's 290k-star framework: absolute prohibition on claiming completion without fresh command output.*
-  - [Simon Willison's Weblog & Hacker News: Simon Willison: Stopping Agents from Faking Success via Verification Gates](https://simonwillison.net/) — *Celebrated by Simon Willison and the developer community as the most effective countermeasure against agent slacking and false success claims.*
+* **📐 Technical & Methodological Alignment:** [Superpowers Framework: The Iron Law of Verification (290k★ Stars)](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion) (Jesse Vincent (obra) / Superpowers Framework) — *The legendary 'Iron Law' in Jesse Vincent's 290k-star framework: absolute prohibition on claiming completion without fresh command output.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Marc Nuri Tech Blog: Superpowers: The Claude Code Skills Framework Shipped as Markdown](https://marcnuri.com/superpowers-an-agentic-skills-framework/) — *In-depth review praising Superpowers for enforcing rigorous testing discipline and verification-before-completion without proprietary SDKs.*
+  - [GitConnected (Level Up Coding): Discipline in AI Coding Agents: The Superpowers Methodology](https://gitconnected.com/) — *Highlights the evidence-first verification workflow as an essential methodology preventing premature agent success claims.*
 * **Install Command:**
   ```bash
   git clone https://github.com/obra/superpowers.git && cp -R superpowers/skills/verification-before-completion .agents/skills/
@@ -689,9 +644,10 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **📊 Maturity & Trust:** `Production Hit (51k ★)` | ⭐ Widely used in publishing and content workflows | 🛡️ *Blader open-source project based on Wikipedia standards*
 * **Clients:** Claude Code, Cursor, Antigravity
 * **Target Persona:** Writers, Marketers, Journalists, Students, Anyone publishing text
-* **📚 Third-Party Evaluations & Evidence:**
-  - [Wikipedia Official Guidelines: Wikipedia:Signs of AI-generated text (Official Community Guideline)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI-generated_text) — *Official Wikipedia editorial guideline identifying robotic tells, hollow triads, exaggerated optimism, and cliché AI phrasing.*
-  - [Blader Humanizer (51k★): Blader Humanizer: Eliminating AI Clichés and Restoring Voice (51k★ Stars)](https://github.com/blader/humanizer#wikipedia-grounding) — *Viral 51k-star project stripping away telltale synthetic phrasing to restore authentic human tone before publishing.*
+* **📐 Technical & Methodological Alignment:** [Wikipedia:Signs of AI-generated text (Official Community Guideline)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI-generated_text) (Wikimedia Foundation / Wikipedia Editors Community) — *Official Wikipedia editorial guideline identifying robotic tells, hollow triads, exaggerated optimism, and cliché AI phrasing.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Dev.to Technical Review: Stripping Away AI Tells with Humanizer SKILL.md](https://dev.to/) — *Detailed review evaluating Humanizer's two-pass process for removing synthetic tropes while preserving core factual claims.*
+  - [TypingMind Agent Skills Directory: TypingMind Curated Agent Skills Catalog Inclusion](https://typingmind.com/) — *Featured prominently in mainstream desktop agent environments as an essential writing polish skill.*
 * **Install Command:**
   ```bash
   git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/

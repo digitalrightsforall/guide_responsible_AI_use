@@ -41,11 +41,10 @@ const i18n = {
     whyChosenLabel: "🎯 为什么精选收录：",
     whenToUseLabel: "⏰ 准确使用时机：",
     howToUseLabel: "🛠️ 如何使用：",
-    referencesLabel: "📚 第三方评价与实证材料：",
-    refTypeBlog: "📝 深度博客",
-    refTypeReport: "📊 基准/论文",
-    refTypeCatalog: "📦 权威收录",
-    refTypeReview: "⭐ 社区评价",
+    standardLabel: "📐 技术依据与对齐标准：",
+    reviewsLabel: "🌐 独立第三方评测与生态收录：",
+    noReviewsNote: "🌱 开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。",
+    reviewBadge: "独立评测 / 收录",
     statusLabel: "📊 成熟度与可信背书：",
     targetPersona: "适用人群：",
     supportedClients: "适用客户端：",
@@ -102,11 +101,10 @@ const i18n = {
     whyChosenLabel: "🎯 Why This Was Chosen:",
     whenToUseLabel: "⏰ When to Use:",
     howToUseLabel: "🛠️ How to Use:",
-    referencesLabel: "📚 Third-Party Evaluations & Evidence:",
-    refTypeBlog: "📝 Tech Blog",
-    refTypeReport: "📊 Report / Paper",
-    refTypeCatalog: "📦 Official Catalog",
-    refTypeReview: "⭐ Community Review",
+    standardLabel: "📐 Technical & Methodological Alignment:",
+    reviewsLabel: "🌐 Direct Third-Party Reviews & Inclusions:",
+    noReviewsNote: "🌱 Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.",
+    reviewBadge: "Review / Inclusion",
     statusLabel: "📊 Maturity & Trust Signals:",
     targetPersona: "Target:",
     supportedClients: "Clients:",
@@ -645,63 +643,75 @@ function openModal(id) {
       </div>
 
       ${(() => {
-        if (!item.references || item.references.length === 0) return "";
-        const typeBadges = {
-          blog: {
-            label: t.refTypeBlog || "📝 深度博客",
-            style: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800"
-          },
-          report: {
-            label: t.refTypeReport || "📊 基准/论文",
-            style: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
-          },
-          catalog_inclusion: {
-            label: t.refTypeCatalog || "📦 权威收录",
-            style: "bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800"
-          },
-          community_review: {
-            label: t.refTypeReview || "⭐ 社区评价",
-            style: "bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
-          }
-        };
+        if (!item.standard_alignment) return "";
+        const std = item.standard_alignment;
+        const name = currentLang === "zh" ? std.name_zh : std.name_en;
+        const howAligned = currentLang === "zh" ? std.how_aligned_zh : std.how_aligned_en;
 
-        const refCards = item.references.map((ref) => {
-          const typeMeta = typeBadges[ref.type] || {
-            label: ref.type,
-            style: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700"
-          };
-          const title = currentLang === "zh" ? ref.title_zh : ref.title_en;
-          const takeaway = currentLang === "zh" ? ref.takeaway_zh : ref.takeaway_en;
-
-          return `
-            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
-              <div class="flex items-center justify-between gap-2 flex-wrap">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${typeMeta.style}">
-                  ${typeMeta.label}
-                </span>
-                <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
-                  🏷️ ${escapeHtml(ref.source)}
-                </span>
-              </div>
-              <div>
-                <a href="${escapeHtml(ref.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-900 dark:text-slate-100 hover:text-brand dark:hover:text-brand-container text-xs sm:text-sm inline-flex items-center gap-1 group">
-                  <span>${escapeHtml(title)}</span>
-                  <span class="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
-                </a>
-                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs mt-1">${escapeHtml(takeaway)}</p>
-              </div>
+        return `
+          <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/50 space-y-2 text-xs sm:text-sm">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <h4 class="font-extrabold text-sky-950 dark:text-sky-200 flex items-center gap-1.5 text-xs sm:text-sm">
+                ${t.standardLabel}
+              </h4>
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-900/60 text-sky-800 dark:text-sky-300">
+                🏛️ ${escapeHtml(std.organization)}
+              </span>
             </div>
+            <div>
+              <a href="${escapeHtml(std.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-sky-900 dark:text-sky-300 hover:underline inline-flex items-center gap-1 group">
+                <span>${escapeHtml(name)}</span>
+                <span class="text-sky-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
+              </a>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs mt-1.5">${escapeHtml(howAligned)}</p>
+            </div>
+          </div>
+        `;
+      })()}
+
+      ${(() => {
+        const hasReviews = item.third_party_reviews && item.third_party_reviews.length > 0;
+        
+        let contentHtml = "";
+        if (hasReviews) {
+          const revCards = item.third_party_reviews.map((rev) => {
+            const title = currentLang === "zh" ? rev.title_zh : rev.title_en;
+            const excerpt = currentLang === "zh" ? rev.excerpt_zh : rev.excerpt_en;
+            return `
+              <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800">
+                    ⭐ ${t.reviewBadge}
+                  </span>
+                  <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+                    🏷️ ${escapeHtml(rev.source)}
+                  </span>
+                </div>
+                <div>
+                  <a href="${escapeHtml(rev.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-900 dark:text-slate-100 hover:text-brand dark:hover:text-brand-container text-xs sm:text-sm inline-flex items-center gap-1 group">
+                    <span>${escapeHtml(title)}</span>
+                    <span class="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
+                  </a>
+                  <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs mt-1">${escapeHtml(excerpt)}</p>
+                </div>
+              </div>
+            `;
+          }).join("");
+          contentHtml = `<div class="space-y-2">${revCards}</div>`;
+        } else {
+          contentHtml = `
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed italic">
+              ${t.noReviewsNote}
+            </p>
           `;
-        }).join("");
+        }
 
         return `
           <div class="p-4 rounded-2xl bg-indigo-50/50 dark:bg-slate-800/40 border border-indigo-100 dark:border-slate-800 space-y-2.5">
             <h4 class="font-extrabold text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5 text-xs sm:text-sm">
-              ${t.referencesLabel}
+              ${t.reviewsLabel}
             </h4>
-            <div class="space-y-2">
-              ${refCards}
-            </div>
+            ${contentHtml}
           </div>
         `;
       })()}

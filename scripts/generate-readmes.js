@@ -118,10 +118,14 @@ function generateReadmeEn() {
       md += `* **Clients:** ${item.clients.join(', ')}\n`;
       md += `* **Target Persona:** ${item.target_persona}\n`;
 
-      if (item.references && item.references.length > 0) {
-        md += `* **📚 Third-Party Evaluations & Evidence:**\n`;
-        item.references.forEach((ref) => {
-          md += `  - [${ref.source}: ${ref.title_en}](${ref.url}) — *${ref.takeaway_en}*\n`;
+      if (item.standard_alignment) {
+        md += `* **📐 Technical & Methodological Alignment:** [${item.standard_alignment.name_en}](${item.standard_alignment.url}) (${item.standard_alignment.organization}) — *${item.standard_alignment.how_aligned_en}*\n`;
+      }
+
+      if (item.third_party_reviews && item.third_party_reviews.length > 0) {
+        md += `* **🌐 Third-Party Reviews & Inclusions:**\n`;
+        item.third_party_reviews.forEach((rev) => {
+          md += `  - [${rev.source}: ${rev.title_en}](${rev.url}) — *${rev.excerpt_en}*\n`;
         });
       }
 
@@ -194,10 +198,14 @@ function generateReadmeCn() {
       md += `* **适用客户端：** ${item.clients.join('、')}\n`;
       md += `* **适用人群：** ${item.target_persona}\n`;
 
-      if (item.references && item.references.length > 0) {
-        md += `* **📚 第三方评价与实证材料：**\n`;
-        item.references.forEach((ref) => {
-          md += `  - [${ref.source}：${ref.title_zh}](${ref.url}) — *${ref.takeaway_zh}*\n`;
+      if (item.standard_alignment) {
+        md += `* **📐 技术依据与对齐标准：** [${item.standard_alignment.name_zh}](${item.standard_alignment.url})（${item.standard_alignment.organization}）— *${item.standard_alignment.how_aligned_zh}*\n`;
+      }
+
+      if (item.third_party_reviews && item.third_party_reviews.length > 0) {
+        md += `* **🌐 独立第三方评测与生态收录：**\n`;
+        item.third_party_reviews.forEach((rev) => {
+          md += `  - [${rev.source}：${rev.title_zh}](${rev.url}) — *${rev.excerpt_zh}*\n`;
         });
       }
 

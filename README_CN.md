@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 40 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
+> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 43 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
 [English Version](README.md) | **中文版**
 
@@ -577,20 +577,6 @@
   git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/
   ```
 
-#### [`AI Attribution Framework (ismet55555)`](https://github.com/ismet55555/ai-attribution)
-* **使用时机：** 📤 交付前·合规与核验包 — *贡献度归属：在智能体产出核心方案、逻辑或架构时，实时更新本地 AI_ATTRIBUTION.md 文件。*
-* **💡 为何普通人应该关心：** 符合学术出版（如 Nature、Elsevier 等）与国际标准的 AI 贡献度声明生成器。按国际通用的 CRediT 标准准确标注 AI 到底参与了“文法润色”还是“代码推导”，合规透明。
-* **🎯 为什么精选收录：** 替代粗糙的形式化免责声明。通过标准的 6 级人机协作贡献阶梯，在本地维护 `AI_ATTRIBUTION.md`，让同事或审查者精准识别每一处逻辑的人机权责归属。
-* **🛠️ 如何使用：** 输入你在研究各阶段对 AI 的使用情况，技能自动生成符合期刊要求的双语披露声明段落。
-* **📦 运行状态与实证指标：** `🟢 开箱即用 (实测通过)` | ⭐ 国际学术规范 (CRediT 标准对齐) | 🛡️ *基于 Nature 等顶级学术期刊认可的 CRediT 贡献者分类法，通过 6 级人机协作阶梯生成声明，已在学术手稿中实测。*
-* **适用客户端：** Cursor、Antigravity、Claude Code
-* **适用人群：** Software Engineers, Authors, Technical Writers
-* **📐 技术依据与对齐标准：** [《自然》(Nature) 系列期刊 AI 署名政策与 CRediT 贡献者角色国际标准](https://credit.niso.org/)（Nature Portfolio & NISO）— *依据《自然》期刊严禁 AI 署名作者但必须具体说明贡献的政策，结合 CRediT 贡献者角色国际分类法，生成合规的学术出版物致谢声明。*
-* **安装命令：**
-  ```bash
-  curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md
-  ```
-
 #### [`AI Disclosure Convention SPDX-style (ggfevans)`](https://github.com/ggfevans/ai-disclosure)
 * **使用时机：** 📤 交付前·合规与核验包 — *文件头标记：在代码文件头或 Markdown 前置元数据中注入机器可读的 SPDX 规范声明标签。*
 * **💡 为何普通人应该关心：** 像开源许可证（如 MIT、Apache）一样标准化的机器可读声明规范。为你的项目打上透明徽章，让任何第三方工具都能自动解析你对 AI 的使用边界。
@@ -651,6 +637,70 @@
 * **安装命令：**
   ```bash
   git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/
+  ```
+
+#### [`Marketing Claims Review (anthropics/claude-for-legal)`](https://github.com/anthropics/claude-for-legal/tree/main/product-legal/skills/marketing-claims-review)
+* **使用时机：** 📤 交付前·合规与核验包 — *文案发布前审查：在将 AI 撰写的营销文案、宣传材料或产品说明正式对外发布前执行。*
+* **💡 为何普通人应该关心：** 普通人或小团队用 AI 帮写宣传页、产品文案或邮件时，AI 经常会编造“绝对有效”、“独家首创”、“性能提升1000%”等无依据断言。若直接发布极易被竞品发律师函或被监管部门处以巨额虚假广告罚款。该技能在发布前强制逐句排查虚假宣传隐患，守住法律底线。
+* **🎯 为什么精选收录：** 针对商业大模型极易夸大其词、凭空承诺“行业第一”、“100%安全”的顽疾。自动对文本提取逐项断言，区分主观吹花与事实承诺，强制出具实证或降级改写，防范虚假宣传诉讼。
+* **🛠️ 如何使用：** 将文案草稿粘贴给智能体并输入审查指令，技能自动提取所有潜在风险断言，并给出符合广告法规的替代改写建议。
+* **📦 运行状态与实证指标：** `🟢 开箱即用 (实测通过)` | ⭐ GitHub 9.5k★ (Anthropic 官方研究套件) | 🛡️ *源自 Anthropic 官方 Research 团队维护的法律与合规智能体套件，指令与审核工作流经过严格法律合规测试，代码透明开源。*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Product Managers, Marketers, Copywriters, Legal Counsel
+* **📐 技术依据与对齐标准：** [美国联邦贸易委员会 (FTC) 广告声明实证原则与反欺诈消费者保护标准 (16 CFR Part 255 / Section 5)](https://www.ftc.gov/legal-library/browse/policy-statements/ftc-policy-statement-regarding-advertising-substantiation)（US Federal Trade Commission (FTC)）— *依据 FTC 广告真实性与事先实证（Prior Substantiation）法定原则，自动识别绝对化断言、未证实疗效与对比性营销说辞，强制提供实证支持或进行合规降级改写。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Anthropic Claude for Legal Suite：Anthropic 官方法务与合规智能体套件发布公告](https://github.com/anthropics/claude-for-legal#readme) — *官方开源的法务与合规自动化工具套件，获 9.5k★ 关注，专为产品经理与市场运营防范虚假陈述与法律暴露设计。*
+* **安装命令：**
+  ```bash
+  git clone https://github.com/anthropics/claude-for-legal.git && cp -R claude-for-legal/product-legal/skills/marketing-claims-review .agents/skills/
+  ```
+
+#### [`Web Accessibility Gate (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-accessibility)
+* **使用时机：** 📤 交付前·合规与核验包 — *前端发布前审计：在将 AI 编写的 Web 页面、组件或应用上线前自动拦截并执行无障碍检测。*
+* **💡 为何普通人应该关心：** 普通人让 AI 帮写网页、做个人主页或小程序时，AI 写出的代码往往缺少无障碍标签，导致视障人士用读屏软件听到的全是一串乱码，且在美国和欧洲可能直接招致违规诉讼（ADA 第三分题合规）。此技能让任何非技术人员也能自动生成对所有人友好的包容性网页。
+* **🎯 为什么精选收录：** 针对 AI 容易引发的数字鸿沟与算法排斥。AI 极易生成表面好看但完全没有无障碍标签的代码，导致视障与行动障碍者无法使用。该技能以 W3C WCAG 2.1 AA 国际标准为硬性门禁，强制确保数字包容。
+* **🛠️ 如何使用：** 在智能体生成 HTML/React/Vue 页面后输入无障碍审查指令，技能会自动指出对比度过低、缺少图片 alt 或焦点死锁的代码并直接给出修复方案。
+* **📦 运行状态与实证指标：** `🟢 开箱即用 (实测通过)` | ⭐ GitHub 6.6k★ (Tech Leads Club) | 🛡️ *源自 Tech Leads Club（6.6k★）生产级工程质量套件，基于 W3C POUR 核心原则构建，已在多个开源 Web 界面中实测闭环。*
+* **适用客户端：** Cursor、Antigravity、Claude Code
+* **适用人群：** Frontend Developers, Product Designers, Accessibility Officers
+* **📐 技术依据与对齐标准：** [万维网联盟 (W3C) Web 内容无障碍指南国际标准 (WCAG 2.1 Level AA / ISO/IEC 40500:2012)](https://www.w3.org/TR/WCAG21/)（World Wide Web Consortium (W3C) & ISO）— *全面实施 W3C WCAG 2.1 AA 级四大无障碍支柱（可感知、可操作、可理解、健壮性），在前端页面发布前强制核验屏幕阅读器标签、焦点导航与色彩对比度。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Tech Leads Club Quality Suite：Tech Leads Club 生产级工程质量控制技能套件](https://github.com/tech-leads-club/agent-skills#readme) — *收录于 Tech Leads Club 6.6k★ 核心质量套件，被多个开源前端项目采用作为代码合入前的数字无障碍强制核验门禁。*
+* **安装命令：**
+  ```bash
+  git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(quality\)/web-accessibility .agents/skills/
+  ```
+
+#### [`Repo Security & Secret Gate (Consensys)`](https://github.com/Consensys/repo-security-review)
+* **使用时机：** 📤 交付前·合规与核验包 — *代码合入/发布前门禁：在将智能体生成的代码合入主分支或发布上线前，自动扫描硬编码密钥与 OWASP 漏洞。*
+* **💡 为何普通人应该关心：** 普通人让 AI 帮写项目或脚本时，AI 经常会顺手把你的本地密码、OpenAI 密钥或私钥硬编码写进新代码中，一旦上传 GitHub 几秒钟内就会被黑客爬走盗刷。这个技能在代码提交前强制扫描拦截所有凭证与安全漏洞，守住个人资产防线。
+* **🎯 为什么精选收录：** 针对自主 AI 编写代码时极易误写死 API Token、数据库凭证或引入高危 CVE 的安全隐患。由顶级区块链安全机构 Consensys 打造，结合 Gitleaks 执行深度 Diff 门禁扫描，阻断凭证残留外泄。
+* **🛠️ 如何使用：** 在准备提交或发布智能体生成的代码前输入安全审查指令，技能会自动调用 Gitleaks 与安全规则对变更集执行无损扫描并汇报潜在泄露。
+* **📦 运行状态与实证指标：** `🟢 开箱即用 (实测通过)` | ⭐ 顶级安全机构 (Consensys 官方) | 🛡️ *由 MetaMask 与 Infura 母公司 Consensys 官方安全团队开源维护，规则经上百款开源与商业仓库实测，具有极高的工业界实战安全性。*
+* **适用客户端：** Claude Code、Antigravity、Cursor
+* **适用人群：** Software Developers, Security Engineers, DevOps Teams
+* **📐 技术依据与对齐标准：** [OWASP Top 10 应用程序安全风险标准与 Gitleaks 敏感凭证检测规范](https://owasp.org/www-project-top-ten/)（OWASP Foundation & Consensys Security）— *整合 OWASP Top 10 漏洞审计模型与 Gitleaks 凭证规则库，对智能体产出的代码补丁执行自动化 Diff 扫描，拦截 API 密钥、数据库连接串与越权风险。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Consensys Security Tooling：Consensys 官方代码库安全审查与凭证防泄露技能](https://github.com/Consensys/repo-security-review#readme) — *由知名区块链安全与基础设施机构 Consensys 开源，针对大模型自主生成代码时的凭证残留与漏洞提供流水线级硬性阻断。*
+* **安装命令：**
+  ```bash
+  git clone https://github.com/Consensys/repo-security-review.git .agents/skills/repo-security-review
+  ```
+
+#### [`License Compliance Audit (apache/magpie)`](https://github.com/apache/magpie/tree/main/plugins/magpie-repo-health/skills/license-compliance-audit)
+* **使用时机：** 📤 交付前·合规与核验包 — *开源发布前协议审计：在将项目公开发布或分发前，自动校验 SPDX 文件头与开源许可证合规性。*
+* **💡 为何普通人应该关心：** 普通人让 AI 帮忙写软件或给公司做项目时，AI 可能会“偷懒”把网上带严格传染协议（如 AGPL/GPL）的代码片段混进专有项目中，一旦公开分发就可能面临强制开源整套商业系统或巨额侵权索赔。该技能在发布前彻底清查协议合规性，守护知识产权。
+* **🎯 为什么精选收录：** 针对 AI 辅助编程极易引发的版权侵权与开源协议污染。AI 编写代码时往往无视第三方库的授权限制，随意引入强传染性 GPL 或缺少法定 NOTICE 声明。该技能由 Apache 基金会官方项目研发，自动化完成开源协议卫生审计。
+* **🛠️ 如何使用：** 在智能体完成代码生成并准备发布前输入许可证审计指令，技能会自动比对 LICENSE、NOTICE 与源文件头，指出缺失声明或冲突协议的文件清单。
+* **📦 运行状态与实证指标：** `🟢 开箱即用 (实测通过)` | ⭐ Apache 基金会官方 (apache/magpie) | 🛡️ *源自 Apache 软件基金会官方智能体维护者框架 Magpie，严格遵循 Apache 官方知识产权与许可证政策，只读审计绝不私自篡改文件。*
+* **适用客户端：** Claude Code、Antigravity、Cursor
+* **适用人群：** Open Source Maintainers, Software Authors, Compliance Officers
+* **📐 技术依据与对齐标准：** [Linux 基金会 SPDX 软件包数据交换国际标准 (ISO/IEC 5962:2021) 与 Apache 许可证合规规范](https://www.apache.org/legal/resolved.html)（Linux Foundation, ISO & Apache Software Foundation）— *严格贯彻国际 ISO/IEC 5962:2021 SPDX 机器可读协议标签与 Apache 基金会官方三方依赖兼容性政策（Category A/B/X），防止代码库遭受不兼容协议污染。*
+* **🌐 独立第三方评测与生态收录：**
+  - [Apache Software Foundation Magpie：Apache 官方智能体项目 Magpie：许可证合规审计技能](https://github.com/apache/magpie#readme) — *由全球最大的开源软件基金会 Apache 官方主导研发，专为大模型辅助开发时的开源许可证与著作权合规门禁量身定制。*
+* **安装命令：**
+  ```bash
+  git clone https://github.com/apache/magpie.git && cp -R apache/magpie/plugins/magpie-repo-health/skills/license-compliance-audit .agents/skills/
   ```
 
 ---

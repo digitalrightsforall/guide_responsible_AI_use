@@ -103,7 +103,7 @@ async function verifyAll() {
     failures.forEach((f) => console.error(`  - ${f.id}: ${f.url} (${f.error})`));
     process.exit(1);
   } else {
-    console.log(`🎉 All 40 remote URLs are reachable and healthy!\n`);
+    console.log(`🎉 All ${items.length} remote URLs are reachable and healthy!\n`);
     process.exit(0);
   }
 }

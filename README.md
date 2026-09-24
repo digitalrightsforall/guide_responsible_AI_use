@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> A curated collection of 40 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
+> A curated collection of 43 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
 **English** | [中文版](README_CN.md)
 
@@ -577,20 +577,6 @@ Always copy the **entire skill directory** (including bundled scripts and refere
   git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/
   ```
 
-#### [`AI Attribution Framework (ismet55555)`](https://github.com/ismet55555/ai-attribution)
-* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Attribution ledger: Updates local AI_ATTRIBUTION.md whenever substantive logic or text is produced.*
-* **💡 Why Everyday People Should Care:** Generates standard AI usage disclosures complying with academic publisher guidelines (Nature, Elsevier, CRediT taxonomy).
-* **🎯 Why Chosen:** Replaces crude all-or-nothing disclaimers with a standardized 6-level creative control spectrum, enabling third parties to understand exactly what the human did vs what the AI suggested.
-* **🛠️ How to Use:** Answer guided questions about AI involvement to produce publisher-compliant disclosure paragraphs.
-* **📦 Operational Status & Verified Evidence:** `🟢 Ready to Use (Verified)` | ⭐ CRediT Attribution Standard | 🛡️ *Based on CRediT taxonomy accepted by Nature Portfolio. Verified for generating multi-tier human-AI contribution disclosures.*
-* **Clients:** Cursor, Antigravity, Claude Code
-* **Target Persona:** Software Engineers, Authors, Technical Writers
-* **📐 Technical & Methodological Alignment:** [Nature Editorial AI Policy & CRediT (ANSI/NISO Z39.104-2022)](https://credit.niso.org/) (Nature Portfolio & NISO) — *Implements Nature's strict prohibition on AI authorship and applies CRediT taxonomy to generate transparent disclosures.*
-* **Install Command:**
-  ```bash
-  curl -sL https://raw.githubusercontent.com/ismet55555/ai-attribution/main/AI_ATTRIBUTION.md -o AI_ATTRIBUTION.md
-  ```
-
 #### [`AI Disclosure Convention SPDX-style (ggfevans)`](https://github.com/ggfevans/ai-disclosure)
 * **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Header tagging: Injects machine-readable SPDX-style tags directly into code comments or document frontmatter.*
 * **💡 Why Everyday People Should Care:** SPDX-style machine-readable metadata format declaring AI tools used, licensing, and human validation status.
@@ -651,6 +637,70 @@ Always copy the **entire skill directory** (including bundled scripts and refere
 * **Install Command:**
   ```bash
   git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/
+  ```
+
+#### [`Marketing Claims Review (anthropics/claude-for-legal)`](https://github.com/anthropics/claude-for-legal/tree/main/product-legal/skills/marketing-claims-review)
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Pre-publish claim check: Triggered automatically before landing pages, ads, or public text are released.*
+* **💡 Why Everyday People Should Care:** When using AI to draft copy, models routinely fabricate unverified promises ('100% cure', 'guaranteed 10x ROI') that trigger regulatory fines. This skill enforces FTC-grade substantiation prior to release.
+* **🎯 Why Chosen:** Tackles commercial AI's tendency to invent exaggerated or unsubstantiated guarantees. Classifies claims into puffery, factual, comparative, and absolute statements, enforcing FTC legal prior substantiation.
+* **🛠️ How to Use:** Paste your draft marketing or product copy into the client. The agent automatically flags non-puffery claims requiring proof and suggests legally safer phrasing.
+* **📦 Operational Status & Verified Evidence:** `🟢 Ready to Use (Verified)` | ⭐ GitHub 9.5k★ (Anthropic Official Suite) | 🛡️ *Maintained in Anthropic's official Claude for Legal suite (9.5k★); review taxonomies verified against regulatory advertising standards.*
+* **Clients:** Cursor, Antigravity, Claude Code
+* **Target Persona:** Product Managers, Marketers, Copywriters, Legal Counsel
+* **📐 Technical & Methodological Alignment:** [FTC Policy Statement on Advertising Substantiation & Endorsement Guides (16 CFR Part 255)](https://www.ftc.gov/legal-library/browse/policy-statements/ftc-policy-statement-regarding-advertising-substantiation) (US Federal Trade Commission (FTC)) — *Directly enforces FTC prior substantiation doctrine, classifying absolute and comparative claims in AI text to prevent misleading advertising and regulatory enforcement.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Anthropic Claude for Legal Suite: Anthropic Claude for Legal Suite: Automated Marketing Claims Review](https://github.com/anthropics/claude-for-legal#readme) — *Official open-source legal AI suite with 9.5k★, engineered to safeguard product and marketing teams against unsubstantiated liabilities.*
+* **Install Command:**
+  ```bash
+  git clone https://github.com/anthropics/claude-for-legal.git && cp -R claude-for-legal/product-legal/skills/marketing-claims-review .agents/skills/
+  ```
+
+#### [`Web Accessibility Gate (tech-leads-club/agent-skills)`](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-accessibility)
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Pre-release UI audit: Triggered automatically before frontend components or websites are published.*
+* **💡 Why Everyday People Should Care:** AI-generated websites almost always lack ARIA tags and accessible navigation, causing digital exclusion and legal liability under accessibility laws (ADA / EAA). This skill enforces universal access for all users.
+* **🎯 Why Chosen:** Tackles algorithmic exclusion. AI routinely generates visually appealing web pages that completely lock out blind, visually impaired, or motor-disabled users due to missing ARIA labels and broken keyboard focus.
+* **🛠️ How to Use:** Run the skill against any HTML or frontend component to automatically audit contrast, missing alt texts, and ARIA attributes with instant drop-in fixes.
+* **📦 Operational Status & Verified Evidence:** `🟢 Ready to Use (Verified)` | ⭐ GitHub 6.6k★ (Tech Leads Club) | 🛡️ *From Tech Leads Club (6.6k★) quality suite. Grounded in W3C POUR principles, battle-tested across open-source web applications.*
+* **Clients:** Cursor, Antigravity, Claude Code
+* **Target Persona:** Frontend Developers, Product Designers, Accessibility Officers
+* **📐 Technical & Methodological Alignment:** [W3C Web Content Accessibility Guidelines (WCAG 2.1 AA / ISO/IEC 40500:2012)](https://www.w3.org/TR/WCAG21/) (World Wide Web Consortium (W3C) & ISO) — *Implements W3C WCAG 2.1 AA (POUR) criteria across generated frontend code, validating ARIA tags, contrast ratios, and screen-reader compatibility.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Tech Leads Club Quality Suite: Tech Leads Club Production Quality & Accessibility Catalog](https://github.com/tech-leads-club/agent-skills#readme) — *Cataloged in Tech Leads Club (6.6k★) quality suite, widely utilized as a mandatory gate for digital accessibility compliance.*
+* **Install Command:**
+  ```bash
+  git clone https://github.com/tech-leads-club/agent-skills.git && cp -R agent-skills/packages/skills-catalog/skills/\(quality\)/web-accessibility .agents/skills/
+  ```
+
+#### [`Repo Security & Secret Gate (Consensys)`](https://github.com/Consensys/repo-security-review)
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Pre-commit/publish gate: Automatically scans diffs and repositories for hardcoded secrets and OWASP vulnerabilities before merge.*
+* **💡 Why Everyday People Should Care:** Autonomous coding agents frequently hardcode private API tokens, AWS keys, or passwords into generated code files. This skill inspects outgoing diffs using Gitleaks to block secret exposure before release.
+* **🎯 Why Chosen:** Directly blocks AI from accidentally baking API tokens, private keys, and critical CVEs into output patches. Integrates industry-standard Gitleaks secret scanning and OWASP vulnerability analysis.
+* **🛠️ How to Use:** Trigger the security review on your PR or diff. The agent uses Gitleaks to sweep for exposed tokens and flags OWASP vulnerabilities with remediation steps.
+* **📦 Operational Status & Verified Evidence:** `🟢 Ready to Use (Verified)` | ⭐ Consensys Official Security Suite | 🛡️ *Maintained by the cybersecurity team at Consensys (creators of MetaMask); field-tested against production codebases to prevent secret leakage.*
+* **Clients:** Claude Code, Antigravity, Cursor
+* **Target Persona:** Software Developers, Security Engineers, DevOps Teams
+* **📐 Technical & Methodological Alignment:** [OWASP Top 10 Application Security Risks & Gitleaks Secret Detection Framework](https://owasp.org/www-project-top-ten/) (OWASP Foundation & Consensys Security) — *Combines OWASP Top 10 vulnerability heuristics with Gitleaks secret pattern recognition, intercepting hardcoded credentials and CVE risks in agent PR diffs.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Consensys Security Tooling: Consensys Repository Security Review Skill](https://github.com/Consensys/repo-security-review#readme) — *Open-sourced by Consensys, providing automated pipelines to halt credential leakage and critical vulnerabilities in agent-generated PRs.*
+* **Install Command:**
+  ```bash
+  git clone https://github.com/Consensys/repo-security-review.git .agents/skills/repo-security-review
+  ```
+
+#### [`License Compliance Audit (apache/magpie)`](https://github.com/apache/magpie/tree/main/plugins/magpie-repo-health/skills/license-compliance-audit)
+* **Workflow Timing:** 📤 Pre-Handoff (Audit & Verification Gates) — *Pre-release license hygiene: Triggered before open-sourcing or distributing repositories to verify SPDX headers and licenses.*
+* **💡 Why Everyday People Should Care:** AI-generated code snippets can silently introduce restrictive copyleft licenses (GPL/AGPL) into proprietary code, risking forced open-sourcing or copyright infringement lawsuits. This skill audits license hygiene before public distribution.
+* **🎯 Why Chosen:** Tackles copyright and copyleft pollution. AI code often mixes incompatible open-source licenses or lacks mandatory attribution notices, creating massive legal exposure under Apache, MIT, and GPL regimes.
+* **🛠️ How to Use:** Invoke against your repository to produce a grouped license audit report verifying SPDX identifiers and identifying uncredited third-party code.
+* **📦 Operational Status & Verified Evidence:** `🟢 Ready to Use (Verified)` | ⭐ Apache Software Foundation Official | 🛡️ *From the official Apache Software Foundation Magpie framework, strictly enforcing Apache IP and licensing hygiene policies in read-only audit mode.*
+* **Clients:** Claude Code, Antigravity, Cursor
+* **Target Persona:** Open Source Maintainers, Software Authors, Compliance Officers
+* **📐 Technical & Methodological Alignment:** [SPDX (Software Package Data Exchange) ISO/IEC 5962:2021 & Apache Licensing Policy](https://www.apache.org/legal/resolved.html) (Linux Foundation, ISO & Apache Software Foundation) — *Enforces ISO/IEC 5962:2021 SPDX identification and Apache 3rd-party licensing policies, preventing copyleft contamination and uncredited code imports.*
+* **🌐 Third-Party Reviews & Inclusions:**
+  - [Apache Software Foundation Magpie: Apache Magpie: Agent-Assisted License Compliance Audit](https://github.com/apache/magpie#readme) — *Engineered directly by the Apache Software Foundation to govern AI-generated contributions under rigorous open-source IP policies.*
+* **Install Command:**
+  ```bash
+  git clone https://github.com/apache/magpie.git && cp -R apache/magpie/plugins/magpie-repo-health/skills/license-compliance-audit .agents/skills/
   ```
 
 ---

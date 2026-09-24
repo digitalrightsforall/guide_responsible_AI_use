@@ -352,7 +352,7 @@ function setBtnLabel(id, text) {
 
 // Render Item Cards
 function renderCards() {
-  const container = document.getElementById("cards-container");
+  const container = document.getElementById("cards-container") || document.getElementById("items-grid");
   const countEl = document.getElementById("items-count");
   if (!container) return;
 
@@ -915,12 +915,12 @@ function openModal(id) {
     `;
   }
 
-  const githubLink = document.getElementById("modal-github-link");
+  const githubLink = document.getElementById("modal-github-link") || document.getElementById("modal-github");
   if (githubLink) {
     githubLink.href = item.url;
   }
 
-  const copyBtn = document.getElementById("modal-copy-btn");
+  const copyBtn = document.getElementById("modal-copy") || document.getElementById("modal-copy-btn");
   if (copyBtn) {
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(item.action_content).then(() => {
@@ -929,7 +929,7 @@ function openModal(id) {
     };
   }
 
-  const shareBtn = document.getElementById("modal-share-btn");
+  const shareBtn = document.getElementById("modal-share") || document.getElementById("modal-share-btn");
   if (shareBtn) {
     shareBtn.onclick = () => {
       const shareUrl = `${window.location.origin}${window.location.pathname}#skill=${item.id}`;

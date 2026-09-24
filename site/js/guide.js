@@ -98,13 +98,25 @@ function setupScrollTracking() {
   const progressText = document.getElementById("toc-progress-text");
   const tocLinks = document.querySelectorAll(".guide-toc-link");
 
-  window.addEventListener("scroll", () => {
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPos = window.scrollY;
-    const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollPos / docHeight) * 100))) : 0;
+  // Only update progress bar via JS in browsers lacking CSS scroll-driven animation support (e.g. Firefox)
+  const needsJsFallback = !CSS.supports("animation-timeline", "scroll()");
 
-    if (progressBar) progressBar.style.width = `${pct}%`;
-    if (progressText) progressText.textContent = `${pct}%`;
+  window.addEventListener("scroll", () => {
+    // JS fallback for progress bar
+    if (needsJsFallback && progressBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPos = window.scrollY;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollPos / docHeight) * 100))) : 0;
+      progressBar.style.width = `${pct}%`;
+    }
+
+    // Progress text shown in TOC
+    if (progressText) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPos = window.scrollY;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((scrollPos / docHeight) * 100))) : 0;
+      progressText.textContent = `${pct}%`;
+    }
 
     // Highlight current active section in TOC
     const sections = Array.from(tocLinks).map(link => {
@@ -255,22 +267,37 @@ function openModal(skillId) {
 
   // Jump to Library link
   const jumpBtn = document.getElementById("modal-library-jump");
-  jumpBtn.href = `index.html#${item.id}`;
-  document.getElementById("modal-library-jump-text").textContent = isZh ? "在检索库中查看并筛选" : "View in Search Library";
+  jumpBtn.href = `library.html#${item.id}`;
+  document.getElementById("modal-library-jump-text").textContent = isZh ? "在技能库中查看并筛选" : "View in Skill Library";
 
   // GitHub Source Link
   const ghBtn = document.getElementById("modal-github");
   ghBtn.href = item.url;
   document.getElementById("modal-source-text").textContent = isZh ? "GitHub 源码" : "GitHub Source";
 
-  // Show modal
+  // Show modal with animation
   modal.style.display = "flex";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      modal.classList.add("modal-open");
+    });
+  });
+  modal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  // Focus first interactive element
+  setTimeout(() => {
+    document.getElementById("modal-close")?.focus();
+  }, 50);
 }
 
 function closeModal() {
   const modal = document.getElementById("guide-modal");
-  if (modal) modal.style.display = "none";
+  if (!modal) return;
+  modal.classList.remove("modal-open");
+  modal.setAttribute("aria-hidden", "true");
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 220);
   document.body.style.overflow = "";
 }
 
@@ -295,25 +322,24 @@ const guideContent = {
     pageTitle: "负责任与安全使用 AI 实务指南 - 普通人的数字权利 · Practical Field Guide",
     navBrandTitle: "负责任与安全使用 AI",
     navBrandSub: "普通人的数字权利 社区共建",
-    navLinkHome: "实务索引",
     navLinkGuide: "实务指南",
-    navLinkAbout: "关于我们",
+    navLinkLibrary: "技能库",
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
 
     heroBadge: "普通人的数字权利 · 实务行动指南",
     heroTitle: "负责任与安全使用 AI：",
     heroTitleHighlight: "普通人的实操指南",
-    heroSubtitle: "从“盲信科技神话”到“手握实证工具”。本指南用严谨透彻的文字，解构我们为何构建这个开源库，如何把抽象伦理拆解为具体防线，以及 43 个技能如何无缝嵌入你的日常工作流。",
+    heroSubtitle: "从“盲信科技神话”到“手握实证工具”。本指南解构我们构建这个开源库的初衷，揭示如何把抽象 AI 伦理落地为具体防线，以及 43 项技能如何嵌入你的真实工作流。",
     metaReadTime: "建议阅读：15 分钟",
     metaSkillsCount: "覆盖 43 项开源规范技能",
     metaScenarios: "5 大核心工作流场景串联",
     heroCtaPlaybook: "直达实战技能武器库 ⬇",
-    heroCtaLibrary: "打开交互检索库 ↗",
+    heroCtaLibrary: "打开实务技能库 ↗",
 
     tocTitle: "📖 章节导航 (TOC)",
     sidebarBoxDesc: "💡 行文中任何带有小盾牌 🛡️ 的技能，点击即可原地查看实测状态、标准依据与安装命令。",
-    sidebarBoxLink: "前往主检索库交互筛选 ↗",
+    sidebarBoxLink: "前往实务技能库交互筛选 ↗",
 
     // Chapter HTML Content
     bodyHtml: `
@@ -328,7 +354,7 @@ const guideContent = {
 
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
           <p class="leading-relaxed">
-            今天，大语言模型（LLM）与生成式人工智能正以不可逆转的速度渗透进每一个人的工作与生活。无论是写一份周报、整理学术文献、编写一段业务代码，还是起草一份营销文案，我们都在被动或主动地向这些“黑盒”输入自己的思想碎片。
+            今天，大语言模型（LLM）与生成式人工智能正以不可逆转的速度渗透进每一个人的工作与生活。无论是写一份周报、整理学术文献、编写一段业务代码，还是起草一份营销文案，我们都在被动或主动地向这些“黑盒”输入自己的工作内容、私人数据与未公开构想。
           </p>
 
           <p class="leading-relaxed font-medium text-slate-800 dark:text-slate-100">
@@ -350,7 +376,7 @@ const guideContent = {
                 <span>⚠️ 隐形危机二：自信幻觉与认知依附</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                大语言模型最危险的缺陷绝不是“直截了当地犯错”，而是<strong>以极具专业感、令人信服的权威语调伪造事实</strong>。从格式严谨的虚构文献 DOI，到看似合理的伪造法条与安全分析，模型迎合人性的断言正悄然瓦解使用者的批判性审查能力。
+                大语言模型最危险的缺陷绝不是“直截了当地犯错”，而是<strong>以极具专业感、令人信服的权威语调伪造事实</strong>。从格式严谨的虚构文献 DOI，到看似合理的伪造法条与安全分析，模型为迎合人性好恶而做出的断言，正悄然瓦解使用者的批判性审查能力。
               </p>
             </div>
           </div>
@@ -372,7 +398,7 @@ const guideContent = {
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · 概念解构</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            概念解构：我们如何结构「负责任与安全使用 AI」？
+            概念解构：如何定义"负责任与安全"的 AI 使用？
           </h2>
         </div>
 
@@ -404,7 +430,7 @@ const guideContent = {
 
           <!-- Four Practical Questions Table -->
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            四大日常追问：将抽象原则转化为工作流反射
+            四大日常追问：把抽象原则落地为可执行的习惯检查
           </h3>
           <div class="overflow-x-auto">
             <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
@@ -452,20 +478,20 @@ const guideContent = {
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · 实战图谱</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            实战图谱：43 个技能如何精准瓦解现实陷阱？
+            实战图谱：43 个技能如何精准应对现实风险？
           </h2>
           <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2">
-            技能不是冰冷的清单。在以下 5 大典型场景中，每一个技能都是一把对应特定陷阱的手术刀。
+            技能不是冰冷的清单。在以下 5 大典型场景中，每一个技能都是应对特定风险的精准工具。
           </p>
         </div>
 
         <!-- Section 3.1 -->
         <div id="sec-3-1" class="space-y-4 scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.1 准备投喂时 · 数据防采集与技能体检 (Pre-Input)</span>
+            <span>3.1 输入前 · 数据脱敏与技能安全审查 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            当你准备把一份包含真实姓名、联系方式、财务数据或业务代码的文档喂给 AI 进行分析时，危险就已经悄然降临。一旦未脱敏数据传输到云端，你就彻底失去了对它的控制。与此同时，如果你安装了来源未知的第三方智能体技能，它们本身可能包含恶意的提示词注入（Prompt Injection）或越权文件读取风险。
+            当你准备把一份含有真实姓名、联系方式、财务数据或业务代码的文档提交给 AI 进行分析时，数据失控的风险就已悄然开始。一旦未脱敏数据传输到云端，你就彻底失去了对它的控制。与此同时，如果你安装了来源未知的第三方智能体技能，它们本身可能包含恶意的提示词注入（Prompt Injection）或越权文件读取风险。
           </p>
 
           <!-- Do / Don't Box -->
@@ -511,7 +537,7 @@ const guideContent = {
             <span>3.2 对话推演时 · 撕开幻觉与伪造文献的伪装 (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            大模型最令人着迷也最危险的特性就是它的“自信”。当你向它询问学术背景、医学诊断或技术原理时，它能生成排版工整、带有著名学者姓名与专业期刊名的引用。但如果逐一点击这些引文，你会震惊地发现：DOI 根本打不开，或者文章内容与结论南辕北辙。这就是纯语言概率模型必然存在的“伪造文献（Paper Hallucination）”。
+            大模型最令人着迷也最危险的特性就是它的“自信”。当你向它询问学术背景、医学诊断或技术原理时，它能生成排版工整、带有著名学者姓名与专业期刊名的引用。但如果逐一点击这些引文，你会震惊地发现：DOI 根本打不开，或者文章内容与结论南辕北辙。这就是纯语言概率模型固有的缺陷——“幻觉引用（Hallucination）”。
           </p>
 
           <!-- Do / Don't Box -->
@@ -556,6 +582,22 @@ const guideContent = {
             你是否经历过这样的场景：你在提问时暗示了一个偏颇的思路（例如“我觉得方案 A 明显比方案 B 好”），模型立即回答：“您的洞察非常深刻，方案 A 确实是最佳选择！”——在机器学习学术界，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为了迎合人类的好恶反馈，会故意隐瞒反面论据与缺陷，制造虚假的认知回音壁。
           </p>
 
+          <!-- Do / Don't Box -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div class="scenario-box bg-rose-50/70 dark:bg-rose-950/20 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5">
+              <span class="text-xs font-bold text-rose-700 dark:text-rose-400">❌ 常见高危做法</span>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                提问时预设立场、暗示倾向，在模型回应"您的洞察非常深刻"后直接拍板——既不交叉验证，也不引入对立视角做压力测试。
+              </p>
+            </div>
+            <div class="scenario-box bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-900/50 space-y-1.5">
+              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✅ 规范自卫打法</span>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                使用魔鬼代言人与红队技能，强制模型以"攻击者""反方律师"视角挑战你的方案，确保每个决策都经过真正的对抗性审查。
+              </p>
+            </div>
+          </div>
+
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库 (点击卡片查看实证)：</h4>
             <div class="flex flex-wrap gap-2">
@@ -579,7 +621,7 @@ const guideContent = {
             <span>3.4 交付前 · 公开发布的“四大法定门禁” (Pre-Handoff)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            这是负责任 AI 工作流中最关键的关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭主观直觉直接发布。未经门禁校验的内容可能包含致命的安全凭证泄露、违反广告法的夸大承诺、排斥残障人士的界面缺陷，甚至引发侵权诉讼。
+            这是负责任 AI 工作流中最关键的关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭直觉直接发布。未经门禁校验的内容可能包含致命的安全凭证泄露、违反广告法的夸大承诺、排斥残障人士的界面缺陷，甚至引发侵权诉讼。
           </p>
 
           <!-- 4 Statutory Gates Grid -->
@@ -642,10 +684,10 @@ const guideContent = {
         <!-- Section 3.5 -->
         <div id="sec-3-5" class="space-y-4 scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.5 归档与守则 · 会话清理与完成铁律 (Post-Session & Meta)</span>
+            <span>3.5 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            一个负责任的任务闭环，终止于严格的归档与铁律验证。在完成协同后，本地临时会话与日志需要得到安全清理，同时对文本适度润色，去除僵化套路的机械感，坚决遵循“未经硬性测试验证绝不宣称完成”的工程师道德准则。
+            一个负责任的协作闭环，终结于两个并行动作：其一，安全清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终输出文本做去套路润色，消除 AI 生成的机械腔调。贯穿始终的铁律是：<strong>未经硬性测试通过，绝不宣称任务完成。</strong>
           </p>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
@@ -732,7 +774,7 @@ const guideContent = {
               <li><strong>在你的团队与社群中推行门禁：</strong>把“不直接采信未核验的 AI 文本”、“交付成果主动附带证据锚点”作为团队的现代职业共识。</li>
             </ul>
             <div class="pt-2 flex flex-wrap gap-3">
-              <a href="index.html" class="btn-primary px-6 py-2.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+              <a href="library.html" class="btn-primary px-6 py-2.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
                 <span>🛡️ 立即探索 43 项开源技能</span>
               </a>
               <a href="https://putongren.org" target="_blank" class="px-6 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
@@ -748,25 +790,24 @@ const guideContent = {
     pageTitle: "Practical Field Guide - Digital Rights for All · Responsible & Safe AI Use",
     navBrandTitle: "Responsible & Safe AI Use",
     navBrandSub: "Digital Rights for All Community Project",
-    navLinkHome: "Directory",
     navLinkGuide: "Field Guide",
-    navLinkAbout: "About Us",
+    navLinkLibrary: "Skill Library",
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
 
     heroBadge: "Digital Rights for All · Practical Field Guide",
     heroTitle: "Responsible & Safe AI Use: ",
     heroTitleHighlight: "A Field Guide for Everyone",
-    heroSubtitle: "From blind faith in AI hype to hands-on defensive tools. This comprehensive narrative unpacks why this curated library matters, how to break abstract ethics into practical guardrails, and how 43 vetted skills solve concrete dilemmas in your daily workflow.",
+    heroSubtitle: "From blind faith in AI hype to hands-on evidence tools. This guide unpacks why this open-source library exists, how to translate abstract AI ethics into concrete defensive guardrails, and how 43 vetted skills fit your real daily workflow.",
     metaReadTime: "Est. Read: 15 min",
     metaSkillsCount: "Covers 43 Open-Source Skills",
     metaScenarios: "5 Core Workflow Scenarios",
     heroCtaPlaybook: "Jump to Field Playbook ⬇",
-    heroCtaLibrary: "Explore Search Library ↗",
+    heroCtaLibrary: "Explore Skill Library ↗",
 
     tocTitle: "📖 TABLE OF CONTENTS",
     sidebarBoxDesc: "💡 Any skill marked with 🛡️ can be clicked to view its verified status, international standards, and install command inline.",
-    sidebarBoxLink: "Go to Interactive Library ↗",
+    sidebarBoxLink: "Go to Skill Library ↗",
 
     // Chapter HTML Content (English)
     bodyHtml: `
@@ -800,7 +841,7 @@ const guideContent = {
 
             <div class="p-5 rounded-2xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/40 space-y-2">
               <div class="flex items-center gap-2 text-rose-900 dark:text-rose-300 font-bold text-sm">
-                <span>⚠️ Confident Falsehoods & Cognitive Surrender</span>
+                <span>⚠️ Confident Falsehoods & Uncritical Dependence</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 The greatest danger of LLMs is not obvious failure, but <strong>fabricating falsehoods with authoritative, eloquent conviction</strong>. From fabricated DOIs and phantom legal statutes to sycophantic praise, models subtly coax humans into surrendering critical scrutiny.
@@ -857,7 +898,7 @@ const guideContent = {
 
           <!-- Four Practical Questions Table -->
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            The 4 Core Life-Cycle Questions
+            The 4 Core Questions: From Abstract Principles to Daily Habits
           </h3>
           <div class="overflow-x-auto">
             <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
@@ -905,7 +946,7 @@ const guideContent = {
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · FIELD PLAYBOOK</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            Field Playbook: How 43 Skills Solve Real-World Dilemmas
+            Field Playbook: How 43 Skills Counter Real-World Risks
           </h2>
           <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2">
             Skills are not abstract list items. Across these 5 practical stages, each skill serves as a surgical instrument.
@@ -915,7 +956,7 @@ const guideContent = {
         <!-- Section 3.1 -->
         <div id="sec-3-1" class="space-y-4 scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.1 Pre-Input · Anti-Harvesting & Skill Sanitization</span>
+            <span>3.1 Pre-Input · Data Redaction & Skill Security Review</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Before pasting any draft containing real names, internal IDs, or medical logs into a prompt, data leaves your boundary. Once sent, control is gone. Furthermore, untrusted third-party agent skills may harbor prompt injection or local file exfiltration risks.
@@ -1043,10 +1084,10 @@ const guideContent = {
         <!-- Section 3.5 -->
         <div id="sec-3-5" class="space-y-4 scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.5 Post-Session & Meta · Session Hygiene & The Iron Law</span>
+            <span>3.5 Post-Session · Session Cleanup & Completion Verification</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            Close the loop by sanitizing local artifacts, de-templatizing repetitive AI phrasing, and honoring the Iron Law: never declare completion without rigorous test verification.
+            Close the loop with two parallel actions: first, securely wipe local session logs to prevent sensitive context from persisting; second, de-templatize AI-generated phrasing to restore a natural voice. The iron rule binding both: <strong>never declare completion without rigorous, passing test verification.</strong>
           </p>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
@@ -1121,7 +1162,7 @@ const guideContent = {
               <li><strong>Promote Pre-Release Gates in Your Team:</strong> Establish verifiable AI evidence trails as modern professional standards.</li>
             </ul>
             <div class="pt-2 flex flex-wrap gap-3">
-              <a href="index.html" class="btn-primary px-6 py-2.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+              <a href="library.html" class="btn-primary px-6 py-2.5 text-xs sm:text-sm font-bold flex items-center gap-1.5">
                 <span>🛡️ Explore 43 Curated Skills</span>
               </a>
               <a href="https://putongren.org" target="_blank" class="px-6 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
@@ -1143,13 +1184,11 @@ function updateUI() {
   document.title = t.pageTitle;
   setText("nav-brand-title", t.navBrandTitle);
   setText("nav-brand-sub", t.navBrandSub);
-  setText("nav-link-home", t.navLinkHome);
   setText("nav-link-guide", t.navLinkGuide);
-  setText("nav-link-about", t.navLinkAbout);
+  setText("nav-link-library", t.navLinkLibrary);
   setText("nav-link-putongren", t.navLinkPutongren);
-  setText("m-nav-home", t.navLinkHome);
   setText("m-nav-guide", t.navLinkGuide);
-  setText("m-nav-about", t.navLinkAbout);
+  setText("m-nav-library", t.navLinkLibrary);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
 
@@ -1173,9 +1212,8 @@ function updateUI() {
   setHtml("narrative-content", t.bodyHtml);
 
   // Footer links
-  setText("footer-link-home", t.navLinkHome);
   setText("footer-link-guide", t.navLinkGuide);
-  setText("footer-link-about", t.navLinkAbout);
+  setText("footer-link-library", t.navLinkLibrary);
 }
 
 function setText(id, text) {

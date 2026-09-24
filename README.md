@@ -2,7 +2,7 @@
 
 > A curated collection of 43 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
-**English** | [中文版](README_CN.md) | 🌐 [Interactive Search Library](https://putongren.org/ai-skills/) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/guide.html)
+**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/) | 🛡️ [Interactive Skill Library](https://putongren.org/ai-skills/library.html)
 
 ---
 

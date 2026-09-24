@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsible and Safe AI Use - 负责任与安全使用 AI 技能库 | 普通人的数字权利</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="精选 43 项成熟开源的 SKILL.md 技能包。对内防商业 AI 过度采集与盲信幻觉，对外让成果第三方好核查。" />
+  <meta name="keywords" content="Responsible AI, 安全使用 AI, 普通人的数字权利, 技能库, 提示词脱敏, 防幻觉, 反谄媚, 发布门禁, SKILL.md" />
+  <link rel="canonical" href="https://putongren.org/ai-skills/library.html" />
+  
+  <!-- Open Graph / WeChat / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="普通人的数字权利 · Responsible & Safe AI Use" />
+  <meta property="og:title" content="Responsible and Safe AI Use - 负责任与安全使用 AI 技能库 | 普通人的数字权利" />
+  <meta property="og:description" content="精选 43 项成熟开源的 SKILL.md 技能包。对内防商业 AI 过度采集与盲信幻觉，对外让成果第三方好核查。" />
+  <meta property="og:url" content="https://putongren.org/ai-skills/library.html" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Responsible and Safe AI Use - 负责任与安全使用 AI 技能库" />
+  <meta name="twitter:description" content="精选 43 项成熟开源的 SKILL.md 技能包。对内防商业 AI 过度采集与盲信幻觉，对外让成果第三方好核查。" />
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Responsible and Safe AI Use - 负责任与安全使用 AI 技能库",
+    "description": "普通人的数字权利 (putongren.org) 实务计划 - 精选开源成熟的 SKILL.md 技能库，对内防商业 AI 过度采集与盲信幻觉，对外让成果第三方好核查。",
+    "url": "https://putongren.org/ai-skills/library.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "普通人的数字权利 (Digital Rights for All)",
+      "url": "https://putongren.org"
+    }
+  }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#5e40e0',
+              dim: '#5130d4',
+              container: '#c3b8ff',
+            },
+            secondary: {
+              DEFAULT: '#455e93',
+              container: '#d8e2ff',
+            },
+            tertiary: {
+              DEFAULT: '#715e00',
+              container: '#fdd400',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Global Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- Top Navigation Bar (3 items: Guide, Library, putongren.org) -->
+  <header class="sticky top-0 z-50 w-full nav-glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo & Title -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-2xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-xl transition-transform group-hover:scale-105">
+          🛡️
+        </div>
+        <div>
+          <div class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+            <span id="nav-brand-title">负责任与安全使用 AI</span>
+          </div>
+          <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span id="nav-brand-sub">普通人的数字权利 社区共建</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Items (3 items) -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-guide">实务指南</a>
+        <a href="library.html" class="nav-link-animated active text-brand font-bold" id="nav-link-library">技能库</a>
+        <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:text-brand transition-colors text-slate-500 dark:text-slate-400">
+          <span id="nav-link-putongren">普通人的数字权利 官网</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Language Switcher -->
+        <button id="lang-toggle" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 shadow-sm cursor-pointer" aria-label="切换中英语言">
+          <svg class="w-3.5 h-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <span id="t-lang-btn">English</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" aria-label="Toggle theme" class="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <svg class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
+
+        <!-- GitHub -->
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors" title="GitHub Repository">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Sub-Navigation Bar (3 items) -->
+  <nav class="md:hidden flex items-center justify-around py-2.5 px-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-xs font-bold shadow-xs sticky top-20 z-40" aria-label="移动端快捷导航">
+    <a href="index.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1" id="m-nav-guide-link">
+      <span>📖</span> <span id="m-nav-guide">实务指南</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="library.html" class="text-brand flex items-center gap-1" aria-current="page" id="m-nav-library-link">
+      <span>🛡️</span> <span id="m-nav-library">技能库</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
+      <span>🌐</span> <span id="m-nav-putongren">官网 ↗</span>
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-12 md:py-20 bg-gradient-to-b from-brand/5 via-brand/2 to-transparent border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <!-- Tag / Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 dark:bg-brand/20 border border-brand/20 text-brand dark:text-brand-container text-xs font-bold tracking-wide" id="t-hero-badge">
+        ✨ 普通人的数字权利 · 实务技能库
+      </div>
+
+      <!-- Title & Main Tagline -->
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+        <span id="t-hero-title">负责任与安全使用 AI 技能库</span><br/>
+        <span class="hand-drawn-underline text-2xl sm:text-4xl text-slate-700 dark:text-slate-200 font-bold mt-2 inline-block" id="t-hero-highlight">
+          对内防采集与盲信，对外让第三方好核查
+        </span>
+      </h1>
+
+      <!-- Subtitle Description -->
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed" id="t-hero-subtitle">
+        精选开源社区现存成熟的 43 项 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。
+      </p>
+
+      <!-- Link to Guide -->
+      <div class="pt-2">
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-brand hover:underline" id="t-hero-guide-link">
+          📖 了解完整设计理念与 5 大实战场景：阅读《实务指南》 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dual-Core Manifesto Banner (DESIGN.md) -->
+  <section class="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Core 1: Inward Defense -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/50 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl mb-3">
+            🛡️
+          </div>
+          <h2 class="font-bold text-base text-slate-900 dark:text-white mb-2" id="t-banner-shield-title">
+            对内·自我防护与边界
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed" id="t-banner-shield-desc">
+            警惕商业大模型将你的日常对话、未公开草稿当做免费语料过度采集；警惕 AI 极度自信的幻觉与迎合，坚守独立思考与决策权。
+          </p>
+        </div>
+        <!-- Core 2: Outward Verifiability -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand/40 transition-colors">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-3">
+            📐
+          </div>
+          <h2 class="font-bold text-base text-slate-900 dark:text-white mb-2" id="t-banner-ruler-title">
+            对外·成果第三方可核验
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed" id="t-banner-ruler-desc">
+            当你使用 AI 辅助产出方案、报告或代码时，主动附带原始证据链、推演记录与核验切入点，不让同事、读者或客户盲信盲猜。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Controls Section (DESIGN.md) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <!-- Filters Container -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-6">
+      
+      <!-- 1. Practical Questions Filter -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="t-cat-section-title">
+            实务问题导航 (Practical Questions)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2.5" id="category-filter-group">
+          <button data-cat="all" class="filter-btn active-cat" id="t-cat-all">
+            <span class="btn-label">全部问题</span>
+            <span class="filter-count">43</span>
+          </button>
+          <button data-cat="feed-to-ai" class="filter-btn" id="t-cat-1">
+            <span class="btn-label">1. 我能把什么给 AI？</span>
+            <span class="filter-count">10</span>
+          </button>
+          <button data-cat="answers-to-trust" class="filter-btn" id="t-cat-2">
+            <span class="btn-label">2. 哪些回答能信？</span>
+            <span class="filter-count">10</span>
+          </button>
+          <button data-cat="when-not-to-listen" class="filter-btn" id="t-cat-3">
+            <span class="btn-label">3. 什么时候不能听 AI？</span>
+            <span class="filter-count">10</span>
+          </button>
+          <button data-cat="can-publish-directly" class="filter-btn" id="t-cat-4">
+            <span class="btn-label">4. 输出能不能直接发布？</span>
+            <span class="filter-count">13</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Workflow Stage / Timing Filter -->
+      <div class="pt-5 border-t border-slate-100 dark:border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="t-time-section-title">
+            工作流时机检索 (Workflow Timing)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2" id="timing-filter-group">
+          <button data-timing="all" class="filter-btn active-timing" id="t-time-all">
+            <span class="btn-label">全部时序</span>
+            <span class="filter-count">43</span>
+          </button>
+          <button data-timing="pre-input" class="filter-btn" id="t-time-1">
+            <span class="btn-label">⏳ 输入前·防采集与隔离</span>
+            <span class="filter-count">10</span>
+          </button>
+          <button data-timing="during-chat" class="filter-btn" id="t-time-2">
+            <span class="btn-label">💬 对话中·求证与防盲信</span>
+            <span class="filter-count">20</span>
+          </button>
+          <button data-timing="pre-handoff" class="filter-btn" id="t-time-3">
+            <span class="btn-label">📤 交付前·合规与核验包</span>
+            <span class="filter-count">11</span>
+          </button>
+          <button data-timing="post-session" class="filter-btn" id="t-time-4">
+            <span class="btn-label">🧹 归档时·隐私与日志清理</span>
+            <span class="filter-count">2</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Secondary Controls & Search Bar -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span id="items-count" class="text-sm font-bold text-slate-800 dark:text-slate-200">共 43 个精选开源技能</span>
+          <span class="text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200/80 dark:border-emerald-800/80">
+            100% 真实源码验证通过
+          </span>
+        </div>
+
+        <div class="relative w-full sm:w-80">
+          <input type="text" id="search-input" placeholder="搜索 43 项开源技能、使用场景或客户端..." class="w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-slate-900 transition-all" />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Items Grid Section -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards rendered dynamically by library.js -->
+    </div>
+  </main>
+
+  <!-- Footer (DESIGN.md) -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🛡️</span>
+          <div>
+            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm">普通人的数字权利 · Responsible & Safe AI Use</div>
+            <div class="text-[11px] text-slate-400">帮助每一个普通人在机器与算法时代保护自己的权利</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-6 text-slate-600 dark:text-slate-300 font-medium">
+          <a href="index.html" class="hover:text-brand" id="footer-link-guide">实务指南</a>
+          <a href="library.html" class="hover:text-brand text-brand font-bold" id="footer-link-library">技能库</a>
+          <a href="https://putongren.org" target="_blank" class="hover:text-brand">putongren.org 官网 ↗</a>
+          <a href="LICENSE" class="hover:text-brand">MIT 开源许可</a>
+          <a href="https://github.com" target="_blank" class="hover:text-brand">GitHub 仓库 ↗</a>
+        </div>
+      </div>
+      <div class="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[11px]">
+        © 2026 普通人的数字权利 (Digital Rights for All). 本项目为非营利开源社区项目，精选现有开源工具，不提供任何商业收费服务。
+      </div>
+    </div>
+  </footer>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-900/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display: none;">
+    <div class="modal-panel relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div>
+          <p id="modal-category" class="text-xs font-semibold text-slate-400"></p>
+          <h3 id="modal-title" class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1"></h3>
+        </div>
+        <button id="modal-close" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" aria-label="关闭详情窗口">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="space-y-4 text-xs sm:text-sm" id="modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <a id="modal-github" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span id="modal-source-btn">查看 GitHub 源码 ↗</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <button id="modal-share" class="px-4 py-2.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-brand text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand transition-colors flex items-center gap-1.5">
+            <span id="modal-share-btn">🔗 复制卡片链接</span>
+          </button>
+          <button id="modal-copy" class="btn-primary px-6 py-2.5 text-xs flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span id="modal-copy-btn">复制安装命令</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status & Evidence Explanatory Modal (Pop-up Guide) -->
+  <div id="status-guide-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-900/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="status-guide-title" style="display: none;">
+    <div class="modal-panel relative w-full max-w-xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-brand/10 text-brand flex items-center justify-center text-base">📦</div>
+          <h3 id="status-guide-title" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
+            运行状态与实证指标评定说明
+          </h3>
+        </div>
+        <button id="status-guide-close" class="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" aria-label="关闭评定说明">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+        <p>为了让每位使用者清晰了解工具的可用程度，本库彻底废弃生涩难懂的技术黑话，将技能评定建立在<strong>客观真实数据与本地实测证据</strong>之上：</p>
+        
+        <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
+          <span class="font-bold text-emerald-800 dark:text-emerald-300 text-xs">🟢 开箱即用 (实测通过)</span>
+          <p class="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">
+            纯提示词/规则工程规范，无外部二进制依赖，直接导入 IDE 或智能体客户端即可生效，且所有工作流逻辑已通过完整语法与调用校验。
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200/80 dark:border-amber-900/40 space-y-1">
+          <span class="font-bold text-amber-800 dark:text-amber-300 text-xs">🟡 需配置依赖 (环境要求)</span>
+          <p class="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">
+            需在本地机器预装指定环境（如 Python 3.10+、Presidio 引擎、Gitleaks 密钥扫描器等）或配置专用 API Token，具备明确的系统依赖前置条件。
+          </p>
+        </div>
+
+        <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+          <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs">📊 实证数据来源：</span>
+          <ul class="list-disc list-inside space-y-1 pl-1 text-xs text-slate-500 dark:text-slate-400">
+            <li><strong>开源热度 (Stars)</strong>：直连 GitHub 官方仓库真实 Star 数据，绝不注水。</li>
+            <li><strong>维护活跃度</strong>：基于官方代码仓库默认主分支最新提交月份。</li>
+            <li><strong>国际标准对齐</strong>：基于 W3C、Microsoft Presidio、OWASP、SPDX 等权威公开标准规范。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+        <button id="status-guide-ack" class="btn-primary px-5 py-2 text-xs font-bold">
+          我明白了
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logic Script -->
+  <script src="js/library.js"></script>
+</body>
+</html>

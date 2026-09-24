@@ -3,20 +3,19 @@
 
 const i18n = {
   zh: {
-    pageTitle: "Responsible and Safe AI Use - 负责任与安全使用 AI | 普通人的数字权利",
+    pageTitle: "Responsible and Safe AI Use - 负责任与安全使用 AI 技能库 | 普通人的数字权利",
     navBrandTitle: "负责任与安全使用 AI",
     navBrandSub: "普通人的数字权利 社区共建",
-    navLinkHome: "实务索引",
     navLinkGuide: "实务指南",
-    navLinkAbout: "关于我们",
+    navLinkLibrary: "技能库",
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
 
-    heroBadge: "✨ 普通人的数字权利 · 实务工具箱",
-    heroTitle: "负责任与安全使用 AI",
+    heroBadge: "✨ 普通人的数字权利 · 实务技能库",
+    heroTitle: "负责任与安全使用 AI 技能库",
     heroHighlight: "对内防采集与盲信，对外让第三方好核查",
-    heroSubtitle: "精选开源社区现存成熟的 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。",
-    heroAboutLink: "了解关于我们与「普通人的数字权利」社区愿景 →",
+    heroSubtitle: "精选开源社区现存成熟的 43 项 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。",
+    heroGuideLink: "📖 了解完整设计理念与 5 大实战场景：阅读《实务指南》 →",
 
     bannerShieldTitle: "对内·自我防护与边界",
     bannerShieldDesc: "警惕商业大模型将你的日常对话、未公开草稿当做免费语料过度采集；警惕 AI 极度自信的幻觉与迎合，坚守独立思考与决策权。",
@@ -64,25 +63,23 @@ const i18n = {
     itemsCountSuffix: "个精选开源技能",
     noResults: "没有找到符合条件的技能。",
 
-    footerLinkHome: "实务索引",
     footerLinkGuide: "实务指南",
-    footerLinkAbout: "关于我们"
+    footerLinkLibrary: "技能库"
   },
   en: {
-    pageTitle: "Responsible and Safe AI Use - Curated Skills for Everyday Users | Digital Rights for All",
+    pageTitle: "Responsible and Safe AI Use - Curated Skill Library | Digital Rights for All",
     navBrandTitle: "Responsible & Safe AI Use",
     navBrandSub: "Digital Rights for All Community Project",
-    navLinkHome: "Directory",
     navLinkGuide: "Field Guide",
-    navLinkAbout: "About Us",
+    navLinkLibrary: "Skill Library",
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
 
-    heroBadge: "✨ Digital Rights for All · Practical Toolkit",
-    heroTitle: "Responsible and Safe AI Use",
+    heroBadge: "✨ Digital Rights for All · Skill Library",
+    heroTitle: "Responsible and Safe AI Skill Library",
     heroHighlight: "Inward: Guard against harvesting & blind trust; Outward: Enable third-party verifiability",
-    heroSubtitle: "A curated collection of production-ready SKILL.md packages. We do not invent new tools—we help everyday knowledge workers, researchers, and professionals adopt proven guardrails: guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.",
-    heroAboutLink: "Learn more About Us & Community Visions →",
+    heroSubtitle: "A curated collection of 43 production-ready SKILL.md packages. We do not invent new tools—we help everyday knowledge workers, researchers, and professionals adopt proven guardrails: guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.",
+    heroGuideLink: "📖 Read the Practical Field Guide for scenarios & principles →",
 
     bannerShieldTitle: "Inward: Self-Defense & Boundaries",
     bannerShieldDesc: "Guard against commercial AI over-harvesting your private text into training corpora, and guard against blind faith in confident hallucinations.",
@@ -130,9 +127,8 @@ const i18n = {
     itemsCountSuffix: "curated open-source skills",
     noResults: "No matching skills found.",
 
-    footerLinkHome: "Directory",
     footerLinkGuide: "Field Guide",
-    footerLinkAbout: "About Us"
+    footerLinkLibrary: "Skill Library"
   }
 };
 
@@ -292,17 +288,15 @@ function updateLanguageUI() {
   const t = i18n[currentLang];
   document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
 
-  // Document & Navigation
+  // Document & Navigation (3 items: Guide, Library, putongren.org)
   document.title = t.pageTitle;
   setText("nav-brand-title", t.navBrandTitle);
   setText("nav-brand-sub", t.navBrandSub);
-  setText("nav-link-home", t.navLinkHome);
   setText("nav-link-guide", t.navLinkGuide);
-  setText("nav-link-about", t.navLinkAbout);
+  setText("nav-link-library", t.navLinkLibrary);
   setText("nav-link-putongren", t.navLinkPutongren);
-  setText("m-nav-home", t.navLinkHome);
   setText("m-nav-guide", t.navLinkGuide);
-  setText("m-nav-about", t.navLinkAbout);
+  setText("m-nav-library", t.navLinkLibrary);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
 
@@ -311,7 +305,7 @@ function updateLanguageUI() {
   setText("t-hero-title", t.heroTitle);
   setText("t-hero-highlight", t.heroHighlight);
   setText("t-hero-subtitle", t.heroSubtitle);
-  setText("t-hero-about-link", t.heroAboutLink);
+  setText("t-hero-guide-link", t.heroGuideLink);
 
   // Dual-Core Banner
   setText("t-banner-shield-title", t.bannerShieldTitle);
@@ -340,9 +334,8 @@ function updateLanguageUI() {
   if (searchInput) searchInput.placeholder = t.searchPlaceholder;
 
   // Footer links
-  setText("footer-link-home", t.footerLinkHome);
   setText("footer-link-guide", t.footerLinkGuide);
-  setText("footer-link-about", t.footerLinkAbout);
+  setText("footer-link-library", t.footerLinkLibrary);
 }
 
 function setText(id, text) {

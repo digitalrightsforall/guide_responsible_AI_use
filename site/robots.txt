@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://putongren.org/ai-skills/sitemap.xml
+Sitemap: https://putongren.org/guide_responsible_AI_use/sitemap.xml

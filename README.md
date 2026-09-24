@@ -1,8 +1,8 @@
-# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-43%20Curated-8a2be2.svg)](https://putongren.org/ai-skills/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-43%2F43%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)
+# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-43%20Curated-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-43%2F43%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)
 
 > A curated collection of 43 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
-**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/) | 🛡️ [Interactive Skill Library](https://putongren.org/ai-skills/library.html)
+**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)
 
 ---
 
@@ -10,10 +10,10 @@
 
 This project is designed as an interactive, dual-engine platform for everyone using modern LLMs and agentic IDEs:
 
-* 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/ai-skills/)** (*Web Homepage / `site/index.html`*):
+* 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/guide_responsible_AI_use/)** (*Web Homepage / `site/index.html`*):
   A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all 43 skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.
 
-* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/ai-skills/library.html)** (*Web Catalog / `site/library.html`*):
+* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/guide_responsible_AI_use/library.html)** (*Web Catalog / `site/library.html`*):
   A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.
 
 * 💻 **[The Open-Source GitHub Repository](https://github.com/digitalrightsforall/guide_responsible_AI_use)** (*This Repo*):
@@ -46,14 +46,14 @@ Rather than debating abstract ethics, this project anchors responsible and safe 
 
 | Practical Question | Threat Addressed & Core Connotation | Skills Count | Web Explorer |
 | :--- | :--- | :---: | :--- |
-| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#feed-to-ai) |
-| **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#answers-to-trust) |
-| **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#when-not-to-listen) |
-| **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **13 Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#can-publish-directly) |
+| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
+| **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
+| **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **13 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
 
 > 🌟 **Explore the Full Interactive Platform**:
-> - 📖 **[Read the Practical Field Guide](https://putongren.org/ai-skills/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.
-> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/ai-skills/library.html)**: Instant search and filtering across all 43 skills, complete with international standards, third-party reviews, and one-click install commands.
+> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.
+> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)**: Instant search and filtering across all 43 skills, complete with international standards, third-party reviews, and one-click install commands.
 
 ---
 
@@ -77,7 +77,7 @@ All skills in this repository strictly adhere to the open **Agent Skills specifi
   ```
 
 > [!IMPORTANT]
-> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only `SKILL.md` in isolation—always copy the entire skill directory as specified in the [Skill Library](https://putongren.org/ai-skills/library.html).
+> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only `SKILL.md` in isolation—always copy the entire skill directory as specified in the [Skill Library](https://putongren.org/guide_responsible_AI_use/library.html).
 
 ---
 

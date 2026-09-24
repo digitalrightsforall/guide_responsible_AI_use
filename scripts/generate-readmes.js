@@ -26,15 +26,15 @@ items.forEach((it) => {
 
 // Generate English README
 function generateReadmeEn() {
-  let md = `# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-${items.length}%20Curated-8a2be2.svg)](https://putongren.org/ai-skills/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-${items.length}%2F${items.length}%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)\n\n`;
+  let md = `# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-${items.length}%20Curated-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-${items.length}%2F${items.length}%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)\n\n`;
   md += `> A curated collection of ${items.length} production-ready \`SKILL.md\` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.\n\n`;
-  md += `**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/) | 🛡️ [Interactive Skill Library](https://putongren.org/ai-skills/library.html)\n\n---\n\n`;
+  md += `**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)\n\n---\n\n`;
 
   md += `## 🌟 Project Ecosystem: Dual-Engine Architecture\n\n`;
   md += `This project is designed as an interactive, dual-engine platform for everyone using modern LLMs and agentic IDEs:\n\n`;
-  md += `* 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/ai-skills/)** (*Web Homepage / \`site/index.html\`*):\n`;
+  md += `* 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/guide_responsible_AI_use/)** (*Web Homepage / \`site/index.html\`*):\n`;
   md += `  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all ${items.length} skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.\n\n`;
-  md += `* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/ai-skills/library.html)** (*Web Catalog / \`site/library.html\`*):\n`;
+  md += `* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/guide_responsible_AI_use/library.html)** (*Web Catalog / \`site/library.html\`*):\n`;
   md += `  A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.\n\n`;
   md += `* 💻 **[The Open-Source GitHub Repository](https://github.com/digitalrightsforall/guide_responsible_AI_use)** (*This Repo*):\n`;
   md += `  The canonical source of truth containing standardized data schemas (\`site/data/items.json\`), automated quality gate scripts, and developer tooling.\n\n`;
@@ -56,14 +56,14 @@ function generateReadmeEn() {
   md += `Rather than debating abstract ethics, this project anchors responsible and safe AI use in **four urgent desktop questions**. All ${items.length} production-ready skills are curated in our interactive web application:\n\n`;
   md += `| Practical Question | Threat Addressed & Core Connotation | Skills Count | Web Explorer |
 | :--- | :--- | :---: | :--- |
-| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **${categoryCounts['feed-to-ai'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#feed-to-ai) |
-| **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **${categoryCounts['answers-to-trust'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#answers-to-trust) |
-| **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **${categoryCounts['when-not-to-listen'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#when-not-to-listen) |
-| **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **${categoryCounts['can-publish-directly'] || 13} Skills** | [👉 Explore in Skill Library](https://putongren.org/ai-skills/library.html#can-publish-directly) |\n\n`;
+| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **${categoryCounts['feed-to-ai'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **${categoryCounts['answers-to-trust'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
+| **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **${categoryCounts['when-not-to-listen'] || 10} Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
+| **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **${categoryCounts['can-publish-directly'] || 13} Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |\n\n`;
 
   md += `> 🌟 **Explore the Full Interactive Platform**:\n`;
-  md += `> - 📖 **[Read the Practical Field Guide](https://putongren.org/ai-skills/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.\n`;
-  md += `> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/ai-skills/library.html)**: Instant search and filtering across all ${items.length} skills, complete with international standards, third-party reviews, and one-click install commands.\n\n`;
+  md += `> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.\n`;
+  md += `> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)**: Instant search and filtering across all ${items.length} skills, complete with international standards, third-party reviews, and one-click install commands.\n\n`;
   md += `---\n\n`;
 
   md += `## 📦 Client Installation Guide\n\n`;
@@ -81,7 +81,7 @@ function generateReadmeEn() {
   md += `  mkdir -p .agents/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
   md += `> [!IMPORTANT]\n`;
-  md += `> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only \`SKILL.md\` in isolation—always copy the entire skill directory as specified in the [Skill Library](https://putongren.org/ai-skills/library.html).\n\n`;
+  md += `> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only \`SKILL.md\` in isolation—always copy the entire skill directory as specified in the [Skill Library](https://putongren.org/guide_responsible_AI_use/library.html).\n\n`;
   md += `---\n\n`;
 
   md += `## 🔬 Operational Status & Verified Evidence Methodology\n\n`;
@@ -141,15 +141,15 @@ function generateReadmeEn() {
 
 // Generate Chinese README
 function generateReadmeCn() {
-  let md = `# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-${items.length}%20项-8a2be2.svg)](https://putongren.org/ai-skills/library.html) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-${items.length}%2F${items.length}%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)\n\n`;
+  let md = `# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-${items.length}%20项-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-${items.length}%2F${items.length}%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)\n\n`;
   md += `> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 ${items.length} 个成熟开源 \`SKILL.md\` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。\n\n`;
-  md += `[English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/ai-skills/library.html)\n\n---\n\n`;
+  md += `[English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/guide_responsible_AI_use/library.html)\n\n---\n\n`;
 
   md += `## 🌟 项目生态：双轮驱动实操架构\n\n`;
   md += `本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者构建了“认知 + 武器”的双轮驱动实操生态：\n\n`;
-  md += `* 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/)**（*网站首页 / \`site/index.html\`*）：\n`;
+  md += `* 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**（*网站首页 / \`site/index.html\`*）：\n`;
   md += `  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **5 大核心工作流场景** 穿针引线串联全量 ${items.length} 项技能，提供 112 处微卡片原地交互与 3 大角色一日安全工作流。\n\n`;
-  md += `* 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/ai-skills/library.html)**（*交互技能库 / \`site/library.html\`*）：\n`;
+  md += `* 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**（*交互技能库 / \`site/library.html\`*）：\n`;
   md += `  开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。\n\n`;
   md += `* 💻 **[GitHub 开源主仓库](https://github.com/digitalrightsforall/guide_responsible_AI_use)**（*本仓库*）：\n`;
   md += `  严谨的数据中心与代码源泉。托管规范化的技能数据集（\`site/data/items.json\`）、严格的自动化测试质检门禁（\`scripts/\`）以及双语文档生成引擎。\n\n`;
@@ -171,14 +171,14 @@ function generateReadmeCn() {
   md += `我们在实务中不讨论空洞的高尚词汇，而是将负责任与安全使用 AI 归结为日常最紧迫的**四大实务追问**。全量 ${items.length} 项开源规范技能已系统收录在我们的在线交互平台中：\n\n`;
   md += `| 实务问题 | 核心自卫威胁与实务内涵 | 包含技能 | 在线交互入口 |
 | :--- | :--- | :---: | :--- |
-| **1. 我能把什么给 AI？** | 阻断商业大模型对隐私草案、敏感个案与 PII 数据的隐蔽采集与语料兼并 | **${categoryCounts['feed-to-ai'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/ai-skills/library.html#feed-to-ai) |
-| **2. 哪些回答能信？** | 撕开 AI 极度自信的虚构引文（DOI 查伪）、捏造数据与权威口吻幻觉 | **${categoryCounts['answers-to-trust'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/ai-skills/library.html#answers-to-trust) |
-| **3. 什么时候不能听 AI？** | 破除大模型的算法谄媚（Sycophancy）与人类自动化偏见，坚守终审决策权 | **${categoryCounts['when-not-to-listen'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/ai-skills/library.html#when-not-to-listen) |
-| **4. 输出能不能直接发布？** | 强制执行商业广告法核查、SPDX 协议合规、代码密钥扫描与无障碍门禁 | **${categoryCounts['can-publish-directly'] || 13} 项** | [👉 前往技能库检索筛选](https://putongren.org/ai-skills/library.html#can-publish-directly) |\n\n`;
+| **1. 我能把什么给 AI？** | 阻断商业大模型对隐私草案、敏感个案与 PII 数据的隐蔽采集与语料兼并 | **${categoryCounts['feed-to-ai'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **2. 哪些回答能信？** | 撕开 AI 极度自信的虚构引文（DOI 查伪）、捏造数据与权威口吻幻觉 | **${categoryCounts['answers-to-trust'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
+| **3. 什么时候不能听 AI？** | 破除大模型的算法谄媚（Sycophancy）与人类自动化偏见，坚守终审决策权 | **${categoryCounts['when-not-to-listen'] || 10} 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
+| **4. 输出能不能直接发布？** | 强制执行商业广告法核查、SPDX 协议合规、代码密钥扫描与无障碍门禁 | **${categoryCounts['can-publish-directly'] || 13} 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |\n\n`;
 
   md += `> 🌟 **欢迎体验完整的在线双轮驱动平台**：\n`;
-  md += `> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/ai-skills/)**：5 大真实工作流场景深度推演，行文内嵌 112 处微卡片原地交互。\n`;
-  md += `> - 🛡️ **[探索《实务技能库》 (Skill Library)](https://putongren.org/ai-skills/library.html)**：实时搜索、分类过滤、查阅各技能的权威标准对齐与第三方媒体报道，一键复制终端安装命令。\n\n`;
+  md += `> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：5 大真实工作流场景深度推演，行文内嵌 112 处微卡片原地交互。\n`;
+  md += `> - 🛡️ **[探索《实务技能库》 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**：实时搜索、分类过滤、查阅各技能的权威标准对齐与第三方媒体报道，一键复制终端安装命令。\n\n`;
   md += `---\n\n`;
 
   md += `## 📦 客户端技能安装规范（目录指南）\n\n`;
@@ -196,7 +196,7 @@ function generateReadmeCn() {
   md += `  mkdir -p .agents/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
   md += `> [!IMPORTANT]\n`;
-  md += `> **必须完整复制整个技能文件夹**：许多高质量技能内置了独立的 Python/Bash 校验脚本、威胁规则库与参考模板。绝不要只单份复制 \`SKILL.md\`，请始终按 [实务技能库](https://putongren.org/ai-skills/library.html) 中各条目的安装命令完整拉取整个目录。\n\n`;
+  md += `> **必须完整复制整个技能文件夹**：许多高质量技能内置了独立的 Python/Bash 校验脚本、威胁规则库与参考模板。绝不要只单份复制 \`SKILL.md\`，请始终按 [实务技能库](https://putongren.org/guide_responsible_AI_use/library.html) 中各条目的安装命令完整拉取整个目录。\n\n`;
   md += `---\n\n`;
 
   md += `## 🔬 运行状态与实证指标评定说明\n\n`;

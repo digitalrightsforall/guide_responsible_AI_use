@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
  * Automatically regenerates README.md and README_CN.md from site/data/items.json
- * Ensures 100% data consistency, 7 rich presentation dimensions,
- * compact overview skills matrices, installation guides, verification commands,
- * and reflects the dynamic framework of Responsible and Safe AI Use.
+ * Generates concise, scannable, highly readable READMEs featuring:
+ * 1. Dual-engine architecture overview (Field Guide + Skill Library)
+ * 2. Core philosophy & dynamic framework
+ * 3. Client directory layout & installation guidelines
+ * 4. Operational status & verified evidence methodology
+ * 5. Structured, scannable catalog matrix tables for all 4 categories (43 skills)
+ * 6. Direct interactive jump links to web apps for deep 7-dimension inspection & 1-click install
+ * 7. Repo structure, local testing quality gates, and contribution guidelines.
  */
 const fs = require('fs');
 const path = require('path');
@@ -13,21 +18,6 @@ const readmePath = path.join(__dirname, '../README.md');
 const readmeCnPath = path.join(__dirname, '../README_CN.md');
 
 const items = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-
-// Timing labels
-const timingLabelsEn = {
-  'pre-input': '⏳ Pre-Input (Privacy & Anti-Harvesting)',
-  'during-chat': '💬 During-Chat (Fact-Checking & Anti-Sycophancy)',
-  'pre-handoff': '📤 Pre-Handoff (Audit & Verification Gates)',
-  'post-session': '🧹 Post-Session (Privacy Cleanup & Logs)'
-};
-
-const timingLabelsCn = {
-  'pre-input': '⏳ 输入前·防采集与隔离',
-  'during-chat': '💬 交互中·求证与防盲信',
-  'pre-handoff': '📤 交付前·合规与核验包',
-  'post-session': '🧹 归档时·隐私与日志清理'
-};
 
 const categoryMetaEn = {
   'feed-to-ai': {
@@ -73,8 +63,8 @@ const categories = ['feed-to-ai', 'answers-to-trust', 'when-not-to-listen', 'can
 function generateCategoryMatrix(cat, items, isZh = false) {
   const catItems = items.filter((it) => it.category === cat);
   let table = isZh
-    ? `| 序号 | 技能名称 | 工作流时机 | 运行状态 | 对齐技术标准 | 适用人群 |\n| :---: | :--- | :--- | :---: | :--- | :--- |\n`
-    : `| # | Skill Name | Workflow Timing | Status | Technical Standard | Primary Persona |\n| :---: | :--- | :--- | :---: | :--- | :--- |\n`;
+    ? `| 序号 | 技能名称 | 时机 | 运行状态 | 对齐技术标准 | 核心自卫防线 / 功能概要 |\n| :---: | :--- | :--- | :---: | :--- | :--- |\n`
+    : `| # | Skill Name | Timing | Status | Technical Standard | Core Defense / Summary |\n| :---: | :--- | :--- | :---: | :--- | :--- |\n`;
 
   catItems.forEach((item, idx) => {
     const timingShort = isZh
@@ -93,93 +83,28 @@ function generateCategoryMatrix(cat, items, isZh = false) {
 
     const stdOrg = item.standard_alignment ? ` (${item.standard_alignment.organization})` : '';
 
-    table += `| ${idx + 1} | [**${item.name}**](${item.url}) | ${timingShort} | ${statusShort} | ${stdName}${stdOrg} | ${item.target_persona} |\n`;
+    const summaryText = isZh
+      ? (item.summary_cn || item.why_care_cn || '')
+      : (item.summary_en || item.why_care_en || '');
+
+    table += `| ${idx + 1} | [**${item.name}**](${item.url}) | ${timingShort} | ${statusShort} | ${stdName}${stdOrg} | ${summaryText} |\n`;
   });
 
   return table;
 }
 
-// Helper to render an item's full 7-dimension details
-function generateItemDetail(item, isZh = false) {
-  let md = '';
-  const timingBadge = isZh ? (timingLabelsCn[item.timing] || item.timing) : (timingLabelsEn[item.timing] || item.timing);
-  const titleLink = item.url ? `[\`${item.name}\`](${item.url})` : `\`${item.name}\``;
-
-  md += `#### ${titleLink}\n`;
-  md += isZh
-    ? `* **使用时机：** ${timingBadge} — *${item.timing_desc_cn || ''}*\n`
-    : `* **Workflow Timing:** ${timingBadge} — *${item.timing_desc_en || ''}*\n`;
-
-  md += isZh
-    ? `* **💡 为何普通人应该关心：** ${item.why_care_cn || ''}\n`
-    : `* **💡 Why Everyday People Should Care:** ${item.why_care_en || ''}\n`;
-
-  md += isZh
-    ? `* **🎯 为什么精选收录：** ${item.why_chosen_cn || ''}\n`
-    : `* **🎯 Why Chosen:** ${item.why_chosen_en || ''}\n`;
-
-  md += isZh
-    ? `* **🛠️ 如何使用：** ${item.how_to_use_cn || ''}\n`
-    : `* **🛠️ How to Use:** ${item.how_to_use_en || ''}\n`;
-
-  const statusStage = isZh ? (item.status.stage_cn || item.status.stage) : (item.status.stage_en || item.status.stage);
-  const statusAdoption = isZh ? (item.status.adoption_cn || item.status.adoption) : (item.status.adoption_en || item.status.adoption);
-  const statusTrust = isZh ? (item.status.trust_source_cn || item.status.trust_source) : (item.status.trust_source_en || item.status.trust_source);
-
-  md += isZh
-    ? `* **📦 运行状态与实证指标：** \`${statusStage}\` | ${statusAdoption} | 🛡️ *${statusTrust}*\n`
-    : `* **📦 Operational Status & Verified Evidence:** \`${statusStage}\` | ${statusAdoption} | 🛡️ *${statusTrust}*\n`;
-
-  md += isZh
-    ? `* **适用客户端：** ${(item.clients || []).join('、')}\n`
-    : `* **Clients:** ${(item.clients || []).join(', ')}\n`;
-
-  md += isZh
-    ? `* **适用人群：** ${item.target_persona || ''}\n`
-    : `* **Target Persona:** ${item.target_persona || ''}\n`;
-
-  if (item.standard_alignment) {
-    const stdName = isZh ? item.standard_alignment.name_zh : item.standard_alignment.name_en;
-    const stdHow = isZh ? item.standard_alignment.how_aligned_zh : item.standard_alignment.how_aligned_en;
-    md += isZh
-      ? `* **📐 技术依据与对齐标准：** [${stdName}](${item.standard_alignment.url})（${item.standard_alignment.organization}）— *${stdHow}*\n`
-      : `* **📐 Technical & Methodological Alignment:** [${stdName}](${item.standard_alignment.url}) (${item.standard_alignment.organization}) — *${stdHow}*\n`;
-  }
-
-  if (item.third_party_reviews && item.third_party_reviews.length > 0) {
-    md += isZh ? `* **🌐 独立第三方评测与生态收录：**\n` : `* **🌐 Third-Party Reviews & Inclusions:**\n`;
-    item.third_party_reviews.forEach((rev) => {
-      const revTitle = isZh ? rev.title_zh : rev.title_en;
-      const revExcerpt = isZh ? rev.excerpt_zh : rev.excerpt_en;
-      md += isZh
-        ? `  - [${rev.source}：${revTitle}](${rev.url}) — *${revExcerpt}*\n`
-        : `  - [${rev.source}: ${revTitle}](${rev.url}) — *${revExcerpt}*\n`;
-    });
-  }
-
-  const installCmd = (item.install && item.install.action_content) || item.action_content;
-  if (installCmd) {
-    md += isZh ? `* **安装命令：**\n` : `* **Install Command:**\n`;
-    md += `  \`\`\`bash\n  ${installCmd}\n  \`\`\`\n\n`;
-  } else {
-    md += `\n`;
-  }
-
-  return md;
-}
-
 // Generate English README
 function generateReadmeEn() {
-  let md = `# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-43%20Curated-8a2be2.svg)](#-quick-overview--skills-matrix) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-43%2F43%20Live-brightgreen.svg)](#-operational-status--evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)\n\n`;
+  let md = `# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-43%20Curated-8a2be2.svg)](#-the-four-practical-questions-skills-catalog) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-43%2F43%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)\n\n`;
   md += `> A curated collection of ${items.length} production-ready \`SKILL.md\` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.\n\n`;
   md += `**English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/) | 🛡️ [Interactive Skill Library](https://putongren.org/ai-skills/library.html)\n\n---\n\n`;
 
   md += `## 🌟 Project Ecosystem: Dual-Engine Architecture\n\n`;
   md += `This project operates as a dual-engine resource for everyone using modern LLMs and agentic IDEs:\n\n`;
   md += `1. 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/ai-skills/)** (*Web Homepage / \`site/index.html\`*):\n`;
-  md += `   A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all 43 skills across **5 daily workflow scenarios** with 112 clickable inline skill pills.\n\n`;
+  md += `   A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all 43 skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.\n\n`;
   md += `2. 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/ai-skills/library.html)** (*Web Catalog / \`site/library.html\`*):\n`;
-  md += `   A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, and one-click copyable CLI installation commands.\n\n`;
+  md += `   A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.\n\n`;
   md += `3. 💻 **[The Open-Source GitHub Repository](https://github.com)** (*This Repo*):\n`;
   md += `   The canonical source of truth containing standardized data schemas (\`site/data/items.json\`), automated quality gate scripts, and documentation.\n\n`;
   md += `---\n\n`;
@@ -199,10 +124,9 @@ function generateReadmeEn() {
   md += `## 🧭 Table of Contents\n\n`;
   md += `* [🌟 Project Ecosystem: Dual-Engine Architecture](#-project-ecosystem-dual-engine-architecture)\n`;
   md += `* [💡 Core Philosophy](#-core-philosophy-responsible-and-safe-ai-use-dynamic-framework)\n`;
-  md += `* [📊 Quick Overview & Skills Matrix](#-quick-overview--skills-matrix)\n`;
   md += `* [📦 Client Installation Guide](#-client-installation-guide)\n`;
   md += `* [🔬 Operational Status & Verified Evidence Methodology](#-operational-status--verified-evidence-methodology)\n`;
-  md += `* [📂 The Four Practical Questions (Detailed Catalog)](#-the-four-practical-questions-detailed-catalog)\n`;
+  md += `* [📂 The Four Practical Questions (Skills Catalog)](#-the-four-practical-questions-skills-catalog)\n`;
   categories.forEach((cat) => {
     const meta = categoryMetaEn[cat];
     const anchor = meta.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -214,24 +138,14 @@ function generateReadmeEn() {
   md += `* [📄 License](#-license)\n\n`;
   md += `---\n\n`;
 
-  md += `## 📊 Quick Overview & Skills Matrix\n\n`;
-  categories.forEach((cat) => {
-    const meta = categoryMetaEn[cat];
-    md += `### ${meta.title}\n`;
-    md += `*${meta.subtitle}*\n\n`;
-    md += generateCategoryMatrix(cat, items, false);
-    md += `\n`;
-  });
-  md += `---\n\n`;
-
   md += `## 📦 Client Installation Guide\n\n`;
   md += `All skills in this repository strictly adhere to the open **Agent Skills specification** (\`SKILL.md\`). To load skills into your favorite client:\n\n`;
   md += `### Directory Layout by Platform\n\n`;
   md += `* **Claude Code:**\n`;
   md += `  \`\`\`bash\n`;
-  md += `  # Project-level skill (recommended)\n`;
+  md += `  # Project-level skill (recommended, shared with repo)\n`;
   md += `  mkdir -p .claude/skills/<skill-name>/\n`;
-  md += `  # Global skill\n`;
+  md += `  # User-global skill (accessible across all sessions)\n`;
   md += `  mkdir -p ~/.claude/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
   md += `* **Cursor & Google Antigravity:**\n`;
@@ -239,7 +153,7 @@ function generateReadmeEn() {
   md += `  mkdir -p .agents/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
   md += `> [!IMPORTANT]\n`;
-  md += `> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only \`SKILL.md\` in isolation—always copy the entire skill directory as specified in each item's install command.\n\n`;
+  md += `> **Copy the entire skill directory**: Many advanced skills bundle executable Python/Bash validation scripts, threat pattern databases, and reference templates. Never copy only \`SKILL.md\` in isolation—always copy the entire skill directory.\n\n`;
   md += `---\n\n`;
 
   md += `## 🔬 Operational Status & Verified Evidence Methodology\n\n`;
@@ -249,18 +163,15 @@ function generateReadmeEn() {
   md += `* **100% Remote Verification:** All 43 repositories are verified live via \`npm run test:remote\` (43/43 HTTP 200). We enforce zero placeholders and zero synthetic prompts.\n\n`;
   md += `---\n\n`;
 
-  md += `## 📂 The Four Practical Questions (Detailed Catalog)\n\n`;
+  md += `## 📂 The Four Practical Questions (Skills Catalog)\n\n`;
   categories.forEach((cat) => {
     const meta = categoryMetaEn[cat];
-    const catItems = items.filter((it) => it.category === cat);
-
     md += `### ${meta.title}\n`;
     md += `*${meta.subtitle}*\n\n`;
-
-    catItems.forEach((item) => {
-      md += generateItemDetail(item, false);
-    });
-
+    md += generateCategoryMatrix(cat, items, false);
+    md += `\n`;
+    md += `> 💡 **Need full 7-dimension breakdowns and 1-click install commands?**\n`;
+    md += `> Explore the **[Interactive Skill Library](https://putongren.org/ai-skills/library.html#${cat})** or read the **[Practical Field Guide](https://putongren.org/ai-skills/)** to inspect verified third-party media reviews, standards provenance, and copy terminal install commands with a single click.\n\n`;
     md += `---\n\n`;
   });
 
@@ -314,7 +225,7 @@ function generateReadmeEn() {
 
 // Generate Chinese README
 function generateReadmeCn() {
-  let md = `# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-43%20项-8a2be2.svg)](#-技能分类与全景速览矩阵) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-43%2F43%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)\n\n`;
+  let md = `# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-43%20项-8a2be2.svg)](#-四大核心实务问题技能全景目录) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-43%2F43%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)\n\n`;
   md += `> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 ${items.length} 个成熟开源 \`SKILL.md\` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。\n\n`;
   md += `[English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/ai-skills/library.html)\n\n---\n\n`;
 
@@ -343,10 +254,9 @@ function generateReadmeCn() {
   md += `## 🧭 目录导航\n\n`;
   md += `* [🌟 项目生态：双轮驱动实操架构](#-项目生态双轮驱动实操架构)\n`;
   md += `* [💡 核心理念](#-核心理念负责任与安全使用-ai-的当下实务内核动态演进框架)\n`;
-  md += `* [📊 技能分类与全景速览矩阵](#-技能分类与全景速览矩阵)\n`;
   md += `* [📦 客户端技能安装规范（目录指南）](#-客户端技能安装规范目录指南)\n`;
   md += `* [🔬 运行状态与实证指标评定说明](#-运行状态与实证指标评定说明)\n`;
-  md += `* [📂 四大核心实务问题（43 项技能详述）](#-四大核心实务问题43-项技能详述)\n`;
+  md += `* [📂 四大核心实务问题（技能全景目录）](#-四大核心实务问题技能全景目录)\n`;
   categories.forEach((cat) => {
     const meta = categoryMetaCn[cat];
     const anchor = meta.title.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/(^-|-$)/g, '');
@@ -356,16 +266,6 @@ function generateReadmeCn() {
   md += `* [🧪 本地开发与质检指令](#-本地开发与质检指令)\n`;
   md += `* [🤝 参与贡献](#-参与贡献)\n`;
   md += `* [📄 开源许可证](#-开源许可证)\n\n`;
-  md += `---\n\n`;
-
-  md += `## 📊 技能分类与全景速览矩阵\n\n`;
-  categories.forEach((cat) => {
-    const meta = categoryMetaCn[cat];
-    md += `### ${meta.title}\n`;
-    md += `*${meta.subtitle}*\n\n`;
-    md += generateCategoryMatrix(cat, items, true);
-    md += `\n`;
-  });
   md += `---\n\n`;
 
   md += `## 📦 客户端技能安装规范（目录指南）\n\n`;
@@ -393,18 +293,15 @@ function generateReadmeCn() {
   md += `* **100% 真实开源存活**：全量 43 项技能通过 \`npm run test:remote\` 自动化实时校验（43/43 全部 HTTP 200）。零合成提示词，零失效死链。\n\n`;
   md += `---\n\n`;
 
-  md += `## 📂 四大核心实务问题（43 项技能详述）\n\n`;
+  md += `## 📂 四大核心实务问题（技能全景目录）\n\n`;
   categories.forEach((cat) => {
     const meta = categoryMetaCn[cat];
-    const catItems = items.filter((it) => it.category === cat);
-
     md += `### ${meta.title}\n`;
     md += `*${meta.subtitle}*\n\n`;
-
-    catItems.forEach((item) => {
-      md += generateItemDetail(item, true);
-    });
-
+    md += generateCategoryMatrix(cat, items, true);
+    md += `\n`;
+    md += `> 💡 **需要查看 7 维深度评测与一键安装命令？**\n`;
+    md += `> 欢迎前往 **[在线实务技能库 (putongren.org/ai-skills/library.html)](https://putongren.org/ai-skills/library.html#${cat})** 或 **[实务长篇指南 (putongren.org/ai-skills/)](https://putongren.org/ai-skills/)**，点击任意技能卡片即可原地查看详细使用时机、为何普通人应关心、独立第三方媒体长篇报道、标准原文以及直接复制终端安装命令。\n\n`;
     md += `---\n\n`;
   });
 
@@ -457,7 +354,7 @@ function generateReadmeCn() {
 }
 
 fs.writeFileSync(readmePath, generateReadmeEn(), 'utf-8');
-console.log(`✅ Generated README.md with all ${items.length} items, overview matrix, and complete architecture.`);
+console.log(`✅ Generated concise, scannable README.md with all ${items.length} items in overview tables.`);
 
 fs.writeFileSync(readmeCnPath, generateReadmeCn(), 'utf-8');
-console.log(`✅ Generated README_CN.md with all ${items.length} items, overview matrix, and complete architecture.`);
+console.log(`✅ Generated concise, scannable README_CN.md with all ${items.length} items in overview tables.`);

@@ -2,7 +2,7 @@
 
 > 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 43 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
-[English Version](README.md) | **中文版**
+[English Version](README.md) | **中文版** | 🌐 [在线交互检索库](https://putongren.org/ai-skills/) | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/guide.html)
 
 ---
 

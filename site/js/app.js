@@ -6,7 +6,8 @@ const i18n = {
     pageTitle: "Responsible and Safe AI Use - 负责任与安全使用 AI | 普通人的数字权利",
     navBrandTitle: "负责任与安全使用 AI",
     navBrandSub: "普通人的数字权利 社区共建",
-    navLinkHome: "首页",
+    navLinkHome: "实务索引",
+    navLinkGuide: "实务指南",
     navLinkAbout: "关于我们",
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
@@ -64,13 +65,15 @@ const i18n = {
     noResults: "没有找到符合条件的技能。",
 
     footerLinkHome: "实务索引",
+    footerLinkGuide: "实务指南",
     footerLinkAbout: "关于我们"
   },
   en: {
     pageTitle: "Responsible and Safe AI Use - Curated Skills for Everyday Users | Digital Rights for All",
     navBrandTitle: "Responsible & Safe AI Use",
     navBrandSub: "Digital Rights for All Community Project",
-    navLinkHome: "Home",
+    navLinkHome: "Directory",
+    navLinkGuide: "Field Guide",
     navLinkAbout: "About Us",
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
@@ -128,6 +131,7 @@ const i18n = {
     noResults: "No matching skills found.",
 
     footerLinkHome: "Directory",
+    footerLinkGuide: "Field Guide",
     footerLinkAbout: "About Us"
   }
 };
@@ -293,9 +297,11 @@ function updateLanguageUI() {
   setText("nav-brand-title", t.navBrandTitle);
   setText("nav-brand-sub", t.navBrandSub);
   setText("nav-link-home", t.navLinkHome);
+  setText("nav-link-guide", t.navLinkGuide);
   setText("nav-link-about", t.navLinkAbout);
   setText("nav-link-putongren", t.navLinkPutongren);
   setText("m-nav-home", t.navLinkHome);
+  setText("m-nav-guide", t.navLinkGuide);
   setText("m-nav-about", t.navLinkAbout);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
@@ -335,6 +341,7 @@ function updateLanguageUI() {
 
   // Footer links
   setText("footer-link-home", t.footerLinkHome);
+  setText("footer-link-guide", t.footerLinkGuide);
   setText("footer-link-about", t.footerLinkAbout);
 }
 

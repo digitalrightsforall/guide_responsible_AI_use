@@ -72,7 +72,7 @@ const categories = ['feed-to-ai', 'answers-to-trust', 'when-not-to-listen', 'can
 function generateReadmeEn() {
   let md = `# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n\n`;
   md += `> A curated collection of ${items.length} production-ready \`SKILL.md\` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.\n\n`;
-  md += `**English** | [中文版](README_CN.md)\n\n---\n\n`;
+  md += `**English** | [中文版](README_CN.md) | 🌐 [Interactive Search Library](https://putongren.org/ai-skills/) | 📖 [Practical Field Guide](https://putongren.org/ai-skills/guide.html)\n\n---\n\n`;
 
   md += `## 💡 Core Philosophy: Responsible and Safe AI Use (Dynamic Framework)\n\n`;
   md += `This project is initiated as a public-interest practical toolkit by [**Digital Rights for All (普通人的数字权利 - putongren.org)**](https://putongren.org), dedicated to helping everyone protect their rights and agency in the algorithmic era.\n\n`;
@@ -152,7 +152,7 @@ function generateReadmeEn() {
 function generateReadmeCn() {
   let md = `# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n\n`;
   md += `> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 ${items.length} 个成熟开源 \`SKILL.md\` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。\n\n`;
-  md += `[English Version](README.md) | **中文版**\n\n---\n\n`;
+  md += `[English Version](README.md) | **中文版** | 🌐 [在线交互检索库](https://putongren.org/ai-skills/) | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/guide.html)\n\n---\n\n`;
 
   md += `## 💡 核心理念：负责任与安全使用 AI 的当下实务内核（动态演进框架）\n\n`;
   md += `本项目由[**「普通人的数字权利」共创社区 (putongren.org)**](https://putongren.org)发起，致力于帮助每一个人在机器与算法时代守护个人数字权利与尊严。\n\n`;

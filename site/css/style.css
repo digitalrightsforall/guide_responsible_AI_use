@@ -323,4 +323,99 @@ body {
   box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(195, 184, 255, 0.2);
 }
 
+/* Guide Specific Styles */
+.guide-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), #22c55e);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+.guide-toc-link {
+  display: block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: #64748b;
+  border-left: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.dark .guide-toc-link {
+  color: #94a3b8;
+}
+
+.guide-toc-link:hover {
+  color: var(--primary);
+  background-color: rgba(94, 64, 224, 0.05);
+}
+
+.dark .guide-toc-link:hover {
+  color: var(--primary-container);
+  background-color: rgba(195, 184, 255, 0.08);
+}
+
+.guide-toc-link.active {
+  color: var(--primary);
+  font-weight: 700;
+  border-left-color: var(--primary);
+  background-color: rgba(94, 64, 224, 0.08);
+}
+
+.dark .guide-toc-link.active {
+  color: #ffffff;
+  border-left-color: var(--primary-container);
+  background-color: rgba(195, 184, 255, 0.15);
+}
+
+/* Inline Interactive Skill Pill */
+.inline-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.55rem;
+  margin: 0.1rem 0.15rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: all 0.15s ease;
+}
+
+.dark .inline-skill-pill {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.inline-skill-pill:hover {
+  background-color: #ede9fe;
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px -1px rgba(94, 64, 224, 0.2);
+}
+
+.dark .inline-skill-pill:hover {
+  background-color: #312e81;
+  color: #e0e7ff;
+  border-color: #818cf8;
+}
+
+/* Callout & Scenario Containers */
+.scenario-box {
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid transparent;
+}
+
 

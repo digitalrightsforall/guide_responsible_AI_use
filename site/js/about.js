@@ -5,7 +5,8 @@ const aboutI18n = {
     pageTitle: "关于我们 - 普通人的数字权利 · Responsible & Safe AI Use",
     navBrandTitle: "负责任与安全使用 AI",
     navBrandSub: "普通人的数字权利 社区共建",
-    navLinkHome: "首页",
+    navLinkHome: "实务索引",
+    navLinkGuide: "实务指南",
     navLinkAbout: "关于我们",
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
@@ -67,13 +68,15 @@ const aboutI18n = {
     joinBtnExplore: "立即探索技能索引",
     joinBtnGithub: "前往 GitHub 提交技能",
     footerLinkHome: "实务索引",
+    footerLinkGuide: "实务指南",
     footerLinkAbout: "关于我们"
   },
   en: {
     pageTitle: "About Us - Digital Rights for All · Responsible & Safe AI Use",
     navBrandTitle: "Responsible & Safe AI Use",
     navBrandSub: "Digital Rights for All Community Project",
-    navLinkHome: "Home",
+    navLinkHome: "Directory",
+    navLinkGuide: "Field Guide",
     navLinkAbout: "About Us",
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
@@ -135,6 +138,7 @@ const aboutI18n = {
     joinBtnExplore: "Explore Skill Directory",
     joinBtnGithub: "Submit Skills on GitHub",
     footerLinkHome: "Directory",
+    footerLinkGuide: "Field Guide",
     footerLinkAbout: "About Us"
   }
 };
@@ -179,9 +183,11 @@ function updateUI() {
   setText("nav-brand-title", t.navBrandTitle);
   setText("nav-brand-sub", t.navBrandSub);
   setText("nav-link-home", t.navLinkHome);
+  setText("nav-link-guide", t.navLinkGuide);
   setText("nav-link-about", t.navLinkAbout);
   setText("nav-link-putongren", t.navLinkPutongren);
   setText("m-nav-home", t.navLinkHome);
+  setText("m-nav-guide", t.navLinkGuide);
   setText("m-nav-about", t.navLinkAbout);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
@@ -236,6 +242,7 @@ function updateUI() {
   setText("join-btn-explore", t.joinBtnExplore);
   setText("join-btn-github", t.joinBtnGithub);
   setText("footer-link-home", t.footerLinkHome);
+  setText("footer-link-guide", t.footerLinkGuide);
   setText("footer-link-about", t.footerLinkAbout);
 }
 

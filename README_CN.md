@@ -1,8 +1,23 @@
-# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-43%20项-8a2be2.svg)](#-技能分类与全景速览矩阵) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-43%2F43%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)
 
 > 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 43 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
 [English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/ai-skills/library.html)
+
+---
+
+## 🌟 项目生态：双轮驱动实操架构
+
+本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者构建了“认知 + 武器”的双轮驱动实操生态：
+
+1. 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/ai-skills/)**（*网站首页 / `site/index.html`*）：
+   深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **5 大核心工作流场景** 穿针引线串联全量 43 项技能，提供 112 处微卡片原地交互与 3 大角色一日安全工作流。
+
+2. 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/ai-skills/library.html)**（*交互技能库 / `site/library.html`*）：
+   开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。
+
+3. 💻 **[GitHub 开源主仓库](https://github.com)**（*本仓库*）：
+   严谨的数据中心与代码源泉。托管规范化的技能数据集（`site/data/items.json`）、严格的自动化测试质检门禁（`scripts/`）以及双语文档生成引擎。
 
 ---
 
@@ -12,32 +27,144 @@
 
 本项目坚持**“只精选，不生造”**，从开源生态中甄选真实存在的优秀开源工具。当前我们将负责任与安全使用 AI 的实务内涵拆解为两大核心维度：
 
-1. **🛡️ 对内·自我防护与边界**：警惕商业大模型将你的日常对话、未公开草稿当做免费语料过度采集；警惕 AI 极度自信的幻觉与迎合，坚守人类的独立思考与决策权。
-2. **📐 对外·成果第三方可核验**：当你使用 AI 辅助产出方案、报告或代码时，主动附带原始证据链、推演记录与核验切入点，让同事、读者或客户能够轻松核查，而非给出一纸空洞的形式化免责声明。
+1. **🛡️ 对内·自我防护与边界**：
+   - **防范数据过度采集**：警惕商业大模型通过晦涩协议，将你的日常对话、未公开草稿、私有源码或敏感个案当做免费语料静默采集，坚决在本地筑牢数据边界。
+   - **打破自信幻觉与谄媚**：警惕 AI 极度自信地伪造事实或为了取悦人类而放弃客观性，坚守人类的批判性思考与终审决策权。
+
+2. **📐 对外·成果第三方可核验**：
+   - **主动附带实证链条**：当你使用 AI 辅助产出方案、报告或代码时，主动附带原始证据链、推演记录与核验切入点，让同事、读者或客户能够轻松核查，而非给出一纸空洞的形式化免责声明。
+   - **硬性发布门禁**：通过广告主张核查、SPDX 开源协议合规、代码密钥扫描、Web 无障碍审计等法定与行业标准门禁，阻断违规内容流出。
 
 > [!NOTE]
 > 这一拆解本身并非固化的教条，而是**保持动态演进**的实务框架，随着模型能力与应用形态的深入不断更新演化。
 
 ---
 
+## 🧭 目录导航
+
+* [🌟 项目生态：双轮驱动实操架构](#-项目生态双轮驱动实操架构)
+* [💡 核心理念](#-核心理念负责任与安全使用-ai-的当下实务内核动态演进框架)
+* [📊 技能分类与全景速览矩阵](#-技能分类与全景速览矩阵)
+* [📦 客户端技能安装规范（目录指南）](#-客户端技能安装规范目录指南)
+* [🔬 运行状态与实证指标评定说明](#-运行状态与实证指标评定说明)
+* [📂 四大核心实务问题（43 项技能详述）](#-四大核心实务问题43-项技能详述)
+  * [1. 我能把什么给 AI？](#1-我能把什么给-ai)
+  * [2. 哪些回答能信？](#2-哪些回答能信)
+  * [3. 什么时候不能听 AI？](#3-什么时候不能听-ai)
+  * [4. 输出能不能直接发布？](#4-输出能不能直接发布)
+* [🗂️ 代码仓库组织目录](#️-代码仓库组织目录)
+* [🧪 本地开发与质检指令](#-本地开发与质检指令)
+* [🤝 参与贡献](#-参与贡献)
+* [📄 开源许可证](#-开源许可证)
+
+---
+
+## 📊 技能分类与全景速览矩阵
+
+### 1. 我能把什么给 AI？
+*防止将个人身份信息（PII）、商业机密草案或受保护的访谈记录无意泄露给商业大模型作为训练语料。*
+
+| 序号 | 技能名称 | 工作流时机 | 运行状态 | 对齐技术标准 | 适用人群 |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| 1 | [**PII Safe Documents (danyuchn/pii-guard)**](https://github.com/danyuchn/pii-guard) | ⏳ 输入前 | 🟢 开箱即用 | 微软 Presidio 敏感信息识别与本地沙盒去标识化标准 (Microsoft / Open Source Privacy Standards) | General Knowledge Workers, Researchers, Journalists |
+| 2 | [**Scholar Safety (joshzyj/open-scholar-skill)**](https://github.com/joshzyj/open-scholar-skill) | ⏳ 输入前 | 🟢 开箱即用 | 机构审查委员会 (IRB) 与受控学术研究数据流动合规指南 (US HHS Office for Human Research Protections (OHRP)) | Academic Researchers, Qualitative Analysts, IRB Custodians |
+| 3 | [**Skill Sanitizer (cyberxuan-XBX/skill-sanitizer)**](https://github.com/cyberxuan-XBX/skill-sanitizer) | ⏳ 输入前 | 🟢 开箱即用 | OWASP 智能体应用安全十大风险 (LLM06: 敏感信息泄露防范) (OWASP GenAI Foundation) | Developers, Power Users, Knowledge Workers |
+| 4 | [**PII Detection Pipeline (mukul975/Privacy-Data-Protection-Skills)**](https://github.com/mukul975/Privacy-Data-Protection-Skills) | ⏳ 输入前 | 🟡 需依赖 | 欧盟 GDPR 第 30 条处理活动记录与最小必要原则规范 (European Data Protection Board (EDPB)) | Support Teams, Account Managers, Operations |
+| 5 | [**OpenMed Clinical Document Ingestion (maziyarpanahi)**](https://github.com/maziyarpanahi/openmed) | ⏳ 输入前 | 🟢 开箱即用 | 美国卫生与公众服务部 HIPAA 安全港去标识化法案 (18 项 PHI 剔除准则) (US Department of Health and Human Services (HHS)) | Clinical Researchers, Healthcare Analysts, Medical Writers |
+| 6 | [**AREX Presidio Anonymize Text (VectorSpaceLab)**](https://github.com/VectorSpaceLab/AREX-Skill) | ⏳ 输入前 | 🟡 需依赖 | 微软 Presidio 开源脱敏引擎架构规范 (可逆掩码与假名化) (Microsoft Open Source Engineering) | Knowledge Workers, Enterprise Staff, Developers |
+| 7 | [**SkillGuard (LLMSecurity/skillguard)**](https://github.com/LLMSecurity/skillguard) | ⏳ 输入前 | 🟢 开箱即用 | MITRE ATLAS 对抗性威胁框架 (AML.T0051 提示词注入与投毒防御) (MITRE Corporation & OWASP) | All AI Users, Developers, Security Conscious Citizens |
+| 8 | [**Skill Sentinel (EvolutionUnleashed/skill-sentinel)**](https://github.com/EvolutionUnleashed/skill-sentinel) | ⏳ 输入前 | 🟢 开箱即用 | CWE-78 操作系统命令注入漏洞防范规范 (针对 Agentic 终端调用) (MITRE Common Weakness Enumeration) | Knowledge Workers, Content Creators, Developers |
+| 9 | [**Nova Proximity (Nova-Hunting/nova-proximity)**](https://github.com/Nova-Hunting/nova-proximity) | ⏳ 输入前 | 🟢 开箱即用 | Anthropic Model Context Protocol (MCP) 最小权限与本地宿主隔离规范 (Anthropic & MCP Working Group) | All Agent Users, Small Business Owners, Power Users |
+| 10 | [**Security Threat Model (tech-leads-club/agent-skills)**](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model) | ⏳ 输入前 | 🟢 开箱即用 | STRIDE / DREAD 人工智能与大模型应用威胁建模标准 (Microsoft Security Engineering) | Developers, Tech Leads, Enterprise Knowledge Workers |
+
+### 2. 哪些回答能信？
+*防止被 AI 极度自信的幻觉引用文献（Phantom Citations）、捏造的数据统计和伪造断言所误导。*
+
+| 序号 | 技能名称 | 工作流时机 | 运行状态 | 对齐技术标准 | 适用人群 |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| 1 | [**Post-Generation Fact-Check (jwynia/agent-skills)**](https://github.com/jwynia/agent-skills) | 💬 交互中 | 🟢 开箱即用 | NeurIPS 2023 Self-Refine 多阶段事实反思与生成后核验架构 (Neural Information Processing Systems (NeurIPS)) | Knowledge Workers, Writers, Journalists, Researchers |
+| 2 | [**Citation Faithfulness Checker (CanXiangCC/aminer-open-skill)**](https://github.com/CanXiangCC/aminer-open-skill) | 💬 交互中 | 🟢 开箱即用 | 清华大学 KEG 学术知识图谱引用保真度评测标准 (清华大学计算机系知识工程实验室 (KEG) & AMiner) | Academic Researchers, Peer Reviewers, Fact-Checkers |
+| 3 | [**BibRef Verify (yzhao062/agent-config)**](https://github.com/yzhao062/agent-config) | 💬 交互中 | 🟡 需依赖 | CrossRef 国际数字对象唯一标识符 (DOI) 元数据检索标准 (CrossRef (Publishers International Linking Association)) | Academic Researchers, Grant Writers, Authors |
+| 4 | [**Citation Integrity Auditor (scdenney/open-science-skills)**](https://github.com/scdenney/open-science-skills) | 💬 交互中 | 🟢 开箱即用 | 开放科学中心 (COS) 研究完整性与文献可复现性指南 (Center for Open Science (COS) / Open Science Framework (OSF)) | Researchers, Policy Analysts, Fact-Checkers |
+| 5 | [**jkitchin/skillz (citation-verifier)**](https://github.com/jkitchin/skillz) | 💬 交互中 | 🟢 开箱即用 | 卡耐基梅隆大学可计算学术与可重现科学论文准则 (John Kitchin Group) (Carnegie Mellon University) | Scientists, Academic Writers, LaTeX/Markdown Users |
+| 6 | [**Claim–Source Fact Checker (scdenney/open-science-skills)**](https://github.com/scdenney/open-science-skills) | 💬 交互中 | 🟢 开箱即用 | FEVER 国际事实抽取与证据链判定基准分类规范 (FEVER Academic Consortium) | Journalists, Long-form Writers, Editors |
+| 7 | [**Hallucination Risk Reviewer (Notysoty/openagentskills)**](https://github.com/Notysoty/openagentskills) | 💬 交互中 | 🟢 开箱即用 | ACM Computing Surveys (CSUR) 大语言模型幻觉分类与不确定性评估模型 (Association for Computing Machinery (ACM)) | Knowledge Workers, Editors, Content Teams, Researchers |
+| 8 | [**Vectara Hallucination Corrector HHEM (vectara)**](https://github.com/vectara/agent-skills) | 💬 交互中 | 🟡 需依赖 | Vectara Hughes 幻觉评估模型 (HHEM) 全球事实一致性基准 (Vectara AI Research) | Enterprise Analysts, RAG Operators, Researchers |
+| 9 | [**K-Dense Scientific Peer Review (K-Dense-AI)**](https://github.com/K-Dense-AI/scientific-agent-skills) | 💬 交互中 | 🟢 开箱即用 | 《自然·机器智能》关于人工智能辅助同行评审的质量与伦理规范 (Nature Portfolio (Springer Nature)) | Scientists, Peer Reviewers, Quantitative Analysts |
+| 10 | [**The Judge (tech-leads-club/agent-skills)**](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge) | 💬 交互中 | 🟢 开箱即用 | 马丁·福勒 (Martin Fowler) 实证驱动软件架构评审准则 (ThoughtWorks / Martin Fowler Architecture Foundation) | Knowledge Workers, Students, Researchers, Engineers |
+
+### 3. 什么时候不能听 AI？
+*破除“自动化偏见”（Automation Bias）与盲目赞同，划定人类决策的独立思考防线。*
+
+| 序号 | 技能名称 | 工作流时机 | 运行状态 | 对齐技术标准 | 适用人群 |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| 1 | [**The Fool (tech-leads-club/agent-skills)**](https://github.com/tech-leads-club/agent-skills) | 💬 交互中 | 🟢 开箱即用 | 卡尼曼《思考，快与慢》双系统认知偏差防御与苏格拉底反诘法 (Cognitive Science & Decision Making Foundations) | Managers, Founders, Strategists, Analysts |
+| 2 | [**Sycophancy Challenger (mohitagw15856/pm-claude-skills)**](https://github.com/mohitagw15856/pm-claude-skills) | 💬 交互中 | 🟢 开箱即用 | Anthropic 官方研究：大语言模型阿谀奉承（Sycophancy）偏见的实证防御准则 (Anthropic Research) | Decision Makers, Product Managers, Founders |
+| 3 | [**jihlenburg/mad-skills (devils-advocate)**](https://github.com/jihlenburg/mad-skills) | 💬 交互中 | 🟢 开箱即用 | 多智能体对抗辩论 (Multi-Agent Debate) 发散性思辨技术规范 (MAD Research Collective (Liang et al.)) | Strategists, Writers, System Architects |
+| 4 | [**Godfly Opposing Counsel (CassioRoos/godfly-skills)**](https://github.com/CassioRoos/godfly-skills) | 💬 交互中 | 🟢 开箱即用 | 法庭对抗性交叉质证 (Cross-Examination) 逻辑法理准则 (Classical Jurisprudence & Dialectical Philosophy) | Executives, Team Leads, System Planners, Legal Counsel |
+| 5 | [**Devil's Advocate Reviewer Agent (Imbad0202)**](https://github.com/Imbad0202/academic-research-skills) | 💬 交互中 | 🟢 开箱即用 | 哈佛商业评论 Gary Klein“事前尸检”(Pre-Mortem) 决策防灾法 (Harvard Business Publishing) | Researchers, PhD Candidates, Academic Authors |
+| 6 | [**Multi-Perspective Red-Team Review (mohitagw15856)**](https://github.com/mohitagw15856/pm-claude-skills) | 💬 交互中 | 🟢 开箱即用 | 美国国家标准与技术研究院 (NIST AI 100-1) 红队对抗性压力测试指南 (National Institute of Standards and Technology (NIST)) | Product Managers, Editors, Team Leads, Strategists |
+| 7 | [**Devil's Advocate Anti-Sycophancy (molly-diversifiedfun)**](https://github.com/molly-diversifiedfun/claude-skills) | 💬 交互中 | 🟢 开箱即用 | 强化学习对话式迎合倾向 (Conversational Agreeableness) 纠偏准则 (AI Alignment Research Community) | Executives, Strategists, Authors, Researchers |
+| 8 | [**The Jury (tech-leads-club/agent-skills)**](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury) | 💬 交互中 | 🟢 开箱即用 | 孔多塞陪审团定理与分布式认知群体决策数学模型 (Social Choice Theory & Collective Intelligence) | Decision Makers, Researchers, Product Managers, General Users |
+| 9 | [**Discernment Nudge (anthropics/skills)**](https://github.com/anthropics/skills/tree/main/skills/discernment-nudge) | 💬 交互中 | 🟢 开箱即用 | Anthropic AI Fluency 批判性鉴别力与主动认知阻尼标准 (Anthropic) | Students, Patients, Consumers, Everyone using AI for advice |
+| 10 | [**Review Reception & Anti-Compliance (obra/superpowers)**](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review) | 💬 交互中 | 🟢 开箱即用 | Superpowers 架构准则：认知独立性与反盲从代码评审原则 (Jesse Vincent (obra) / Superpowers Framework) | Knowledge Workers, Engineers, Researchers, Critical Thinkers |
+
+### 4. 输出能不能直接发布？
+*让第三方（同事、读者、客户、监管）能够方便地核查验证成果证据链，拒绝空洞的形式化免责。*
+
+| 序号 | 技能名称 | 工作流时机 | 运行状态 | 对齐技术标准 | 适用人群 |
+| :---: | :--- | :--- | :---: | :--- | :--- |
+| 1 | [**AI Provenance (noheton/f-ai2-r)**](https://github.com/noheton/f-ai2-r) | 📤 交付前 | 🟢 开箱即用 | 万维网联盟 (W3C) PROV 数据本体与数字产物溯源国际标准 (World Wide Web Consortium (W3C)) | Researchers, Journalists, Authors, Developers |
+| 2 | [**Publish Gate (StiflerMaxwell/vertu-english-publishing-workflow)**](https://github.com/StiflerMaxwell/vertu-english-publishing-workflow) | 📤 交付前 | 🟢 开箱即用 | Google Search Central 优质内容系统与 EEAT (经验/专业/权威/可信) 指南 (Google Search Central) | Editors, Content Teams, Media Creators |
+| 3 | [**PR AI Disclosure Gate (harlan-zw/harlan-agent-kit)**](https://github.com/harlan-zw/harlan-agent-kit) | 📤 交付前 | 🟢 开箱即用 | 开源促进会 (OSI) 与 Linux 基金会关于开源协同 AI 代码披露准则 (Open Source Initiative (OSI) & Linux Foundation) | Open Source Maintainers, Software Engineers, Technical Writers |
+| 4 | [**GDPR Compliance Audit (mukul975/Privacy-Data-Protection-Skills)**](https://github.com/mukul975/Privacy-Data-Protection-Skills) | 🧹 归档时 | 🟢 开箱即用 | 欧盟 GDPR 第 22 条关于自动化个人决策与算法透明度法定权利 (European Union Legal Framework) | Software Engineers, Compliance Officers, Legal Auditors |
+| 5 | [**Publish Prep Review (45ck/content-machine)**](https://github.com/45ck/content-machine) | 📤 交付前 | 🟢 开箱即用 | 美联社 (AP) 新闻采编生成式 AI 事实核对与人工复核三重戒律 (The Associated Press (AP)) | Content Creators, Editors, Media Production Teams |
+| 6 | [**AI Disclosure Convention SPDX-style (ggfevans)**](https://github.com/ggfevans/ai-disclosure) | 📤 交付前 | 🟢 开箱即用 | Linux 基金会 SPDX 软件包数据交换国际标准 (ISO/IEC 5962:2021) 声明协议 (Linux Foundation & ISO) | Developers, Authors, Compliance Officers |
+| 7 | [**Skill Provenance Tracker (snapsynapse)**](https://github.com/snapsynapse/skill-provenance) | 🧹 归档时 | 🟢 开箱即用 | IETF & W3C 可验证凭据与账本审计不可篡改收据标准 (Internet Engineering Task Force (IETF) & W3C) | Auditors, Enterprise Researchers, System Architects |
+| 8 | [**Verification Before Completion (obra/superpowers)**](https://github.com/obra/superpowers/tree/main/skills/verification-before-completion) | 📤 交付前 | 🟢 开箱即用 | Superpowers 软件工程铁律：完成声明前必须出示实测通过命令证据 (Jesse Vincent (obra) / Superpowers Framework) | Developers, Editors, Writers, Operations Specialists |
+| 9 | [**Humanizer (blader/humanizer)**](https://github.com/blader/humanizer) | 📤 交付前 | 🟢 开箱即用 | 维基百科官方编辑社群指南：《识别 AI 生成文本的典型标志》(Wikipedia:Signs of AI-generated text) (Wikimedia Foundation / Wikipedia Editors Community) | Writers, Marketers, Journalists, Students, Anyone publishing text |
+| 10 | [**Marketing Claims Review (anthropics/claude-for-legal)**](https://github.com/anthropics/claude-for-legal/tree/main/product-legal/skills/marketing-claims-review) | 📤 交付前 | 🟢 开箱即用 | 美国联邦贸易委员会 (FTC) 广告声明实证原则与反欺诈消费者保护标准 (16 CFR Part 255 / Section 5) (US Federal Trade Commission (FTC)) | Product Managers, Marketers, Copywriters, Legal Counsel |
+| 11 | [**Web Accessibility Gate (tech-leads-club/agent-skills)**](https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-accessibility) | 📤 交付前 | 🟢 开箱即用 | 万维网联盟 (W3C) Web 内容无障碍指南国际标准 (WCAG 2.1 Level AA / ISO/IEC 40500:2012) (World Wide Web Consortium (W3C) & ISO) | Frontend Developers, Product Designers, Accessibility Officers |
+| 12 | [**Repo Security & Secret Gate (Consensys)**](https://github.com/Consensys/repo-security-review) | 📤 交付前 | 🟢 开箱即用 | OWASP Top 10 应用程序安全风险标准与 Gitleaks 敏感凭证检测规范 (OWASP Foundation & Consensys Security) | Software Developers, Security Engineers, DevOps Teams |
+| 13 | [**License Compliance Audit (apache/magpie)**](https://github.com/apache/magpie/tree/main/plugins/magpie-repo-health/skills/license-compliance-audit) | 📤 交付前 | 🟢 开箱即用 | Linux 基金会 SPDX 软件包数据交换国际标准 (ISO/IEC 5962:2021) 与 Apache 许可证合规规范 (Linux Foundation, ISO & Apache Software Foundation) | Open Source Maintainers, Software Authors, Compliance Officers |
+
+---
+
 ## 📦 客户端技能安装规范（目录指南）
 
-根据 Agent Skills 开源标准，不同客户端加载本地技能的路径如下：
-* **Cursor / Google Antigravity:** `.agents/skills/<skill-name>/SKILL.md`
-* **Claude Code:** `.claude/skills/<skill-name>/SKILL.md`
+根据开放 **Agent Skills 规范**（`SKILL.md`），不同客户端加载本地技能的路径如下：
 
-安装时请**完整复制整个技能文件夹**（包含自带的脚本和引用文件），而不要仅复制单份 `SKILL.md`。
+### 各平台目录位置
+
+* **Claude Code:**
+  ```bash
+  # 项目级技能（推荐，跟随代码库共享）
+  mkdir -p .claude/skills/<skill-name>/
+  # 用户全局技能（所有会话通用）
+  mkdir -p ~/.claude/skills/<skill-name>/
+  ```
+
+* **Cursor / Google Antigravity:**
+  ```bash
+  mkdir -p .agents/skills/<skill-name>/
+  ```
+
+> [!IMPORTANT]
+> **必须完整复制整个技能文件夹**：许多高质量技能内置了独立的 Python/Bash 校验脚本、威胁规则库与参考模板。绝不要只单份复制 `SKILL.md`，请始终按各条目的安装命令完整拉取整个目录。
 
 ---
 
-## 🧭 四大核心实务问题导航
+## 🔬 运行状态与实证指标评定说明
 
-* [1. 我能把什么给 AI？](#1-我能把什么给-ai)
-* [2. 哪些回答能信？](#2-哪些回答能信)
-* [3. 什么时候不能听 AI？](#3-什么时候不能听-ai)
-* [4. 输出能不能直接发布？](#4-输出能不能直接发布)
+为了让每位使用者清晰了解工具的可用程度，本库彻底废弃生涩难懂的技术黑话，将技能评定建立在**客观真实数据与本地实测证据**之上：
+
+* **🟢 开箱即用 (实测通过)**：纯提示词/规则工程规范，无外部二进制依赖，直接导入客户端即可生效。所有工作流逻辑已通过完整语法与调用校验。
+* **🟡 需配置依赖 (环境就绪)**：需在本地预装指定环境（如 Python 3.10+、SpaCy NER 实体识别库、Gitleaks 密钥扫描器等）或配置专用 API Token，具备明确的前提条件。
+* **100% 真实开源存活**：全量 43 项技能通过 `npm run test:remote` 自动化实时校验（43/43 全部 HTTP 200）。零合成提示词，零失效死链。
 
 ---
+
+## 📂 四大核心实务问题（43 项技能详述）
 
 ### 1. 我能把什么给 AI？
 *防止将个人身份信息（PII）、商业机密草案或受保护的访谈记录无意泄露给商业大模型作为训练语料。*
@@ -702,6 +829,54 @@
   ```bash
   git clone https://github.com/apache/magpie.git && cp -R apache/magpie/plugins/magpie-repo-health/skills/license-compliance-audit .agents/skills/
   ```
+
+---
+
+## 🗂️ 代码仓库组织目录
+
+```text
+.
+├── site/                       # 静态网页应用
+│   ├── index.html              # 📖 实务长篇指南 (Field Guide)
+│   ├── library.html            # 🛡️ 交互式技能库 (Skill Library)
+│   ├── css/style.css           # 全站样式、排版与深色模式支持
+│   ├── js/
+│   │   ├── guide.js            # 指南页面逻辑、目录随动高亮与行文微弹窗
+│   │   └── library.js          # 技能库检索、过滤与详情弹窗交互
+│   ├── data/
+│   │   └── items.json          # 全量 43 项技能核心主数据库
+│   └── sitemap.xml             # 搜索引擎索引地图
+├── scripts/                    # 自动化与质检工具
+│   ├── verify-data.js          # Schema 格式与数据门禁测试 (npm test)
+│   ├── verify-remote.js        # 43 个 GitHub 链接实时存活巡检 (npm run test:remote)
+│   ├── generate-readmes.js     # 自动生成中英双语 README (npm run build)
+│   └── serve.js                # 双端口本地开发静态服务器 (npm run serve)
+├── CONTRIBUTING.md             # 贡献准则、Schema 规范与提交模板
+├── README.md                   # 英文主文档
+├── README_CN.md                # 中文主文档
+└── package.json
+```
+
+---
+
+## 🧪 本地开发与质检指令
+
+本项目拥有严苛的自动化工程与质量守卫标准：
+
+```bash
+# 1. 执行 Schema 格式规范与本地规则测试
+npm test
+
+# 2. 批量并发探测 43 项技能的 GitHub 真实在线状态 (HTTP 200 巡检)
+npm run test:remote
+
+# 3. 从 site/data/items.json 全自动重新生成中英双语 README
+npm run build
+
+# 4. 启动本地双端口热重载静态服务器
+npm run serve
+# 访问 http://localhost:3000 (实务指南) 或 http://localhost:3000/library.html (技能库)
+```
 
 ---
 

@@ -36,7 +36,7 @@ function generateReadmeEn() {
   md += `  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all ${items.length} skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.\n\n`;
   md += `* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/ai-skills/library.html)** (*Web Catalog / \`site/library.html\`*):\n`;
   md += `  A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.\n\n`;
-  md += `* 💻 **[The Open-Source GitHub Repository](https://github.com)** (*This Repo*):\n`;
+  md += `* 💻 **[The Open-Source GitHub Repository](https://github.com/digitalrightsforall/guide_responsible_AI_use)** (*This Repo*):\n`;
   md += `  The canonical source of truth containing standardized data schemas (\`site/data/items.json\`), automated quality gate scripts, and developer tooling.\n\n`;
   md += `---\n\n`;
 
@@ -151,7 +151,7 @@ function generateReadmeCn() {
   md += `  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **5 大核心工作流场景** 穿针引线串联全量 ${items.length} 项技能，提供 112 处微卡片原地交互与 3 大角色一日安全工作流。\n\n`;
   md += `* 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/ai-skills/library.html)**（*交互技能库 / \`site/library.html\`*）：\n`;
   md += `  开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。\n\n`;
-  md += `* 💻 **[GitHub 开源主仓库](https://github.com)**（*本仓库*）：\n`;
+  md += `* 💻 **[GitHub 开源主仓库](https://github.com/digitalrightsforall/guide_responsible_AI_use)**（*本仓库*）：\n`;
   md += `  严谨的数据中心与代码源泉。托管规范化的技能数据集（\`site/data/items.json\`）、严格的自动化测试质检门禁（\`scripts/\`）以及双语文档生成引擎。\n\n`;
   md += `---\n\n`;
 

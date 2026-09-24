@@ -16,7 +16,7 @@
 * 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/ai-skills/library.html)**（*交互技能库 / `site/library.html`*）：
   开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。
 
-* 💻 **[GitHub 开源主仓库](https://github.com)**（*本仓库*）：
+* 💻 **[GitHub 开源主仓库](https://github.com/digitalrightsforall/guide_responsible_AI_use)**（*本仓库*）：
   严谨的数据中心与代码源泉。托管规范化的技能数据集（`site/data/items.json`）、严格的自动化测试质检门禁（`scripts/`）以及双语文档生成引擎。
 
 ---

@@ -16,7 +16,7 @@ This project is designed as an interactive, dual-engine platform for everyone us
 * 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/ai-skills/library.html)** (*Web Catalog / `site/library.html`*):
   A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.
 
-* 💻 **[The Open-Source GitHub Repository](https://github.com)** (*This Repo*):
+* 💻 **[The Open-Source GitHub Repository](https://github.com/digitalrightsforall/guide_responsible_AI_use)** (*This Repo*):
   The canonical source of truth containing standardized data schemas (`site/data/items.json`), automated quality gate scripts, and developer tooling.
 
 ---

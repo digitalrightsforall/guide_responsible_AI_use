@@ -14,13 +14,21 @@ const i18n = {
     heroBadge: "✨ 普通人的数字权利 · 实务技能库",
     heroTitle: "负责任与安全使用 AI 技能库",
     heroHighlight: "对内防采集与盲信，对外让第三方好核查",
-    heroSubtitle: "精选开源社区现存成熟的 43 项 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。",
-    heroGuideLink: "📖 了解完整设计理念与 5 大实战场景：阅读《实务指南》 →",
+    heroSubtitle: "精选开源社区现存成熟的 44 项 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。",
+    heroGuideLink: "📖 了解完整设计理念与 6 大实战场景：阅读《实务指南》 →",
 
     bannerShieldTitle: "对内·自我防护与边界",
     bannerShieldDesc: "警惕商业大模型将你的日常对话、未公开草稿当做免费语料过度采集；警惕 AI 极度自信的幻觉与迎合，坚守独立思考与决策权。",
     bannerRulerTitle: "对外·成果第三方可核验",
     bannerRulerDesc: "当你使用 AI 辅助产出方案、报告或代码时，主动附带原始证据链、推演记录与核验切入点，不让同事、读者或客户盲信盲猜。",
+
+    clientSectionTitle: "客户端生态快速筛选 (Client Ecosystem)",
+    clientAll: "🌟 全部客户端",
+    clientTrae: "🇨🇳 Trae IDE",
+    clientWorkbuddy: "🇨🇳 WorkBuddy",
+    clientCursor: "💻 Cursor",
+    clientClaude: "🤖 Claude Code",
+    clientWeb: "🌐 纯规则/通用",
 
     catSectionTitle: "实务问题导航 (Practical Questions)",
     catAll: "全部问题",
@@ -41,6 +49,10 @@ const i18n = {
     whyChosenLabel: "🎯 为什么精选收录：",
     whenToUseLabel: "⏰ 准确使用时机：",
     howToUseLabel: "🛠️ 如何使用：",
+    clientGuideTitle: "💻 适用客户端安装命令与路径指引：",
+    clientDirLabel: "安装路径：",
+    copyClientCmd: "复制命令",
+    regulatoryBadgesLabel: "⚖️ 法理依据与权威标准微标签：",
     standardLabel: "📐 技术依据与对齐标准：",
     reviewsLabel: "🌐 独立第三方评测与生态收录：",
     noReviewsNote: "🌱 开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。",
@@ -78,13 +90,21 @@ const i18n = {
     heroBadge: "✨ Digital Rights for All · Skill Library",
     heroTitle: "Responsible and Safe AI Skill Library",
     heroHighlight: "Inward: Guard against harvesting & blind trust; Outward: Enable third-party verifiability",
-    heroSubtitle: "A curated collection of 43 production-ready SKILL.md packages. We do not invent new tools—we help everyday knowledge workers, researchers, and professionals adopt proven guardrails: guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.",
+    heroSubtitle: "A curated collection of 44 production-ready SKILL.md packages. We do not invent new tools—we help everyday knowledge workers, researchers, and professionals adopt proven guardrails: guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.",
     heroGuideLink: "📖 Read the Practical Field Guide for scenarios & principles →",
 
     bannerShieldTitle: "Inward: Self-Defense & Boundaries",
     bannerShieldDesc: "Guard against commercial AI over-harvesting your private text into training corpora, and guard against blind faith in confident hallucinations.",
     bannerRulerTitle: "Outward: Third-Party Verifiability",
     bannerRulerDesc: "When delivering AI-assisted work, provide clear evidence trails and verification avenues so colleagues and readers can easily audit your results.",
+
+    clientSectionTitle: "CLIENT ECOSYSTEM",
+    clientAll: "🌟 All Clients",
+    clientTrae: "🇨🇳 Trae IDE",
+    clientWorkbuddy: "🇨🇳 WorkBuddy",
+    clientCursor: "💻 Cursor",
+    clientClaude: "🤖 Claude Code",
+    clientWeb: "🌐 Prompt / Universal",
 
     catSectionTitle: "PRACTICAL QUESTIONS",
     catAll: "All Questions",
@@ -105,6 +125,10 @@ const i18n = {
     whyChosenLabel: "🎯 Why This Was Chosen:",
     whenToUseLabel: "⏰ When to Use:",
     howToUseLabel: "🛠️ How to Use:",
+    clientGuideTitle: "💻 Client Installation Commands & Directory Guide:",
+    clientDirLabel: "Directory:",
+    copyClientCmd: "Copy",
+    regulatoryBadgesLabel: "⚖️ Statutory & Standard Alignment Badges:",
     standardLabel: "📐 Technical & Methodological Alignment:",
     reviewsLabel: "🌐 Direct Third-Party Reviews & Inclusions:",
     noReviewsNote: "🌱 Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.",
@@ -133,6 +157,7 @@ const i18n = {
 };
 
 let currentLang = localStorage.getItem("rai_lang") || "zh";
+let currentClient = "all";
 let currentCategory = "all";
 let currentTiming = "all";
 let searchQuery = "";
@@ -165,7 +190,7 @@ function toggleTheme() {
 // Load Data with cache-busting
 async function loadItems() {
   try {
-    const response = await fetch(`data/items.json?_t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch("data/items.json");
     itemsData = await response.json();
     updateFilterCounts();
     renderCards();
@@ -175,6 +200,20 @@ async function loadItems() {
 }
 
 function updateFilterCounts() {
+  // Client ecosystem counts
+  const clientCounts = {
+    all: itemsData.length,
+    "Trae IDE": itemsData.filter((i) => i.clients && i.clients.includes("Trae IDE")).length,
+    "WorkBuddy": itemsData.filter((i) => i.clients && i.clients.includes("WorkBuddy")).length,
+    "Cursor": itemsData.filter((i) => i.clients && i.clients.includes("Cursor")).length,
+    "Claude Code": itemsData.filter((i) => i.clients && i.clients.includes("Claude Code")).length,
+    "Web/通用提示词": itemsData.filter((i) => i.clients && i.clients.includes("Web/通用提示词")).length
+  };
+  Object.entries(clientCounts).forEach(([client, count]) => {
+    const el = document.querySelector(`[data-client="${client}"] .filter-count`);
+    if (el) el.textContent = count;
+  });
+
   const catCounts = {
     all: itemsData.length,
     "feed-to-ai": itemsData.filter((i) => i.category === "feed-to-ai").length,
@@ -218,6 +257,16 @@ function setupEventListeners() {
   searchInput?.addEventListener("input", (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
     renderCards();
+  });
+
+  // Client ecosystem filter buttons
+  document.querySelectorAll("[data-client]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-client]").forEach((b) => b.classList.remove("active-client"));
+      btn.classList.add("active-client");
+      currentClient = btn.getAttribute("data-client");
+      renderCards();
+    });
   });
 
   // Category buttons
@@ -313,6 +362,15 @@ function updateLanguageUI() {
   setText("t-banner-ruler-title", t.bannerRulerTitle);
   setText("t-banner-ruler-desc", t.bannerRulerDesc);
 
+  // Client Ecosystem labels
+  setText("t-client-section-title", t.clientSectionTitle);
+  setBtnLabel("t-client-all", t.clientAll);
+  setBtnLabel("t-client-trae", t.clientTrae);
+  setBtnLabel("t-client-workbuddy", t.clientWorkbuddy);
+  setBtnLabel("t-client-cursor", t.clientCursor);
+  setBtnLabel("t-client-claude", t.clientClaude);
+  setBtnLabel("t-client-web", t.clientWeb);
+
   // Category labels
   setText("t-cat-section-title", t.catSectionTitle);
   setBtnLabel("t-cat-all", t.catAll);
@@ -357,6 +415,10 @@ function renderCards() {
   if (!container) return;
 
   const filtered = itemsData.filter((item) => {
+    // Client filter
+    if (currentClient !== "all") {
+      if (!item.clients || !item.clients.includes(currentClient)) return false;
+    }
     // Category filter
     if (currentCategory !== "all" && item.category !== currentCategory) return false;
     // Timing filter
@@ -371,7 +433,9 @@ function renderCards() {
       const matchTiming = (currentLang === "zh" ? item.timing_desc_cn : item.timing_desc_en).toLowerCase().includes(searchQuery);
       const matchClients = item.clients.some((c) => c.toLowerCase().includes(searchQuery));
       const matchPersona = item.target_persona.toLowerCase().includes(searchQuery);
-      if (!matchName && !matchSummary && !matchWhy && !matchCare && !matchHow && !matchTiming && !matchClients && !matchPersona) return false;
+      const matchBadges = (item.regulatory_badges || []).some((b) => b.toLowerCase().includes(searchQuery)) ||
+                          (item.regulatory_badges_en || []).some((b) => b.toLowerCase().includes(searchQuery));
+      if (!matchName && !matchSummary && !matchWhy && !matchCare && !matchHow && !matchTiming && !matchClients && !matchPersona && !matchBadges) return false;
     }
     return true;
   });
@@ -465,14 +529,27 @@ function renderCard(item) {
           </span>
         </div>
 
-        <!-- 2. Skill Name + GitHub Link -->
-        <div>
+        <!-- 2. Skill Name + GitHub Link + Regulatory Badges -->
+        <div class="space-y-2">
           <h3 class="text-lg font-black text-slate-900 dark:text-white leading-tight">
             <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors inline-flex items-center gap-1.5 group">
               <span>${item.name}</span>
               <svg class="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-brand shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
           </h3>
+          ${(() => {
+            const badges = (currentLang === "zh" || !item.regulatory_badges_en) ? item.regulatory_badges : item.regulatory_badges_en;
+            if (!badges || badges.length === 0) return '';
+            return `
+              <div class="flex flex-wrap gap-1.5 pt-0.5">
+                ${badges.map(b => `
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50/90 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80 shadow-2xs">
+                    ⚖️ ${escapeHtml(b)}
+                  </span>
+                `).join('')}
+              </div>
+            `;
+          })()}
         </div>
 
         <!-- 3. Dimension: 为何普通人应该关心 (Why Everyday People Should Care) -->
@@ -577,6 +654,7 @@ function renderCard(item) {
 }
 
 // Toast notification helper
+let _toastTimer = null;
 function showToast(message) {
   let toast = document.getElementById("toast");
   if (!toast) {
@@ -585,8 +663,9 @@ function showToast(message) {
     document.body.appendChild(toast);
   }
   toast.textContent = message;
+  clearTimeout(_toastTimer);
   toast.classList.add("show");
-  setTimeout(() => {
+  _toastTimer = setTimeout(() => {
     toast.classList.remove("show");
   }, 2500);
 }
@@ -763,6 +842,25 @@ function openModal(id) {
   const bodyEl = document.getElementById("modal-body");
   if (bodyEl) {
     bodyEl.innerHTML = `
+      ${(() => {
+        const badges = (currentLang === "zh" || !item.regulatory_badges_en) ? item.regulatory_badges : item.regulatory_badges_en;
+        if (!badges || badges.length === 0) return '';
+        return `
+          <div class="flex flex-wrap items-center gap-2 p-3.5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 text-xs">
+            <span class="font-extrabold text-indigo-950 dark:text-indigo-200 shrink-0">
+              ${t.regulatoryBadgesLabel}
+            </span>
+            <div class="flex flex-wrap gap-1.5">
+              ${badges.map(b => `
+                <span class="inline-flex items-center gap-1 font-semibold px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shadow-2xs">
+                  ⚖️ ${escapeHtml(b)}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      })()}
+
       <div class="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 space-y-1.5">
         <h4 class="font-extrabold text-amber-900 dark:text-amber-200 flex items-center gap-1.5 text-xs sm:text-sm">
           ${t.whyCareLabel}
@@ -790,6 +888,46 @@ function openModal(id) {
           <button data-modal-copy="${escapeHtml(item.action_content)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand hover:bg-brand-dim text-white font-sans text-xs font-bold transition-colors cursor-pointer">
             ${t.copyCommand}
           </button>
+        </div>
+      </div>
+
+      <!-- Multi-Client Installation Commands & Paths -->
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-3 text-xs sm:text-sm">
+        <h4 class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+          ${t.clientGuideTitle}
+        </h4>
+        <div class="space-y-2">
+          ${item.clients.map(client => {
+            let dirPath = '';
+            let cmd = '';
+            if (client === 'Trae IDE' || client === 'WorkBuddy' || client === 'Cursor') {
+              dirPath = `.agents/skills/${item.id}/`;
+              cmd = `mkdir -p .agents/skills/${item.id} && git clone --depth=1 ${item.url} .agents/skills/${item.id}`;
+            } else if (client === 'Claude Code') {
+              dirPath = `.claude/skills/${item.id}/`;
+              cmd = `mkdir -p .claude/skills/${item.id} && git clone --depth=1 ${item.url} .claude/skills/${item.id}`;
+            } else {
+              dirPath = currentLang === 'zh' ? '系统提示词 / 自定义规则' : 'System Prompt / Custom Instructions';
+              cmd = item.action_content;
+            }
+            return `
+              <div class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <div class="space-y-0.5 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-800 dark:text-slate-200 text-xs">${escapeHtml(client)}</span>
+                    <span class="font-mono text-[11px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">${escapeHtml(dirPath)}</span>
+                  </div>
+                  <div class="font-mono text-[11px] text-slate-600 dark:text-slate-400 truncate max-w-xl">
+                    ${escapeHtml(cmd)}
+                  </div>
+                </div>
+                <button data-modal-copy="${escapeHtml(cmd)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand/10 hover:bg-brand text-brand hover:text-white dark:bg-brand/20 dark:hover:bg-brand dark:text-brand-container dark:hover:text-white font-sans text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1 shadow-2xs">
+                  <span>📋</span>
+                  <span>${t.copyClientCmd}</span>
+                </button>
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
 
@@ -918,6 +1056,39 @@ function openModal(id) {
   const githubLink = document.getElementById("modal-github-link") || document.getElementById("modal-github");
   if (githubLink) {
     githubLink.href = item.url;
+  }
+
+  const guideLinkMaps = {
+    "pre-input": "index.html#sec-3-1",
+    "during-chat": "index.html#sec-3-2",
+    "pre-handoff": "index.html#sec-3-5",
+    "post-session": "index.html#sec-3-6"
+  };
+  let guideLink = document.getElementById("modal-guide-link");
+  if (!guideLink && githubLink) {
+    guideLink = document.createElement("a");
+    guideLink.id = "modal-guide-link";
+    guideLink.className = "px-5 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2";
+    guideLink.innerHTML = "📖 在指南中查看场景";
+    
+    // Create a container if not exists to group github and guide links
+    if (githubLink.parentNode.classList.contains("justify-between")) {
+      const container = document.createElement("div");
+      container.className = "flex flex-col sm:flex-row items-stretch sm:items-center gap-2";
+      githubLink.parentNode.insertBefore(container, githubLink);
+      container.appendChild(githubLink);
+      container.appendChild(guideLink);
+    } else {
+      githubLink.parentNode.insertBefore(guideLink, githubLink.nextSibling);
+    }
+  }
+  if (guideLink) {
+    if (guideLinkMaps[item.timing]) {
+      guideLink.href = guideLinkMaps[item.timing];
+      guideLink.style.display = "flex";
+    } else {
+      guideLink.style.display = "none";
+    }
   }
 
   const copyBtn = document.getElementById("modal-copy") || document.getElementById("modal-copy-btn");

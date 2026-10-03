@@ -78,7 +78,8 @@ items.forEach((item, index) => {
     'how_to_use_en',
     'status',
     'action_type',
-    'action_content'
+    'action_content',
+    'regulatory_badges'
   ];
 
   requiredFields.forEach((field) => {
@@ -140,10 +141,37 @@ items.forEach((item, index) => {
     errors++;
   }
 
-  // Check clients is array
+  // Canonical clients verification
+  const canonicalClients = [
+    'Trae IDE',
+    'WorkBuddy',
+    'Cursor',
+    'Claude Code',
+    'Web/通用提示词'
+  ];
   if (!Array.isArray(item.clients) || item.clients.length === 0) {
     console.error(`❌ ${prefix} 'clients' must be a non-empty array of strings`);
     errors++;
+  } else {
+    item.clients.forEach((c) => {
+      if (!canonicalClients.includes(c)) {
+        console.error(`❌ ${prefix} Non-canonical client '${c}'. Allowed: ${canonicalClients.join(', ')}`);
+        errors++;
+      }
+    });
+  }
+
+  // Check regulatory_badges is a non-empty array of valid strings
+  if (!Array.isArray(item.regulatory_badges) || item.regulatory_badges.length === 0) {
+    console.error(`❌ ${prefix} 'regulatory_badges' must be a non-empty array of strings`);
+    errors++;
+  } else {
+    item.regulatory_badges.forEach((b) => {
+      if (typeof b !== 'string' || b.trim() === '') {
+        console.error(`❌ ${prefix} Invalid or empty badge in 'regulatory_badges': ${b}`);
+        errors++;
+      }
+    });
   }
 
   // Check URL is a genuine public GitHub repository (no raw gists or synthetic placeholders)

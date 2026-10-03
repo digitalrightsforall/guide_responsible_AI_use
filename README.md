@@ -1,6 +1,6 @@
-# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-43%20Curated-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-43%2F43%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)
+# Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-44%20Curated-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-44%2F44%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)
 
-> A curated collection of 43 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
+> A curated collection of 44 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
 
 **English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)
 
@@ -11,7 +11,7 @@
 This project is designed as an interactive, dual-engine platform for everyone using modern LLMs and agentic IDEs:
 
 * 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/guide_responsible_AI_use/)** (*Web Homepage / `site/index.html`*):
-  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all 43 skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.
+  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all 44 skills across **6 daily workflow scenarios** (including platform baseline hardening and Agent sandbox execution) with clickable inline skill pills and persona playbooks.
 
 * 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/guide_responsible_AI_use/library.html)** (*Web Catalog / `site/library.html`*):
   A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.
@@ -42,18 +42,18 @@ In this project, we curate **existing, proven open-source skills** (we strictly 
 
 ## 🧭 The Four Practical Questions
 
-Rather than debating abstract ethics, this project anchors responsible and safe AI use in **four urgent desktop questions**. All 43 production-ready skills are curated in our interactive web application:
+Rather than debating abstract ethics, this project anchors responsible and safe AI use in **four urgent desktop questions**. All 44 production-ready skills are curated in our interactive web application:
 
 | Practical Question | Threat Addressed & Core Connotation | Skills Count | Web Explorer |
 | :--- | :--- | :---: | :--- |
-| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **11 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
 | **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
 | **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
 | **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **13 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
 
 > 🌟 **Explore the Full Interactive Platform**:
-> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.
-> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)**: Instant search and filtering across all 43 skills, complete with international standards, third-party reviews, and one-click install commands.
+> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 6 real-world workflow scenarios with clickable inline skill pills.
+> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)**: Instant search and filtering across all 44 skills, complete with international standards, third-party reviews, and one-click install commands.
 
 ---
 
@@ -87,7 +87,7 @@ To ensure absolute transparency and banish obscure technical jargon, each skill 
 
 * **🟢 Ready to Use (Verified):** Pure prompt/rules engineering conforming to the `SKILL.md` specification with zero local binary dependencies. Effective immediately upon placement into the client skill directory. All workflow steps have passed local syntax and logic testing.
 * **🟡 Requires Setup (Ready):** Requires a local environment dependency (e.g. Python 3.10+, SpaCy NER model, Gitleaks scanner) or a dedicated API token. Clear prerequisites are documented in the skill details.
-* **100% Remote Verification:** All 43 repositories are verified live via `npm run test:remote` (43/43 HTTP 200). We enforce zero placeholders and zero synthetic prompts.
+* **100% Remote Verification:** All 44 repositories are verified live via `npm run test:remote` (44/44 HTTP 200). We enforce zero placeholders and zero synthetic prompts.
 
 ---
 
@@ -103,7 +103,7 @@ To ensure absolute transparency and banish obscure technical jargon, each skill 
 │   │   ├── guide.js            # Guide logic, scrollspy & inline modals
 │   │   └── library.js          # Library search, filter & detail modals
 │   ├── data/
-│   │   └── items.json          # Master database of all 43 vetted skills
+│   │   └── items.json          # Master database of all 44 vetted skills
 │   └── sitemap.xml             # Search engine optimization index
 ├── scripts/                    # Automation & Quality Gate Tooling
 │   ├── verify-data.js          # Schema & integrity test gate (npm test)
@@ -126,7 +126,7 @@ This repository maintains strict engineering and verification standards:
 # 1. Validate data schema and 100% SKILL.md format constraint
 npm test
 
-# 2. Test live HTTP 200 reachability for all 43 remote GitHub repositories
+# 2. Test live HTTP 200 reachability for all 44 remote GitHub repositories
 npm run test:remote
 
 # 3. Regenerate English & Chinese READMEs from site/data/items.json

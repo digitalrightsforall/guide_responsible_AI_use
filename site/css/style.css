@@ -48,7 +48,7 @@
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: var(--bg-light);
   color: var(--on-surface);
   transition: background-color 0.25s ease, color 0.25s ease;
@@ -177,8 +177,8 @@ body {
 #toast {
   visibility: hidden;
   min-width: 260px;
-  background-color: #2d3338;
-  color: #fff;
+  background-color: var(--on-surface);
+  color: var(--surface-lowest);
   text-align: center;
   border-radius: 9999px;
   padding: 12px 24px;
@@ -297,6 +297,22 @@ body {
 }
 
 .filter-btn.active-timing .filter-count {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* Active Client Button */
+.filter-btn.active-client {
+  background-color: #0d9488 !important;
+  color: #ffffff !important;
+  border-color: #0d9488 !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px -2px rgba(13, 148, 136, 0.4) !important;
+  outline: 2px solid rgba(13, 148, 136, 0.3);
+  outline-offset: 2px;
+}
+
+.filter-btn.active-client .filter-count {
   background-color: rgba(255, 255, 255, 0.25) !important;
   color: #ffffff !important;
 }
@@ -498,3 +514,28 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Mobile table scroll hint — fade gradient on right edge */
+@media (max-width: 767px) {
+  .overflow-x-auto {
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .overflow-x-auto::after {
+    content: '';
+    position: sticky;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, var(--bg-light));
+    flex-shrink: 0;
+  }
+
+  .dark .overflow-x-auto::after {
+    background: linear-gradient(to right, transparent, var(--bg-dark));
+  }
+}
+

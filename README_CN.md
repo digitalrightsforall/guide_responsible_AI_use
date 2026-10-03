@@ -1,6 +1,6 @@
-# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-43%20项-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-43%2F43%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)
+# Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-44%20项-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-44%2F44%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)
 
-> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 43 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
+> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 44 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
 
 [English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/guide_responsible_AI_use/library.html)
 
@@ -11,7 +11,7 @@
 本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者构建了“认知 + 武器”的双轮驱动实操生态：
 
 * 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**（*网站首页 / `site/index.html`*）：
-  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **5 大核心工作流场景** 穿针引线串联全量 43 项技能，提供 112 处微卡片原地交互与 3 大角色一日安全工作流。
+  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **6 大核心工作流场景**（涵盖平台防静默留存基线、Agent 执行沙盒隔离等）穿针引线串联全量 44 项技能，提供微卡片原地交互与 3 大角色一日安全工作流。
 
 * 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**（*交互技能库 / `site/library.html`*）：
   开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。
@@ -42,17 +42,17 @@
 
 ## 🧭 四大核心实务问题导航
 
-我们在实务中不讨论空洞的高尚词汇，而是将负责任与安全使用 AI 归结为日常最紧迫的**四大实务追问**。全量 43 项开源规范技能已系统收录在我们的在线交互平台中：
+我们在实务中不讨论空洞的高尚词汇，而是将负责任与安全使用 AI 归结为日常最紧迫的**四大实务追问**。全量 44 项开源规范技能已系统收录在我们的在线交互平台中：
 
 | 实务问题 | 核心自卫威胁与实务内涵 | 包含技能 | 在线交互入口 |
 | :--- | :--- | :---: | :--- |
-| **1. 我能把什么给 AI？** | 阻断商业大模型对隐私草案、敏感个案与 PII 数据的隐蔽采集与语料兼并 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **1. 我能把什么给 AI？** | 阻断商业大模型对隐私草案、敏感个案与 PII 数据的隐蔽采集与语料兼并 | **11 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
 | **2. 哪些回答能信？** | 撕开 AI 极度自信的虚构引文（DOI 查伪）、捏造数据与权威口吻幻觉 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
 | **3. 什么时候不能听 AI？** | 破除大模型的算法谄媚（Sycophancy）与人类自动化偏见，坚守终审决策权 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
 | **4. 输出能不能直接发布？** | 强制执行商业广告法核查、SPDX 协议合规、代码密钥扫描与无障碍门禁 | **13 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
 
 > 🌟 **欢迎体验完整的在线双轮驱动平台**：
-> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：5 大真实工作流场景深度推演，行文内嵌 112 处微卡片原地交互。
+> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：6 大真实工作流场景深度推演，行文内嵌微卡片原地交互。
 > - 🛡️ **[探索《实务技能库》 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**：实时搜索、分类过滤、查阅各技能的权威标准对齐与第三方媒体报道，一键复制终端安装命令。
 
 ---
@@ -71,10 +71,20 @@
   mkdir -p ~/.claude/skills/<skill-name>/
   ```
 
-* **Cursor / Google Antigravity:**
+* **Cursor / Trae IDE (字节跳动) / Google Antigravity:**
   ```bash
+  # 项目根目录自动识别
   mkdir -p .agents/skills/<skill-name>/
   ```
+
+* **WorkBuddy AI / 桌面智能体:**
+  ```bash
+  # 放置于工作空间 skills 目录或自定义技能包引用路径
+  mkdir -p .agents/skills/<skill-name>/
+  ```
+
+* **豆包 / Kimi / 网页对话大模型:**
+  无需安装环境，读者可直接复制技能包内的核心核验规则（Prompt / Markdown 模板）作为系统指令或前置约束使用。
 
 > [!IMPORTANT]
 > **必须完整复制整个技能文件夹**：许多高质量技能内置了独立的 Python/Bash 校验脚本、威胁规则库与参考模板。绝不要只单份复制 `SKILL.md`，请始终按 [实务技能库](https://putongren.org/guide_responsible_AI_use/library.html) 中各条目的安装命令完整拉取整个目录。
@@ -87,7 +97,7 @@
 
 * **🟢 开箱即用 (实测通过)**：纯提示词/规则工程规范，无外部二进制依赖，直接导入客户端即可生效。所有工作流逻辑已通过完整语法与调用校验。
 * **🟡 需配置依赖 (环境就绪)**：需在本地预装指定环境（如 Python 3.10+、SpaCy NER 实体识别库、Gitleaks 密钥扫描器等）或配置专用 API Token，具备明确的前提条件。
-* **100% 真实开源存活**：全量 43 项技能通过 `npm run test:remote` 自动化实时校验（43/43 全部 HTTP 200）。零合成提示词，零失效死链。
+* **100% 真实开源存活**：全量 44 项技能通过 `npm run test:remote` 自动化实时校验（44/44 全部 HTTP 200）。零合成提示词，零失效死链。
 
 ---
 
@@ -103,11 +113,11 @@
 │   │   ├── guide.js            # 指南页面逻辑、目录随动高亮与行文微弹窗
 │   │   └── library.js          # 技能库检索、过滤与详情弹窗交互
 │   ├── data/
-│   │   └── items.json          # 全量 43 项技能核心主数据库
+│   │   └── items.json          # 全量 44 项技能核心主数据库
 │   └── sitemap.xml             # 搜索引擎索引地图
 ├── scripts/                    # 自动化与质检工具
 │   ├── verify-data.js          # Schema 格式与数据门禁测试 (npm test)
-│   ├── verify-remote.js        # 43 个 GitHub 链接实时存活巡检 (npm run test:remote)
+│   ├── verify-remote.js        # 44 个 GitHub 链接实时存活巡检 (npm run test:remote)
 │   ├── generate-readmes.js     # 自动生成中英双语 README (npm run build)
 │   └── serve.js                # 双端口本地开发静态服务器 (npm run serve)
 ├── CONTRIBUTING.md             # 贡献准则、Schema 规范与提交模板
@@ -126,7 +136,7 @@
 # 1. 执行 Schema 格式规范与本地规则测试
 npm test
 
-# 2. 批量并发探测 43 项技能的 GitHub 真实在线状态 (HTTP 200 巡检)
+# 2. 批量并发探测 44 项技能的 GitHub 真实在线状态 (HTTP 200 巡检)
 npm run test:remote
 
 # 3. 从 site/data/items.json 全自动重新生成中英双语 README

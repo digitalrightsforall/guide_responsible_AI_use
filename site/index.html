@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>负责任与安全使用 AI 实务指南 - 普通人的数字权利 · Practical Field Guide</title>
   
-  <meta name="description" content="《负责任与安全使用 AI 实务指南》：系统解构普通人在大模型时代的自卫策略。对内防采集与盲信，对外让成果第三方好核查，用 43 项成熟开源 SKILL.md 技能包破解现实困境。" />
+  <meta name="description" content="《负责任与安全使用 AI 实务指南》：系统解构普通人在大模型时代的自卫策略。对内防采集与盲信，对外让成果第三方好核查，用 44 项成熟开源 SKILL.md 技能包破解现实困境。" />
   <meta name="keywords" content="Responsible AI Guide, 安全使用 AI 指南, 普通人的数字权利, 提示词脱敏, 防幻觉, 反谄媚, 发布门禁, SKILL.md" />
   
   <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="普通人的数字权利 · Responsible & Safe AI Use" />
   <meta property="og:title" content="负责任与安全使用 AI 实务指南 - 普通人的数字权利" />
-  <meta property="og:description" content="用 43 项开源技能与 5 大工作流场景，系统解构如何在大模型时代保护个人数据主权与职业诚信。" />
+  <meta property="og:description" content="用 44 项开源技能与 5 大工作流场景，系统解构如何在大模型时代保护个人数据主权与职业诚信。" />
   <link rel="canonical" href="https://putongren.org/guide_responsible_AI_use/" />
   <meta property="og:url" content="https://putongren.org/guide_responsible_AI_use/" />
   
@@ -23,33 +23,7 @@
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>" />
   
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              DEFAULT: '#5e40e0',
-              dim: '#5130d4',
-              container: '#c3b8ff',
-            },
-            secondary: {
-              DEFAULT: '#455e93',
-              container: '#d8e2ff',
-            },
-            tertiary: {
-              DEFAULT: '#715e00',
-              container: '#fdd400',
-            }
-          }
-        }
-      }
-    };
-  </script>
-
+  <link rel="stylesheet" href="css/tailwind.css" />
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -147,19 +121,19 @@
         负责任与安全使用 AI：<span class="hand-drawn-underline" id="hero-title-highlight">普通人的实操指南</span>
       </h1>
       <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed hero-animate" id="hero-subtitle" style="animation-delay:0.13s">
-        从“盲信科技神话”到“手握实证工具”。本指南用严谨透彻的文字，解构我们为何构建这个开源库，如何把抽象伦理拆解为具体防线，以及 43 个技能如何无缝嵌入你的日常工作流。
+        从“盲信科技神话”到“手握实证工具”。本指南用严谨透彻的文字，解构我们为何构建这个开源库，如何把抽象伦理拆解为具体防线，以及 44 个技能如何无缝嵌入你的日常工作流。
       </p>
       
       <!-- Meta & Quick Actions -->
       <div class="pt-3 flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400">
         <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          ⏱️ <span id="meta-read-time">建议阅读：15 分钟</span>
+          ⏱️ <span id="meta-read-time">建议阅读：18 分钟</span>
         </span>
         <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          📦 <span id="meta-skills-count">覆盖 43 项开源规范技能</span>
+          📦 <span id="meta-skills-count">覆盖 44 项开源规范技能</span>
         </span>
         <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          🎯 <span id="meta-scenarios">5 大核心工作流场景串联</span>
+          🎯 <span id="meta-scenarios">6 大核心工作流场景串联</span>
         </span>
       </div>
 
@@ -173,6 +147,28 @@
       </div>
     </div>
   </section>
+
+  <!-- Self-Assessment Checklist -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-2 relative z-10">
+    <details class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm open:pb-4 group">
+      <summary class="list-none p-4 cursor-pointer font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between select-none">
+        <div class="flex items-center gap-2">
+          <span>✅</span>
+          <span id="checklist-title">安全习惯自检 (Self-Checklist)</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-brand bg-brand/10 px-2 py-0.5 rounded-full" id="checklist-progress-text">0/6</span>
+          <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+      </summary>
+      <div class="px-4">
+        <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-4 overflow-hidden">
+          <div id="checklist-progress-bar" class="h-full bg-brand transition-all duration-300 w-0"></div>
+        </div>
+        <div id="checklist-items" class="space-y-2"></div>
+      </div>
+    </details>
+  </div>
 
   <!-- Main Layout Container: Sticky TOC + Narrative Body -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col lg:flex-row gap-10">
@@ -188,21 +184,24 @@
         </div>
         
         <nav class="space-y-1 text-xs" id="guide-toc-nav" aria-label="指南目录">
-          <a href="#chapter-1" class="guide-toc-link active" data-target="chapter-1">1. 序幕 · 算法时代的平民处境</a>
-          <a href="#chapter-2" class="guide-toc-link" data-target="chapter-2">2. 概念解构 · 安全与负责任的内在逻辑</a>
-          <a href="#chapter-3" class="guide-toc-link font-semibold" data-target="chapter-3">3. 实战图谱 · 43 个技能如何精准应对</a>
+          <a href="#chapter-0" class="guide-toc-link active" data-target="chapter-0">0. 基线 · 平台防静默留存与环境体检</a>
+          <a href="#chapter-1" class="guide-toc-link" data-target="chapter-1">1. 序幕 · 算法时代的平民处境</a>
+          <a href="#chapter-2" class="guide-toc-link" data-target="chapter-2">2. 概念解构 · 三大安全支柱与四大日常追问</a>
+          <a href="#chapter-3" class="guide-toc-link font-semibold" data-target="chapter-3">3. 实战图谱 · 44 个技能如何精准应对</a>
           <div class="pl-3.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
-            <a href="#sec-3-1" class="guide-toc-link text-[11px]" data-target="sec-3-1">3.1 输入前·防采集与技能体检</a>
+            <a href="#sec-3-1" class="guide-toc-link text-[11px]" data-target="sec-3-1">3.1 输入前·数据脱敏与外部投毒防范</a>
             <a href="#sec-3-2" class="guide-toc-link text-[11px]" data-target="sec-3-2">3.2 对话中·撕开幻觉与伪造文献</a>
-            <a href="#sec-3-3" class="guide-toc-link text-[11px]" data-target="sec-3-3">3.3 决策时·打破谄媚与迎合偏差</a>
-            <a href="#sec-3-4" class="guide-toc-link text-[11px]" data-target="sec-3-4">3.4 交付前·四大法定发布门禁</a>
-            <a href="#sec-3-5" class="guide-toc-link text-[11px]" data-target="sec-3-5">3.5 收尾阶段·会话清理与完成校验</a>
+            <a href="#sec-3-3" class="guide-toc-link text-[11px]" data-target="sec-3-3">3.3 决策时·打破谄媚与认知依附</a>
+            <a href="#sec-3-4" class="guide-toc-link text-[11px]" data-target="sec-3-4">3.4 执行时·Agent 权限越权与沙盒隔离</a>
+            <a href="#sec-3-5" class="guide-toc-link text-[11px]" data-target="sec-3-5">3.5 交付前·四大法定发布门禁</a>
+            <a href="#sec-3-6" class="guide-toc-link text-[11px]" data-target="sec-3-6">3.6 收尾阶段·会话清理与完成校验</a>
           </div>
           <a href="#chapter-4" class="guide-toc-link" data-target="chapter-4">4. 角色剧本 · 普通人的一日安全工作流</a>
           <div class="pl-3.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
             <a href="#sec-4-1" class="guide-toc-link text-[11px]" data-target="sec-4-1">4.1 学者与高校师生</a>
             <a href="#sec-4-2" class="guide-toc-link text-[11px]" data-target="sec-4-2">4.2 软件工程师与技术负责人</a>
             <a href="#sec-4-3" class="guide-toc-link text-[11px]" data-target="sec-4-3">4.3 内容创作者与营销团队</a>
+            <a href="#sec-4-4" class="guide-toc-link text-[11px]" data-target="sec-4-4">4.4 政企人员与知识工作者</a>
           </div>
           <a href="#chapter-5" class="guide-toc-link" data-target="chapter-5">5. 倡导与共建 · 开源自卫行动</a>
         </nav>
@@ -218,7 +217,7 @@
     </aside>
 
     <!-- Right Column: Rich Narrative Article Body -->
-    <main class="flex-1 max-w-4xl space-y-16 text-slate-800 dark:text-slate-200 leading-relaxed text-sm sm:text-base" id="guide-content-body">
+    <main class="flex-1 max-w-3xl space-y-16 text-slate-800 dark:text-slate-200 leading-relaxed text-sm sm:text-base" id="guide-content-body">
       <!-- Content populated and managed dynamically by guide.js with bilingual support -->
       <div id="narrative-content" class="space-y-16">
         <!-- Rendered by guide.js -->

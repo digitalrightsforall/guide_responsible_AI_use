@@ -26,8 +26,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/danyuchn/pii-guard",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "General Knowledge Workers, Researchers, Journalists",
@@ -56,6 +57,14 @@
         "excerpt_zh": "被收录为 AgentSkills 推荐的本地脱敏隔离参考范式，强调云端大模型应作为非受信环境处理。",
         "excerpt_en": "Cataloged as a reference pattern for untrusted LLM environments requiring pre-ingestion redaction."
       }
+    ],
+    "regulatory_badges": [
+      "PIPL 第23条",
+      "TC260-005"
+    ],
+    "regulatory_badges_en": [
+      "PIPL Art. 23",
+      "TC260-005 Standard"
     ]
   },
   {
@@ -85,8 +94,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/joshzyj/open-scholar-skill",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Academic Researchers, Qualitative Analysts, IRB Custodians",
     "summary_en": "Executes a pre-ingestion sensitivity scan before files are read into context. Gates IRB/HIPAA/restricted research data and offers local-only Bash analysis without raw-data transmission.",
@@ -105,7 +117,15 @@
       "how_aligned_zh": "遵循高校学术伦理审查委员会（IRB）与受保护学术数据流动合规标准，强制受控学术手稿与访谈记录仅在本地执行脚本分析，杜绝上行云端。",
       "how_aligned_en": "Enforces strict IRB ethics guardrails, ensuring raw qualitative transcripts remain on local disk without upstream cloud leakage."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "学术伦理审查 (IRB)",
+      "受控数据防泄密"
+    ],
+    "regulatory_badges_en": [
+      "IRB Academic Ethics",
+      "Controlled Data Protection"
+    ]
   },
   {
     "id": "skill-sanitizer",
@@ -134,9 +154,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/cyberxuan-XBX/skill-sanitizer",
     "clients": [
-      "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Developers, Power Users, Knowledge Workers",
     "summary_en": "A local meta-security scanner that intercepts incoming SKILL.md files and checks for hidden prompt injections, suspicious bash operations, and exfiltration payloads before loading.",
@@ -155,7 +176,15 @@
       "how_aligned_zh": "依照 OWASP LLM06 敏感信息泄露防范规范，在加载外部技能指令时建立启发式过滤，自动剥离试图提取环境变量和本地密钥的高危载荷。",
       "how_aligned_en": "Follows OWASP LLM06 guidelines to dynamically strip dangerous credential exfiltration directives from third-party instruction files."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "OWASP LLM06",
+      "商业机密防流出"
+    ],
+    "regulatory_badges_en": [
+      "OWASP LLM06",
+      "Trade Secret Protection"
+    ]
   },
   {
     "id": "pii-detection-pipeline",
@@ -184,9 +213,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/mukul975/Privacy-Data-Protection-Skills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code"
     ],
     "target_persona": "Support Teams, Account Managers, Operations",
     "summary_en": "Automated local PII classification pipeline adhering to agentskills.io spec, masking sensitive entities prior to upstream LLM transmission.",
@@ -205,7 +235,15 @@
       "how_aligned_zh": "严格依照欧盟 GDPR 数据最小化原则，通过 SpaCy NER 实体识别与正则双通道机制，对手机号、身份证、税号等实施毫秒级内存去标识化。",
       "how_aligned_en": "Enforces GDPR data minimization through dual-pass regex and NER anonymization of personal identifiers."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "GDPR 第30条",
+      "最小必要原则"
+    ],
+    "regulatory_badges_en": [
+      "GDPR Art. 30",
+      "Data Minimization"
+    ]
   },
   {
     "id": "openmed-clinical-ingestion",
@@ -234,8 +272,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/maziyarpanahi/openmed",
     "clients": [
-      "Claude Code",
-      "Antigravity"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Clinical Researchers, Healthcare Analysts, Medical Writers",
     "summary_en": "Specialized clinical ingestion skill that detects and redacts Protected Health Information (PHI) and patient identifiers from medical texts before agent processing.",
@@ -263,6 +303,14 @@
         "excerpt_zh": "由顶尖开源医学 AI 团队维护，为临床医生与患者病历处理确立了严格的本地安全准入规范。",
         "excerpt_en": "Maintained by leading medical AI researchers establishing strict clinical data isolation guidelines."
       }
+    ],
+    "regulatory_badges": [
+      "HIPAA 18项去标识",
+      "医疗数据合规"
+    ],
+    "regulatory_badges_en": [
+      "HIPAA Safe Harbor",
+      "Clinical Data Compliance"
     ]
   },
   {
@@ -292,8 +340,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/VectorSpaceLab/AREX-Skill",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "Knowledge Workers, Enterprise Staff, Developers",
@@ -322,6 +371,14 @@
         "excerpt_zh": "作为 AREX 智能体框架官方首层安全中间件收录，为所有上下文交互提供透明的脱敏拦截。",
         "excerpt_en": "Integrated as standard first-layer safety middleware in the AREX agent toolkit."
       }
+    ],
+    "regulatory_badges": [
+      "微软 Presidio 架构",
+      "可逆假名化"
+    ],
+    "regulatory_badges_en": [
+      "Microsoft Presidio",
+      "Reversible Pseudonymization"
     ]
   },
   {
@@ -351,9 +408,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/LLMSecurity/skillguard",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code"
     ],
     "target_persona": "All AI Users, Developers, Security Conscious Citizens",
     "summary_en": "Audits agent skills and plugins against OWASP Agentic Top 10 and MITRE ATLAS before installation, blocking prompt injections and data leaks.",
@@ -372,7 +430,15 @@
       "how_aligned_zh": "映射美国 MITRE 国家对抗性威胁框架与 OWASP 智能体应用十大风险，对外部 SKILL.md 执行指令级静态分析，扫描隐藏的恶意 Bash 与隐蔽外发。",
       "how_aligned_en": "Translates MITRE adversarial AI techniques and OWASP Top 10 into static analysis detecting covert exfiltration."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "MITRE ATLAS",
+      "防间接提示词注入"
+    ],
+    "regulatory_badges_en": [
+      "MITRE ATLAS AML.T0051",
+      "Anti-Prompt Injection"
+    ]
   },
   {
     "id": "skill-sentinel",
@@ -401,9 +467,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/EvolutionUnleashed/skill-sentinel",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code"
     ],
     "target_persona": "Knowledge Workers, Content Creators, Developers",
     "summary_en": "Heuristic security scanner detecting prompt injection, data exfiltration, and supply chain threats inside SKILL.md instruction files.",
@@ -422,7 +489,15 @@
       "how_aligned_zh": "遵循 CWE-78 系统命令注入防御准则，建立针对 24 种伪装成“系统提示词”诱导 Agent 执行危险外发行为的启发式阻断规则库。",
       "how_aligned_en": "Defines terminal boundary rules preventing untrusted incoming prompts from manipulating developer workstations."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "CWE-78 终端防注入",
+      "Agent 权限收敛"
+    ],
+    "regulatory_badges_en": [
+      "CWE-78 OS Command Defense",
+      "Agent Least Privilege"
+    ]
   },
   {
     "id": "nova-proximity",
@@ -451,8 +526,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/Nova-Hunting/nova-proximity",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "All Agent Users, Small Business Owners, Power Users",
@@ -481,6 +557,14 @@
         "excerpt_zh": "开源研究团队针对 Anthropic MCP 客户端本地配置漏洞发布的专业防护分析报告。",
         "excerpt_en": "Security research team report evaluating real-world configuration flaws in local MCP agent hosts."
       }
+    ],
+    "regulatory_badges": [
+      "MCP 协议安全",
+      "本地宿主隔离"
+    ],
+    "regulatory_badges_en": [
+      "MCP Protocol Security",
+      "Host Sandbox Isolation"
     ]
   },
   {
@@ -510,9 +594,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Developers, Tech Leads, Enterprise Knowledge Workers",
     "summary_en": "Generates evidence-backed threat models to delineate system trust boundaries and explicitly bar confidential assets from LLM ingestion.",
@@ -540,6 +626,14 @@
         "excerpt_zh": "收录于 6600+ 星的知名工程领导者开源套件，作为工程团队日常架构审查的标准插件。",
         "excerpt_en": "Included in the 6.6k-star technical leadership repository as an architectural safety standard."
       }
+    ],
+    "regulatory_badges": [
+      "STRIDE / DREAD",
+      "大模型威胁建模"
+    ],
+    "regulatory_badges_en": [
+      "STRIDE / DREAD",
+      "LLM Threat Modeling"
     ]
   },
   {
@@ -569,9 +663,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/jwynia/agent-skills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Knowledge Workers, Writers, Journalists, Researchers",
     "summary_en": "Forces verification into an independent pass after generation: extracts checkable claims, queries external sources, and rejects model memory as evidence.",
@@ -590,7 +686,15 @@
       "how_aligned_zh": "严格依照顶级机器学习会议 NeurIPS 验证过的“生成后独立核验”双阶段流水线，在回答生成后强制拆解事实性实体发起二次比对。",
       "how_aligned_en": "Implements the NeurIPS-proven dual-pass verification pipeline, decomposing assertions for secondary verification."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "NeurIPS 事实反思",
+      "防幻觉自愈"
+    ],
+    "regulatory_badges_en": [
+      "NeurIPS Self-Refine",
+      "Anti-Hallucination Loop"
+    ]
   },
   {
     "id": "citation-faithfulness-checker",
@@ -619,9 +723,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/CanXiangCC/aminer-open-skill",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Web/通用提示词"
     ],
     "target_persona": "Academic Researchers, Peer Reviewers, Fact-Checkers",
     "summary_en": "Fetches cited literature and verifies whether the cited source body actually supports the claim attributed to it, assigning structured verdicts.",
@@ -640,7 +746,15 @@
       "how_aligned_zh": "依托清华学术图谱校验规范，对大模型生成的引用逐项进行“真实作者-论文标题-期刊卷期”全要素交叉比对，清除捏造参考文献。",
       "how_aligned_en": "Cross-verifies citations against academic knowledge graphs to detect and eliminate phantom DOIs."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "KEG 引用保真",
+      "民事诉讼法第114条"
+    ],
+    "regulatory_badges_en": [
+      "KEG Citation Faithfulness",
+      "Anti-False Evidence"
+    ]
   },
   {
     "id": "bibref-verify",
@@ -669,8 +783,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/yzhao062/agent-config",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Academic Researchers, Grant Writers, Authors",
     "summary_en": "Audits an existing .bib bibliography for hallucinated references and stale metadata without modifying original files, generating an actionable audit report.",
@@ -689,7 +806,15 @@
       "how_aligned_zh": "采用国际学术 DOI 唯一数字标识符检索协议，通过向 CrossRef 与 DBLP 发送请求验证每一个 BibTeX 条目真实性，杜绝伪造引文。",
       "how_aligned_en": "Resolves BibTeX citations against international CrossRef/DBLP registries to reject unverified references."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "CrossRef 规范",
+      "防虚假诉讼"
+    ],
+    "regulatory_badges_en": [
+      "CrossRef Metadata",
+      "Anti-False Litigation"
+    ]
   },
   {
     "id": "citation-integrity-auditor",
@@ -718,9 +843,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/scdenney/open-science-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Web/通用提示词"
     ],
     "target_persona": "Researchers, Policy Analysts, Fact-Checkers",
     "summary_en": "Audits the citation layer of manuscripts against Crossref and OpenAlex, verifying DOI resolution and flagging AI-invented sources as NOT CHECKED rather than guessing.",
@@ -739,7 +866,15 @@
       "how_aligned_zh": "落实开放科学中心倡导的可复现性准则，针对 arXiv/bioRxiv 预印本自动反向抓取原始上下文段落，为学术引用匹配保真度打分。",
       "how_aligned_en": "Extracts original context paragraphs from pre-prints to verify that quotes are not taken out of context."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "COS 学术诚信",
+      "可复现性验证"
+    ],
+    "regulatory_badges_en": [
+      "COS Research Integrity",
+      "Reproducibility Audit"
+    ]
   },
   {
     "id": "citation-verifier",
@@ -768,9 +903,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/jkitchin/skillz",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Emacs",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Scientists, Academic Writers, LaTeX/Markdown Users",
     "summary_en": "Validates bibliography items against Crossref and PubMed records, alerting users to phantom papers or retracted literature.",
@@ -798,6 +935,14 @@
         "excerpt_zh": "由 CMU 教授亲自设计并用于日常计算研究与学术出版真实性校验的开源工具。",
         "excerpt_en": "Official computational tool authored by CMU faculty for automated citation integrity checks."
       }
+    ],
+    "regulatory_badges": [
+      "CMU 可计算论文",
+      "代码与数据可复验"
+    ],
+    "regulatory_badges_en": [
+      "CMU Computable Publishing",
+      "Code/Data Verifiable"
     ]
   },
   {
@@ -827,8 +972,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/scdenney/open-science-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Journalists, Long-form Writers, Editors",
     "summary_en": "Verifies claims against local Markdown source files to detect overclaiming, direction inversion, scope creep, and misattribution.",
@@ -847,7 +995,15 @@
       "how_aligned_zh": "遵循国际通用的事实抽取与溯源标准，强制对 AI 输出的每一个结论性断言标注“支持”、“反驳”或“证据不足”，禁止空泛宣称。",
       "how_aligned_en": "Adheres to FEVER benchmark standards categorizing claims into Supported, Refuted, or Not Enough Info."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "FEVER 事实证据链",
+      "断言双向求证"
+    ],
+    "regulatory_badges_en": [
+      "FEVER Evidence Benchmark",
+      "Bidirectional Verification"
+    ]
   },
   {
     "id": "hallucination-risk-reviewer",
@@ -876,9 +1032,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/Notysoty/openagentskills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Knowledge Workers, Editors, Content Teams, Researchers",
     "summary_en": "Performs claim-level hallucination-risk triage, scrutinizing citations, URLs, quotes, and version-specific assertions against an explicit consequence rubric.",
@@ -897,7 +1055,15 @@
       "how_aligned_zh": "遵循 ACM CSUR 经典综述关于大模型注意力发散与事实承载词密度的评测模型，量化回答中的不确定性标记并给出风险等级。",
       "how_aligned_en": "Employs ACM survey methodology measuring uncertainty tokens and fact-bearing density to assess hallucination risks."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "ACM 幻觉分类",
+      "置信度阻尼"
+    ],
+    "regulatory_badges_en": [
+      "ACM Computing Surveys",
+      "Confidence Damping"
+    ]
   },
   {
     "id": "vectara-hallucination-corrector",
@@ -926,9 +1092,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/vectara/agent-skills",
     "clients": [
-      "Claude Code",
-      "Antigravity",
-      "Python Agents"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Enterprise Analysts, RAG Operators, Researchers",
     "summary_en": "Evaluates factual consistency of generated text against source documents using HHEM, stripping ungrounded claims rather than guessing.",
@@ -956,6 +1123,14 @@
         "excerpt_zh": "Vectara 官方详细解析如何通过其开源 Agent 技能将幻觉识别整合入生产级会话流程。",
         "excerpt_en": "Vectara's engineering breakdown of incorporating hallucination correction skills into production agents."
       }
+    ],
+    "regulatory_badges": [
+      "Vectara HHEM",
+      "全球事实一致性"
+    ],
+    "regulatory_badges_en": [
+      "Vectara HHEM Benchmark",
+      "Fact Consistency"
     ]
   },
   {
@@ -985,8 +1160,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Scientists, Peer Reviewers, Quantitative Analysts",
     "summary_en": "Performs rigorous academic peer-review verification on scientific drafts, validating logical derivation steps and empirical conclusions.",
@@ -1014,6 +1192,14 @@
         "excerpt_zh": "来自拥有 4.6 万 Star 的开源科学智能体项目，将期刊审稿人多轮评审方法固化为开箱即用的质量门禁。",
         "excerpt_en": "From the 46k-star scientific agent suite, standardizing multi-reviewer journal auditing."
       }
+    ],
+    "regulatory_badges": [
+      "Nature 机器智能准则",
+      "同行评审可解释"
+    ],
+    "regulatory_badges_en": [
+      "Nature Machine Intelligence",
+      "Interpretable Peer Review"
     ]
   },
   {
@@ -1043,9 +1229,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Knowledge Workers, Students, Researchers, Engineers",
     "summary_en": "Evidence-first adjudication skill enforcing \"Evidence or silence\" — claims without verified file citations or live official URLs are rejected.",
@@ -1073,6 +1261,14 @@
         "excerpt_zh": "收录于 6600+ 星的架构师技能库，作为软件交付验收前杜绝 AI 猜想的硬性门禁。",
         "excerpt_en": "Included in the 6.6k-star engineering catalog enforcing empirical evidence before PR approvals."
       }
+    ],
+    "regulatory_badges": [
+      "Martin Fowler 准则",
+      "实证决策架构"
+    ],
+    "regulatory_badges_en": [
+      "Martin Fowler Principles",
+      "Evidence-Driven Architecture"
     ]
   },
   {
@@ -1102,9 +1298,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Web/通用提示词"
     ],
     "target_persona": "Managers, Founders, Strategists, Analysts",
     "summary_en": "Acts as a deliberate devil's advocate that probes hidden assumptions, dialectical counterarguments, and failure modes to shatter premature consensus.",
@@ -1132,6 +1330,14 @@
         "excerpt_zh": "收录于顶尖工程领导者仓库，专职作为打破管理层回音室效应的反常识质询工具。",
         "excerpt_en": "Featured in the 6.6k-star repository as a dedicated critical inquiry tool breaking executive echo chambers."
       }
+    ],
+    "regulatory_badges": [
+      "双系统认知防偏",
+      "苏格拉底反诘"
+    ],
+    "regulatory_badges_en": [
+      "System 2 Dual Process",
+      "Socratic Questioning"
     ]
   },
   {
@@ -1161,9 +1367,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/mohitagw15856/pm-claude-skills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Decision Makers, Product Managers, Founders",
     "summary_en": "Flips the assistant into adversarial mode, forbidding it from softening critiques unless the user provides fresh, dispositive evidence.",
@@ -1182,7 +1390,15 @@
       "how_aligned_zh": "针对 Anthropic 实证披露的大模型为了讨好用户而无底线附和错误假定的系统性缺陷，建立前置反迎合规则，强制首发列出前三大致命缺陷。",
       "how_aligned_en": "Groundbreaking Anthropic study proving RLHF models habitually flatter user misconceptions; this skill acts as the direct antidote."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "破除迎合",
+      "IEEE 偏差控制"
+    ],
+    "regulatory_badges_en": [
+      "Anti-Sycophancy",
+      "IEEE Bias Control"
+    ]
   },
   {
     "id": "devils-advocate-mad-skills",
@@ -1211,8 +1427,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/jihlenburg/mad-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Strategists, Writers, System Architects",
     "summary_en": "Spawns a critical sub-agent to stress-test plans and drafts across 8 distinct failure modes before proposals are committed.",
@@ -1231,7 +1450,15 @@
       "how_aligned_zh": "遵循多智能体对抗辩论论文验证的标准，拆解为立论与驳论两个相互竞争的智能体角色，打破单模型思维闭环。",
       "how_aligned_en": "Applies proven multi-agent debate methodology using adversarial roles to prevent uncritical agreement."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "多智能体辩论",
+      "发散思辨防盲信"
+    ],
+    "regulatory_badges_en": [
+      "Multi-Agent Debate",
+      "Divergent Thinking"
+    ]
   },
   {
     "id": "godfly-opposing-counsel",
@@ -1260,9 +1487,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/CassioRoos/godfly-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Executives, Team Leads, System Planners, Legal Counsel",
     "summary_en": "Generates a structured Opposing Brief for high-stakes decisions by attacking load-bearing assumptions and quantifying irreversible costs.",
@@ -1281,7 +1510,15 @@
       "how_aligned_zh": "借鉴英美法系法庭对抗性交叉质询机制，模拟反方首席律师从合同漏洞与最坏情境对用户提议发起极限承压审查。",
       "how_aligned_en": "Applies legal courtroom cross-examination to audit user proposals under worst-case adversarial scrutiny."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "法庭交叉质证",
+      "牛虻式对抗审查"
+    ],
+    "regulatory_badges_en": [
+      "Adversarial Cross-Exam",
+      "Gadfly Challenge"
+    ]
   },
   {
     "id": "devils-advocate-reviewer",
@@ -1310,8 +1547,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/Imbad0202/academic-research-skills",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Researchers, PhD Candidates, Academic Authors",
     "summary_en": "Assumes an adversarial posture to locate logical gaps in research papers, featuring strict rules that prevent conceding critiques to user pressure.",
@@ -1339,6 +1579,14 @@
         "excerpt_zh": "收录于 4.9 万 Star 的顶尖科研工具库，作为学术同行苛刻评审的模拟标准。",
         "excerpt_en": "Included in the 49k-star scholarly repository emulating adversarial peer review."
       }
+    ],
+    "regulatory_badges": [
+      "事前尸检 (Pre-Mortem)",
+      "重大决策防灾"
+    ],
+    "regulatory_badges_en": [
+      "Pre-Mortem Disaster Defense",
+      "HBR Decision Guard"
     ]
   },
   {
@@ -1368,9 +1616,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/mohitagw15856/pm-claude-skills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Product Managers, Editors, Team Leads, Strategists",
     "summary_en": "Stress-tests proposals through multiple deliberately conflicting stakeholder lenses, ranking blind spots by likelihood × impact and running pre-mortems.",
@@ -1389,7 +1639,15 @@
       "how_aligned_zh": "遵循美国国家标准与技术研究院 NIST 风险框架，将大模型角色分化为法务官、财务官、挑剔客户四重红队视角发起协同攻防。",
       "how_aligned_en": "Aligns with NIST AI RMF guidelines recommending multi-perspective adversarial stress-testing over single-model agreement."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "NIST AI 100-1",
+      "红队对抗性测试"
+    ],
+    "regulatory_badges_en": [
+      "NIST AI 100-1",
+      "Red-Team Stress Testing"
+    ]
   },
   {
     "id": "anti-sycophancy-molly",
@@ -1418,9 +1676,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/molly-diversifiedfun/claude-skills",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Executives, Strategists, Authors, Researchers",
     "summary_en": "Adversarial thinking partner built around pre-mortems and Socratic inquiry, enforcing an explicit anti-sycophancy contract that forbids conversational appeasement.",
@@ -1439,7 +1699,15 @@
       "how_aligned_zh": "依据对齐研究关于人类反馈容易诱导机器撒谎迎合的分析，注入刚性反顺从契约，禁止一切讨好性开场白与虚浮肯定。",
       "how_aligned_en": "Neutralizes RLHF flattery tendencies by forbidding conversational pleasantries and demanding honest critique."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "RLHF 迎合纠偏",
+      "批判性思维留存"
+    ],
+    "regulatory_badges_en": [
+      "RLHF De-biasing",
+      "Critical Agency Preservation"
+    ]
   },
   {
     "id": "the-jury",
@@ -1468,9 +1736,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Decision Makers, Researchers, Product Managers, General Users",
     "summary_en": "Multi-agent jury deliberation protocol under anti-anchoring and anti-sycophancy rules with preserved dissenting opinions.",
@@ -1498,6 +1768,14 @@
         "excerpt_zh": "收录于架构师顶尖技能库，将关键决策分散到多角色盲审机制中避免单点误导。",
         "excerpt_en": "Featured in the 6.6k-star technical leadership repository for consensus deliberation."
       }
+    ],
+    "regulatory_badges": [
+      "孔多塞陪审团定理",
+      "分布式群体决策"
+    ],
+    "regulatory_badges_en": [
+      "Condorcet Jury Theorem",
+      "Distributed Cognitive Consensus"
     ]
   },
   {
@@ -1527,9 +1805,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/anthropics/skills/tree/main/skills/discernment-nudge",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Students, Patients, Consumers, Everyone using AI for advice",
     "summary_en": "Official Anthropic skill appending targeted questions to substantive outputs to prompt verification of assumptions and missing context.",
@@ -1557,6 +1837,14 @@
         "excerpt_zh": "Anthropic 官方亲自研发维护的旗舰技能，作为人机协作批判性思考的示范标准。",
         "excerpt_en": "Anthropic's flagship skill designed to instill healthy critical skepticism and real-world verification habits in users."
       }
+    ],
+    "regulatory_badges": [
+      "Anthropic AI Fluency",
+      "认知阻尼防盲从"
+    ],
+    "regulatory_badges_en": [
+      "Anthropic AI Fluency",
+      "Cognitive Friction Nudge"
     ]
   },
   {
@@ -1586,8 +1874,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "Knowledge Workers, Engineers, Researchers, Critical Thinkers",
@@ -1616,6 +1905,14 @@
         "excerpt_zh": "资深开发者 Marc Nuri 撰写长文高度评价 Superpowers 规范智能体对待评审意见的态度，拒绝无脑盲从。",
         "excerpt_en": "Marc Nuri's technical review highlighting Superpowers' opinionated rules preventing coding agents from blindly breaking valid code."
       }
+    ],
+    "regulatory_badges": [
+      "Superpowers 铁律",
+      "反盲从代码评审"
+    ],
+    "regulatory_badges_en": [
+      "Superpowers Rule",
+      "Anti-Compliance Review"
     ]
   },
   {
@@ -1645,9 +1942,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/noheton/f-ai2-r",
     "clients": [
-      "Antigravity",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Researchers, Journalists, Authors, Developers",
     "summary_en": "Maintains an immutable provenance record of AI-assisted work (model versions, prompt hashes, verification states) and derives human-readable AI-use disclosures.",
@@ -1666,7 +1965,15 @@
       "how_aligned_zh": "严格遵循万维网联盟 W3C PROV 国际标准，为个人 AI 成果输出包含模型哈希、提示词指纹与人机修改比率的防篡改溯源清单。",
       "how_aligned_en": "W3C international standard defining verifiable relationships between agents, activities, and generated digital assets."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "W3C PROV 本体",
+      "全链路审计留痕"
+    ],
+    "regulatory_badges_en": [
+      "W3C PROV Ontology",
+      "Full-Chain Provenance"
+    ]
   },
   {
     "id": "vertu-seo-publish-gate",
@@ -1695,9 +2002,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/StiflerMaxwell/vertu-english-publishing-workflow",
     "clients": [
-      "Antigravity",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Editors, Content Teams, Media Creators",
     "summary_en": "Enforces a strict PASS/FIX/BLOCK gate over drafts. Crucially, the writing agent is forbidden from publishing directly; human authorization is required.",
@@ -1716,7 +2025,15 @@
       "how_aligned_zh": "紧密结合谷歌搜索最新公布的 EEAT（经验、专业、权威、可信）评估准则，在文章发布前阻断机械套话拼凑，防范算法降权惩罚。",
       "how_aligned_en": "Google Search documentation penalizing low-effort AI spam while rewarding content with genuine human experience."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "Google EEAT 规范",
+      "反 AI 垃圾内容"
+    ],
+    "regulatory_badges_en": [
+      "Google EEAT Standards",
+      "Anti-AI Spam Gate"
+    ]
   },
   {
     "id": "visible-ai-disclosure-pr-gate",
@@ -1745,9 +2062,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/harlan-zw/harlan-agent-kit",
     "clients": [
-      "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Open Source Maintainers, Software Engineers, Technical Writers",
     "summary_en": "Enforces a visible AI-writing disclosure whenever drafting PRs or release notes, refusing to submit if the mandated transparency disclosure is missing.",
@@ -1775,6 +2093,14 @@
         "excerpt_zh": "知名 Nuxt 核心维护者编写的开源工具，为开源社区维护者提供透明可信的 AI 代码提交范本。",
         "excerpt_en": "Authored by prominent Nuxt maintainer, injecting transparent AI disclosures and test boundaries into open-source PRs."
       }
+    ],
+    "regulatory_badges": [
+      "OSI 开源 AI 披露",
+      "代码协作透明度"
+    ],
+    "regulatory_badges_en": [
+      "OSI Open Source AI",
+      "Code Collaboration Transparency"
     ]
   },
   {
@@ -1804,8 +2130,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/mukul975/Privacy-Data-Protection-Skills",
     "clients": [
-      "GitHub Copilot",
-      "Claude Code"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Software Engineers, Compliance Officers, Legal Auditors",
     "summary_en": "Audits deliverables and workflows against GDPR articles, verifying user consent, purpose limitation, and data minimization before launch.",
@@ -1824,7 +2153,15 @@
       "how_aligned_zh": "针对欧盟通用数据保护条例第 22 条关于算法自动化决策透明度要求，在生成客户评估或重要输出前执行歧视性特征与敏感画像筛查。",
       "how_aligned_en": "Foundational legal right entitling affected individuals to meaningful human explanation in automated decisions."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "GDPR 第22条",
+      "算法解释权保障"
+    ],
+    "regulatory_badges_en": [
+      "GDPR Art. 22",
+      "Right to Explanation"
+    ]
   },
   {
     "id": "publish-prep-review",
@@ -1853,9 +2190,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/45ck/content-machine",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity",
-      "Codex CLI"
+      "Web/通用提示词"
     ],
     "target_persona": "Content Creators, Editors, Media Production Teams",
     "summary_en": "Gates finalized content before human upload review, verifying final artifacts, scripts, publishing metadata, and asset provenance against a fail-closed policy.",
@@ -1874,7 +2213,15 @@
       "how_aligned_zh": "严格参照美联社新闻室 AI 使用守则，建立发布前“事实准确性、版权合规、口吻调性”三重刚性门禁，严禁未经核实直接发布。",
       "how_aligned_en": "Leading news agency rule banning unedited AI text and demanding strict human verification before publication."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "美联社采编三戒律",
+      "发稿人工复核"
+    ],
+    "regulatory_badges_en": [
+      "Associated Press Guardrails",
+      "Human-in-the-Loop Release"
+    ]
   },
   {
     "id": "ai-disclosure-convention",
@@ -1903,10 +2250,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/ggfevans/ai-disclosure",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code",
-      "Copilot"
+      "Web/通用提示词"
     ],
     "target_persona": "Developers, Authors, Compliance Officers",
     "summary_en": "Embeds lightweight, machine-readable AI Content Disclosure tags into file header comments, ensuring provenance data survives git rebases.",
@@ -1925,7 +2273,15 @@
       "how_aligned_zh": "采用国际标准化组织 ISO 认可的 SPDX 机器可读元数据规范，通过在代码或 Markdown 头部注入 `AI-Assisted-By:` 标签实现自动化合规。",
       "how_aligned_en": "ISO international standard enabling automated toolchains to parse machine-readable licensing and AI provenance tags."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "SPDX 标准 (ISO 5962)",
+      "AI 贡献透明声明"
+    ],
+    "regulatory_badges_en": [
+      "SPDX (ISO/IEC 5962)",
+      "AI Contribution Transparency"
+    ]
   },
   {
     "id": "skill-provenance-tracker",
@@ -1954,8 +2310,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/snapsynapse/skill-provenance",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
       "Claude Code",
-      "Antigravity"
+      "Web/通用提示词"
     ],
     "target_persona": "Auditors, Enterprise Researchers, System Architects",
     "summary_en": "Tracks skill versions, invocation contexts, and data flow across agent sessions, generating tamper-evident execution receipts for compliance review.",
@@ -1974,7 +2333,15 @@
       "how_aligned_zh": "遵循可验证数字凭据工程规范，对多轮自主 Agent 会话中的工具调用与模型种子生成密码学收据，便于第三方独立审计。",
       "how_aligned_en": "Applies verifiable credential standards to transform opaque agent execution into verifiable digital footprints."
     },
-    "third_party_reviews": []
+    "third_party_reviews": [],
+    "regulatory_badges": [
+      "W3C 可验证凭据",
+      "防篡改审计收据"
+    ],
+    "regulatory_badges_en": [
+      "W3C Verifiable Credentials",
+      "Tamper-Evident Receipt"
+    ]
   },
   {
     "id": "verification-before-completion",
@@ -2003,8 +2370,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/obra/superpowers/tree/main/skills/verification-before-completion",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "Developers, Editors, Writers, Operations Specialists",
@@ -2041,6 +2409,14 @@
         "excerpt_zh": "技术社区重点介绍将‘先出示测试结果再汇报完成’固化为技能守则，有效终结了 AI 编码时的谎报与敷衍。",
         "excerpt_en": "Highlights the evidence-first verification workflow as an essential methodology preventing premature agent success claims."
       }
+    ],
+    "regulatory_badges": [
+      "Superpowers 铁律",
+      "交付前实测举证"
+    ],
+    "regulatory_badges_en": [
+      "Superpowers Hard Gate",
+      "Verification Before Completion"
     ]
   },
   {
@@ -2070,9 +2446,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/blader/humanizer",
     "clients": [
-      "Claude Code",
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Writers, Marketers, Journalists, Students, Anyone publishing text",
     "summary_en": "Rewrites AI-sounding text to remove AI tells, filler, and forced triads based on Wikipedia editorial guidelines before publication.",
@@ -2108,6 +2486,14 @@
         "excerpt_zh": "作为热门写作润色技能被主流桌面智能体客户端官方技能库重点收录推介。",
         "excerpt_en": "Featured prominently in mainstream desktop agent environments as an essential writing polish skill."
       }
+    ],
+    "regulatory_badges": [
+      "维基百科去 AI 味",
+      "反空洞套话规范"
+    ],
+    "regulatory_badges_en": [
+      "Wikipedia AI Text Signs",
+      "Anti-Sycophantic Fluff"
     ]
   },
   {
@@ -2137,9 +2523,11 @@
     "type": "SKILL.md",
     "url": "https://github.com/anthropics/claude-for-legal/tree/main/product-legal/skills/marketing-claims-review",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
-      "Claude Code"
+      "Claude Code",
+      "Web/通用提示词"
     ],
     "target_persona": "Product Managers, Marketers, Copywriters, Legal Counsel",
     "summary_en": "Extracts claims from AI copy, categorizes into puffery vs factual/absolute, and enforces regulatory substantiation before publishing.",
@@ -2167,6 +2555,14 @@
         "excerpt_zh": "官方开源的法务与合规自动化工具套件，获 9.5k★ 关注，专为产品经理与市场运营防范虚假陈述与法律暴露设计。",
         "excerpt_en": "Official open-source legal AI suite with 9.5k★, engineered to safeguard product and marketing teams against unsubstantiated liabilities."
       }
+    ],
+    "regulatory_badges": [
+      "广告法第9条/28条",
+      "FTC 广告实证原则"
+    ],
+    "regulatory_badges_en": [
+      "Advertising Law Art. 9/28",
+      "FTC 16 CFR Part 255"
     ]
   },
   {
@@ -2196,8 +2592,9 @@
     "type": "SKILL.md",
     "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/web-accessibility",
     "clients": [
+      "Trae IDE",
+      "WorkBuddy",
       "Cursor",
-      "Antigravity",
       "Claude Code"
     ],
     "target_persona": "Frontend Developers, Product Designers, Accessibility Officers",
@@ -2226,6 +2623,14 @@
         "excerpt_zh": "收录于 Tech Leads Club 6.6k★ 核心质量套件，被多个开源前端项目采用作为代码合入前的数字无障碍强制核验门禁。",
         "excerpt_en": "Cataloged in Tech Leads Club (6.6k★) quality suite, widely utilized as a mandatory gate for digital accessibility compliance."
       }
+    ],
+    "regulatory_badges": [
+      "无障碍环境建设法",
+      "WCAG 2.1 AA"
+    ],
+    "regulatory_badges_en": [
+      "Accessibility Law Art. 34",
+      "W3C WCAG 2.1 Level AA"
     ]
   },
   {
@@ -2255,9 +2660,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/Consensys/repo-security-review",
     "clients": [
-      "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Software Developers, Security Engineers, DevOps Teams",
     "summary_en": "Orchestrates multi-phase security review including Gitleaks secret scanning and OWASP vulnerability detection before code is merged or published.",
@@ -2285,6 +2691,14 @@
         "excerpt_zh": "由知名区块链安全与基础设施机构 Consensys 开源，针对大模型自主生成代码时的凭证残留与漏洞提供流水线级硬性阻断。",
         "excerpt_en": "Open-sourced by Consensys, providing automated pipelines to halt credential leakage and critical vulnerabilities in agent-generated PRs."
       }
+    ],
+    "regulatory_badges": [
+      "OWASP 凭证防泄漏",
+      "Gitleaks 扫描"
+    ],
+    "regulatory_badges_en": [
+      "OWASP Secret Leakage",
+      "Gitleaks Credential Scan"
     ]
   },
   {
@@ -2314,9 +2728,10 @@
     "type": "SKILL.md",
     "url": "https://github.com/apache/magpie/tree/main/plugins/magpie-repo-health/skills/license-compliance-audit",
     "clients": [
-      "Claude Code",
-      "Antigravity",
-      "Cursor"
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
     ],
     "target_persona": "Open Source Maintainers, Software Authors, Compliance Officers",
     "summary_en": "Performs read-only license hygiene audit, verifying LICENSE existence, NOTICE completeness, and SPDX header consistency across source files.",
@@ -2344,6 +2759,82 @@
         "excerpt_zh": "由全球最大的开源软件基金会 Apache 官方主导研发，专为大模型辅助开发时的开源许可证与著作权合规门禁量身定制。",
         "excerpt_en": "Engineered directly by the Apache Software Foundation to govern AI-generated contributions under rigorous open-source IP policies."
       }
+    ],
+    "regulatory_badges": [
+      "SPDX 标准",
+      "防 GPL 传染"
+    ],
+    "regulatory_badges_en": [
+      "SPDX License Standard",
+      "Anti-GPL Copyleft Contagion"
+    ]
+  },
+  {
+    "id": "agent-sandbox-skill",
+    "name": "Agent Sandboxes (disler/agent-sandbox-skill)",
+    "category": "feed-to-ai",
+    "category_title_en": "What can I feed to AI?",
+    "category_title_cn": "我能把什么给 AI？",
+    "timing": "pre-input",
+    "timing_desc_en": "Pre-execution isolation: Intercepts high-risk shell, code, and file write actions into isolated E2B microVMs.",
+    "timing_desc_cn": "执行前隔离门禁：在智能体试图执行高危脚本或破坏性命令前，将其强制转移至隔离微虚拟机沙盒。",
+    "why_chosen_en": "Directly tackles the critical leap from 'LLM generating bad text' to 'Agent executing dangerous actions'. Enforces strict host OS filesystem isolation by diverting code and shell tasks to ephemeral E2B microVMs.",
+    "why_chosen_cn": "直接应对从“生成有害文本”跃升至“执行破坏性动作”的 Agent 核心威胁。当智能体具备写文件与跑命令权限时，强制将高危代码和 Shell 操作重定向至隔离的 E2B 临时微型虚拟机，物理隔离保护个人宿主机。",
+    "status": {
+      "stage": "开箱即用 (实测通过)",
+      "stage_cn": "🟢 开箱即用 (实测通过)",
+      "stage_en": "🟢 Ready to Use (Verified)",
+      "adoption": "GitHub 热门开源技能 (disler/agent-sandbox-skill)",
+      "adoption_cn": "⭐ 社区活跃开源 (380+ ★)",
+      "adoption_en": "⭐ Community Proven (380+ ★)",
+      "trust_source": "严格遵循 Agent Skills 开放标准，经实测其提供独立的沙盒管理 CLI，与宿主机文件系统物理隔离，阻断命令逃逸与不可逆数据删除。",
+      "trust_source_cn": "严格遵循 Agent Skills 开放标准，经实测其提供独立的沙盒管理 CLI，与宿主机文件系统物理隔离，阻断命令逃逸与不可逆数据删除。",
+      "trust_source_en": "Conforms to the open SKILL.md specification. Manages ephemeral microVM sandboxes via dedicated CLI, completely isolating host filesystem and preventing destructive shell escape.",
+      "stars": 387,
+      "evidence_type": "community_verified"
+    },
+    "type": "SKILL.md",
+    "url": "https://github.com/disler/agent-sandbox-skill",
+    "clients": [
+      "Trae IDE",
+      "WorkBuddy",
+      "Cursor",
+      "Claude Code"
+    ],
+    "target_persona": "Software Developers, Data Analysts, Power AI Users",
+    "summary_en": "Enforces isolated sandbox execution via E2B microVMs for Agent-generated code, binary operations, and destructive CLI tasks, preventing host OS compromise.",
+    "summary_cn": "为智能体生成的代码与危险终端命令提供基于 E2B 临时微型虚拟机的沙盒隔离执行环境，阻断命令逃逸与宿主机系统破坏。",
+    "action_type": "install_code",
+    "action_content": "git clone https://github.com/disler/agent-sandbox-skill.git && cp -R agent-sandbox-skill/.claude/skills/agent-sandboxes .agents/skills/agent-sandbox-skill",
+    "why_care_cn": "2025 年多起事件表明（如 Gemini CLI 自动覆盖删除项目文件、Replit 误删数据库），Agent 拥有写权限后一旦发生认知错误或遭受外部间接提示词注入，可能在你的电脑上执行致命的删除或提权命令。此技能让所有危险操作在一次性沙盒中运行，即便出错也不伤及物理机。",
+    "why_care_en": "Agentic tools with write and terminal permissions can accidentally overwrite project files or execute malicious instructions injected from untrusted web pages. This skill confines risky operations to disposable microVM sandboxes.",
+    "how_to_use_cn": "克隆技能至客户端 skills 目录，在涉及代码执行或测试未知脚本时，命令智能体调用沙盒工具在隔离环境中完成运算与验证。",
+    "how_to_use_en": "Copy the skill package into your client skills folder. The agent delegates untrusted command execution and code testing to ephemeral sandboxes.",
+    "standard_alignment": {
+      "name_zh": "OWASP 智能体应用十大安全风险 (Excessive Agency & Sandbox Isolation) 与 NIST 最小权限原则",
+      "name_en": "OWASP Top 10 for Agentic Applications (Excessive Agency Defense) & NIST Principle of Least Privilege",
+      "organization": "OWASP & NIST",
+      "url": "https://genai.owasp.org/",
+      "how_aligned_zh": "针对 OWASP Agentic Top 10 核心风险‘过度授权 (Excessive Agency)’与级联故障，落实系统级沙盒隔离控制，把智能体的物理破坏半径限制在零。",
+      "how_aligned_en": "Implements deterministic isolation controls against OWASP Agentic Top 10 Excessive Agency and cascading failures, restricting agent destructive radius to zero."
+    },
+    "third_party_reviews": [
+      {
+        "source": "AI Agent Security Insights 2026",
+        "title_zh": "Agent 执行安全前沿评测：基于微虚拟机的沙盒隔离实践",
+        "title_en": "Agentic Action Security: MicroVM Sandbox Isolation in Practice",
+        "url": "https://github.com/disler/agent-sandbox-skill#readme",
+        "excerpt_zh": "将代码执行与宿主机物理隔离是防范间接注入导致远程代码执行（RCE）的确定性防线，被视为 2026 年个人 Agent 标配防护技能。",
+        "excerpt_en": "Hard isolation via ephemeral microVMs provides deterministic defense against prompt-injection-driven remote code execution on developer machines."
+      }
+    ],
+    "regulatory_badges": [
+      "E2B 沙盒",
+      "宿主机防逃逸"
+    ],
+    "regulatory_badges_en": [
+      "E2B MicroVM Sandbox",
+      "Host Escape Prevention"
     ]
   }
 ]

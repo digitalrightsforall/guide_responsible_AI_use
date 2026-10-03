@@ -33,7 +33,7 @@ function generateReadmeEn() {
   md += `## 🌟 Project Ecosystem: Dual-Engine Architecture\n\n`;
   md += `This project is designed as an interactive, dual-engine platform for everyone using modern LLMs and agentic IDEs:\n\n`;
   md += `* 📖 **[The Practical Field Guide (实务长篇指南)](https://putongren.org/guide_responsible_AI_use/)** (*Web Homepage / \`site/index.html\`*):\n`;
-  md += `  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all ${items.length} skills across **5 daily workflow scenarios** with 112 clickable inline skill pills and persona playbooks.\n\n`;
+  md += `  A comprehensive, narrative-driven walkthrough that deconstructs the silent risks of the algorithmic era, explains why abstract ethics fail at the desktop, and orchestrates all ${items.length} skills across **6 daily workflow scenarios** (including platform baseline hardening and Agent sandbox execution) with clickable inline skill pills and persona playbooks.\n\n`;
   md += `* 🛡️ **[The Interactive Skill Library (实务技能库)](https://putongren.org/guide_responsible_AI_use/library.html)** (*Web Catalog / \`site/library.html\`*):\n`;
   md += `  A responsive, searchable web application with instant category and timing filters, live keyword search, detailed evaluation modals, verified third-party media reviews, and one-click copyable CLI installation commands.\n\n`;
   md += `* 💻 **[The Open-Source GitHub Repository](https://github.com/digitalrightsforall/guide_responsible_AI_use)** (*This Repo*):\n`;
@@ -62,7 +62,7 @@ function generateReadmeEn() {
 | **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **${categoryCounts['can-publish-directly'] || 13} Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |\n\n`;
 
   md += `> 🌟 **Explore the Full Interactive Platform**:\n`;
-  md += `> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 5 real-world workflow scenarios with 112 clickable inline skill pills.\n`;
+  md += `> - 📖 **[Read the Practical Field Guide](https://putongren.org/guide_responsible_AI_use/)**: Deep narrative walking through 6 real-world workflow scenarios with clickable inline skill pills.\n`;
   md += `> - 🛡️ **[Explore the Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)**: Instant search and filtering across all ${items.length} skills, complete with international standards, third-party reviews, and one-click install commands.\n\n`;
   md += `---\n\n`;
 
@@ -148,7 +148,7 @@ function generateReadmeCn() {
   md += `## 🌟 项目生态：双轮驱动实操架构\n\n`;
   md += `本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者构建了“认知 + 武器”的双轮驱动实操生态：\n\n`;
   md += `* 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**（*网站首页 / \`site/index.html\`*）：\n`;
-  md += `  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **5 大核心工作流场景** 穿针引线串联全量 ${items.length} 项技能，提供 112 处微卡片原地交互与 3 大角色一日安全工作流。\n\n`;
+  md += `  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **6 大核心工作流场景**（涵盖平台防静默留存基线、Agent 执行沙盒隔离等）穿针引线串联全量 ${items.length} 项技能，提供微卡片原地交互与 3 大角色一日安全工作流。\n\n`;
   md += `* 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**（*交互技能库 / \`site/library.html\`*）：\n`;
   md += `  开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。\n\n`;
   md += `* 💻 **[GitHub 开源主仓库](https://github.com/digitalrightsforall/guide_responsible_AI_use)**（*本仓库*）：\n`;
@@ -177,7 +177,7 @@ function generateReadmeCn() {
 | **4. 输出能不能直接发布？** | 强制执行商业广告法核查、SPDX 协议合规、代码密钥扫描与无障碍门禁 | **${categoryCounts['can-publish-directly'] || 13} 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |\n\n`;
 
   md += `> 🌟 **欢迎体验完整的在线双轮驱动平台**：\n`;
-  md += `> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：5 大真实工作流场景深度推演，行文内嵌 112 处微卡片原地交互。\n`;
+  md += `> - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：6 大真实工作流场景深度推演，行文内嵌微卡片原地交互。\n`;
   md += `> - 🛡️ **[探索《实务技能库》 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**：实时搜索、分类过滤、查阅各技能的权威标准对齐与第三方媒体报道，一键复制终端安装命令。\n\n`;
   md += `---\n\n`;
 
@@ -191,10 +191,18 @@ function generateReadmeCn() {
   md += `  # 用户全局技能（所有会话通用）\n`;
   md += `  mkdir -p ~/.claude/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
-  md += `* **Cursor / Google Antigravity:**\n`;
+  md += `* **Cursor / Trae IDE (字节跳动) / Google Antigravity:**\n`;
   md += `  \`\`\`bash\n`;
+  md += `  # 项目根目录自动识别\n`;
   md += `  mkdir -p .agents/skills/<skill-name>/\n`;
   md += `  \`\`\`\n\n`;
+  md += `* **WorkBuddy AI / 桌面智能体:**\n`;
+  md += `  \`\`\`bash\n`;
+  md += `  # 放置于工作空间 skills 目录或自定义技能包引用路径\n`;
+  md += `  mkdir -p .agents/skills/<skill-name>/\n`;
+  md += `  \`\`\`\n\n`;
+  md += `* **豆包 / Kimi / 网页对话大模型:**\n`;
+  md += `  无需安装环境，读者可直接复制技能包内的核心核验规则（Prompt / Markdown 模板）作为系统指令或前置约束使用。\n\n`;
   md += `> [!IMPORTANT]\n`;
   md += `> **必须完整复制整个技能文件夹**：许多高质量技能内置了独立的 Python/Bash 校验脚本、威胁规则库与参考模板。绝不要只单份复制 \`SKILL.md\`，请始终按 [实务技能库](https://putongren.org/guide_responsible_AI_use/library.html) 中各条目的安装命令完整拉取整个目录。\n\n`;
   md += `---\n\n`;

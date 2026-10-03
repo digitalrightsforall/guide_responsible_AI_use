@@ -219,7 +219,7 @@ function openModal(skillId) {
 
     <!-- Core Intent & Why Care -->
     <div class="space-y-2">
-      <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">${isZh ? '💡 为什么普通人应该关心：' : '💡 Why You Should Care:'}</h4>
+      <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">${isZh ? '为什么普通人应该关心：' : 'Why You Should Care:'}</h4>
       <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${isZh ? escapeHtml(item.why_care) : escapeHtml(item.why_care_en || item.why_care)}</p>
     </div>
 
@@ -227,7 +227,7 @@ function openModal(skillId) {
     <div class="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-1.5">
       <div class="flex items-center justify-between">
         <span class="text-xs font-bold text-indigo-900 dark:text-indigo-300">
-          📐 ${isZh ? '技术依据与对齐标准：' : 'Standard Alignment:'} ${escapeHtml(stdOrg)}
+          ${isZh ? '技术依据与对齐标准：' : 'Standard Alignment:'} ${escapeHtml(stdOrg)}
         </span>
         <a href="${escapeHtml(stdUrl)}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-brand hover:underline inline-flex items-center gap-0.5">
           ${isZh ? '查阅规范 ↗' : 'View Spec ↗'}
@@ -241,7 +241,7 @@ function openModal(skillId) {
     <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-1.5">
       <div class="flex items-center justify-between">
         <span class="text-xs font-bold text-slate-800 dark:text-slate-200">
-          🌐 ${isZh ? '独立第三方评测与生态收录：' : 'Third-Party Reviews & Inclusions:'}
+          ${isZh ? '独立第三方评测与生态收录：' : 'Third-Party Reviews & Inclusions:'}
         </span>
         ${hasReviews ? `<a href="${escapeHtml(revDirectUrl)}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline">
           ${isZh ? '阅读原刊 ↗' : 'Read Article ↗'}
@@ -254,7 +254,7 @@ function openModal(skillId) {
         </div>
       ` : `
         <p class="text-xs text-slate-500 dark:text-slate-400 italic">
-          🌱 ${isZh ? '开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。' : 'Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.'}
+          ${isZh ? '开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。' : 'Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.'}
         </p>
       `}
     </div>
@@ -312,7 +312,6 @@ function closeModal() {
   // Restore focus to trigger element
   if (modal._triggerElement) {
     modal._triggerElement.focus();
-    modal._triggerElement = null;
   }
 }
 
@@ -326,9 +325,9 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
-// Helper to render interactive pill in text
+// Helper to render interactive pill in text (Clean SVG micro-badge, no raw emoji)
 function makePill(skillId, label) {
-  return `<button type="button" class="inline-skill-pill" data-skill="${skillId}" title="点击查看 ${skillId} 的完整实测状态与标准依据">🛡️ ${label || skillId}</button>`;
+  return `<button type="button" class="inline-skill-pill" data-skill="${skillId}" title="点击查看 ${skillId} 的完整实测状态与标准依据"><svg class="w-3 h-3 text-brand/80 shrink-0 inline mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span>${escapeHtml(label || skillId)}</span></button>`;
 }
 
 // Bilingual Narrative Content Dictionary
@@ -345,15 +344,15 @@ const guideContent = {
     heroBadge: "普通人的数字权利 · 实务行动指南",
     heroTitle: "负责任与安全使用 AI：",
     heroTitleHighlight: "普通人的实操指南",
-    heroSubtitle: "从“盲信科技神话”到“手握实证工具”。基于 2026 全球权威框架（NIST、TC260、PCPD、EFF、OWASP）与前沿在野安全实证，解构普通人日常 AI 交互的真实风险，44 项经过工程检验的规范技能（SKILL.md）嵌入你的真实工作流。",
+    heroSubtitle: "面向知识工作者、高校科研学者与开发者的开源自卫手册。建立对输入数据、交互产出与自动化 Agent 的审判式工作流，让使用成果第三方好核查。",
     metaReadTime: "建议阅读：18 分钟",
-    metaSkillsCount: "覆盖 44 项开源规范技能",
-    metaScenarios: "6 大核心工作流场景串联",
-    heroCtaPlaybook: "直达实战技能武器库 ⬇",
-    heroCtaLibrary: "打开实务技能库 ↗",
+    metaSkillsCount: "44 项开源规范技能",
+    metaScenarios: "6 大核心工作流场景",
+    heroCtaPlaybook: "开始阅读实战指南",
+    heroCtaLibrary: "浏览 44 项实务技能库",
 
-    tocTitle: "📖 章节导航 (TOC)",
-    sidebarBoxDesc: "💡 行文中任何带有小盾牌 🛡️ 的技能，点击即可原地查看实测状态、标准依据与安装命令。",
+    tocTitle: "章节导航 (TOC)",
+    sidebarBoxDesc: "行文中任何带有技能徽章的名称，点击即可原地查看实测状态、标准依据与安装命令。",
     sidebarBoxLink: "前往实务技能库交互筛选 ↗",
 
     // Chapter HTML Content
@@ -1523,15 +1522,15 @@ const guideContent = {
     heroBadge: "Digital Rights for All · Practical Field Guide",
     heroTitle: "Responsible & Safe AI Use: ",
     heroTitleHighlight: "A Field Guide for Everyone",
-    heroSubtitle: "From blind faith in AI hype to hands-on evidence tools. Grounded in 2026 global authoritative frameworks (NIST, TC260, PCPD, EFF, OWASP), this field guide unpacks desktop-level risks and embeds 44 verified SKILL.md packages into your daily workflow.",
+    heroSubtitle: "An open-source handbook for researchers, knowledge workers, and developers. Build critical workflows for inputs, outputs, and autonomous agents with third-party verifiable evidence.",
     metaReadTime: "Est. Read: 18 min",
-    metaSkillsCount: "Covers 44 Open-Source Skills",
+    metaSkillsCount: "44 Open-Source Skills",
     metaScenarios: "6 Core Workflow Scenarios",
-    heroCtaPlaybook: "Jump to Field Playbook ⬇",
-    heroCtaLibrary: "Explore Skill Library ↗",
+    heroCtaPlaybook: "Explore Playbook",
+    heroCtaLibrary: "Browse 44 Skills in Library",
 
-    tocTitle: "📖 TABLE OF CONTENTS",
-    sidebarBoxDesc: "💡 Any skill marked with 🛡️ can be clicked to view its verified status, international standards, and install command inline.",
+    tocTitle: "Table of Contents (TOC)",
+    sidebarBoxDesc: "Any skill with a badge can be clicked to view verified test status, statutory alignment, and install commands inline.",
     sidebarBoxLink: "Go to Skill Library ↗",
 
     // Chapter HTML Content (English)

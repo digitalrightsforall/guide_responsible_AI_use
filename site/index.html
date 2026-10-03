@@ -47,12 +47,16 @@
   <div id="reading-progress" class="guide-progress-bar" style="width: 0%;" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 
   <!-- Header / Navigation -->
+  <!-- Header / Navigation -->
   <header class="sticky top-0 z-50 w-full nav-glass">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <!-- Logo & Title -->
       <a href="index.html" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-2xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-xl transition-transform group-hover:scale-105">
-          🛡️
+        <div class="w-10 h-10 rounded-xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center transition-transform group-hover:scale-105 text-brand">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
         </div>
         <div>
           <div class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none mb-1">
@@ -77,7 +81,7 @@
       <!-- Action Utilities -->
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Language Switcher -->
-        <button id="lang-toggle" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 shadow-sm cursor-pointer" aria-label="切换中英语言">
+        <button id="lang-toggle" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer" aria-label="切换中英语言">
           <svg class="w-3.5 h-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
           <span id="t-lang-btn">English</span>
         </button>
@@ -96,78 +100,90 @@
     </div>
   </header>
 
-  <!-- Mobile Sub-Navigation Bar (3 items) -->
+  <!-- Mobile Sub-Navigation Bar (Clean minimal icons) -->
   <nav class="md:hidden flex items-center justify-around py-2.5 px-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-xs font-bold shadow-xs sticky top-20 z-40" aria-label="移动端快捷导航">
-    <a href="index.html" class="text-brand flex items-center gap-1" aria-current="page">
-      <span>📖</span> <span id="m-nav-guide">实务指南</span>
+    <a href="index.html" class="text-brand flex items-center gap-1.5" aria-current="page">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span id="m-nav-guide">实务指南</span>
     </a>
     <span class="text-slate-300 dark:text-slate-700">|</span>
-    <a href="library.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
-      <span>🛡️</span> <span id="m-nav-library">技能库</span>
+    <a href="library.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1.5">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span id="m-nav-library">技能库</span>
     </a>
     <span class="text-slate-300 dark:text-slate-700">|</span>
-    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
-      <span>🌐</span> <span id="m-nav-putongren">官网 ↗</span>
+    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1.5">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+      <span id="m-nav-putongren">官网 ↗</span>
     </a>
   </nav>
 
-  <!-- Hero Header Section -->
-  <section class="relative py-12 md:py-16 bg-gradient-to-b from-brand/5 via-brand/2 to-transparent border-b border-slate-200/80 dark:border-slate-800">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 dark:bg-brand/20 border border-brand/20 text-brand dark:text-brand-container text-xs font-bold tracking-wide hero-animate" id="hero-badge" style="animation-delay:0s">
-        普通人的数字权利 · 实务行动指南
-      </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight hero-animate" id="hero-title" style="animation-delay:0.07s">
-        负责任与安全使用 AI：<span class="hand-drawn-underline" id="hero-title-highlight">普通人的实操指南</span>
-      </h1>
-      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed hero-animate" id="hero-subtitle" style="animation-delay:0.13s">
-        从“盲信科技神话”到“手握实证工具”。本指南用严谨透彻的文字，解构我们为何构建这个开源库，如何把抽象伦理拆解为具体防线，以及 44 个技能如何无缝嵌入你的日常工作流。
-      </p>
-      
-      <!-- Meta & Quick Actions -->
-      <div class="pt-3 flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400">
-        <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          ⏱️ <span id="meta-read-time">建议阅读：18 分钟</span>
-        </span>
-        <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          📦 <span id="meta-skills-count">覆盖 44 项开源规范技能</span>
-        </span>
-        <span class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-900 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800 shadow-2xs">
-          🎯 <span id="meta-scenarios">6 大核心工作流场景串联</span>
-        </span>
-      </div>
+  <!-- Hero Header Section (Editorial Left-Aligned Layout - F-03) -->
+  <section class="relative py-12 md:py-16 bg-gradient-to-b from-brand/4 via-transparent to-transparent border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 dark:bg-brand/20 text-brand dark:text-brand-container text-xs font-bold tracking-wide hero-animate" id="hero-badge">
+          普通人的数字权利 · 实务行动指南
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight hero-animate" id="hero-title" style="animation-delay:0.05s">
+          负责任与安全使用 AI：<br class="hidden sm:inline" /><span class="hand-drawn-underline" id="hero-title-highlight">普通人的实操指南</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed hero-animate" id="hero-subtitle" style="animation-delay:0.1s">
+          面向知识工作者、高校科研学者与开发者的开源自卫手册。建立对输入数据、交互产出与自动化 Agent 的审判式工作流，让使用成果第三方好核验。
+        </p>
 
-      <div class="pt-2 flex flex-wrap justify-center gap-3">
-        <a href="#chapter-3" class="btn-primary px-5 py-2 text-xs sm:text-sm flex items-center gap-1.5 font-bold">
-          <span id="hero-cta-playbook">直达实战技能武器库 ⬇</span>
-        </a>
-        <a href="library.html" class="px-5 py-2 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
-          <span id="hero-cta-library">打开实务技能库 ↗</span>
-        </a>
+        <!-- Concise Data Metrics Bar (No emojis) -->
+        <div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-6 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200/70 dark:border-slate-800 pt-4">
+          <div class="flex items-center gap-1.5 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            <span id="meta-skills-count">44 项开源规范技能</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            <span id="meta-scenarios">6 大核心工作流场景</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+            <span id="meta-read-time">建议阅读：18 分钟</span>
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a href="#chapter-3" class="btn-primary px-6 py-2.5 text-xs sm:text-sm inline-flex items-center gap-2 font-bold shadow-xs">
+            <span id="hero-cta-playbook">开始阅读实战指南</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </a>
+          <a href="library.html" class="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand transition-colors group">
+            <span id="hero-cta-library">浏览 44 项实务技能库</span>
+            <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Self-Assessment Checklist -->
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-2 relative z-10">
-    <details class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm open:pb-4 group">
-      <summary class="list-none p-4 cursor-pointer font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between select-none">
-        <div class="flex items-center gap-2">
-          <span>✅</span>
-          <span id="checklist-title">安全习惯自检 (Self-Checklist)</span>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-2 relative z-10">
+    <div class="max-w-3xl">
+      <details class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs open:pb-4 group">
+        <summary class="list-none p-4 cursor-pointer font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between select-none">
+          <div class="flex items-center gap-2 text-sm sm:text-base">
+            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span id="checklist-title">安全习惯自检 (Self-Checklist)</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-brand bg-brand/10 px-2 py-0.5 rounded-full" id="checklist-progress-text">0/6</span>
+            <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="px-4">
+          <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-4 overflow-hidden">
+            <div id="checklist-progress-bar" class="h-full bg-brand transition-all duration-300 w-0"></div>
+          </div>
+          <div id="checklist-items" class="space-y-2"></div>
         </div>
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-mono text-brand bg-brand/10 px-2 py-0.5 rounded-full" id="checklist-progress-text">0/6</span>
-          <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </div>
-      </summary>
-      <div class="px-4">
-        <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-4 overflow-hidden">
-          <div id="checklist-progress-bar" class="h-full bg-brand transition-all duration-300 w-0"></div>
-        </div>
-        <div id="checklist-items" class="space-y-2"></div>
-      </div>
-    </details>
+      </details>
+    </div>
   </div>
 
   <!-- Main Layout Container: Sticky TOC + Narrative Body -->
@@ -177,8 +193,9 @@
     <aside class="lg:w-72 shrink-0">
       <div class="sticky top-28 space-y-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" id="toc-title">
-            📖 章节导航 (TOC)
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5" id="toc-title">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+            章节导航 (TOC)
           </h2>
           <span class="text-[11px] text-brand font-bold" id="toc-progress-text">0%</span>
         </div>
@@ -188,7 +205,7 @@
           <a href="#chapter-1" class="guide-toc-link" data-target="chapter-1">1. 序幕 · 算法时代的平民处境</a>
           <a href="#chapter-2" class="guide-toc-link" data-target="chapter-2">2. 概念解构 · 三大安全支柱与四大日常追问</a>
           <a href="#chapter-3" class="guide-toc-link font-semibold" data-target="chapter-3">3. 实战图谱 · 44 个技能如何精准应对</a>
-          <div class="pl-3.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
+          <div class="pl-4 ml-1.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
             <a href="#sec-3-1" class="guide-toc-link text-[11px]" data-target="sec-3-1">3.1 输入前·数据脱敏与外部投毒防范</a>
             <a href="#sec-3-2" class="guide-toc-link text-[11px]" data-target="sec-3-2">3.2 对话中·撕开幻觉与伪造文献</a>
             <a href="#sec-3-3" class="guide-toc-link text-[11px]" data-target="sec-3-3">3.3 决策时·打破谄媚与认知依附</a>
@@ -197,7 +214,7 @@
             <a href="#sec-3-6" class="guide-toc-link text-[11px]" data-target="sec-3-6">3.6 收尾阶段·会话清理与完成校验</a>
           </div>
           <a href="#chapter-4" class="guide-toc-link" data-target="chapter-4">4. 角色剧本 · 普通人的一日安全工作流</a>
-          <div class="pl-3.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
+          <div class="pl-4 ml-1.5 space-y-1 border-l border-slate-200 dark:border-slate-700 my-1">
             <a href="#sec-4-1" class="guide-toc-link text-[11px]" data-target="sec-4-1">4.1 学者与高校师生</a>
             <a href="#sec-4-2" class="guide-toc-link text-[11px]" data-target="sec-4-2">4.2 软件工程师与技术负责人</a>
             <a href="#sec-4-3" class="guide-toc-link text-[11px]" data-target="sec-4-3">4.3 内容创作者与营销团队</a>
@@ -208,7 +225,7 @@
 
         <!-- Sidebar Callout -->
         <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 dark:text-slate-400 space-y-2">
-          <p id="sidebar-box-desc">💡 行文中任何带有小盾牌 🛡️ 的技能，点击即可原地查看实测状态、标准依据与安装命令。</p>
+          <p id="sidebar-box-desc">行文中任何带有技能徽章的名称，点击即可原地查看实测状态、标准依据与安装命令。</p>
           <a href="library.html" class="text-brand font-bold inline-flex items-center gap-1 hover:underline" id="sidebar-box-link">
             前往实务技能库交互筛选 ↗
           </a>
@@ -252,10 +269,12 @@
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
         <div class="flex items-center gap-3">
           <a id="modal-library-jump" href="library.html" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
-            <span>🔍</span> <span id="modal-library-jump-text">在技能库中查看并筛选</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <span id="modal-library-jump-text">在技能库中查看并筛选</span>
           </a>
           <a id="modal-github" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
-            <span>💻</span> <span id="modal-source-text">GitHub 源码</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span id="modal-source-text">GitHub 源码</span>
           </a>
         </div>
         <div>
@@ -273,7 +292,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <span class="text-2xl">🛡️</span>
+          <div class="w-8 h-8 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-brand">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
           <div>
             <div class="font-bold text-slate-800 dark:text-slate-200 text-sm">普通人的数字权利 · Responsible & Safe AI Use</div>
             <div class="text-[11px] text-slate-400">帮助每一个普通人在机器与算法时代保护自己的权利</div>

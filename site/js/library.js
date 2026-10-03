@@ -11,11 +11,11 @@ const i18n = {
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
 
-    heroBadge: "✨ 普通人的数字权利 · 实务技能库",
+    heroBadge: "普通人的数字权利 · 实务技能库",
     heroTitle: "负责任与安全使用 AI 技能库",
     heroHighlight: "对内防采集与盲信，对外让第三方好核查",
     heroSubtitle: "精选开源社区现存成熟的 44 项 SKILL.md 规范技能。我们不制造新工具，而是为普通人、学者和写作者把好关：对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好验证自己使用 AI 的成果。",
-    heroGuideLink: "📖 了解完整设计理念与 6 大实战场景：阅读《实务指南》 →",
+    heroGuideLink: "了解完整设计理念与 6 大实战场景：阅读《实务指南》 →",
 
     bannerShieldTitle: "对内·自我防护与边界",
     bannerShieldDesc: "警惕商业大模型将你的日常对话、未公开草稿当做免费语料过度采集；警惕 AI 极度自信的幻觉与迎合，坚守独立思考与决策权。",
@@ -23,12 +23,12 @@ const i18n = {
     bannerRulerDesc: "当你使用 AI 辅助产出方案、报告或代码时，主动附带原始证据链、推演记录与核验切入点，不让同事、读者或客户盲信盲猜。",
 
     clientSectionTitle: "客户端生态快速筛选 (Client Ecosystem)",
-    clientAll: "🌟 全部客户端",
-    clientTrae: "🇨🇳 Trae IDE",
-    clientWorkbuddy: "🇨🇳 WorkBuddy",
-    clientCursor: "💻 Cursor",
-    clientClaude: "🤖 Claude Code",
-    clientWeb: "🌐 纯规则/通用",
+    clientAll: "全部客户端",
+    clientTrae: "Trae IDE",
+    clientWorkbuddy: "WorkBuddy",
+    clientCursor: "Cursor",
+    clientClaude: "Claude Code",
+    clientWeb: "纯规则/通用",
 
     catSectionTitle: "实务问题导航 (Practical Questions)",
     catAll: "全部问题",
@@ -39,36 +39,36 @@ const i18n = {
 
     timeSectionTitle: "工作流时机检索 (Workflow Timing)",
     timeAll: "全部时序",
-    time1: "⏳ 输入前·防采集与隔离",
-    time2: "💬 对话中·求证与防盲信",
-    time3: "📤 交付前·合规与核验包",
-    time4: "🧹 归档时·隐私与日志清理",
+    time1: "输入前·防采集与隔离",
+    time2: "对话中·求证与防盲信",
+    time3: "交付前·合规与核验包",
+    time4: "归档时·隐私与日志清理",
 
     searchPlaceholder: "搜索技能、使用场景或客户端...",
-    whyCareLabel: "💡 为何普通人应该关心：",
-    whyChosenLabel: "🎯 为什么精选收录：",
-    whenToUseLabel: "⏰ 准确使用时机：",
-    howToUseLabel: "🛠️ 如何使用：",
-    clientGuideTitle: "💻 适用客户端安装命令与路径指引：",
+    whyCareLabel: "为何普通人应该关心：",
+    whyChosenLabel: "为什么精选收录：",
+    whenToUseLabel: "准确使用时机：",
+    howToUseLabel: "如何使用：",
+    clientGuideTitle: "适用客户端安装命令与路径指引：",
     clientDirLabel: "安装路径：",
     copyClientCmd: "复制命令",
-    regulatoryBadgesLabel: "⚖️ 法理依据与权威标准微标签：",
-    standardLabel: "📐 技术依据与对齐标准：",
-    reviewsLabel: "🌐 独立第三方评测与生态收录：",
-    noReviewsNote: "🌱 开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。",
+    regulatoryBadgesLabel: "法理依据与权威标准对齐：",
+    standardLabel: "技术依据与对齐标准：",
+    reviewsLabel: "独立第三方评测与生态收录：",
+    noReviewsNote: "开源社区独立实现，当前暂无独立第三方媒体长篇报道，由开发者在 GitHub 遵循开源规范透明维护。",
     reviewBadge: "独立评测 / 收录",
-    statusLabel: "📦 运行状态与实证指标：",
-    statusGuideBtn: "ℹ️ 评定说明",
-    statusGuideTitle: "📦 运行状态与实证指标评定说明",
+    statusLabel: "运行状态与实证指标：",
+    statusGuideBtn: "评定说明",
+    statusGuideTitle: "运行状态与实证指标评定说明",
     statusGuideClose: "我明白了",
-    verifiedEvidenceTitle: "🛡️ 实证依据与测试事实：",
+    verifiedEvidenceTitle: "实证依据与测试事实：",
     targetPersona: "适用人群：",
     supportedClients: "适用客户端：",
     copied: "安装命令已复制到剪贴板！",
     viewSource: "查看 GitHub 源码 ↗",
     copyCommand: "复制安装命令",
     viewDetails: "查看详情",
-    shareLink: "🔗 复制卡片链接",
+    shareLink: "复制卡片链接",
     linkCopied: "卡片直达链接已复制到剪贴板！",
     closeModal: "关闭详情",
     itemsCountPrefix: "共收录",
@@ -87,11 +87,11 @@ const i18n = {
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
 
-    heroBadge: "✨ Digital Rights for All · Skill Library",
+    heroBadge: "Digital Rights for All · Skill Library",
     heroTitle: "Responsible and Safe AI Skill Library",
     heroHighlight: "Inward: Guard against harvesting & blind trust; Outward: Enable third-party verifiability",
     heroSubtitle: "A curated collection of 44 production-ready SKILL.md packages. We do not invent new tools—we help everyday knowledge workers, researchers, and professionals adopt proven guardrails: guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.",
-    heroGuideLink: "📖 Read the Practical Field Guide for scenarios & principles →",
+    heroGuideLink: "Read the Practical Field Guide for scenarios & principles →",
 
     bannerShieldTitle: "Inward: Self-Defense & Boundaries",
     bannerShieldDesc: "Guard against commercial AI over-harvesting your private text into training corpora, and guard against blind faith in confident hallucinations.",
@@ -99,12 +99,12 @@ const i18n = {
     bannerRulerDesc: "When delivering AI-assisted work, provide clear evidence trails and verification avenues so colleagues and readers can easily audit your results.",
 
     clientSectionTitle: "CLIENT ECOSYSTEM",
-    clientAll: "🌟 All Clients",
-    clientTrae: "🇨🇳 Trae IDE",
-    clientWorkbuddy: "🇨🇳 WorkBuddy",
-    clientCursor: "💻 Cursor",
-    clientClaude: "🤖 Claude Code",
-    clientWeb: "🌐 Prompt / Universal",
+    clientAll: "All Clients",
+    clientTrae: "Trae IDE",
+    clientWorkbuddy: "WorkBuddy",
+    clientCursor: "Cursor",
+    clientClaude: "Claude Code",
+    clientWeb: "Prompt / Universal",
 
     catSectionTitle: "PRACTICAL QUESTIONS",
     catAll: "All Questions",
@@ -115,36 +115,36 @@ const i18n = {
 
     timeSectionTitle: "WORKFLOW TIMING",
     timeAll: "All Stages",
-    time1: "⏳ Pre-Input: Anti-Harvesting",
-    time2: "💬 During-Chat: Fact-Checking",
-    time3: "📤 Pre-Handoff: Audit & Gate",
-    time4: "🧹 Post-Session: Cleanup",
+    time1: "Pre-Input: Anti-Harvesting",
+    time2: "During-Chat: Fact-Checking",
+    time3: "Pre-Handoff: Audit & Gate",
+    time4: "Post-Session: Cleanup",
 
     searchPlaceholder: "Search skills, scenarios, or clients...",
-    whyCareLabel: "💡 Why Everyday People Should Care:",
-    whyChosenLabel: "🎯 Why This Was Chosen:",
-    whenToUseLabel: "⏰ When to Use:",
-    howToUseLabel: "🛠️ How to Use:",
-    clientGuideTitle: "💻 Client Installation Commands & Directory Guide:",
+    whyCareLabel: "Why Everyday People Should Care:",
+    whyChosenLabel: "Why This Was Chosen:",
+    whenToUseLabel: "When to Use:",
+    howToUseLabel: "How to Use:",
+    clientGuideTitle: "Client Installation Commands & Directory Guide:",
     clientDirLabel: "Directory:",
     copyClientCmd: "Copy",
-    regulatoryBadgesLabel: "⚖️ Statutory & Standard Alignment Badges:",
-    standardLabel: "📐 Technical & Methodological Alignment:",
-    reviewsLabel: "🌐 Direct Third-Party Reviews & Inclusions:",
-    noReviewsNote: "🌱 Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.",
+    regulatoryBadgesLabel: "Statutory & Standard Alignment Badges:",
+    standardLabel: "Technical & Methodological Alignment:",
+    reviewsLabel: "Direct Third-Party Reviews & Inclusions:",
+    noReviewsNote: "Community open-source implementation with standard-compliant GitHub maintenance; no dedicated independent media articles yet.",
     reviewBadge: "Review / Inclusion",
-    statusLabel: "📦 Operational Status & Verified Evidence:",
-    statusGuideBtn: "ℹ️ How We Evaluate",
-    statusGuideTitle: "📦 Operational Status & Verified Evidence Standards",
+    statusLabel: "Operational Status & Verified Evidence:",
+    statusGuideBtn: "How We Evaluate",
+    statusGuideTitle: "Operational Status & Verified Evidence Standards",
     statusGuideClose: "Got it",
-    verifiedEvidenceTitle: "🛡️ Verified Evidence & Test Record:",
+    verifiedEvidenceTitle: "Verified Evidence & Test Record:",
     targetPersona: "Target:",
     supportedClients: "Clients:",
     copied: "Install command copied to clipboard!",
     viewSource: "View on GitHub ↗",
     copyCommand: "Copy Command",
     viewDetails: "Details",
-    shareLink: "🔗 Share Link",
+    shareLink: "Share Link",
     linkCopied: "Direct skill link copied to clipboard!",
     closeModal: "Close",
     itemsCountPrefix: "",
@@ -489,19 +489,19 @@ function renderCard(item) {
   // Timing Badge label and color scheme
   const timingConfig = {
     "pre-input": {
-      label: currentLang === "zh" ? "⏳ 输入前·防采集与隔离" : "⏳ Pre-Input: Privacy",
+      label: currentLang === "zh" ? "输入前·防采集与隔离" : "Pre-Input: Privacy",
       color: "bg-teal-50 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 border-teal-200 dark:border-teal-800"
     },
     "during-chat": {
-      label: currentLang === "zh" ? "💬 交互中·求证与防盲信" : "💬 During-Chat: Fact-Check",
+      label: currentLang === "zh" ? "交互中·求证与防盲信" : "During-Chat: Fact-Check",
       color: "bg-indigo-50 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
     },
     "pre-handoff": {
-      label: currentLang === "zh" ? "📤 交付前·合规与核验包" : "📤 Pre-Handoff: Audit",
+      label: currentLang === "zh" ? "交付前·合规与核验包" : "Pre-Handoff: Audit",
       color: "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
     },
     "post-session": {
-      label: currentLang === "zh" ? "🧹 归档时·隐私与日志清理" : "🧹 Post-Session: Cleanup",
+      label: currentLang === "zh" ? "归档时·隐私与日志清理" : "Post-Session: Cleanup",
       color: "bg-purple-50 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800"
     }
   };
@@ -511,8 +511,11 @@ function renderCard(item) {
     color: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700"
   };
 
+  const isReady = (item.status?.stage || "").includes("开箱即用") || (item.status?.stage || "").includes("Ready");
+  const readyClass = isReady ? "card-ready" : "";
+
   return `
-    <div class="skill-card flex flex-col justify-between p-6 sm:p-7 space-y-6">
+    <div class="skill-card ${readyClass} flex flex-col justify-between p-6 sm:p-7 space-y-6">
       <div class="space-y-4">
         <!-- 1. Header Badges & Category -->
         <div class="flex flex-wrap items-center justify-between gap-2 pb-1 border-b border-slate-100 dark:border-slate-800">
@@ -543,8 +546,8 @@ function renderCard(item) {
             return `
               <div class="flex flex-wrap gap-1.5 pt-0.5">
                 ${badges.map(b => `
-                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50/90 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80 shadow-2xs">
-                    ⚖️ ${escapeHtml(b)}
+                  <span class="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50/90 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80 shadow-2xs">
+                    ${escapeHtml(b)}
                   </span>
                 `).join('')}
               </div>
@@ -594,6 +597,7 @@ function renderCard(item) {
           const stageColor = isSetup
             ? "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60"
             : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60";
+          const dotColor = isSetup ? "bg-amber-500" : "bg-emerald-500";
           const stageTooltip = isZh
             ? "已通过本地环境安装测试与技能规范语法校验，逻辑规则完整闭环。"
             : "Verified via local installation tests and skill specification validation.";
@@ -614,14 +618,15 @@ function renderCard(item) {
                 </button>
               </div>
               <div class="flex flex-wrap gap-1.5 pt-0.5">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${stageColor}" title="${stageTooltip}">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${stageColor}" title="${stageTooltip}">
+                  <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
                   ${stageText}
                 </span>
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200/80 text-slate-700 dark:bg-slate-700 dark:text-slate-300" title="${adoptionTooltip}">
                   ${adoptionText}
                 </span>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5 leading-relaxed">🛡️ ${trustText}</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5 leading-relaxed">${trustText}</p>
             </div>
           `;
         })()}
@@ -637,7 +642,8 @@ function renderCard(item) {
       <div class="mt-4 flex flex-wrap items-center justify-between gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
         <div class="flex items-center gap-2">
           <button data-details="${item.id}" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-brand/10 hover:bg-brand/20 text-brand dark:text-brand-container transition-colors cursor-pointer" title="${t.viewDetails}">
-            🔍 ${t.viewDetails}
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            ${t.viewDetails}
           </button>
           <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -688,7 +694,7 @@ function getStatusGuideHtml(lang) {
       <div class="space-y-3.5">
         <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
           <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>🟢</span> 1. 运行状态与可用性 (Usability & Test Verification)
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. 运行状态与可用性 (Usability & Test Verification)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             所有收录技能均经过本地环境真实安装与语法校验。<strong>「开箱即用 (实测通过)」</strong>表示无需额外繁琐环境配置，复制命令放入 Cursor、Claude Code 或 Antigravity 技能目录即可直接生效；<strong>「需配置依赖 (环境就绪)」</strong>则表示需具备 Python 依赖包或 API Key，所有配置规则均经本地闭环测试。
@@ -697,7 +703,7 @@ function getStatusGuideHtml(lang) {
 
         <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 dark:border-brand/30 space-y-1">
           <h4 class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>⭐</span> 2. 开源热度与事实依据 (Community Adoption & Empirical Evidence)
+            <span class="w-2 h-2 rounded-full bg-brand inline-block"></span> 2. 开源热度与事实依据 (Community Adoption & Empirical Evidence)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             严格基于真实 GitHub 关注度（如 Superpowers 290k★、Anthropic 官方研究库 177k★/9.5k★、Tech Leads Club 6.6k★）或权威机构开源背书。对独立开发者维护的高聚焦工具，如实标注为<strong>「独立开源 (本地测试通过)」</strong>，绝不编造虚假数据或夸大其词。
@@ -706,7 +712,7 @@ function getStatusGuideHtml(lang) {
 
         <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
           <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>🛡️</span> 3. 实证与安全原则 (Evidence & Safety Guarantees)
+            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. 实证与安全原则 (Evidence & Safety Guarantees)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             所有技能代码均完全公开透明可供审计，经客户端沙盒隔离运行验证，绝无恶意网络回传、越权文件读取或后门行为，切实保障普通用户的数字权利与数据安全。
@@ -719,7 +725,7 @@ function getStatusGuideHtml(lang) {
       <div class="space-y-3.5">
         <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
           <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>🟢</span> 1. Usability & Test Verification
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. Usability & Test Verification
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             Every curated skill is verified via local installation and syntax linting. <strong>"Ready to Use (Verified)"</strong> means zero complex setup—simply copy into Cursor, Claude Code, or Antigravity skills folders. <strong>"Requires Setup (Ready)"</strong> indicates prerequisites like Python packages or API keys, with full configuration instructions tested.
@@ -728,7 +734,7 @@ function getStatusGuideHtml(lang) {
 
         <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 dark:border-brand/30 space-y-1">
           <h4 class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>⭐</span> 2. Community Adoption & Empirical Evidence
+            <span class="w-2 h-2 rounded-full bg-brand inline-block"></span> 2. Community Adoption & Empirical Evidence
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             Strictly grounded in real GitHub stars (e.g. Superpowers 290k★, Anthropic Official 177k★/9.5k★, Tech Leads Club 6.6k★) and verified organization custodianship. For specialized independent projects, we transparently note <strong>"Independent Open Source (Verified)"</strong>—never fabricating fake metrics.
@@ -737,7 +743,7 @@ function getStatusGuideHtml(lang) {
 
         <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
           <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span>🛡️</span> 3. Evidence & Safety Principles
+            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. Evidence & Safety Principles
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             All skill codebases are 100% public and auditable on GitHub, tested within client sandboxes with zero unauthorized network exfiltration, protecting users' digital sovereignty and data privacy.
@@ -803,19 +809,19 @@ function openModal(id) {
 
   const timingConfig = {
     "pre-input": {
-      label: currentLang === "zh" ? "⏳ 输入前·防采集与隔离" : "⏳ Pre-Input: Privacy",
+      label: currentLang === "zh" ? "输入前·防采集与隔离" : "Pre-Input: Privacy",
       color: "bg-teal-50 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 border-teal-200 dark:border-teal-800"
     },
     "during-chat": {
-      label: currentLang === "zh" ? "💬 交互中·求证与防盲信" : "💬 During-Chat: Fact-Check",
+      label: currentLang === "zh" ? "交互中·求证与防盲信" : "During-Chat: Fact-Check",
       color: "bg-indigo-50 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
     },
     "pre-handoff": {
-      label: currentLang === "zh" ? "📤 交付前·合规与核验包" : "📤 Pre-Handoff: Audit",
+      label: currentLang === "zh" ? "交付前·合规与核验包" : "Pre-Handoff: Audit",
       color: "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
     },
     "post-session": {
-      label: currentLang === "zh" ? "🧹 归档时·隐私与日志清理" : "🧹 Post-Session: Cleanup",
+      label: currentLang === "zh" ? "归档时·隐私与日志清理" : "Post-Session: Cleanup",
       color: "bg-purple-50 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800"
     }
   };
@@ -852,8 +858,8 @@ function openModal(id) {
             </span>
             <div class="flex flex-wrap gap-1.5">
               ${badges.map(b => `
-                <span class="inline-flex items-center gap-1 font-semibold px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shadow-2xs">
-                  ⚖️ ${escapeHtml(b)}
+                <span class="inline-flex items-center font-semibold px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shadow-2xs">
+                  ${escapeHtml(b)}
                 </span>
               `).join('')}
             </div>
@@ -921,8 +927,8 @@ function openModal(id) {
                     ${escapeHtml(cmd)}
                   </div>
                 </div>
-                <button data-modal-copy="${escapeHtml(cmd)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand/10 hover:bg-brand text-brand hover:text-white dark:bg-brand/20 dark:hover:bg-brand dark:text-brand-container dark:hover:text-white font-sans text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1 shadow-2xs">
-                  <span>📋</span>
+                <button data-modal-copy="${escapeHtml(cmd)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand/10 hover:bg-brand text-brand hover:text-white dark:bg-brand/20 dark:hover:bg-brand dark:text-brand-container dark:hover:text-white font-sans text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-2xs">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                   <span>${t.copyClientCmd}</span>
                 </button>
               </div>
@@ -944,7 +950,7 @@ function openModal(id) {
                 ${t.standardLabel}
               </h4>
               <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-900/60 text-sky-800 dark:text-sky-300">
-                🏛️ ${escapeHtml(std.organization)}
+                ${escapeHtml(std.organization)}
               </span>
             </div>
             <div>
@@ -970,10 +976,10 @@ function openModal(id) {
               <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
                 <div class="flex items-center justify-between gap-2 flex-wrap">
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800">
-                    ⭐ ${t.reviewBadge}
+                    ${t.reviewBadge}
                   </span>
                   <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
-                    🏷️ ${escapeHtml(rev.source)}
+                    ${escapeHtml(rev.source)}
                   </span>
                 </div>
                 <div>

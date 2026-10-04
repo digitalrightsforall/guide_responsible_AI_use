@@ -599,3 +599,36 @@ body {
   }
 }
 
+/* Responsive Adaptive Details: Expanded Editorial Cards on Desktop (>= 1024px), Compact Accordion on Mobile (< 1024px) */
+.adaptive-details {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.adaptive-details summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .adaptive-details summary {
+    cursor: pointer;
+  }
+  .adaptive-details .adaptive-toggle-hint {
+    display: none !important;
+  }
+  .adaptive-details .adaptive-desktop-badge {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .adaptive-details summary {
+    cursor: pointer;
+  }
+  .adaptive-details .adaptive-toggle-hint {
+    display: inline-flex !important;
+  }
+  .adaptive-details .adaptive-desktop-badge {
+    display: none !important;
+  }
+}
+

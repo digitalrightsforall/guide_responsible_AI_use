@@ -162,30 +162,6 @@
     </div>
   </section>
 
-  <!-- Self-Assessment Checklist -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-2 relative z-10">
-    <div class="max-w-3xl">
-      <details class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs open:pb-4 group">
-        <summary class="list-none p-4 cursor-pointer font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between select-none">
-          <div class="flex items-center gap-2 text-sm sm:text-base">
-            <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span id="checklist-title">安全习惯自检 (Self-Checklist)</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-mono text-brand bg-brand/10 px-2 py-0.5 rounded-full" id="checklist-progress-text">0/6</span>
-            <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </div>
-        </summary>
-        <div class="px-4">
-          <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-4 overflow-hidden">
-            <div id="checklist-progress-bar" class="h-full bg-brand transition-all duration-300 w-0"></div>
-          </div>
-          <div id="checklist-items" class="space-y-2"></div>
-        </div>
-      </details>
-    </div>
-  </div>
-
   <!-- Main Layout Container: Sticky TOC + Narrative Body -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex flex-col lg:flex-row gap-8 lg:gap-10">
     
@@ -234,7 +210,7 @@
     </aside>
 
     <!-- Right Column: Rich Narrative Article Body -->
-    <main class="flex-1 max-w-3xl space-y-12 sm:space-y-16 text-slate-800 dark:text-slate-200 leading-relaxed text-sm sm:text-base min-w-0" id="guide-content-body">
+    <main class="flex-1 max-w-4xl space-y-10 sm:space-y-14 text-slate-800 dark:text-slate-200 leading-relaxed text-sm sm:text-base min-w-0" id="guide-content-body">
       <!-- Mobile Sticky / Collapsible Quick-Jump TOC (Visible only on < lg) -->
       <div class="lg:hidden mb-6 sticky top-20 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/90 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden">
         <details id="mobile-toc-details" class="group">
@@ -272,6 +248,31 @@
           </nav>
         </details>
       </div>
+
+      <!-- Self-Assessment Checklist (Integrated inside Main) -->
+      <details id="guide-checklist-details" class="adaptive-details bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl shadow-xs p-4 sm:p-5 group">
+        <summary class="list-none cursor-pointer font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between select-none">
+          <div class="flex items-center gap-2 text-sm sm:text-base">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span id="checklist-title">安全习惯自检 (Self-Checklist)</span>
+            <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">日常习惯核验</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono font-bold text-brand bg-brand/10 px-2.5 py-0.5 rounded-full" id="checklist-progress-text">0/6</span>
+            <span class="adaptive-toggle-hint text-xs text-brand font-semibold lg:hidden">
+              <span class="group-open:hidden">展开自检 ⬇</span>
+              <span class="hidden group-open:inline">收起自检 ⬆</span>
+            </span>
+            <svg class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </summary>
+        <div class="pt-4 space-y-3">
+          <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div id="checklist-progress-bar" class="h-full bg-brand transition-all duration-300 w-0"></div>
+          </div>
+          <div id="checklist-items" class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1"></div>
+        </div>
+      </details>
 
       <!-- Content populated and managed dynamically by guide.js with bilingual support -->
       <div id="narrative-content" class="space-y-16">

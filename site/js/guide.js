@@ -99,6 +99,15 @@ function setupEventListeners() {
       if (details) details.removeAttribute("open");
     }
   });
+
+  // Responsive adaptive details switcher on resize
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      syncAdaptiveDetails();
+    }, 100);
+  });
 }
 
 // Scrollspy and Reading Progress Tracking
@@ -426,16 +435,19 @@ const guideContent = {
           </div>
 
           <!-- Domestic Chinese Tools Hardening Table (Collapsible) -->
-          <details class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs transition-all my-3">
-            <summary class="flex items-center justify-between cursor-pointer list-none">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇨🇳</span>
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🇨🇳</span>
                 <div>
-                  <h3 class="text-base font-bold text-slate-900 dark:text-white">国内主流 AI 工具实操配置速查卡（Trae、WorkBuddy、豆包、Kimi、Dify）</h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">全面对齐 PIPL 与 TC260-005《伦理安全指引 1.0》实测建议</p>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国内主流 AI 工具实操配置速查卡（Trae、WorkBuddy、豆包、Kimi、Dify）</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">实测深度基准</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">全面对齐 PIPL 与 TC260-005《伦理安全指引 1.0》实测建议</p>
                 </div>
               </div>
-              <span class="text-xs text-brand font-bold flex items-center gap-1">
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
                 <span class="group-open:hidden">点击展开速查 ⬇</span>
                 <span class="hidden group-open:inline">收起表格 ⬆</span>
               </span>
@@ -489,16 +501,19 @@ const guideContent = {
       </details>
 
           <!-- International Tools Hardening Table (Collapsible) -->
-          <details class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs transition-all my-3">
-            <summary class="flex items-center justify-between cursor-pointer list-none">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🌐</span>
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🌐</span>
                 <div>
-                  <h3 class="text-base font-bold text-slate-900 dark:text-white">国际主流 AI 工具对照基线（ChatGPT、Claude、Gemini、Cursor）</h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">官方 Opt-out 路径与独立记忆/知识清理指南</p>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国际主流 AI 工具对照基线（ChatGPT、Claude、Gemini、Cursor）</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">官方依据对照</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">官方 Opt-out 路径与独立记忆/知识清理指南</p>
                 </div>
               </div>
-              <span class="text-xs text-brand font-bold flex items-center gap-1">
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
                 <span class="group-open:hidden">点击展开速查 ⬇</span>
                 <span class="hidden group-open:inline">收起表格 ⬆</span>
               </span>
@@ -1087,13 +1102,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>准标识符风险与间接注入在野三大载体实证 (Empirical Forensic Analysis)：</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">准标识符风险与间接注入在野三大载体实证 (Empirical Forensic Analysis)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">深度法医学实证</span>
               </span>
-              <span class="text-[11px] text-brand font-medium">展开/收起 ⬇</span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开实证 ⬇</span>
+                <span class="hidden group-open:inline">收起实证 ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>马赛克理论与 PIPL 敏感个人信息防线</strong>：依照《个人信息保护法》第28条，医疗健康、金融账户与特定身份信息一旦泄露极易导致人格尊严受侵害。单纯掩盖姓名无法阻断准标识符组合还原，必须对年龄区间、地理位置、就诊科室等属性实施 K-匿名化扰动或生成合成数据。</li>
@@ -1157,13 +1176,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>自回归原罪、司法引证灾难与双环查验实证 (Empirical Hallucination Audit)：</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">自回归原罪、司法引证灾难与双环查验实证 (Empirical Hallucination Audit)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">双环核验实证</span>
               </span>
-              <span class="text-[11px] text-brand font-medium">展开/收起 ⬇</span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开实证 ⬇</span>
+                <span class="hidden group-open:inline">收起实证 ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>自回归预测的结构性缺陷</strong>：大模型是“语言概率连接器”而非“数据库引擎”。遇到缺乏充分预训练语料的长尾知识点时，自注意力机制会顺应提示词语法偏好，拼凑出词嵌入向量高度共现的名词、数字与期刊名，创造出看似权威实则凭空捏造的幻觉引文。</li>
@@ -1230,13 +1253,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>RLHF 奖励原罪与三级对抗审阅实操体系 (3-Tier Adversarial Scrutiny Pipeline)：</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF 奖励原罪与三级对抗审阅实操体系 (3-Tier Adversarial Scrutiny Pipeline)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">三级审阅实证</span>
               </span>
-              <span class="text-[11px] text-brand font-medium">展开/收起 ⬇</span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开实证 ⬇</span>
+                <span class="hidden group-open:inline">收起实证 ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>RLHF 奖励模型原罪</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。</li>
@@ -1295,13 +1322,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Architecture Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>Agent 与 MCP 在野真实攻击面 (Empirical Attack Vectors)：</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Agent 与 MCP 在野真实攻击面 (Empirical Attack Vectors)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">CVE漏洞实证</span>
               </span>
-              <span class="text-[11px] text-brand font-medium">展开/收起 ⬇</span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开实证 ⬇</span>
+                <span class="hidden group-open:inline">收起实证 ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>权限门禁 ≠ 物理容器</strong>：WorkBuddy 将权限严谨分为“默认权限”（限制工作空间、弹窗确认）与“完全访问”；Kimi Work 官方明确提示完全权限存在文件覆盖和系统改动风险。没有容器沙箱前，严禁开启无确认全自动执行。</li>
@@ -1376,13 +1407,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Statutory & Judicial Forensic Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>行政处罚文号、司法判决要旨与法定标识实证 (Forensic Legal Evidence)：</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">行政处罚文号、司法判决要旨与法定标识实证 (Forensic Legal Evidence)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">法定判例实据</span>
               </span>
-              <span class="text-[11px] text-brand font-medium">展开/收起 ⬇</span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开实证 ⬇</span>
+                <span class="hidden group-open:inline">收起实证 ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>市场监管部门 (AMR) 真实行政处罚案例</strong>：
@@ -1837,16 +1872,19 @@ const guideContent = {
           </div>
 
           <!-- Domestic Chinese Tools Matrix (Collapsible) -->
-          <details class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs transition-all my-3">
-            <summary class="flex items-center justify-between cursor-pointer list-none">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🇨🇳</span>
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🇨🇳</span>
                 <div>
-                  <h3 class="text-base font-bold text-slate-900 dark:text-white">Chinese Platforms Matrix (Trae, WorkBuddy, Doubao, Kimi, Dify)</h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Aligned with PIPL & TC260-005 Guidelines 1.0</p>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Chinese Platforms Matrix (Trae, WorkBuddy, Doubao, Kimi, Dify)</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Empirical Baseline</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Aligned with PIPL & TC260-005 Guidelines 1.0</p>
                 </div>
               </div>
-              <span class="text-xs text-brand font-bold flex items-center gap-1">
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
                 <span class="group-open:hidden">Expand Table ⬇</span>
                 <span class="hidden group-open:inline">Collapse ⬆</span>
               </span>
@@ -1900,16 +1938,19 @@ const guideContent = {
       </details>
 
           <!-- International Tools Hardening Table (Collapsible) -->
-          <details class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs transition-all my-3">
-            <summary class="flex items-center justify-between cursor-pointer list-none">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🌐</span>
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🌐</span>
                 <div>
-                  <h3 class="text-base font-bold text-slate-900 dark:text-white">Global Platforms Baseline (ChatGPT, Claude, Gemini, Cursor)</h3>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Official Opt-Out Switches & Knowledge Base Purging</p>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Global Platforms Baseline (ChatGPT, Claude, Gemini, Cursor)</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Official Baselines</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Official Opt-Out Switches & Knowledge Base Purging</p>
                 </div>
               </div>
-              <span class="text-xs text-brand font-bold flex items-center gap-1">
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
                 <span class="group-open:hidden">Expand Table ⬇</span>
                 <span class="hidden group-open:inline">Collapse ⬆</span>
               </span>
@@ -2492,10 +2533,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">🔬 Quasi-Identifiers & Empirical Three Hidden Injection Carriers:</span>
-              <span class="text-[11px] text-brand font-bold">Expand / Collapse ⬇</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Quasi-Identifiers & Empirical Three Hidden Injection Carriers</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Forensic Analysis</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
+                <span class="group-open:hidden">Expand Evidence ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>Mosaic Theory & PIPL Statutory Safeguards</strong>: Under PIPL Art. 28, unauthorized leakage of medical, financial, or biometric data infringes personal dignity. Stripping names alone fails against linkage attacks; quasi-identifiers must undergo K-anonymity perturbation or synthetic generation.</li>
@@ -2553,10 +2601,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">🔬 Autoregressive Mechanics, Judicial Disasters & Dual-Loop Verification:</span>
-              <span class="text-[11px] text-brand font-bold">Expand / Collapse ⬇</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Autoregressive Mechanics, Judicial Disasters & Dual-Loop Verification</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Dual-Loop Audit</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
+                <span class="group-open:hidden">Expand Evidence ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>Structural Defect of Autoregressive Sampling</strong>: LLMs are probabilistic token sequence synthesizers, not database retrieval engines. When confronting long-tail queries, self-attention greedy search stitches co-occurring academic tokens together, manufacturing non-existent citations with zero syntactic flaws.</li>
@@ -2617,10 +2672,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">🔬 RLHF Flaws & 3-Tier Adversarial Scrutiny Pipeline:</span>
-              <span class="text-[11px] text-brand font-bold">Expand / Collapse ⬇</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF Flaws & 3-Tier Adversarial Scrutiny Pipeline</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">3-Tier Scrutiny</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
+                <span class="group-open:hidden">Expand Evidence ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>The RLHF Reward Trap</strong>: Models learn that agreeing with user presuppositions yields higher reward scores. As models scale up in size, sycophancy does not disappear; it becomes more eloquent, sophisticated, and deceptively persuasive.</li>
@@ -2673,10 +2735,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Exploit / Architecture Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">🔬 Agent & MCP Empirical Attack Vectors (Real-World Evidence):</span>
-              <span class="text-[11px] text-brand font-bold">Expand / Collapse ⬇</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Agent & MCP Empirical Attack Vectors (Real-World Evidence)</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">CVE Exploits</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
+                <span class="group-open:hidden">Expand Evidence ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>Permission Gates ≠ Container Sandboxing</strong>: WorkBuddy strictly differentiates "Default Permissions" (workspace-scoped, confirmation prompts) from "Full Access"; Kimi Work explicitly documents risk of irreversible file loss and system corruption under autonomous modes. Never run uncontained agents with full host rights.</li>
@@ -2747,10 +2816,17 @@ const guideContent = {
           </div>
 
           <!-- Real World Statutory & Judicial Forensic Callout -->
-          <details class="group p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 text-xs my-3">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none">
-              <span class="flex items-center gap-1.5">⚖️ Authentic Administrative Penalties, Judicial Rulings & Statutory Disclosures:</span>
-              <span class="text-[11px] text-brand font-bold">Expand / Collapse ⬇</span>
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
+            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2 flex-wrap">
+                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Authentic Administrative Penalties, Judicial Rulings & Statutory Disclosures</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Statutory Precedents</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
+                <span class="group-open:hidden">Expand Evidence ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>Authentic Chinese AMR Administrative Penalties</strong>:
@@ -3217,6 +3293,25 @@ function updateUI() {
 
   // Setup checklist
   setupChecklist();
+
+  // Synchronize adaptive details (expand by default on desktop >= 1024px, collapse on mobile < 1024px)
+  syncAdaptiveDetails(true);
+}
+
+let lastIsDesktop = null;
+function syncAdaptiveDetails(force = false) {
+  const isDesktop = window.innerWidth >= 1024;
+  if (!force && lastIsDesktop === isDesktop) return;
+  lastIsDesktop = isDesktop;
+
+  const adaptiveDetailsList = document.querySelectorAll(".adaptive-details");
+  adaptiveDetailsList.forEach((details) => {
+    if (isDesktop) {
+      details.setAttribute("open", "");
+    } else {
+      details.removeAttribute("open");
+    }
+  });
 }
 
 function setText(id, text) {

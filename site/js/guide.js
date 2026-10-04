@@ -3291,9 +3291,6 @@ function updateUI() {
   setText("footer-link-guide", t.navLinkGuide);
   setText("footer-link-library", t.navLinkLibrary);
 
-  // Setup checklist
-  setupChecklist();
-
   // Synchronize adaptive details (expand by default on desktop >= 1024px, collapse on mobile < 1024px)
   syncAdaptiveDetails(true);
 }
@@ -3324,72 +3321,3 @@ function setHtml(id, html) {
   if (el) el.innerHTML = html;
 }
 
-function setupChecklist() {
-  const container = document.getElementById("checklist-items");
-  if (!container) return;
-
-  const checklistData = {
-    zh: [
-      "关闭训练开关 (Opt-out of Training)",
-      "清理记忆 (Clear Memory/History)",
-      "不粘贴隐私 (No PII/Privacy Pasting)",
-      "独立核验引文 (Verify Citations Independently)",
-      "不因AI附和拍板 (Avoid Sycophancy/Blind Trust)",
-      "发布前合规检查 (Pre-Release Compliance Check)"
-    ],
-    en: [
-      "Opt-out of Training",
-      "Clear Memory/History",
-      "No PII/Privacy Pasting",
-      "Verify Citations Independently",
-      "Avoid Sycophancy/Blind Trust",
-      "Pre-Release Compliance Check"
-    ]
-  };
-
-  const titleText = currentLang === "zh" ? "安全习惯自检 (Self-Checklist)" : "Safety Habit Self-Checklist";
-  const titleEl = document.getElementById("checklist-title");
-  if (titleEl) titleEl.textContent = titleText;
-
-  const items = checklistData[currentLang] || checklistData.zh;
-  const state = JSON.parse(localStorage.getItem("rai_checklist") || "{}");
-
-  container.innerHTML = items.map((item, index) => {
-    const isChecked = state[index] ? "checked" : "";
-    return `
-      <label class="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
-        <input type="checkbox" data-index="${index}" class="checklist-cb w-4 h-4 text-brand bg-slate-100 border-slate-300 rounded focus:ring-brand dark:focus:ring-brand dark:ring-offset-slate-900 focus:ring-2 dark:bg-slate-800 dark:border-slate-700" ${isChecked}>
-        <span class="text-sm text-slate-700 dark:text-slate-300 ${isChecked ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${item}</span>
-      </label>
-    `;
-  }).join("");
-
-  const updateProgress = () => {
-    const cbs = document.querySelectorAll(".checklist-cb");
-    let checkedCount = 0;
-    const newState = {};
-    cbs.forEach((cb) => {
-      const idx = cb.getAttribute("data-index");
-      if (cb.checked) {
-        checkedCount++;
-        newState[idx] = true;
-        cb.nextElementSibling.classList.add("line-through", "text-slate-400", "dark:text-slate-500");
-      } else {
-        cb.nextElementSibling.classList.remove("line-through", "text-slate-400", "dark:text-slate-500");
-      }
-    });
-    localStorage.setItem("rai_checklist", JSON.stringify(newState));
-    
-    const progressText = document.getElementById("checklist-progress-text");
-    if (progressText) progressText.textContent = `${checkedCount}/${items.length}`;
-    
-    const progressBar = document.getElementById("checklist-progress-bar");
-    if (progressBar) progressBar.style.width = `${(checkedCount / items.length) * 100}%`;
-  };
-
-  document.querySelectorAll(".checklist-cb").forEach(cb => {
-    cb.addEventListener("change", updateProgress);
-  });
-  
-  updateProgress();
-}

@@ -384,7 +384,7 @@ const guideContent = {
     // Chapter HTML Content
     bodyHtml: `
       <!-- Chapter 0 -->
-      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · 平台基线</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -453,8 +453,11 @@ const guideContent = {
               </span>
             </summary>
             <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 横向滑动查看完整表格</span>
+              </div>
               <div class="overflow-x-auto">
-                <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">工具与形态</th>
@@ -519,8 +522,11 @@ const guideContent = {
               </span>
             </summary>
             <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 横向滑动查看完整表格</span>
+              </div>
               <div class="overflow-x-auto">
-                <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">平台/工具</th>
@@ -563,7 +569,7 @@ const guideContent = {
   </section>
 
       <!-- Chapter 1 -->
-      <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 1 · 序幕</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -784,7 +790,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 2 -->
-      <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · 概念解构</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -833,8 +839,11 @@ const guideContent = {
             <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span>📋 三大安全支柱深度映射表：中国法治底线与国际工业标准对齐</span>
             </h4>
+            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+              <span>👉 横向滑动查看完整表格</span>
+            </div>
             <div class="overflow-x-auto">
-              <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <table class="min-w-[760px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
                 <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                   <tr>
                     <th class="py-3 px-4 w-1/5">支柱名称</th>
@@ -1014,8 +1023,11 @@ const guideContent = {
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
             四大日常追问：把抽象原则落地为可执行的习惯检查
           </h3>
+          <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+            <span>👉 横向滑动查看完整表格</span>
+          </div>
           <div class="overflow-x-auto">
-            <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <table class="min-w-[620px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">日常实务追问</th>
@@ -1056,7 +1068,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 3 -->
-      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-28">
+      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · 实战图谱</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -1068,7 +1080,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.1 -->
-        <div id="sec-3-1" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
           </h3>
@@ -1142,7 +1154,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.2 -->
-        <div id="sec-3-2" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.2 对话推演时 · 撕开自回归幻觉与伪造文献的伪装 (During-Chat)</span>
           </h3>
@@ -1219,7 +1231,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.3 -->
-        <div id="sec-3-3" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.3 方案决策时 · 击碎 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
           </h3>
@@ -1291,7 +1303,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.4 (Agent Execution Security) -->
-        <div id="sec-3-4" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.4 执行时 · Agent 权限越权与沙盒隔离 (Execution Safety)</span>
           </h3>
@@ -1351,7 +1363,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.5 (Pre-Handoff) -->
-        <div id="sec-3-5" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.5 交付前 · 生产发布的“四大法定门禁”与生成标识 (Pre-Handoff)</span>
           </h3>
@@ -1451,7 +1463,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.6 (Post-Session) -->
-        <div id="sec-3-6" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.6 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
           </h3>
@@ -1470,7 +1482,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 4 -->
-      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-28">
+      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 4 · 角色剧本</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -1482,7 +1494,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.1 -->
-        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -1551,7 +1563,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.2 -->
-        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -1620,7 +1632,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.3 -->
-        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -1689,7 +1701,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.4 -->
-        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -1759,7 +1771,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 5 -->
-      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 5 · 倡导与共建</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -1821,7 +1833,7 @@ const guideContent = {
     // Chapter HTML Content (English)
     bodyHtml: `
       <!-- Chapter 0 -->
-      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · BASELINE</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -1890,8 +1902,11 @@ const guideContent = {
               </span>
             </summary>
             <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 Swipe horizontally to view full table</span>
+              </div>
               <div class="overflow-x-auto">
-                <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">Tool & Modality</th>
@@ -1956,8 +1971,11 @@ const guideContent = {
               </span>
             </summary>
             <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 Swipe horizontally to view full table</span>
+              </div>
               <div class="overflow-x-auto">
-                <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">Platform / Tool</th>
@@ -2000,7 +2018,7 @@ const guideContent = {
   </section>
 
       <!-- Chapter 1 -->
-      <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 1 · PROLOGUE</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2221,7 +2239,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 2 -->
-      <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · DECONSTRUCTION</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2270,8 +2288,11 @@ const guideContent = {
             <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span>📋 Three Security Pillars: Statutory Baselines & Industrial Standards Mapping</span>
             </h4>
+            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+              <span>👉 Swipe horizontally to view full table</span>
+            </div>
             <div class="overflow-x-auto">
-              <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <table class="min-w-[760px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
                 <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                   <tr>
                     <th class="py-3 px-4 w-1/5">Pillar & Dimension</th>
@@ -2451,8 +2472,11 @@ const guideContent = {
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
             The Four Practical Questions
           </h3>
+          <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+            <span>👉 Swipe horizontally to view full table</span>
+          </div>
           <div class="overflow-x-auto">
-            <table class="min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <table class="min-w-[620px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
                   <th class="py-3 px-4">Daily Practical Question</th>
@@ -2493,7 +2517,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 3 -->
-      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-28">
+      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · TACTICAL MAP</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2505,7 +2529,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.1 -->
-        <div id="sec-3-1" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.1 Pre-Input: Data Redaction, Mosaic Theory & Invisible Injection Defense</span>
           </h3>
@@ -2573,7 +2597,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.2 -->
-        <div id="sec-3-2" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.2 During-Chat: Piercing Autoregressive Hallucinations & Fabricated Citations</span>
           </h3>
@@ -2644,7 +2668,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.3 -->
-        <div id="sec-3-3" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.3 During-Chat: Smashing RLHF Sycophancy & Cognitive Echo Chambers</span>
           </h3>
@@ -2710,7 +2734,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.4 (Agent Execution Safety) -->
-        <div id="sec-3-4" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.4 Execution Safety: Agent Privilege Isolation & Sandbox Defense</span>
           </h3>
@@ -2764,7 +2788,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.5 (Pre-Handoff) -->
-        <div id="sec-3-5" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.5 Pre-Handoff: Four Statutory Publication Gates & Mandatory AI Disclosure</span>
           </h3>
@@ -2860,7 +2884,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.6 (Post-Session) -->
-        <div id="sec-3-6" class="space-y-4 scroll-mt-28">
+        <div id="sec-3-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.6 Post-Session: Session Cleanup & Verification Before Completion</span>
           </h3>
@@ -2879,7 +2903,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 4 -->
-      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-28">
+      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 4 · PERSONA PLAYBOOKS</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2891,7 +2915,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.1 -->
-        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -2960,7 +2984,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.2 -->
-        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -3029,7 +3053,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.3 -->
-        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -3098,7 +3122,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.4 -->
-        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-28 shadow-xs">
+        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -3168,7 +3192,7 @@ const guideContent = {
       </section>
 
       <!-- Chapter 5 -->
-      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-28">
+      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 5 · ADVOCACY</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">

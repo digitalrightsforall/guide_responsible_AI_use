@@ -8,6 +8,7 @@ const i18n = {
     navBrandSub: "普通人的数字权利 社区共建",
     navLinkGuide: "实务指南",
     navLinkLibrary: "技能库",
+    navLinkIncidents: "真实案例库",
     navLinkPutongren: "普通人的数字权利 官网",
     tLangBtn: "English",
 
@@ -76,7 +77,8 @@ const i18n = {
     noResults: "没有找到符合条件的技能。",
 
     footerLinkGuide: "实务指南",
-    footerLinkLibrary: "技能库"
+    footerLinkLibrary: "技能库",
+    footerLinkIncidents: "真实案例库"
   },
   en: {
     pageTitle: "Responsible and Safe AI Use - Curated Skill Library | Digital Rights for All",
@@ -84,6 +86,7 @@ const i18n = {
     navBrandSub: "Digital Rights for All Community Project",
     navLinkGuide: "Field Guide",
     navLinkLibrary: "Skill Library",
+    navLinkIncidents: "Incident Casebook",
     navLinkPutongren: "putongren.org",
     tLangBtn: "中文",
 
@@ -152,7 +155,8 @@ const i18n = {
     noResults: "No matching skills found.",
 
     footerLinkGuide: "Field Guide",
-    footerLinkLibrary: "Skill Library"
+    footerLinkLibrary: "Skill Library",
+    footerLinkIncidents: "Incident Casebook"
   }
 };
 
@@ -241,13 +245,9 @@ function updateFilterCounts() {
 
 // Setup Event Listeners
 function setupEventListeners() {
-  // Theme button
-  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
-
-  // Language button
-  document.getElementById("lang-toggle")?.addEventListener("click", () => {
-    currentLang = currentLang === "zh" ? "en" : "zh";
-    localStorage.setItem("rai_lang", currentLang);
+  // Listen to unified language toggle from layout.js
+  window.addEventListener("site-language-change", (e) => {
+    currentLang = e.detail.lang;
     updateLanguageUI();
     renderCards();
   });
@@ -343,9 +343,11 @@ function updateLanguageUI() {
   setText("nav-brand-sub", t.navBrandSub);
   setText("nav-link-guide", t.navLinkGuide);
   setText("nav-link-library", t.navLinkLibrary);
+  setText("nav-link-incidents", t.navLinkIncidents);
   setText("nav-link-putongren", t.navLinkPutongren);
   setText("m-nav-guide", t.navLinkGuide);
   setText("m-nav-library", t.navLinkLibrary);
+  setText("m-nav-incidents", t.navLinkIncidents);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
 
@@ -394,6 +396,7 @@ function updateLanguageUI() {
   // Footer links
   setText("footer-link-guide", t.footerLinkGuide);
   setText("footer-link-library", t.footerLinkLibrary);
+  setText("footer-link-incidents", t.footerLinkIncidents);
 }
 
 function setText(id, text) {

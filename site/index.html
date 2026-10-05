@@ -46,9 +46,7 @@
   <!-- Reading Progress Bar -->
   <div id="reading-progress" class="guide-progress-bar" style="width: 0%;" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 
-  <!-- Header / Navigation -->
-  <!-- Header / Navigation -->
-  <header class="sticky top-0 z-50 w-full nav-glass">
+  <header id="site-header" class="sticky top-0 z-50 w-full nav-glass">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
       <!-- Logo & Title -->
       <a href="index.html" class="flex items-center gap-3 group">
@@ -68,10 +66,11 @@
         </div>
       </a>
 
-      <!-- Desktop Nav Items (3 items) -->
+      <!-- Desktop Nav Items -->
       <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
-        <a href="index.html" class="nav-link-animated active text-brand font-bold" id="nav-link-guide">实务指南</a>
-        <a href="library.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-library">技能库</a>
+        <a href="index.html" class="nav-link-animated active text-brand font-bold" id="nav-link-guide" data-page="guide">实务指南</a>
+        <a href="library.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-library" data-page="library">技能库</a>
+        <a href="incidents.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-incidents" data-page="incidents">真实案例库</a>
         <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:text-brand transition-colors text-slate-500 dark:text-slate-400">
           <span id="nav-link-putongren">普通人的数字权利 官网</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -100,20 +99,20 @@
     </div>
   </header>
 
-  <!-- Mobile Sub-Navigation Bar (Clean minimal icons) -->
-  <nav class="md:hidden flex items-center justify-around py-2 px-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-xs font-bold shadow-xs sticky top-16 z-40" aria-label="移动端快捷导航">
-    <a href="index.html" class="text-brand flex items-center gap-1.5" aria-current="page">
-      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <nav id="site-mobile-nav" class="md:hidden flex items-center justify-around py-2 px-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-xs font-bold shadow-xs sticky top-16 z-40" aria-label="移动端快捷导航">
+    <a href="index.html" class="text-brand font-extrabold flex items-center gap-1" id="m-nav-guide-link" data-page="guide">
       <span id="m-nav-guide">实务指南</span>
     </a>
     <span class="text-slate-300 dark:text-slate-700">|</span>
-    <a href="library.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1.5">
-      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <a href="library.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1" id="m-nav-library-link" data-page="library">
       <span id="m-nav-library">技能库</span>
     </a>
     <span class="text-slate-300 dark:text-slate-700">|</span>
-    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1.5">
-      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+    <a href="incidents.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1" id="m-nav-incidents-link" data-page="incidents">
+      <span id="m-nav-incidents">案例库</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
       <span id="m-nav-putongren">官网 ↗</span>
     </a>
   </nav>
@@ -303,37 +302,66 @@
     </div>
   </div>
 
-  <!-- Footer (DESIGN.md) -->
-  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs text-slate-500 dark:text-slate-400 mt-20">
+  <!-- Detail Modal for Inline Incident Pills -->
+  <div id="incident-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-900/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="incident-modal-title" aria-hidden="true" style="display: none;">
+    <div class="modal-panel relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div class="space-y-1.5 min-w-0 pr-2">
+          <div class="flex flex-wrap items-center gap-2" id="incident-modal-badges">
+            <!-- Populated dynamically -->
+          </div>
+          <h3 id="incident-modal-title" class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug"></h3>
+        </div>
+        <button id="incident-modal-close" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors shrink-0" aria-label="关闭案件详情窗口">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="space-y-5 text-xs sm:text-sm" id="incident-modal-body">
+        <!-- Populated dynamically by guide.js -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800" id="incident-modal-footer">
+        <!-- Populated dynamically by guide.js -->
+      </div>
+    </div>
+  </div>
+
+        <!-- Guide Logic Script -->
+      <footer id="site-footer" class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs text-slate-500 dark:text-slate-400 mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-brand">
+          <div class="w-8 h-8 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-brand shrink-0">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               <path d="M9 12l2 2 4-4"/>
             </svg>
           </div>
           <div>
-            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm">普通人的数字权利 · Responsible & Safe AI Use</div>
-            <div class="text-[11px] text-slate-400">帮助每一个普通人在机器与算法时代保护自己的权利</div>
+            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="footer-brand-title">普通人的数字权利 · Responsible & Safe AI Use</div>
+            <div class="text-[11px] text-slate-400" id="footer-brand-mission">帮助每一个普通人在机器与算法时代保护自己的权利</div>
           </div>
         </div>
         <div class="flex flex-wrap gap-6 text-slate-600 dark:text-slate-300 font-medium">
-          <a href="index.html" class="hover:text-brand text-brand font-bold" id="footer-link-guide">实务指南</a>
-          <a href="library.html" class="hover:text-brand" id="footer-link-library">技能库</a>
-          <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="hover:text-brand">putongren.org 官网 ↗</a>
-          <a href="LICENSE" class="hover:text-brand">MIT 开源许可</a>
-          <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="hover:text-brand">GitHub 仓库 ↗</a>
+          <a href="index.html" class="text-brand font-bold" id="footer-link-guide" data-page="guide">实务指南</a>
+          <a href="library.html" class="hover:text-brand" id="footer-link-library" data-page="library">技能库</a>
+          <a href="incidents.html" class="hover:text-brand" id="footer-link-incidents" data-page="incidents">真实案例库</a>
+          <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-putongren">putongren.org 官网 ↗</a>
+          <a href="LICENSE" class="hover:text-brand" id="footer-link-license">MIT 开源许可</a>
+          <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-github">GitHub 仓库 ↗</a>
         </div>
       </div>
-      <div class="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[11px]">
+      <div class="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[11px]" id="footer-copyright">
         © 2026 普通人的数字权利 (Digital Rights for All). 本项目为非营利开源社区项目，精选现有开源工具，不提供任何商业收费服务。
       </div>
     </div>
   </footer>
 
-  <!-- Guide Logic Script -->
-  <script src="js/guide.js"></script>
+  <script src="js/layout.js"></script>
+    <script src="js/guide.js"></script>
 </body>
 </html>

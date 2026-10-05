@@ -4,12 +4,14 @@
 let currentLang = localStorage.getItem("rai_lang") || "zh";
 let itemsData = [];
 let itemsById = {};
+let incidentsData = [];
+let incidentsById = {};
 
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", async () => {
   initTheme();
   setupEventListeners();
-  await loadItems();
+  await Promise.all([loadItems(), loadIncidents()]);
   updateUI();
   setupScrollTracking();
 });
@@ -43,15 +45,25 @@ async function loadItems() {
   }
 }
 
+// Load incidents.json
+async function loadIncidents() {
+  try {
+    const res = await fetch("data/incidents.json");
+    incidentsData = await res.json();
+    incidentsById = {};
+    incidentsData.forEach(inc => {
+      incidentsById[inc.id] = inc;
+    });
+  } catch (err) {
+    console.error("Failed to load incidents.json:", err);
+  }
+}
+
 // Setup Event Listeners
 function setupEventListeners() {
-  // Theme toggle
-  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
-
-  // Language toggle
-  document.getElementById("lang-toggle")?.addEventListener("click", () => {
-    currentLang = currentLang === "zh" ? "en" : "zh";
-    localStorage.setItem("rai_lang", currentLang);
+  // Listen to unified language toggle from layout.js
+  window.addEventListener("site-language-change", (e) => {
+    currentLang = e.detail.lang;
     updateUI();
   });
 
@@ -60,8 +72,23 @@ function setupEventListeners() {
   document.getElementById("guide-modal")?.addEventListener("click", (e) => {
     if (e.target.id === "guide-modal") closeModal();
   });
+  document.getElementById("incident-modal-close")?.addEventListener("click", closeIncidentModal);
+  document.getElementById("incident-modal")?.addEventListener("click", (e) => {
+    if (e.target.id === "incident-modal") closeIncidentModal();
+    const skillPill = e.target.closest(".inline-skill-pill");
+    if (skillPill) {
+      const skillId = skillPill.getAttribute("data-skill");
+      if (skillId && itemsById[skillId]) {
+        closeIncidentModal();
+        openModal(skillId);
+      }
+    }
+  });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+      closeModal();
+      closeIncidentModal();
+    }
   });
 
   // Modal Copy Button
@@ -80,13 +107,22 @@ function setupEventListeners() {
     });
   });
 
-  // Delegate inline skill pill clicks
+  // Delegate inline skill & incident pill clicks
   document.getElementById("narrative-content")?.addEventListener("click", (e) => {
     const pill = e.target.closest(".inline-skill-pill");
     if (pill) {
       const skillId = pill.getAttribute("data-skill");
       if (skillId && itemsById[skillId]) {
         openModal(skillId);
+        return;
+      }
+    }
+    const incPill = e.target.closest(".inline-incident-pill");
+    if (incPill && incPill.tagName === "BUTTON") {
+      const incId = incPill.getAttribute("data-incident");
+      if (incId && incidentsById[incId]) {
+        openIncidentModal(incId);
+        return;
       }
     }
   });
@@ -341,6 +377,188 @@ function closeModal() {
   }
 }
 
+// Incident Modal Logic
+function openIncidentModal(incidentId) {
+  const inc = incidentsById[incidentId];
+  if (!inc) return;
+
+  const modal = document.getElementById("incident-modal");
+  modal.setAttribute("data-active-incident", incidentId);
+  const isZh = currentLang === "zh";
+
+  // Badges
+  const regionFlag = inc.region === "Domestic" ? "🇨🇳" : "🌐";
+  const stanceBadge = inc.user_stance === "user_rights_infringed"
+    ? (isZh ? "🛡️ 使用者权益受损" : "🛡️ User Rights Harmed")
+    : (isZh ? "🚨 违规使用被追责" : "🚨 Irresponsible Use Penalized");
+  const stanceClass = inc.user_stance === "user_rights_infringed"
+    ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+    : "bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 border-rose-200 dark:border-rose-800";
+
+  const riskLabels = {
+    input_risk: isZh ? "输入端风险" : "Input Risk",
+    output_risk: isZh ? "输出端风险" : "Output Risk",
+    execution_risk: isZh ? "执行端风险" : "Execution Risk"
+  };
+  const lifecycleBadgesHtml = (inc.lifecycle_risk_type || []).map(r => `
+    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${riskLabels[r] || r}</span>
+  `).join("");
+
+  const badgesEl = document.getElementById("incident-modal-badges");
+  badgesEl.innerHTML = `
+    <span class="px-2 py-0.5 rounded-full text-xs font-bold border ${stanceClass}">${stanceBadge}</span>
+    <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${regionFlag} ${escapeHtml(inc.jurisdiction)}</span>
+    <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800">${escapeHtml(isZh ? inc.risk_category_zh : inc.risk_category_en)}</span>
+    <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">${escapeHtml(isZh ? inc.verification_level_zh : inc.verification_level_en)}</span>
+    ${lifecycleBadgesHtml}
+  `;
+
+  document.getElementById("incident-modal-title").textContent = isZh ? inc.title_zh : inc.title_en;
+
+  // Case Number Status Box
+  let caseNoHtml = "";
+  if (inc.case_number_status) {
+    const c = inc.case_number_status;
+    caseNoHtml = `
+      <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 text-xs">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-bold text-slate-700 dark:text-slate-200">${isZh ? '权威文号 / 案号：' : 'Authority / Case No:'}</span>
+          <span class="font-mono text-slate-600 dark:text-slate-300 font-bold">${escapeHtml(c.actual_case_no || "")}</span>
+        </div>
+        ${c.fictitious_ai_case_no ? `
+          <div class="text-rose-600 dark:text-rose-400 font-mono text-[11px] bg-rose-50 dark:bg-rose-950/40 p-2 rounded border border-rose-200/60 dark:border-rose-900/60 flex items-start gap-1.5">
+            <span class="shrink-0 font-bold">⚠️</span>
+            <span><strong>${isZh ? '反面警示：' : 'Warning: '}</strong>${escapeHtml(c.fictitious_ai_case_no)}</span>
+          </div>
+        ` : ''}
+        ${c.authority ? `<div class="text-[11px] text-slate-500 dark:text-slate-400">${isZh ? '核发机构：' : 'Issuing Authority: '}${escapeHtml(c.authority)}</div>` : ''}
+      </div>
+    `;
+  }
+
+  // Countermeasure Skills buttons
+  const skillsList = inc.links?.countermeasure_skills || [];
+  const skillButtonsHtml = skillsList.map(sId => {
+    const item = itemsById[sId];
+    const name = item ? (isZh ? item.name : (item.name_en || item.name)) : sId;
+    return `
+      <button type="button" class="inline-skill-pill" data-skill="${sId}" title="${isZh ? '点击查看该防范技能' : 'Click to inspect skill'}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span>${escapeHtml(name)}</span>
+      </button>
+    `;
+  }).join(" ");
+
+  // Primary Sources
+  const sourcesHtml = (inc.sources || []).map(src => `
+    <a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-brand hover:underline">
+      <span>${escapeHtml(src.title)} (${escapeHtml(src.publisher || "")})</span>
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+    </a>
+  `).join("<br>");
+
+  // Modal Body HTML
+  const bodyEl = document.getElementById("incident-modal-body");
+  bodyEl.innerHTML = `
+    ${caseNoHtml}
+
+    <!-- Incident Summary -->
+    <div class="space-y-1.5">
+      <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+        ${isZh ? '真实案件经过与事实：' : 'Case Facts & Context:'}
+      </h4>
+      <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200/70 dark:border-slate-800">
+        ${escapeHtml(isZh ? inc.summary_zh : inc.summary_en)}
+      </p>
+    </div>
+
+    <!-- Legal Consequence / Penalty -->
+    <div class="p-3.5 rounded-xl bg-rose-50/70 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/60 space-y-1">
+      <h4 class="text-xs font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-rose-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        ${isZh ? '实质后果与法律 / 纪律惩处：' : 'Substantial Consequences & Sanctions:'}
+      </h4>
+      <p class="text-xs sm:text-sm text-rose-900 dark:text-rose-200 font-medium leading-relaxed">
+        ${escapeHtml(isZh ? inc.consequence_zh : inc.consequence_en)}
+      </p>
+    </div>
+
+    <!-- Key Takeaway for Everyday Users -->
+    <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 space-y-1">
+      <h4 class="text-xs font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+        <span>💡</span>
+        ${isZh ? '写给普通使用者的实操防范铁律：' : 'Practical Takeaway for Everyday Users:'}
+      </h4>
+      <p class="text-xs sm:text-sm text-amber-950 dark:text-amber-200 leading-relaxed">
+        ${escapeHtml(isZh ? inc.key_takeaway_zh : inc.key_takeaway_en)}
+      </p>
+    </div>
+
+    <!-- Countermeasure Skills -->
+    <div class="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+      <h4 class="text-xs font-bold text-indigo-900 dark:text-indigo-300">
+        ${isZh ? '🛡️ 如何用开源技能防御此风险（点击查看技能详情）：' : '🛡️ Countermeasure Open Source Skills (Click to view):'}
+      </h4>
+      <div class="flex flex-wrap gap-1.5 pt-0.5">
+        ${skillButtonsHtml || '<span class="text-xs text-slate-400">通用规范防御</span>'}
+      </div>
+    </div>
+
+    <!-- Primary Source Links -->
+    <div class="pt-1 text-xs space-y-1">
+      <span class="font-bold text-slate-500 dark:text-slate-400">${isZh ? '第一手权威出处与裁判通报：' : 'Primary Source Documentation:'}</span>
+      <div class="pt-1">${sourcesHtml}</div>
+    </div>
+  `;
+
+  // Modal Footer
+  const footerEl = document.getElementById("incident-modal-footer");
+  const firstChapter = inc.links?.guide_chapters?.[0] || "chapter-1";
+  footerEl.innerHTML = `
+    <div class="flex items-center gap-2">
+      <a href="#${firstChapter}" onclick="closeIncidentModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+        <span>${isZh ? '跳转至指南对应章节 ➔' : 'Jump to Guide Chapter ➔'}</span>
+      </a>
+    </div>
+    <div>
+      <button onclick="closeIncidentModal()" class="btn-primary px-5 py-2 text-xs">
+        <span>${isZh ? '关闭' : 'Close'}</span>
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  modal.style.display = "flex";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      modal.classList.add("modal-open");
+    });
+  });
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  document.querySelectorAll("body > *:not(#incident-modal):not(#guide-modal)").forEach(el => {
+    el.setAttribute("inert", "");
+  });
+  setTimeout(() => {
+    document.getElementById("incident-modal-close")?.focus();
+  }, 50);
+}
+
+function closeIncidentModal() {
+  const modal = document.getElementById("incident-modal");
+  if (!modal) return;
+  modal.classList.remove("modal-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.querySelectorAll("body > [inert]").forEach(el => {
+    el.removeAttribute("inert");
+  });
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 220);
+  document.body.style.overflow = "";
+}
+
 function escapeHtml(str) {
   if (!str) return "";
   return String(str)
@@ -356,6 +574,11 @@ function makePill(skillId, label) {
   return `<button type="button" class="inline-skill-pill" data-skill="${skillId}" title="点击查看 ${skillId} 的完整实测状态与标准依据"><svg width="13" height="13" style="width:13px;height:13px;min-width:13px;max-width:13px;display:inline-block;flex-shrink:0;vertical-align:-1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span>${escapeHtml(label || skillId)}</span></button>`;
 }
 
+// Helper to render interactive incident pill in text (External link to incidents.html?id=...)
+function makeIncidentPill(incidentId, label) {
+  return `<a href="incidents.html?id=${encodeURIComponent(incidentId)}" target="_blank" rel="noopener noreferrer" class="inline-incident-pill" data-incident="${incidentId}" title="在新窗口查看真实案例详情与裁判依据"><svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;display:inline-block;flex-shrink:0;vertical-align:-1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>${escapeHtml(label || incidentId)}</span><svg width="10" height="10" style="width:10px;height:10px;margin-left:2px;display:inline-block;opacity:0.7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>`;
+}
+
 // Bilingual Narrative Content Dictionary
 const guideContent = {
   zh: {
@@ -364,7 +587,9 @@ const guideContent = {
     navBrandSub: "普通人的数字权利 社区共建",
     navLinkGuide: "实务指南",
     navLinkLibrary: "技能库",
+    navLinkIncidents: "真实案例库",
     navLinkPutongren: "普通人的数字权利 官网",
+    footerLinkIncidents: "真实案例库",
     tLangBtn: "English",
 
     heroBadge: "普通人的数字权利 · 实务行动指南",
@@ -460,6 +685,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       法院裁定自然人声音权益独立于录音制品著作权，未经单独明示授权不得将录音制作成 AI 商业模型。<strong>警示：取得同事录音或客户素材的使用权限，绝不代表可以随意上传投喂给 AI！</strong>
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-ai-voice-bj-2023', '查看殷某某案完整判决与防御要点 ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -520,6 +748,10 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       利用 AI 制造虚假诉讼的，依据《民事诉讼法》第 114 条采取严厉制裁。“这是 AI 生成的”绝非免责金牌，提交者承担 100% 的法律穿透责任。
                     </p>
+                    <div class="pt-1.5 flex flex-wrap gap-1.5">
+                      ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州案号批评案 ↗')}
+                      ${makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌假法条训诫案 ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -549,6 +781,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       主审法官裁定律师存在主观恶意不尽核查义务，对涉事律师及律所各罚款 5,000 美元并向全行业通报。此案确立了全球司法界对 AI 生成引用“零信任物理查验”铁律。
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-mata-avianca-fake-citations-2023', '查看 Mata 案虚假判例制裁裁决 ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -578,6 +813,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       裁决所严厉驳回了加航主张“AI 客服是独立实体、加航不应为机器人回答负责”的抗辩，认定企业必须对其部署算法的虚假陈述与疏忽误导承担全部民事赔偿责任。
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-air-canada-chatbot-refund-2024', '查看加航AI客服虚构退款规则案裁决详情 ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -585,8 +823,16 @@ const guideContent = {
               <!-- Clarification Note -->
               <div class="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
                 <span class="text-sm shrink-0">🔍</span>
-                <div class="leading-relaxed">
-                  <strong class="text-slate-700 dark:text-slate-300">实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判（目前最权威的执法案例是杭州市市场监管局 2026 年对泄露大模型核心算法与规则的孙某开出的 <strong>35 万元行政处罚</strong>）。日常最大的法律风险在于违反企业保密协议 (NDA) 与《个人信息保护法》第 23 条未经许可向第三方提供个人信息的侵权责任。
+                <div class="leading-relaxed space-y-1.5">
+                  <div>
+                    <strong class="text-slate-700 dark:text-slate-300">实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判。日常最明确的商业秘密执法案例是杭州市市场监管局对擅自带走 Prompt 模板用于大模型微调开出的 <strong>35 万元行政处罚</strong>：
+                    ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密处罚案卷 ↗')}
+                  </div>
+                  <div>
+                    而在涉密办公与公文纪律层面，已有确凿的党政纪律处分通报：
+                    ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密通报 ↗')}
+                    ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报实名辞退案 ↗')}
+                  </div>
                 </div>
               </div>
             </div>
@@ -1128,6 +1374,18 @@ const guideContent = {
             与此同时，在让 AI 联网搜索、分析长文档或企业知识库时，还存在<strong>“外部隐形投毒”（间接提示词注入，IPI）</strong>的威胁：攻击者在网页、PDF 或外部邮件里嵌入人眼看不见的暗号指令。当 AI 替你抓取并阅读这些内容时，就会被暗号劫持，背着你悄悄把你的对话记录、私人密码外发给攻击者。
           </p>
 
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
+            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+              <span>🚨 真实翻车前车之鉴（点击可原地查看案卷详情与裁判依据）：</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 pt-0.5">
+              ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密受处分 ↗')}
+              ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某起草重大会议材料输入AI写作泄密 ↗')}
+              ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')}
+            </div>
+          </div>
+
           <!-- Do / Don't Box -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
             <div class="scenario-box-danger space-y-1.5">
@@ -1232,6 +1490,19 @@ const guideContent = {
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             这种现象绝非系统偶发故障，而是根植于大模型的<strong>自回归运作机制（Autoregressive Next-Token Prediction）</strong>——你可以把模型理解为一个极高明的“超级文字接龙游戏”。它的目标是猜测“接哪一个词听起来最顺畅自然”，而不是去查证现实世界里的客观真假。在论文、法条等冷门专业领域，为了把接龙编圆，模型便会以惊人的自信，理直气壮地捏造出不存在的虚构引文。
           </p>
+
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
+            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+              <span>🚨 司法与学术幻觉真实惩处案例（点击可查看案卷与文书分析）：</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 pt-0.5">
+              ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州法院：AI虚构(2022)沪01民终12345号案号批评 ↗')}
+              ${makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌法院：AI篡改法条当庭训诫警告 ↗')}
+              ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', '国际顶刊Frontiers：AI生成荒诞插图撤稿通报 ↗')}
+              ${makeIncidentPill('case-mata-avianca-fake-citations-2023', '美国联邦法院：Mata案虚构判例制裁5000美元 ↗')}
+            </div>
+          </div>
 
           <!-- Do / Don't Box -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
@@ -1438,6 +1709,16 @@ const guideContent = {
             随着具备 Shell 终端执行、文件改写和 MCP 扩展能力的智能体（Trae IDE、WorkBuddy、Cursor Agent、Claude Code 等）普及，<strong>AI 的安全威胁完成了从“生成错误文本”到“执行毁灭动作”的本质跃迁</strong>。一个轻率的 <code>rm -rf</code>、一个对外部毒化 Issue 的盲目解析，或者一个被投毒的 MCP 工具，都可能直接擦除你的项目甚至突破宿主机防线。
           </p>
 
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
+            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+              <span>🚨 Agent 与自动化执行违规追责案例（点击查看行政处罚通报）：</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 pt-0.5">
+              ${makeIncidentPill('case-outcall-douxing-shanghai-2026', '国家市监总局典型案例：斗星智能AI批量外呼虚假宣传罚款20万元 ↗')}
+            </div>
+          </div>
+
           <!-- Do / Don't Box -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
             <div class="scenario-box-danger space-y-1.5">
@@ -1526,6 +1807,18 @@ const guideContent = {
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             这是负责任 AI 工作流中具有法律效力的最后关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭直觉直接放行。在法律层面上，<strong>AI 从来不是法律责任的主体，任何生成物均由使用者与发布企业承担完全法律责任</strong>。未经门禁校验的内容可能瞬间触发市场监管部门的行政处罚罚单、无障碍侵权纠纷、密钥失窃灾难，乃至开源侵权诉讼。
           </p>
+
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
+            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+              <span>🚨 发布与商业化真实违法惩处判决（点击查看案卷文号与行政罚单）：</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 pt-0.5">
+              ${makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品虚假广告罚款20万 ↗')}
+              ${makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '北京通州首例刑案：Stable Diffusion图生图电商拼图判刑1年半 ↗')}
+              ${makeIncidentPill('case-criminal-extortion-medical-shanghai-2026', '上海杨浦法院刑案：男子用AI制造假病历敲诈勒索拘役判决 ↗')}
+            </div>
+          </div>
 
           <!-- 4 Statutory Gates Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
@@ -1736,8 +2029,13 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与学术红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案——小李为图省事，将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”（如学术界多起因包含“作为 AI 语言模型”或虚构不存在 DOI 被期刊直接撤稿与通报的真实案例），一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
+                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案——小李为图省事，将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”，一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密受处分案 ↗')}
+                ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers期刊AI生成图表撤稿案 ↗')}
+                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '通州法院AI编造虚假判例批评案 ↗')}
+              </div>
             </div>
           </div>
 
@@ -1806,8 +2104,11 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与法律合规红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>凭证外泄、公网裸露与开源协议传染三重暴雷</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；更危险的是，AI 生成代码混入 GPLv3/AGPLv3 传染性协议代码，触碰《最高法(2021)最高法知民终2063号》底线，导致闭源商业项目面临被强制开源或侵权诉讼。
+                <strong>凭证外泄、公网裸露与开源协议传染三重暴雷</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；更危险的是，AI 生成代码混入 GPLv3/AGPLv3 传染性协议代码，触碰《最高法(2021)最高法知民终2063号》底线，导致闭源商业项目面临被强制开源或侵权诉讼。此外，离职带走系统调优 Prompt 模板已被正式定性为侵犯商业秘密违法行为。
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密侵权案罚款35万 ↗')}
+              </div>
             </div>
           </div>
 
@@ -1878,6 +2179,11 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>巨额虚假宣传罚单与无障碍违法风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，直接违反《无障碍环境建设法》第32条强制要求。
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品罚款20万 ↗')}
+                ${makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '通州首例刑案：Stable Diffusion生图电商拼图判刑1年半 ↗')}
+                ${makeIncidentPill('case-ai-voice-bj-2023', '北京互联网法院：全国首例声音侵权判赔25万 ↗')}
+              </div>
             </div>
           </div>
 
@@ -1948,6 +2254,11 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立<strong>“涉密不上网，上网不涉密”</strong>铁律，且《实施条例》第六十一条规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密案 ↗')}
+                ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某重大会议材料输入AI写作案 ↗')}
+                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')}
+              </div>
             </div>
           </div>
 
@@ -2018,8 +2329,13 @@ const guideContent = {
             <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
               <li><strong>误诊与乱用药险情</strong>：把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测，或自行建议药名与剂量；若不经执业医生核验盲目用药，极易贻误病情造成不可逆健康损害。</li>
               <li><strong>孩子思维能力“被替代”</strong>：孩子把整道几何大题或作文题目拍照发给 AI 抄答案，表面作业全对，实质丧失了拆解问题与独立构思的过程，形成不可逆的认知依附。</li>
-              <li><strong>深度伪造（Deepfake）AI 拟声换脸诈骗</strong>：诈骗团伙仅截取亲友社交平台公开发布的一两句语音或短视频片段，利用开源声线克隆技术仿造声音致电家中老人谎称“遭遇车祸急需手术费”，造成数万至数十万元财产损失。</li>
+              <li><strong>深度伪造（Deepfake）AI 拟声换脸诈骗与虚假宣传</strong>：诈骗团伙截取社交平台公开发布的语音或短视频片段仿造声音致电老人诈骗；商家私自克隆主持人声音形象进行虚假宣传带货，导致个体声誉受损或财产损失。</li>
             </ul>
+            <div class="pt-1 flex flex-wrap gap-1.5">
+              ${makeIncidentPill('case-ai-voice-bj-2023', '北京互联法院全国首例AI声音侵权案 ↗')}
+              ${makeIncidentPill('case-ad-fake-host-haidian-2025', '海淀法院AI克隆知名主持人带货虚假宣传案 ↗')}
+              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC查处DoNotPay“世界首位机器人律师”虚假营销案 ↗')}
+            </div>
           </div>
 
           <!-- Part 3: Defensive Pipeline -->
@@ -2131,7 +2447,9 @@ const guideContent = {
     navBrandSub: "Digital Rights for All Community Project",
     navLinkGuide: "Field Guide",
     navLinkLibrary: "Skill Library",
+    navLinkIncidents: "Incident Casebook",
     navLinkPutongren: "putongren.org",
+    footerLinkIncidents: "Incident Casebook",
     tLangBtn: "中文",
 
     heroBadge: "Digital Rights for All · Practical Field Guide",
@@ -2206,7 +2524,7 @@ const guideContent = {
                 <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 China's Landmark Voice AI Case</span>
-                    <a href="https://www.bjinternetcourt.gov.cn/cpws/default/detail.html" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">Beijing Internet Court (2023) Jing 0491 Min Chu No. 12142 ↗</a>
+                    <span class="text-xs font-bold text-slate-900 dark:text-white">Beijing Internet Court (2023) Jing 0491 Min Chu No. 12142</span>
                     <span class="text-[10px] text-slate-400 font-mono">SPC Case Repository 2025-07-2-474-001</span>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">¥250,000 RMB Damages</span>
@@ -2227,6 +2545,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       The court ruled natural person voice rights are independent of recording copyrights. <strong>Takeaway: Possessing a client audio recording license does NOT grant permission to feed it to AI voice cloning models!</strong>
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-ai-voice-bj-2023', 'View Beijing Voice AI Landmark Judgment ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2267,7 +2588,7 @@ const guideContent = {
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 SPC Litigation Guidelines</span>
                     <span class="text-xs font-bold text-slate-900 dark:text-white">Opinions on Adjudicating AI-Related Disputes</span>
-                    <span class="text-[10px] text-slate-400 font-mono">Fa Fa [2025/2026] Guidance</span>
+                    <span class="text-[10px] text-slate-400 font-mono">Fa Fa [2026] No. 10 (2026-09-07)</span>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900">Judicial Fines &amp; Sanctions</span>
                 </div>
@@ -2287,6 +2608,10 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       Fabricating false litigation using AI triggers fines, detention, and criminal penalties under Civil Procedure Law Art. 114. "The AI generated it" is never an affirmative defense.
                     </p>
+                    <div class="pt-1.5 flex flex-wrap gap-1.5">
+                      ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedent Reprimand ↗')}
+                      ${makeIncidentPill('case-court-fake-citation-yichang-2026', 'Yichang Court Hallucinated Cause of Action ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2296,7 +2621,7 @@ const guideContent = {
                 <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 International Judicial Citation Debacle</span>
-                    <a href="https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">US Federal Court (SDNY) Mata v. Avianca (2023) ↗</a>
+                    <a href="https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">US Federal Court (SDNY) Mata v. Avianca (2023) ↗</a>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">$5,000 USD Sanction + Censure</span>
                 </div>
@@ -2316,6 +2641,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       The judge sanctioned both attorneys and the firm for subjective bad faith and failure to verify. This landmark case established the universal rule of zero-trust physical verification for AI legal citations.
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-mata-avianca-fake-citations-2023', 'View Mata v. Avianca $5k Sanction Details ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2325,7 +2653,7 @@ const guideContent = {
                 <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 Algorithmic Negligence &amp; Liability</span>
-                    <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">Civil Resolution Tribunal Moffatt v. Air Canada (2024 BCCRT 149) ↗</a>
+                    <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">Civil Resolution Tribunal Moffatt v. Air Canada (2024 BCCRT 149) ↗</a>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">Full Damages Awarded</span>
                 </div>
@@ -2345,6 +2673,9 @@ const guideContent = {
                     <p class="text-slate-600 dark:text-slate-400">
                       The tribunal rejected Air Canada's defense that the chatbot was a "separate legal entity," ruling the airline strictly liable for misleading representations made by its automated algorithms.
                     </p>
+                    <div class="pt-1.5">
+                      ${makeIncidentPill('case-air-canada-chatbot-refund-2024', 'View Moffatt v. Air Canada Misleading Chatbot Details ↗')}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2352,8 +2683,15 @@ const guideContent = {
               <!-- Clarification Note -->
               <div class="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
                 <span class="text-sm shrink-0">🔍</span>
-                <div class="leading-relaxed">
-                  <strong class="text-slate-700 dark:text-slate-300">Forensic Negative Finding</strong>: As of October 2026, there are no public Chinese court judgments convicting an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR's <strong>¥350,000 fine</strong> against algorithm employee Sun for leaking proprietary prompt templates and model architectures). The immediate daily risks remain employment NDA termination and civil liability under PIPL Art. 23 for unauthorized third-party personal data transmission.
+                <div class="leading-relaxed space-y-1.5">
+                  <p>
+                    <strong class="text-slate-700 dark:text-slate-300">Forensic Negative Finding</strong>: As of October 2026, there are no public Chinese court judgments convicting an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR's <strong>¥350,000 fine</strong> against algorithm employee Sun for leaking proprietary prompt templates and model architectures). The immediate daily risks remain employment NDA termination and civil liability under PIPL Art. 23 for unauthorized third-party personal data transmission.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗')}
+                    ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗')}
+                    ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Notice ↗')}
+                  </div>
                 </div>
               </div>
             </div>
@@ -2894,6 +3232,24 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
+                <span>⚠️ Real-World Warning: Trade Secret & Workplace Leakage Incidents</span>
+              </span>
+              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">3 Typical Cases</span>
+            </div>
+            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
+              Copying unredacted work drafts, proprietary model configs, or confidential data into public AI chat prompts frequently triggers disciplinary action, hefty regulatory fines, or state security consequences:
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗')}
+              ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗')}
+              ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')}
+            </div>
+          </div>
+
           <!-- Tiered Actions (plain-reader) -->
           <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
             <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
@@ -2990,6 +3346,25 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 Enforce a zero-trust verification loop; execute dual-loop audits against official CrossRef/PubMed APIs and national databases (CNKI, China Judgments Online) to anchor every claim in verifiable reality.
               </p>
+            </div>
+          </div>
+
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
+                <span>⚠️ Real-World Warning: Fabricated Precedents & Hallucinated Citations</span>
+              </span>
+              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">4 Landmark Incidents</span>
+            </div>
+            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
+              Directly relying on fluent AI citations and fictitious docket numbers has resulted in judicial sanctions, public reprimands, and academic journal retractions worldwide:
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedents ↗')}
+              ${makeIncidentPill('case-court-fake-citation-yichang-2026', 'Yichang Court Hallucinated Cause of Action ↗')}
+              ${makeIncidentPill('case-mata-avianca-fake-citations-2023', 'Mata v. Avianca $5k Sanction ↗')}
+              ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers Journal AI Retraction ↗')}
             </div>
           </div>
 
@@ -3164,7 +3539,7 @@ const guideContent = {
         <!-- Section 3.4 (Agent Execution Safety) -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.4 Execution Safety: Agent Privilege Isolation & Sandbox Defense</span>
+            <span>4.4 Execution Safety: Agent Privilege Isolation & Sandbox Defense</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             With agentic IDEs and assistants executing shell commands, rewriting files, and orchestrating tools via MCP (Trae IDE, WorkBuddy, Cursor Agent, Claude Code), <strong>AI security has evolved from generating wrong text to executing destructive physical actions</strong>. A reckless <code>rm -rf</code>, an uninspected prompt-injected GitHub issue, or a compromised MCP tool can wipe local repositories or breach your host machine.
@@ -3183,6 +3558,23 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 Retain "Default Permissions" with human approval gates; divert risky shell tasks and tests to isolated microVMs (E2B) physically detached from host systems; audit MCP descriptors to preempt semantic supply-chain poisoning.
               </p>
+            </div>
+          </div>
+
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
+                <span>⚠️ Real-World Warning: Uncontrolled Automation & False Promises</span>
+              </span>
+              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">Typical Incidents</span>
+            </div>
+            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
+              Granting AI autonomous execution or direct commitments without sandbox barriers and human sign-off leaves organizations and operators strictly liable for misleading representations and commercial damage:
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC DoNotPay "Robot Lawyer" Enforcement ↗')}
+              ${makeIncidentPill('case-air-canada-chatbot-refund-2024', 'Moffatt v. Air Canada Misleading Chatbot Ruling ↗')}
             </div>
           </div>
 
@@ -3247,7 +3639,7 @@ const guideContent = {
         <!-- Section 3.5 (Pre-Handoff) -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.5 Pre-Handoff: Four Statutory Publication Gates & Mandatory AI Disclosure</span>
+            <span>4.5 Pre-Handoff: Four Statutory Publication Gates & Mandatory AI Disclosure</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             This is the ultimate legal checkpoint in the responsible AI workflow. Before shipping AI-assisted code, marketing releases, or user interfaces to production, never publish on unvetted intuition. Under the law, <strong>AI is never a legal person—deploying enterprises and users bear sole liability for all outputs</strong>. Ungated publication risks immediate regulatory fines, accessibility litigation, secret theft, or copyleft IP lawsuits.
@@ -3293,6 +3685,24 @@ const guideContent = {
                 Audit against SPDX standards and judicial precedents; intercept copyleft GPL/AGPL contamination in proprietary products, and align with Ultraman LoRA rulings to prevent unauthorized commercial IP reproduction.
               </p>
               <div>${makePill("license-compliance-audit", "license-compliance-audit · SPDX License Audit")}</div>
+            </div>
+          </div>
+
+          <!-- Real-world Incident Alert Banner -->
+          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
+                <span>⚠️ Real-World Warning: Deceptive Advertising & IP Infringement Liabilities</span>
+              </span>
+              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">3 Landmark Judicial Rulings</span>
+            </div>
+            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
+              Publishing unvetted AI-synthesized content directly to the public has faced severe judicial and regulatory crackdowns—including deepfaked TV host marketing, unauthorized voice cloning, and AI copyright infringement:
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Advertising Case ↗')}
+              ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
+              ${makeIncidentPill('case-ultraman-copyright-guangzhou-2024', 'Guangzhou Internet Court Ultraman Copyright Case ↗')}
             </div>
           </div>
 
@@ -3460,6 +3870,11 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>Proprietary Lab Data Leakage &amp; Hallucinated Citations</strong>: Official cases documented by state secrecy authorities (e.g. Researcher Li), who uploaded core experimental results and unpublished data into commercial AI writing apps to save drafting time, causing proprietary lab breakthroughs to leak online and triggering severe administrative sanctions; simultaneously, uninspected LLMs autoregressively synthesize plausible yet non-existent citations—fabricating authors, bogus journal issues, and phantom DOIs (analogous to documented academic retractions where papers cited non-existent DOIs generated by LLMs). Submitting unverified papers to peer review triggers fatal findings of academic fabrication and destroyed reputations.
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Sanction ↗')}
+                ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers Journal AI Retraction ↗')}
+                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedent Reprimand ↗')}
+              </div>
             </div>
           </div>
 
@@ -3529,6 +3944,11 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>Secret Exfiltration, Port Exposure &amp; Copyleft Contamination</strong>: In real enterprise audits, engineers pasting unmasked configs into AI assistants inadvertently routed production database credentials and proprietary architecture code to overseas endpoints; state employee Xiao Wang deployed an open-source model locally without firewall rules or passwords, allowing foreign threat actors to scan the open port and download internal sensitive documents; autonomous agents in YOLO mode running unconstrained shell scripts risk batch file wipes via indirect prompt injection; AI code generation silently injecting strictly reciprocal GPLv3/AGPLv3 code violates Supreme People's Court precedent (2021)最高法知民终2063号, exposing proprietary commercial codebases to forced open-sourcing or steep infringement damages.
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-state-security-wang-port-exposure-2025', 'MSS Xiao Wang Port Exposure Breach ↗')}
+                ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR Employee Trade Secret Fine ↗')}
+                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Policy Dismissal ↗')}
+              </div>
             </div>
           </div>
 
@@ -3598,6 +4018,12 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>Heavy False Advertising Penalties &amp; Accessibility Violations</strong>: Models frequently churn out prohibited absolute terms like "the very best", "national grade", or "cures all illnesses", violating Advertising Law Art. 9, Art. 17, and Anti-Unfair Competition Law Art. 8. Real-world enforcement: Xiamen AMR penalized Miaogujintian 1.2M RMB for AI-fabricated "56th generation inheritor" claims; Beijing Haidian AMR fined a dietary supplement firm 200,000 RMB for using AI-cloned celebrity anchors; another enterprise was fined 1.2M RMB for unlabelled AI commercial marketing; furthermore, promotional landing pages lacking semantic ARIA tags violate mandatory requirements under China's Accessible Environment Construction Law (Art. 34), risking regulatory takedown orders.
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-ad-fake-history-xiamen-2024', 'Xiamen AMR ¥1.2M Fine for AI False Brand History ↗')}
+                ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Live-Commerce Ruling ↗')}
+                ${makeIncidentPill('case-ad-fake-news-jinan-2024', 'Jinan AMR ¥200k Fine for AI Fake News Ads ↗')}
+                ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
+              </div>
             </div>
           </div>
 
@@ -3667,6 +4093,12 @@ const guideContent = {
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 <strong>Official Reprimands, Secrecy Law Prosecutions &amp; Employment Terminations</strong>: Secrecy bureaus and state security departments have repeatedly sanctioned employees for AI leaks: Researcher Li was punished for feeding confidential blueprints into AI apps; staff member Feng was disciplined for attempting to evade secrecy rules by replacing names with letter codes ("分段输入、代码替换、删除对话即可安全" are dangerous fallacies—pseudonymization does not legalize cloud processing of secrets); a security scheme OCR leak triggered leadership administrative warnings and vendor contract terminations. The 2024 revised <em>State Secrets Law</em> Art. 31 establishes the unbreakable red line: <strong>"No State Secrets on the Internet, No Internet on State Secrets"</strong>, with 2024 regulations mandating official reporting within <strong>24 hours</strong> of any potential leak; enterprise "Traffic Light" rules designate core bids and unmasked PII as Red Light items, where violations incur immediate contract termination without severance and criminal liability under Criminal Law Art. 398.
               </p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Sanction ↗')}
+                ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', 'Secrecy Bureau Feng Pseudo-Code AI Leak ↗')}
+                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')}
+                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court AI Fabricated Precedent Reprimand ↗')}
+              </div>
             </div>
           </div>
 
@@ -3703,12 +4135,12 @@ const guideContent = {
             </p>
           </div>
         </div>
-              <!-- Section 4.5: Everyday Citizens & Family Routine -->
+              <!-- Section 5.5: Everyday Citizens & Family Routine -->
         <div id="sec-5-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-5" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>4.5 Individuals & Family Daily Life: Health Inquiries, Homework & Fraud Defense</span>
+              <span>5.5 Individuals & Family Daily Life: Health Inquiries, Homework & Fraud Defense</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
               Everyday Citizens & Families
@@ -3737,6 +4169,11 @@ const guideContent = {
               <li><strong>Outsourcing Childhood Cognition</strong>: A student snaps photos of geometry questions or essay prompts and copies the AI's exact answers; the homework is spotless, but critical problem-solving skills decay.</li>
               <li><strong>Deepfake & Voice-Cloning Extortion</strong>: Criminals extract brief audio clips from social media posts and clone a family member's voice to call elderly relatives claiming a car accident requires immediate wire transfers.</li>
             </ul>
+            <div class="pt-1 flex flex-wrap gap-1.5">
+              ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
+              ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Advertising Case ↗')}
+              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC DoNotPay "Robot Lawyer" Enforcement ↗')}
+            </div>
           </div>
 
           <!-- Part 3: Defensive Pipeline -->
@@ -3854,9 +4291,11 @@ function updateUI() {
   setText("nav-brand-sub", t.navBrandSub);
   setText("nav-link-guide", t.navLinkGuide);
   setText("nav-link-library", t.navLinkLibrary);
+  setText("nav-link-incidents", t.navLinkIncidents);
   setText("nav-link-putongren", t.navLinkPutongren);
   setText("m-nav-guide", t.navLinkGuide);
   setText("m-nav-library", t.navLinkLibrary);
+  setText("m-nav-incidents", t.navLinkIncidents);
   setText("m-nav-putongren", currentLang === "zh" ? "官网 ↗" : "Site ↗");
   setText("t-lang-btn", t.tLangBtn);
 
@@ -3931,6 +4370,7 @@ function updateUI() {
   // Footer links
   setText("footer-link-guide", t.navLinkGuide);
   setText("footer-link-library", t.navLinkLibrary);
+  setText("footer-link-incidents", t.footerLinkIncidents || t.navLinkIncidents);
 
   // Synchronize adaptive details (expand by default on desktop >= 1024px, collapse on mobile < 1024px)
   syncAdaptiveDetails(true);

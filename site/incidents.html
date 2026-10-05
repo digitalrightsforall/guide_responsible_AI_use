@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生成式 AI 使用者真实案件与责任事件库 - 普通人的数字权利 · Real-World AI Incidents</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="聚焦大模型与智能体使用者的法律与纪律责任。收录经司法裁判、市监行政重罚与官方通报证实的 19 起真实踩坑与侵害案例，提供案号出处与开源防范技能。" />
+  <meta name="keywords" content="Responsible AI, AI 真实案件, 判例库, 声音人格权, 虚假判例, 提示词泄密, 虚假宣传, 商业秘密, 普通人的数字权利, Incidents Repository" />
+  <link rel="canonical" href="https://putongren.org/guide_responsible_AI_use/incidents.html" />
+  
+  <!-- Open Graph / WeChat / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="普通人的数字权利 · Responsible & Safe AI Use" />
+  <meta property="og:title" content="生成式 AI 使用者真实案件与责任事件库 - 普通人的数字权利" />
+  <meta property="og:description" content="聚焦大模型与智能体使用者的法律与纪律责任。收录经司法裁判、市监行政重罚与官方通报证实的 19 起真实踩坑与侵害案例。" />
+  <meta property="og:url" content="https://putongren.org/guide_responsible_AI_use/incidents.html" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="生成式 AI 使用者真实案件与责任事件库" />
+  <meta name="twitter:description" content="聚焦大模型与智能体使用者的法律与纪律责任。收录 19 起司法生效裁判与官方通报证实案例。" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "生成式 AI 使用者真实案件与责任事件库",
+    "description": "普通人的数字权利 (putongren.org) 实务计划 - 收录经司法裁判、市监行政重罚与官方通报证实的生成式 AI 使用者法律与纪律责任典型案例。",
+    "url": "https://putongren.org/guide_responsible_AI_use/incidents.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "普通人的数字权利 (Digital Rights for All)",
+      "url": "https://putongren.org"
+    }
+  }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>" />
+  <link rel="stylesheet" href="css/tailwind.css" />
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Global Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="min-h-screen flex flex-col transition-colors duration-200 bg-slate-50/50 dark:bg-slate-950">
+
+  <header id="site-header" class="sticky top-0 z-50 w-full nav-glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Logo & Title -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center transition-transform group-hover:scale-105 text-brand shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-extrabold text-sm sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+            <span id="nav-brand-title">负责任与安全使用 AI</span>
+          </div>
+          <div class="text-[10px] sm:text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span id="nav-brand-sub">普通人的数字权利 社区共建</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-guide" data-page="guide">实务指南</a>
+        <a href="library.html" class="nav-link-animated hover:text-brand dark:hover:text-white" id="nav-link-library" data-page="library">技能库</a>
+        <a href="incidents.html" class="nav-link-animated active text-brand font-bold" id="nav-link-incidents" data-page="incidents">真实案例库</a>
+        <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:text-brand transition-colors text-slate-500 dark:text-slate-400">
+          <span id="nav-link-putongren">普通人的数字权利 官网</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-1.5 sm:gap-3">
+        <!-- Language Switcher -->
+        <button id="lang-toggle" class="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1 shadow-xs cursor-pointer" aria-label="切换中英语言">
+          <svg class="w-3.5 h-3.5 text-brand shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <span id="t-lang-btn">English</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" aria-label="Toggle theme" class="p-1.5 sm:p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <svg class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
+
+        <!-- GitHub -->
+        <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="p-1.5 sm:p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors" title="GitHub Repository">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+            <nav id="site-mobile-nav" class="md:hidden flex items-center justify-around py-2 px-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 text-xs font-bold shadow-xs sticky top-16 z-40" aria-label="移动端快捷导航">
+    <a href="index.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1" id="m-nav-guide-link" data-page="guide">
+      <span id="m-nav-guide">实务指南</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="library.html" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1" id="m-nav-library-link" data-page="library">
+      <span id="m-nav-library">技能库</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="incidents.html" class="text-brand font-extrabold flex items-center gap-1" id="m-nav-incidents-link" data-page="incidents">
+      <span id="m-nav-incidents">案例库</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
+      <span id="m-nav-putongren">官网 ↗</span>
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-12 md:py-16 bg-gradient-to-b from-rose-500/5 via-brand/4 to-transparent border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-5">
+        <!-- Tag / Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/60 text-xs font-bold tracking-wide" id="hero-badge">
+          普通人的数字权利 · 真实事件与判例库
+        </div>
+
+        <!-- Title & Main Tagline -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+          <span id="hero-title">生成式 AI 使用者真实案件与责任事件库</span><br class="hidden sm:inline"/>
+          <span class="hand-drawn-underline text-2xl sm:text-3xl text-slate-700 dark:text-slate-200 font-bold mt-2 inline-block" id="hero-highlight">
+            警惕滥用致责，捍卫使用者合法权益
+          </span>
+        </h1>
+
+        <!-- Subtitle Description -->
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed" id="hero-subtitle">
+          聚焦个体与机构作为“大模型/智能体使用者”的真实法律责任与侵害遭遇。收录经司法裁判、市监行政重罚、官方保密与安全通报证实的 19 起高频踩坑与责任事故，提供案号出处、法理研判与开源自卫防范技能。
+        </p>
+
+        <!-- Links to Guide and Skills -->
+        <div class="flex flex-wrap items-center gap-4 pt-1">
+          <a href="index.html" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-brand hover:underline" id="hero-guide-link">
+            阅读《实务指南》深入系统性防范流水线 →
+          </a>
+          <span class="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+          <a href="library.html" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-brand hover:underline" id="hero-library-link">
+            探索 44 项开源防范技能包 →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric Badges Row -->
+  <section class="border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="metrics-grid">
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80">
+          <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">19 起</div>
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5" id="stat-total-label">实证案例收录</div>
+          <div class="text-[11px] text-slate-400 truncate" id="stat-total-sub">司法判决/行政处罚/官方通报</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80">
+          <div class="text-2xl font-extrabold text-brand font-mono">100%</div>
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5" id="stat-verified-label">权威案号/通报可查</div>
+          <div class="text-[11px] text-slate-400 truncate" id="stat-verified-sub">拒绝编造虚假参考文号</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80">
+          <div class="text-2xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">双向</div>
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5" id="stat-dual-label">责任立场视角</div>
+          <div class="text-[11px] text-slate-400 truncate" id="stat-dual-sub">权益受损 8 起 · 违规致责 11 起</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80">
+          <div class="text-2xl font-extrabold text-purple-600 dark:text-purple-400 font-mono">全流程</div>
+          <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-0.5" id="stat-lifecycle-label">全生命周期覆盖</div>
+          <div class="text-[11px] text-slate-400 truncate" id="stat-lifecycle-sub">输入泄密 · 输出幻觉 · 执行失控</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dual-Axis Paradigm Manifesto Banner -->
+  <section class="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Stance 1: User Rights Infringed -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-amber-200 dark:border-amber-900/50 shadow-2xs space-y-2">
+          <div class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">PERSPECTIVE A / 使用者维权</div>
+          <h2 class="font-extrabold text-base text-slate-900 dark:text-white" id="banner-shield-title">
+            🛡️ 使用者权益受损事件 (User Rights Infringed)
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed" id="banner-shield-desc">
+            声音肖像未经许可被克隆商用、商业 AI 侵权倒卖数据、AI 客服虚假承诺致财产损失。教你如何取证维权、构筑个人数字防护线。
+          </p>
+        </div>
+        <!-- Stance 2: Irresponsible User Penalized -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-rose-200 dark:border-rose-900/50 shadow-2xs space-y-2">
+          <div class="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">PERSPECTIVE B / 滥用追责警示</div>
+          <h2 class="font-extrabold text-base text-slate-900 dark:text-white" id="banner-ruler-title">
+            🚨 使用者违规致责事件 (Irresponsible Use Penalized)
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed" id="banner-ruler-desc">
+            未脱敏机密直传公网被辞退处分、本地开源模型端口暴露遭境外渗透、采信 AI 编造假判例当庭受训诫、AI 伪造带货文案罚款 120 万。告诫我们“工具不可推责”。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Filters Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-6">
+      
+      <!-- 1. Stance Filter -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="filter-stance-title">
+            责任立场维度 (Accountability Stance)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2.5" id="stance-filter-group">
+          <button id="btn-stance-all" data-stance="all" class="filter-btn active">
+            <span class="btn-label">全部立场</span>
+            <span class="filter-count">19</span>
+          </button>
+          <button id="btn-stance-infringed" data-stance="user_rights_infringed" class="filter-btn">
+            <span class="btn-label">🛡️ 使用者权益受损</span>
+            <span class="filter-count">8</span>
+          </button>
+          <button id="btn-stance-sanctioned" data-stance="irresponsible_user_sanctioned" class="filter-btn">
+            <span class="btn-label">🚨 违规使用被追责</span>
+            <span class="filter-count">11</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Region / Jurisdiction Filter -->
+      <div class="pt-5 border-t border-slate-100 dark:border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="filter-region-title">
+            法域与地域 (Jurisdiction & Region)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2.5" id="region-filter-group">
+          <button id="btn-region-all" data-region="all" class="filter-btn active">
+            <span class="btn-label">全部法域</span>
+            <span class="filter-count">19</span>
+          </button>
+          <button id="btn-region-domestic" data-region="Domestic" class="filter-btn">
+            <span class="btn-label">🇨🇳 国内判例与行政监管</span>
+            <span class="filter-count">15</span>
+          </button>
+          <button id="btn-region-international" data-region="International" class="filter-btn">
+            <span class="btn-label">🌐 国际前沿先例</span>
+            <span class="filter-count">4</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Risk Taxonomy Category Filter -->
+      <div class="pt-5 border-t border-slate-100 dark:border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="filter-category-title">
+            风险类型分类 (Risk Taxonomy)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2.5" id="cat-filter-group">
+          <button id="btn-cat-all" data-category="all" class="filter-btn active">
+            <span class="btn-label">全部类型</span>
+            <span class="filter-count">19</span>
+          </button>
+          <button id="btn-cat-confidentiality" data-category="confidential_data_leakage" class="filter-btn">
+            <span class="btn-label">🔒 保密协议与公网截留</span>
+            <span class="filter-count">5</span>
+          </button>
+          <button id="btn-cat-hallucination" data-category="hallucination_false_citation" class="filter-btn">
+            <span class="btn-label">📚 司法文献与事实幻觉</span>
+            <span class="filter-count">5</span>
+          </button>
+          <button id="btn-cat-ip" data-category="copyright_ip_infringement" class="filter-btn">
+            <span class="btn-label">🎙️ 声音/肖像/版权越界</span>
+            <span class="filter-count">4</span>
+          </button>
+          <button id="btn-cat-fraud" data-category="commercial_fraud_deception" class="filter-btn">
+            <span class="btn-label">📢 商业虚假宣传与欺诈</span>
+            <span class="filter-count">5</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Lifecycle Risk Filter -->
+      <div class="pt-5 border-t border-slate-100 dark:border-slate-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider" id="filter-lifecycle-title">
+            生命周期环节 (Lifecycle Stage)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2.5" id="life-filter-group">
+          <button id="btn-life-all" data-lifecycle="all" class="filter-btn active">
+            <span class="btn-label">全部环节</span>
+            <span class="filter-count">19</span>
+          </button>
+          <button id="btn-life-input" data-lifecycle="input_risk" class="filter-btn">
+            <span class="btn-label">📥 输入端风险 (数据/Prompt/隐私)</span>
+            <span class="filter-count">7</span>
+          </button>
+          <button id="btn-life-output" data-lifecycle="output_risk" class="filter-btn">
+            <span class="btn-label">📤 输出端风险 (幻觉/引用/虚假声明)</span>
+            <span class="filter-count">13</span>
+          </button>
+          <button id="btn-life-execution" data-lifecycle="execution_risk" class="filter-btn">
+            <span class="btn-label">⚙️ 执行端风险 (Agent权限/沙箱/承诺)</span>
+            <span class="filter-count">6</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Bar & Counter Header -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-5 border-t border-slate-100 dark:border-slate-800">
+        <div class="flex items-center gap-3">
+          <span id="results-count-text" class="text-sm font-bold text-slate-800 dark:text-slate-200">
+            共筛选出 19 个真实责任事件
+          </span>
+          <button type="button" id="btn-reset-filters" class="text-xs font-semibold text-brand hover:underline">
+            重置所有筛选
+          </button>
+        </div>
+
+        <div class="relative w-full sm:w-80">
+          <input type="text" id="search-input" placeholder="搜索案由、案号、当事人、法院、处罚结果或应对技能..." class="w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-slate-900 transition-all" />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Incidents Grid Section -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <div id="incidents-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards rendered dynamically by incidents.js -->
+    </div>
+  </main>
+
+  <!-- Detail Modal for Incidents -->
+  <div id="incident-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-900/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="incident-modal-title" aria-hidden="true" style="display: none;">
+    <div class="modal-panel relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div class="space-y-1.5 min-w-0 pr-2">
+          <div class="flex flex-wrap items-center gap-2" id="incident-modal-badges">
+            <!-- Populated dynamically -->
+          </div>
+          <h3 id="incident-modal-title" class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug"></h3>
+        </div>
+        <button id="incident-modal-close" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors shrink-0" aria-label="关闭案件详情窗口">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="space-y-5 text-xs sm:text-sm" id="incident-modal-body">
+        <!-- Populated dynamically by incidents.js -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800" id="incident-modal-footer">
+        <!-- Populated dynamically by incidents.js -->
+      </div>
+    </div>
+  </div>
+
+        <!-- Scripts -->
+      <footer id="site-footer" class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-12 text-xs text-slate-500 dark:text-slate-400 mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-brand shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="footer-brand-title">普通人的数字权利 · Responsible & Safe AI Use</div>
+            <div class="text-[11px] text-slate-400" id="footer-brand-mission">帮助每一个普通人在机器与算法时代保护自己的权利</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-6 text-slate-600 dark:text-slate-300 font-medium">
+          <a href="index.html" class="hover:text-brand" id="footer-link-guide" data-page="guide">实务指南</a>
+          <a href="library.html" class="hover:text-brand" id="footer-link-library" data-page="library">技能库</a>
+          <a href="incidents.html" class="text-brand font-bold" id="footer-link-incidents" data-page="incidents">真实案例库</a>
+          <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-putongren">putongren.org 官网 ↗</a>
+          <a href="LICENSE" class="hover:text-brand" id="footer-link-license">MIT 开源许可</a>
+          <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-github">GitHub 仓库 ↗</a>
+        </div>
+      </div>
+      <div class="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[11px]" id="footer-copyright">
+        © 2026 普通人的数字权利 (Digital Rights for All). 本项目为非营利开源社区项目，精选现有开源工具，不提供任何商业收费服务。
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/layout.js"></script>
+    <script src="js/incidents.js"></script>
+</body>
+</html>

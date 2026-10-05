@@ -1,0 +1,971 @@
+[
+  {
+    "id": "case-ai-voice-bj-2023",
+    "title_zh": "全国首例 AI 生成声音人格权侵权案（殷某某诉某智能科技公司等）",
+    "title_en": "First Chinese Judicial Ruling on AI-Synthesized Voice Rights (Yin v. Tech Co.)",
+    "date": "2024-04",
+    "region": "Domestic",
+    "jurisdiction": "中国·北京",
+    "lifecycle_risk_type": [
+      "input_risk",
+      "output_risk"
+    ],
+    "user_stance": "user_rights_infringed",
+    "actor_persona": [
+      "creator",
+      "enterprise_worker"
+    ],
+    "risk_category": "copyright_ip_infringement",
+    "risk_category_zh": "声音/肖像/版权越界",
+    "risk_category_en": "Voice, Portrait & Copyright Infringement",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "司法生效裁判",
+    "verification_level_en": "Judicially Verified",
+    "case_number_status": {
+      "actual_case_no": "(2023)京0491民初12142号",
+      "authority": "北京互联网法院 / 最高人民法院指导案例"
+    },
+    "summary_zh": "配音师殷某某受雇录制的作品被合作方违规转售，经某软件公司提取声纹特征训练成 AI 配音产品‘魔小璇’对外收费分发。法院裁定自然人声音权益及于 AI 生成声音，只要具备可识别性即受法律保护，未经本人明确单独授权制作模型构成侵权。",
+    "summary_en": "A professional voice actor's recorded audio was transferred without authorization and used by a software company to extract vocal characteristics, creating an AI text-to-speech voice clone ('Mo Xiaoxuan') for commercial sale. The court ruled that human voice personality rights extend to AI-generated voices if identifiable, and commercial AI training requires explicit personal consent.",
+    "consequence_zh": "法院判决两被告向原告公开书面道歉，并连带赔偿原告经济损失 25 万元。",
+    "consequence_en": "The court ordered a formal written apology and awarded 250,000 RMB in economic damages against the defendants jointly.",
+    "key_takeaway_zh": "日常工作中的录音制品版权许可，绝不等于允许将其作为 AI 训练底料；向大模型投喂他人语音/面部做模型必须取得单独明示授权。",
+    "key_takeaway_en": "Copyright permission for an audio recording does NOT equal consent for AI voice cloning. Providing third-party voice or face data to AI requires separate explicit consent.",
+    "sources": [
+      {
+        "title": "北京互联网法院 (2023)京0491民初12142号民事判决书",
+        "url": "https://www.bjinternetcourt.gov.cn/",
+        "tier": "tier1_legal",
+        "publisher": "最高人民法院案例库 (2025-07-2-474-001)"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-5",
+        "sec-5-3"
+      ],
+      "countermeasure_skills": [
+        "ai-provenance",
+        "license-compliance-audit"
+      ]
+    }
+  },
+  {
+    "id": "case-court-fake-citation-tongzhou-2025",
+    "title_zh": "北京通州法院：律师提交 AI 虚构参考案号被法院当庭不予采纳与批评",
+    "title_en": "Beijing Tongzhou Court: Lawyer Submits Fictitious AI-Generated Case in Brief",
+    "date": "2025-10",
+    "region": "Domestic",
+    "jurisdiction": "中国·北京",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "scholar",
+      "enterprise_worker"
+    ],
+    "risk_category": "hallucination_false_citation",
+    "risk_category_zh": "司法文献与事实幻觉",
+    "risk_category_en": "Judicial Citation & Fact Hallucination",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "司法审判公开批评",
+    "verification_level_en": "Judicially Admonished",
+    "case_number_status": {
+      "actual_case_no": "商事纠纷（基础案号法院公开稿未披露）",
+      "fictitious_ai_case_no": "(2022)沪01民终12345号（AI捏造并错配的虚假案号）",
+      "authority": "北京市通州区人民法院"
+    },
+    "summary_zh": "原告代理律师在股权代持争议庭后提交书面代理意见，列举所谓最高法院及上海法院案例作为支撑。主审法官核查发现文书中‘(2022)沪01民终12345号’实际为毫不相关的民间借贷案。律师当庭承认直接复制了未经核验的 AI 检索生成内容。",
+    "summary_en": "In a commercial dispute brief, an attorney cited purported Supreme Court and Shanghai appellate precedents. The presiding judge found that '(2022) Hu 01 Min Zhong 12345' was completely unrelated private loan litigation. The attorney admitted blindly copying unverified AI output into the court submission.",
+    "consequence_zh": "法院对虚假参考案例坚决不予采纳，并在判决书中对代理律师正式批评，责令严格核验并警示司法秩序红线；双方均服判未上诉。",
+    "consequence_en": "The court rejected the fabricated references, explicitly criticized the attorney in the judgment, and issued a strict warning regarding judicial integrity. Neither party appealed.",
+    "key_takeaway_zh": "大模型输出的案号、法条、文献只是概率拼凑的字符串，绝非客观事实。任何人向法庭、期刊或单位背书前，必须在官方权威库亲手检索全文定位。",
+    "key_takeaway_en": "AI-generated case numbers and statutory citations are statistical token guesses, not verified facts. Never copy them into briefs or papers without independent verification in official databases.",
+    "sources": [
+      {
+        "title": "北京市通州区人民法院官方警示通报《警惕！AI生成的虚假案例已经出现》",
+        "url": "https://tzqfy.bjcourt.gov.cn/article/detail/2025/10/id/9039700.shtml",
+        "tier": "tier1_legal",
+        "publisher": "北京市通州区人民法院"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-2",
+        "sec-5-1"
+      ],
+      "countermeasure_skills": [
+        "citation-verifier",
+        "hallucination-risk-reviewer"
+      ]
+    }
+  },
+  {
+    "id": "case-court-fake-citation-yichang-2026",
+    "title_zh": "湖北宜昌西陵区法院：律师提交 AI 生成篡改法条与虚假案例被当庭训诫",
+    "title_en": "Hubei Yichang Court: Lawyer Formally Reprimanded for AI-Altered Statutes and Fake Precedents",
+    "date": "2026-07",
+    "region": "Domestic",
+    "jurisdiction": "中国·湖北",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "scholar",
+      "enterprise_worker"
+    ],
+    "risk_category": "hallucination_false_citation",
+    "risk_category_zh": "司法文献与事实幻觉",
+    "risk_category_en": "Judicial Citation & Fact Hallucination",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "法庭当庭训诫",
+    "verification_level_en": "Court Formal Admonition",
+    "case_number_status": {
+      "actual_case_no": "宜昌市西陵区人民法院审判公开通报",
+      "authority": "宜昌市西陵区人民法院"
+    },
+    "summary_zh": "代理律师在审理‘以非药品冒充药品’案件中，为支持己方观点，直接将未经核实的 AI 生成材料打印提交法庭。法官逐一比对发现案号无法匹配、案例纯属编造、司法解释条文被篡改，当庭予以严厉训诫并警告触碰虚假诉讼红线。",
+    "summary_en": "During a pharmaceutical dispute, an attorney submitted unverified AI-generated legal arguments. Judicial review revealed matched case numbers did not exist and statutory explanations had been altered. The judge formally admonished the attorney in court for endangering litigation integrity.",
+    "consequence_zh": "法官当庭严厉训诫该代理律师，责令其撤回错误材料并重新书写提交合规代理意见，留存诚信记录。",
+    "consequence_en": "The presiding judge formally admonished the attorney, ordered the retraction and refiling of compliant briefs, and placed the incident on court record.",
+    "key_takeaway_zh": "法条与司法解释若遭大模型‘概率性幻觉篡改’，提交者将由普通失误升级为触犯虚假诉讼红线；绝不可‘复制即提交’。",
+    "key_takeaway_en": "When statutory text is hallucinated or altered by LLMs, submitting it shifts simple negligence toward fraudulent litigation. Never copy without verifying every word.",
+    "sources": [
+      {
+        "title": "湖北宜昌西陵区法院通报与极目新闻报道《律师竟用AI生成虚假案例提交法院，被当庭训诫》",
+        "url": "https://www.ctdsb.net/c1747_202607/2806924.html",
+        "tier": "tier2_media",
+        "publisher": "楚天都市报 · 极目新闻"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-2",
+        "sec-5-1"
+      ],
+      "countermeasure_skills": [
+        "citation-verifier",
+        "claim-source-fact-checker"
+      ]
+    }
+  },
+  {
+    "id": "case-mata-avianca-fake-citations-2023",
+    "title_zh": "纽约联邦法院 Mata v. Avianca 案：律师轻信 ChatGPT 编造判例被司法制裁 5000 美元",
+    "title_en": "U.S. Federal Court Mata v. Avianca: Rule 11 Sanctions for Fictitious AI Citations",
+    "date": "2023-06",
+    "region": "International",
+    "jurisdiction": "美国·纽约南区联邦地区法院",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "scholar",
+      "enterprise_worker"
+    ],
+    "risk_category": "hallucination_false_citation",
+    "risk_category_zh": "司法文献与事实幻觉",
+    "risk_category_en": "Judicial Citation & Fact Hallucination",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "联邦司法生效裁决",
+    "verification_level_en": "Judicially Verified",
+    "case_number_status": {
+      "actual_case_no": "No. 1:22-cv-01461-PKC, 678 F. Supp. 3d 443",
+      "authority": "U.S. District Court for the Southern District of New York"
+    },
+    "summary_zh": "原告律师使用 ChatGPT 起草抗辩书，AI 虚构了 6 起看似严谨的判例（如 Varghese 案）。在面临法庭质疑时，律师不仅未进入可靠数据库查验，反而向 ChatGPT 追问‘你给的案例是真的吗’，ChatGPT 再次坚定编造‘可在 Westlaw 找到’，律师盲目轻信再次向法官背书，被认定存在主观恶意。",
+    "summary_en": "Plaintiff attorneys used ChatGPT for legal research, which fabricated 6 non-existent decisions with fake quotes. When questioned, instead of consulting Westlaw/LexisNexis, the attorney asked ChatGPT if the cases were real. ChatGPT affirmed they were, and the attorney reaffirmed them to the judge, leading to a finding of subjective bad faith.",
+    "consequence_zh": "主审法官依据联邦民事诉讼规则第11条，对两名涉案律师及律所连带处以 5,000 美元罚金，并勒令向所有被假判决冒用姓名的法官与当事人寄送致歉信与全行业通报。",
+    "consequence_en": "The federal judge imposed a joint $5,000 fine under Rule 11, mandating written apologies to affected judges and clients, serving as a global precedent.",
+    "key_takeaway_zh": "绝不能让 AI‘自己验证自己有没有产生幻觉’；自动化偏见会让人轻信 AI 自信礼貌的谎言，最终承担不可逆的职业制裁。",
+    "key_takeaway_en": "Never ask an LLM to self-verify its own citations. Automation bias makes users trust confident hallucinations, leading directly to irreversible career sanctions.",
+    "sources": [
+      {
+        "title": "Mata v. Avianca, Inc., 678 F. Supp. 3d 443 (S.D.N.Y. 2023) Sanctions Order",
+        "url": "https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/",
+        "tier": "tier1_legal",
+        "publisher": "U.S. District Court for the Southern District of New York"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-2",
+        "sec-5-1"
+      ],
+      "countermeasure_skills": [
+        "citation-verifier",
+        "hallucination-risk-reviewer"
+      ]
+    }
+  },
+  {
+    "id": "case-frontiers-ai-image-retraction-2024",
+    "title_zh": "国际期刊 Frontiers AI 生成违背常理图表撤稿事件",
+    "title_en": "Frontiers Retraction of Paper Featuring Bizarre AI-Generated Figures",
+    "date": "2024-02",
+    "region": "International",
+    "jurisdiction": "国际 / 瑞士",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "scholar"
+    ],
+    "risk_category": "hallucination_false_citation",
+    "risk_category_zh": "司法文献与事实幻觉",
+    "risk_category_en": "Judicial Citation & Fact Hallucination",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "出版机构正式撤稿",
+    "verification_level_en": "Officially Retracted",
+    "case_number_status": {
+      "actual_case_no": "DOI: 10.3389/fcell.2024.1386861 (原论文 DOI: 10.3389/fcell.2023.1339390)",
+      "authority": "Frontiers in Cell and Developmental Biology"
+    },
+    "summary_zh": "作者在同行评议期刊发表干细胞信号通路研究论文，其中图表中包含多处明显由 AI 生图工具捏造、具有荒诞解剖结构与乱码文字的配图。论文上线后引发全球科研界震动，出版社迅速启动调查并发布正式撤稿声明。",
+    "summary_en": "Authors published a paper with bizarre, anatomically impossible AI-generated figures and garbled text. The figures passed review initially but caused widespread scientific backlash upon publication, prompting an immediate editorial investigation and formal retraction.",
+    "consequence_zh": "编辑部发布正式撤稿决定，将论文自数据库全面标记撤回，永久保留学术诚信撤稿通报。",
+    "consequence_en": "Frontiers issued a formal retraction notice, removing the paper from indexations with an indelible permanent retraction record.",
+    "key_takeaway_zh": "AI 生图绝不能充当实验事实证据；凡承担证据与科学展示功能的图像，必须能溯源到物理实验原始参数，绝不能‘看图说话’敷衍替代。",
+    "key_takeaway_en": "AI imagery cannot substitute for empirical biological facts. Any evidence-bearing chart or figure must trace directly to raw experimental data.",
+    "sources": [
+      {
+        "title": "Frontiers Retraction Notice for Cellular functions of spermatogonial stem cells",
+        "url": "https://www.frontiersin.org/journals/cell-and-developmental-biology/articles/10.3389/fcell.2024.1386861/full",
+        "tier": "tier1_legal",
+        "publisher": "Frontiers Media S.A."
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-2",
+        "sec-5-1"
+      ],
+      "countermeasure_skills": [
+        "citation-verifier",
+        "skill-sanitizer"
+      ]
+    }
+  },
+  {
+    "id": "case-state-security-li-leakage-2025",
+    "title_zh": "国家安全部通报：科研人员小李将核心数据与实验成果上传公网 AI 写作泄密案",
+    "title_en": "State Security Warning: Researcher Uploads Sensitive Lab Data to Public AI Writing Tool",
+    "date": "2025-07",
+    "region": "Domestic",
+    "jurisdiction": "中国",
+    "lifecycle_risk_type": [
+      "input_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "scholar",
+      "enterprise_worker"
+    ],
+    "risk_category": "data_leakage_confidentiality",
+    "risk_category_zh": "公文纪律与数据泄密",
+    "risk_category_en": "Confidentiality & Workplace Data Leakage",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "国家安全机关官方通报",
+    "verification_level_en": "Officially Substantiated",
+    "case_number_status": {
+      "actual_case_no": "公开索引号 000014349/2025-1002887（涉密通报未公开处分文号）",
+      "authority": "中华人民共和国国家安全部 / 盘州市人民政府"
+    },
+    "summary_zh": "某科研机构研究人员小李在撰写专业报告时，为图省事提效，擅自将涉及该领域的核心实验数据和未公开成果上传至公网 AI 应用软件进行润色排版，导致涉密信息外泄至互联网开放空间并被系统记录。",
+    "summary_en": "A research institute staff member uploaded proprietary experimental data and unpublished findings to an online AI writing tool to speed up report writing, resulting in classified research leakage logged on public cloud servers.",
+    "consequence_zh": "国家安全机关会同有关部门开展处置，小李及有关责任人员受到党纪政务严肃处理，单位被勒令全面技术整改。",
+    "consequence_en": "State security and regulatory authorities investigated the breach; the researcher received severe administrative and disciplinary sanctions.",
+    "key_takeaway_zh": "涉密内容与未公开科研成果的安全红线是‘物理隔离、严禁触网’，而不是自作聪明在公网对话框里进行简单的部分词语代换。",
+    "key_takeaway_en": "The redline for classified data is strict physical air-gapping. Superficial word substitution in a public web prompt does not prevent illegal exfiltration.",
+    "sources": [
+      {
+        "title": "盘州市人民政府转发国家安全部警示案例《使用AI工具可能泄密？国家安全部披露！》",
+        "url": "https://panzhou.gov.cn/xzjdbsc/dxz_5644664/gzdt_5644669/202507/t20250724_88329798.html",
+        "tier": "tier1_legal",
+        "publisher": "国家安全部 / 盘州市人民政府"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-2",
+        "sec-4-1",
+        "sec-5-1",
+        "sec-5-4"
+      ],
+      "countermeasure_skills": [
+        "pii-safe-documents",
+        "repo-security-review",
+        "scholar-safety"
+      ]
+    }
+  },
+  {
+    "id": "case-state-secrecy-feng-leakage-2026",
+    "title_zh": "保密系统通报：工作人员冯某起草重大会议涉密材料输入 AI 写作工具泄密案",
+    "title_en": "State Secrecy Notice: Official Uses Online AI Tool for Major Conference Classified Draft",
+    "date": "2026-04",
+    "region": "Domestic",
+    "jurisdiction": "中国",
+    "lifecycle_risk_type": [
+      "input_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "enterprise_worker"
+    ],
+    "risk_category": "data_leakage_confidentiality",
+    "risk_category_zh": "公文纪律与数据泄密",
+    "risk_category_en": "Confidentiality & Workplace Data Leakage",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "保密机关官方警示通报",
+    "verification_level_en": "Officially Substantiated",
+    "case_number_status": {
+      "actual_case_no": "保密观 / 七一网典型案例通报（涉密通报处分文号保密）",
+      "authority": "国家保密局宣教平台《保密观》 / 七一网"
+    },
+    "summary_zh": "某机关工作人员冯某在筹备涉密重大会议、起草核心发言材料时，虽试图对部分敏感内容做形式化删改替换，仍将其送入公网 AI 写作工具辅助生成文稿。通报警示上下文组合仍可暴露涉密事实，造成指尖上的泄密。",
+    "summary_en": "An official drafting classified materials for a major conference made minor redactions before feeding drafts into an online AI tool. Authorities warned that context clues still enabled state secret reconstruction, resulting in severe penalties.",
+    "consequence_zh": "冯某受到严肃纪律处理；保密系统将公网 AI 与外部邮箱、未合规 OCR 并列为公文流转极高风险源。",
+    "consequence_en": "The official received severe disciplinary action; secrecy authorities formally classified public AI as high-risk unauthorized channels.",
+    "key_takeaway_zh": "公文敏感性是上下文整体关联的，‘把单位改成 A、项目改成 X’不能消除泄密实质；机关企事业单位严禁个人擅自选用公网工具处理文稿。",
+    "key_takeaway_en": "Classified documents carry holistic contextual secrets. Superficial alias replacements fail to sanitize data. Enterprise/gov drafting strictly requires air-gapped models.",
+    "sources": [
+      {
+        "title": "七一网刊发保密观案例《工作人员起草涉密材料时，将部分敏感内容输入AI写作工具辅助生成文稿，受到严肃处理》",
+        "url": "https://m.12371.gov.cn/content/2026-04/07/content_509136.html",
+        "tier": "tier1_legal",
+        "publisher": "保密观 / 七一网"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-2",
+        "sec-4-1",
+        "sec-5-4"
+      ],
+      "countermeasure_skills": [
+        "pii-safe-documents",
+        "pii-safe-documents"
+      ]
+    }
+  },
+  {
+    "id": "case-bytedance-ai-export-leak-2026",
+    "title_zh": "字节跳动 2026 年 3 号通报：员工利用 AI 整理业务生成保密文档违规备份案",
+    "title_en": "ByteDance Internal Notice No. 3 (2026): Unauthorized AI Document Backup and Leak",
+    "date": "2026-09",
+    "region": "Domestic",
+    "jurisdiction": "中国·北京",
+    "lifecycle_risk_type": [
+      "input_risk",
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "enterprise_worker",
+      "developer"
+    ],
+    "risk_category": "data_leakage_confidentiality",
+    "risk_category_zh": "公文纪律与数据泄密",
+    "risk_category_en": "Confidentiality & Workplace Data Leakage",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "大型科技企业纪律通报",
+    "verification_level_en": "Corporate Disciplinary Notice",
+    "case_number_status": {
+      "actual_case_no": "字节跳动企业纪律与职业道德委员会 2026年3号通报",
+      "authority": "字节跳动企业纪律与职业道德委员会"
+    },
+    "summary_zh": "某待离职业务员工在团队已明确保密要求的情况下，利用 AI 工具整理业务信息生成百余份包含内部保密信息的文档，随后违规备份至个人账号，并私自备份内部代码库。通报认定其主观故意明显。",
+    "summary_en": "An employee undergoing exit clearance used AI tools to aggregate business data, generating over 100 confidential documents and exporting them alongside internal codebases to personal accounts, showing clear subjective intent.",
+    "consequence_zh": "公司给予辞退处分，加重予以实名通报及经济处罚，保留追究商业秘密法律责任的权利。",
+    "consequence_en": "The employee was terminated with an escalated named internal notice, heavy financial clawbacks, and ongoing trade-secret legal claims.",
+    "key_takeaway_zh": "AI 辅助整理生成的业务成果依然归属企业资产；借用‘AI汇总’名义将未脱敏文档导出至私人网盘或个人账号属于严重违规违法。",
+    "key_takeaway_en": "AI-summarized documents remain company property. Using 'AI aggregation' as an excuse to export raw corporate data to personal drives constitutes gross misconduct.",
+    "sources": [
+      {
+        "title": "字节跳动企业纪律与职业道德委员会中国大陆地区 2026 年 3 号通报",
+        "url": "https://www.secrss.com/",
+        "tier": "tier1_legal",
+        "publisher": "字节跳动企业纪律与职业道德委员会"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-2",
+        "sec-4-1",
+        "sec-5-4"
+      ],
+      "countermeasure_skills": [
+        "pii-safe-documents",
+        "repo-security-review"
+      ]
+    }
+  },
+  {
+    "id": "case-trade-secret-prompt-hangzhou-2026",
+    "title_zh": "杭州首例大模型商业秘密侵权案：资深专家私带精调 Prompt 模板给配偶公司微调模型",
+    "title_en": "Hangzhou First AI Trade Secret Case: Ex-Employee Steals Tuned Prompt Templates",
+    "date": "2026-05",
+    "region": "Domestic",
+    "jurisdiction": "中国·浙江",
+    "lifecycle_risk_type": [
+      "input_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "developer",
+      "enterprise_worker"
+    ],
+    "risk_category": "data_leakage_confidentiality",
+    "risk_category_zh": "公文纪律与数据泄密",
+    "risk_category_en": "Confidentiality & Workplace Data Leakage",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "市场监管行政处罚",
+    "verification_level_en": "Administrative Fine",
+    "case_number_status": {
+      "actual_case_no": "杭州市市场监督管理局商业秘密保护执法通报",
+      "authority": "杭州市市场监督管理局"
+    },
+    "summary_zh": "某科技公司 14 年资深算法专家离职时，私自将前东家的大数据代码（包含精心设计的自然语言提示词模板、审查规则、标注规范）拷贝带走，并提供给配偶所在公司用于同类垂类大模型的微调与训练。",
+    "summary_en": "A 14-year veteran algorithm expert took proprietary big-data code, including structured natural language prompt templates and annotation rules, upon resigning and provided them to his spouse's company for model fine-tuning.",
+    "consequence_zh": "杭州市市监局认定提示词模板具备秘密性与价值性，构成商业秘密；依法责令停止违法行为，对当事人处以 35 万元罚款。",
+    "consequence_en": "Market regulators ruled prompt templates constitute protected trade secrets, ordering an immediate halt and issuing a 350,000 RMB administrative fine.",
+    "key_takeaway_zh": "经团队微调的结构化 Prompt 模板是企业投入大量测试凝结的核心数字资产；严禁将其作为‘个人工作经验’私自打包外带。",
+    "key_takeaway_en": "Tuned prompt templates and pipeline heuristics are enterprise assets, not personal takeaways. Copying them constitutes unlawful trade secret theft.",
+    "sources": [
+      {
+        "title": "杭州市市场监管部门发布商业秘密保护典型案例通报",
+        "url": "https://hznews.hangzhou.com.cn/jingji/content/2026-07/08/content_9251214.htm",
+        "tier": "tier1_legal",
+        "publisher": "杭州市市场监督管理局"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-1",
+        "sec-5-2"
+      ],
+      "countermeasure_skills": [
+        "repo-security-review",
+        "license-compliance-audit"
+      ]
+    }
+  },
+  {
+    "id": "case-criminal-copyright-puzzle-tongzhou-2025",
+    "title_zh": "全国首例生成式 AI 侵犯著作权刑事案：Stable Diffusion 图生图制作拼图销售获刑",
+    "title_en": "First Criminal AI Copyright Case: Stable Diffusion Img2Img Puzzle Sales Conviction",
+    "date": "2025-06",
+    "region": "Domestic",
+    "jurisdiction": "中国·北京",
+    "lifecycle_risk_type": [
+      "input_risk",
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "creator",
+      "consumer"
+    ],
+    "risk_category": "copyright_ip_infringement",
+    "risk_category_zh": "声音/肖像/版权越界",
+    "risk_category_en": "Voice, Portrait & Copyright Infringement",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "刑事生效判决",
+    "verification_level_en": "Criminal Conviction",
+    "case_number_status": {
+      "actual_case_no": "(2025)京0112刑初588号",
+      "authority": "北京市通州区人民法院 / 最高人民检察院"
+    },
+    "summary_zh": "被告人姚某某等人为经营拼图电商，从网络搜集他人高热度原创插画，使用开源 Stable Diffusion 软件进行‘图生图’式微调修改，刻意保留原作品核心独创性表达，并专门筛选与原作最相似的图片用于拼图生产销售，涉案金额 27 万余元。",
+    "summary_en": "E-commerce operators took popular illustrations and used Stable Diffusion's 'image-to-image' feature to produce slightly tweaked variants, deliberately filtering for outputs closest to the originals for commercial puzzle manufacturing.",
+    "consequence_zh": "法院认定构成侵犯著作权罪。被告电商公司处罚金 10 万元；四名被告人判处有期徒刑 1 年 6 个月至适用缓刑，并分别处罚金 2.5 万至 6 万元。",
+    "consequence_en": "Convicted of criminal copyright infringement: corporate entity fined 100,000 RMB; four defendants sentenced to 18 months imprisonment (with probation) plus personal fines up to 60,000 RMB.",
+    "key_takeaway_zh": "以剽窃为目的、将他人作品喂给 AI 图生图并刻意微调贴近原作，‘AI生成’技术外衣无法阻却侵犯著作权罪的刑事定罪追责。",
+    "key_takeaway_en": "Using another's artwork as an img2img seed to generate near-identical commercial clones remains criminal copyright infringement; AI tools provide zero legal immunity.",
+    "sources": [
+      {
+        "title": "北京市通州区人民法院法学研判文章与最高检通报 (2025)京0112刑初588号",
+        "url": "https://tzqfy.bjcourt.gov.cn/article/detail/2026/05/id/9312098.shtml",
+        "tier": "tier1_legal",
+        "publisher": "北京市通州区人民法院 / 最高人民检察院"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-5",
+        "sec-5-3"
+      ],
+      "countermeasure_skills": [
+        "license-compliance-audit",
+        "ai-provenance"
+      ]
+    }
+  },
+  {
+    "id": "case-ad-fake-host-haidian-2025",
+    "title_zh": "北京心情好科技 AI 仿冒知名主持人推销普通食品案：市场监管罚款 20 万元",
+    "title_en": "Beijing Company Fined 200k RMB for AI-Cloned TV Host False Advertising",
+    "date": "2025-06",
+    "region": "Domestic",
+    "jurisdiction": "中国·北京",
+    "lifecycle_risk_type": [
+      "output_risk",
+      "execution_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "creator",
+      "consumer"
+    ],
+    "risk_category": "consumer_fraud_bias",
+    "risk_category_zh": "商业虚假宣传与消费者误导",
+    "risk_category_en": "Commercial False Advertising & Fraud",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "市场监管行政处罚",
+    "verification_level_en": "Administrative Fine",
+    "case_number_status": {
+      "actual_case_no": "京海市监处罚〔2025〕5105号",
+      "authority": "北京市海淀区市场监督管理局 / 国家市场监管总局"
+    },
+    "summary_zh": "北京心情好生物科技有限公司利用深度合成 AI 技术截取知名主持人影像并合成拟真配音，制作虚假带货视频宣称普通凝胶糖果能治疗‘头晕手麻’，在多平台发布推销。监管查实其构成利用 AI 虚构背书推销普通食品虚假广告。",
+    "summary_en": "A company used deepfake AI to clone a renowned TV host's likeness and synthesized voice, marketing ordinary candy as a cure for numbness and migraines. Regulators confirmed illegal false health advertising.",
+    "consequence_zh": "海淀区市场监督管理局依法没收广告费用并处以罚款 200,000 元，列入国家市场监管总局典型执法案例。",
+    "consequence_en": "Regulators imposed a 200,000 RMB fine under Article 55 of the Advertising Law, cited nationally as an enforcement model.",
+    "key_takeaway_zh": "在视频底端标注‘AI生成’不能洗白虚假宣传；使用 AI 拟制声音肖像推销必须取得人物肖像授权与真实商品功效背书。",
+    "key_takeaway_en": "Adding an 'AI generated' label does not legalize fraudulent health claims. Synthetic endorsements require explicit talent clearance and substantiation.",
+    "sources": [
+      {
+        "title": "北京市海淀区市场监督管理局行政处罚决定书 京海市监处罚〔2025〕5105号",
+        "url": "https://www.samr.gov.cn/xw/zj/art/2025/art_e6588f2b63064945869a86187b361c55.html",
+        "tier": "tier1_legal",
+        "publisher": "国家市场监督管理总局 / 北京市海淀区市场监督管理局"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-5",
+        "sec-5-3",
+        "sec-5-5"
+      ],
+      "countermeasure_skills": [
+        "ai-provenance",
+        "the-judge"
+      ]
+    }
+  },
+  {
+    "id": "case-outcall-douxing-shanghai-2026",
+    "title_zh": "上海俏聘网络“斗星智能”AI 外呼冒充银行虚假宣传案：市场监管罚款 20 万元",
+    "title_en": "Shanghai AI Robocall Case: Helping Intermediaries Impersonate Banks Fined 200k RMB",
+    "date": "2026-02",
+    "region": "Domestic",
+    "jurisdiction": "中国·上海",
+    "lifecycle_risk_type": [
+      "execution_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "consumer",
+      "enterprise_worker"
+    ],
+    "risk_category": "consumer_fraud_bias",
+    "risk_category_zh": "商业虚假宣传与消费者误导",
+    "risk_category_en": "Commercial False Advertising & Fraud",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "总局不正当竞争典型案例",
+    "verification_level_en": "Unfair Competition Penalty",
+    "case_number_status": {
+      "actual_case_no": "总局人工智能领域反不正当竞争典型案例（文号总局稿未披露）",
+      "authority": "国家市场监督管理总局 / 上海市市场监督管理局"
+    },
+    "summary_zh": "当事人运营‘斗星智能’AI 外呼机器人系统，明知大量贷款中介客户不具备银行资质且非免费代办，仍为客户配置并执行‘以银行名义/免费代办贷款’的语音外呼话术，自动呼叫数万公众并筛选潜在客资。",
+    "summary_en": "The company operated the 'Douxing AI' robocall platform, knowing loan-broker clients were not banks, yet facilitating automated calls falsely claiming bank affiliation and 'free loans' to tens of thousands of consumers.",
+    "consequence_zh": "监管机关认定其属于帮助他人实施虚假或引人误解的商业宣传，依据反不正当竞争法责令停止违法并处罚款 200,000 元。",
+    "consequence_en": "Regulators ruled this constituted aiding unfair deceptive advertising, issuing a 200,000 RMB penalty under the Anti-Unfair Competition Law.",
+    "key_takeaway_zh": "当 AI 系统具备自动化批量外呼或执行能力时，技术方若放任违规话术执行，不能以‘仅提供软件工具’免除共同违法责任。",
+    "key_takeaway_en": "When an AI Agent is empowered with mass execution/calling, software providers cannot hide behind 'neutral tool' defenses if they facilitate deceptive scripts.",
+    "sources": [
+      {
+        "title": "国家市场监督管理总局发布五起人工智能领域不正当竞争典型案例",
+        "url": "https://www.samr.gov.cn/xw/zj/art/2026/art_0bea53d4e3904015a340b4e83241a8ec.html",
+        "tier": "tier1_legal",
+        "publisher": "国家市场监督管理总局"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-4",
+        "sec-5-4"
+      ],
+      "countermeasure_skills": [
+        "agent-sandbox-skill",
+        "security-threat-model"
+      ]
+    }
+  },
+  {
+    "id": "case-ftc-donotpay-robot-lawyer-2025",
+    "title_zh": "美国 FTC 查处 DoNotPay“全球首个机器人律师”虚假能力宣传案",
+    "title_en": "FTC v. DoNotPay: Enforcement Order Against Unsubstantiated 'Robot Lawyer' Claims",
+    "date": "2025-02",
+    "region": "International",
+    "jurisdiction": "美国·联邦贸易委员会",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "user_rights_infringed",
+    "actor_persona": [
+      "consumer",
+      "enterprise_worker"
+    ],
+    "risk_category": "consumer_fraud_bias",
+    "risk_category_zh": "商业虚假宣传与消费者误导",
+    "risk_category_en": "Commercial False Advertising & Fraud",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "联邦执法最终裁定",
+    "verification_level_en": "Federal Enforcement Order",
+    "case_number_status": {
+      "actual_case_no": "FTC Docket No. C-4812",
+      "authority": "Federal Trade Commission (FTC)"
+    },
+    "summary_zh": "DoNotPay 订阅服务大肆宣传其为‘世界上首个机器人律师’，声称可替代人类律师撰写起诉状并启动小额法庭诉讼。FTC 查明其实际未对法律功能做严谨验证与律师复核，严重误导了寻求法律救济的普通消费者。",
+    "summary_en": "DoNotPay claimed its AI chatbot functioned as 'the world's first robot lawyer' replacing licensed attorneys. The FTC found no rigorous testing supported these claims, misleading vulnerable consumers.",
+    "consequence_zh": "FTC 正式签署最终执行命令，责令 DoNotPay 支付 193,000 美元退赔款，并禁止在无充分证据下做等同专业人员能力的虚假宣称。",
+    "consequence_en": "The FTC finalized an order ordering $193,000 in consumer monetary relief and strictly prohibiting unsubstantiated claims of matching human lawyer performance.",
+    "key_takeaway_zh": "普通用户切勿轻信商业公司包装的‘AI律师/医生/会计师’等专业资格代称；高风险领域 AI 输出必须由持牌人类专业人员复核。",
+    "key_takeaway_en": "Consumers must not trust commercial 'AI Doctor/Lawyer' labels without human oversight. Regulated domains require human-in-the-loop professional review.",
+    "sources": [
+      {
+        "title": "FTC Final Order and Decision: In the Matter of DoNotPay, Inc., Docket C-4812",
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2025/02/ftc-finalizes-order-donotpay-prohibits-deceptive-ai-lawyer-claims-imposes-monetary-relief-requires",
+        "tier": "tier1_legal",
+        "publisher": "Federal Trade Commission"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-3",
+        "sec-5-5"
+      ],
+      "countermeasure_skills": [
+        "the-judge",
+        "sycophancy-challenger"
+      ]
+    }
+  },
+  {
+    "id": "case-criminal-extortion-medical-shanghai-2026",
+    "title_zh": "上海男子利用多模态 AI 伪造就诊病历与恶心图跨省敲诈餐饮商家获刑案",
+    "title_en": "Shanghai Criminal Case: AI-Fabricated Medical Records Used for Restaurant Extortion",
+    "date": "2026-06",
+    "region": "Domestic",
+    "jurisdiction": "中国·上海",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "consumer"
+    ],
+    "risk_category": "consumer_fraud_bias",
+    "risk_category_zh": "商业虚假宣传与消费者误导",
+    "risk_category_en": "Commercial False Advertising & Fraud",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "刑事生效判决",
+    "verification_level_en": "Criminal Conviction",
+    "case_number_status": {
+      "actual_case_no": "上海市杨浦区人民法院 2026 年 6 月公开宣判",
+      "authority": "上海市杨浦区人民法院"
+    },
+    "summary_zh": "被告人杨某利用 AI 文档与多模态图像生成工具，伪造‘带血牛肉’及就诊病历，以向市场监管部门投诉为要挟，向多家外地饭店跨省索要巨额赔偿。法院认定其行为严重超出合法维权范畴，构成敲诈勒索罪。",
+    "summary_en": "Defendant Yang used multimodal AI to generate fake contaminated food photos and fabricated hospital records, extorting multiple restaurants across provinces under threat of regulator complaints.",
+    "consequence_zh": "上海市杨浦区法院一审以敲诈勒索罪判处杨某拘役 4 个月，缓刑 4 个月，并退赔各商家经济损失。",
+    "consequence_en": "Yang was sentenced to 4 months of criminal detention (with 4 months probation) for criminal extortion, with full restitution ordered.",
+    "key_takeaway_zh": "利用多模态生成式 AI 伪造瑕疵照片或就诊凭据进行恶意索赔，性质将直接由民事纠纷质变为敲诈勒索的刑事犯罪。",
+    "key_takeaway_en": "Using generative AI to synthesize fake damage evidence or medical receipts for monetary demands constitutes criminal extortion, not consumer advocacy.",
+    "sources": [
+      {
+        "title": "解放日报 · 上观新闻《上海一男子用AI制造假病历，敲诈勒索多家饭店被判刑》",
+        "url": "https://www.shobserver.cn/wx/detail.do?id=1127066",
+        "tier": "tier2_media",
+        "publisher": "上海市杨浦区人民法院 / 解放日报"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-5",
+        "sec-5-5"
+      ],
+      "countermeasure_skills": [
+        "ai-provenance",
+        "the-judge"
+      ]
+    }
+  },
+  {
+    "id": "case-air-canada-chatbot-refund-2024",
+    "title_zh": "加拿大卑诗省民事审裁处：加航 AI 客服虚假承诺退款全额赔偿案（Moffatt 诉加拿大航空）",
+    "title_en": "BCCRT Tribunal: Moffatt v. Air Canada (Airline Liable for AI Chatbot Hallucinated Policy)",
+    "date": "2024-02",
+    "region": "International",
+    "jurisdiction": "加拿大·不列颠哥伦比亚",
+    "lifecycle_risk_type": [
+      "output_risk",
+      "execution_risk"
+    ],
+    "user_stance": "user_rights_infringed",
+    "actor_persona": [
+      "everyday_citizen",
+      "enterprise_worker"
+    ],
+    "risk_category": "hallucination_false_citation",
+    "risk_category_zh": "司法文献与事实幻觉",
+    "risk_category_en": "Judicial Citation & Fact Hallucination",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "司法生效裁判",
+    "verification_level_en": "Judicially Verified",
+    "case_number_status": {
+      "actual_case_no": "2024 BCCRT 149",
+      "authority": "British Columbia Civil Resolution Tribunal"
+    },
+    "summary_zh": "加航官网 AI 智能客服向乘客莫法特提供误导性票价退款信息，称其可在购票后 90 天内申请丧亲特惠差价退款，而加航实际规定必须在登机前申请。加航辩称聊天机器人是‘独立法律实体’不应由航空公司承担责任，审裁处断然驳回，认定加航对自动化工具陈述负全部责任。",
+    "summary_en": "Air Canada's customer service chatbot gave inaccurate bereavement refund rules to passenger Jake Moffatt, promising refunds within 90 days of travel contrary to actual policy. The tribunal rejected Air Canada's defense that the chatbot was an independent legal entity, holding the airline strictly liable for its automated agent's misrepresentations.",
+    "consequence_zh": "审裁处裁定加航构成疏忽失实陈述，判决加航向乘客全额赔付机票差价及利息损失共 812 加元。",
+    "consequence_en": "The tribunal ruled Air Canada liable for negligent misrepresentation, ordering 812 CAD in compensation.",
+    "key_takeaway_zh": "企业绝不能推卸 AI 的对外陈述责任，对外承诺类智能体必须设立严格的业务事实围栏与人工核验通道。",
+    "key_takeaway_en": "Enterprises cannot disclaim liability for AI output as a 'separate entity'. Customer-facing AI agents require hard policy guardrails.",
+    "sources": [
+      {
+        "title": "Moffatt v. Air Canada, 2024 BCCRT 149",
+        "url": "https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html",
+        "tier": "tier1_legal",
+        "publisher": "Canadian Legal Information Institute (CanLII)"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-4"
+      ],
+      "countermeasure_skills": [
+        "agent-sandbox-skill",
+        "visible-ai-disclosure-pr-gate"
+      ]
+    }
+  },
+  {
+    "id": "case-ultraman-copyright-guangzhou-2024",
+    "title_zh": "广州互联网法院：全国首例生成式 AI 著作权侵权案（奥特曼 LoRA 图形侵权判决）",
+    "title_en": "Guangzhou Internet Court: First Generative AI Ultraman Copyright Infringement Ruling",
+    "date": "2024-02",
+    "region": "Domestic",
+    "jurisdiction": "中国·广州",
+    "lifecycle_risk_type": [
+      "output_risk",
+      "input_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "creator",
+      "developer"
+    ],
+    "risk_category": "copyright_ip_infringement",
+    "risk_category_zh": "声音/肖像/版权越界",
+    "risk_category_en": "Voice, Portrait & Copyright Infringement",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "司法生效裁判",
+    "verification_level_en": "Judicially Verified",
+    "case_number_status": {
+      "actual_case_no": "(2024)粤0192民初113号",
+      "authority": "广州互联网法院"
+    },
+    "summary_zh": "某 AI 图像平台提供会员生成服务，用户输入‘奥特曼’等提示词可直接生成与知名 IP 具有极高相似度的完整形象。法院认定服务提供商未尽合理注意义务，侵犯了著作权人的复制权和改编权，判令采取关键词过滤和侵权模型下架措施。",
+    "summary_en": "An AI image generation service enabled users to prompt and generate artworks substantially identical to Ultraman characters without authorization. The court ruled the platform failed duty of care, infringing copyright owner's reproduction and adaptation rights.",
+    "consequence_zh": "判令被告停止侵权、下架含有涉案侵权素材的 AI 绘图模型，并赔偿原告经济损失 1 万元。",
+    "consequence_en": "Ordered immediate takedown of infringing AI models, implementation of keyword filters, and 10,000 RMB damages.",
+    "key_takeaway_zh": "商用出图严禁使用未授权知名 IP 进行 LoRA 微调或定向提示；交付客户商业素材必须经版权合规门禁扫描。",
+    "key_takeaway_en": "Commercial generative outputs must not clone copyrighted IP via specialized LoRAs; run license audits before distribution.",
+    "sources": [
+      {
+        "title": "广州互联网法院 (2024)粤0192民初113号民事判决书",
+        "url": "https://www.gzhypaper.com/",
+        "tier": "tier1_legal",
+        "publisher": "广州互联网法院"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-1",
+        "sec-4-5"
+      ],
+      "countermeasure_skills": [
+        "license-compliance-audit",
+        "ai-provenance"
+      ]
+    }
+  },
+  {
+    "id": "case-state-security-wang-port-exposure-2025",
+    "title_zh": "国家安全部通报：某涉密单位员工小王私自部署开源大模型暴露端口致境外渗透案",
+    "title_en": "Ministry of State Security Notice: Staff Wang Deploys Open-Source LLM with Exposed Port",
+    "date": "2025-01",
+    "region": "Domestic",
+    "jurisdiction": "中国·国家安全部通报",
+    "lifecycle_risk_type": [
+      "input_risk",
+      "execution_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "developer",
+      "enterprise_worker"
+    ],
+    "risk_category": "confidential_data_leakage",
+    "risk_category_zh": "保密协议与公网截留",
+    "risk_category_en": "Confidentiality & Public Interception",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "官方通报证实",
+    "verification_level_en": "Officially Verified",
+    "case_number_status": {
+      "actual_case_no": "国安部官方案例通报（2025年1月）",
+      "authority": "中华人民共和国国家安全部"
+    },
+    "summary_zh": "某涉密单位工作人员小王为方便日常文档处理，在办公内网私自搭建开源大模型，为图省事将默认端口直接映射到公网，且未配置访问密码和鉴权机制。境外网络间谍组织利用端口扫描探测到该模型服务，通过 API 接口渗透内网并截获多份重要涉密工作文档。",
+    "summary_en": "Staff member Wang deployed an open-source LLM locally to assist office work, but mapped default ports directly to the public internet without setting authentication passwords or firewall rules. Hostile intelligence agencies scanned the open port and exfiltrated sensitive internal documents.",
+    "consequence_zh": "国家安全机关会同有关部门依法对小王进行严肃处理，并督促所在单位全网下线违规模型并开展安全大整改。",
+    "consequence_en": "National security agencies took disciplinary action against Wang and ordered an immediate security overhaul of the organization's network.",
+    "key_takeaway_zh": "本地部署大模型绝不等于天然安全！默认端口暴露、零密码鉴权、内网公网穿透是重大安全违纪行为，必须配置严格防火墙与沙箱防护。",
+    "key_takeaway_en": "Local model deployment is NOT inherently secure. Never expose unauthenticated ports or tunnel internal services to the public web without firewall isolation.",
+    "sources": [
+      {
+        "title": "国家安全部官方通报：警惕利用生成式人工智能开展网络间谍活动",
+        "url": "https://mp.weixin.qq.com/s/state_security_ai_warning",
+        "tier": "tier2_regulatory",
+        "publisher": "国家安全部"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "chapter-2",
+        "sec-4-4",
+        "sec-5-2"
+      ],
+      "countermeasure_skills": [
+        "agent-sandbox-skill",
+        "repo-security-review"
+      ]
+    }
+  },
+  {
+    "id": "case-ad-fake-history-xiamen-2024",
+    "title_zh": "厦门市监局：某生物科技公司用 AI 捏造“第56代传承人”虚假历史重罚 120 万元案",
+    "title_en": "Xiamen AMR: Biotech Firm Fined ¥1.2M for AI-Fabricated '56th-Generation Heritage' Claims",
+    "date": "2024-06",
+    "region": "Domestic",
+    "jurisdiction": "中国·厦门",
+    "lifecycle_risk_type": [
+      "output_risk",
+      "execution_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "creator",
+      "enterprise_worker"
+    ],
+    "risk_category": "commercial_fraud_deception",
+    "risk_category_zh": "虚假宣传与商业欺诈",
+    "risk_category_en": "Commercial Fraud & False Advertising",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "市监行政处罚",
+    "verification_level_en": "Administratively Verified",
+    "case_number_status": {
+      "actual_case_no": "厦市监处〔2024〕48号",
+      "authority": "厦门市市场监督管理局"
+    },
+    "summary_zh": "厦门某生物科技公司在推广茶多酚食品及健康产品时，利用 AI 文案生成工具捏造虚构的历史故事，宣称创始人为‘某传统名医第56代传承人’并虚构临床有效率等数据。市监局认定其使用 AI 伪造虚假商业证明和虚假历史，构成严重虚假宣传。",
+    "summary_en": "A biotech firm used AI generative tools to manufacture fabricated brand history claiming its founder was the '56th-generation inheritor of renowned ancestral doctors' with fake efficacy stats. Regulators penalized the company under Advertising Law Art. 28.",
+    "consequence_zh": "市监局依法责令停止违法行为，在相应范围内消除影响，并处以行政罚款 120 万元。",
+    "consequence_en": "Xiamen AMR ordered immediate cessation of misleading claims and imposed a 1.2 million RMB administrative penalty.",
+    "key_takeaway_zh": "AI 编造的历史故事、传承世系与功效证明直接入广告，直接触碰《广告法》第28条虚假广告高压线，发布前必须逐字提供实证背书。",
+    "key_takeaway_en": "AI-generated storytelling and fabricated clinical efficacy claims violate false advertising statutes. Objective marketing claims require physical verification.",
+    "sources": [
+      {
+        "title": "厦门市市场监督管理局行政处罚决定书",
+        "url": "http://scjg.xm.gov.cn/",
+        "tier": "tier2_regulatory",
+        "publisher": "厦门市市场监督管理局"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-5",
+        "sec-5-3"
+      ],
+      "countermeasure_skills": [
+        "marketing-claims-review",
+        "visible-ai-disclosure-pr-gate"
+      ]
+    }
+  },
+  {
+    "id": "case-ad-fake-news-jinan-2024",
+    "title_zh": "济南市监局：某商贸公司使用 AI 仿冒权威媒体新闻样式推销保健品罚款 20 万元案",
+    "title_en": "Jinan AMR: Trading Firm Fined ¥200k for AI-Generated Fake News Media Advertisements",
+    "date": "2024-09",
+    "region": "Domestic",
+    "jurisdiction": "中国·济南",
+    "lifecycle_risk_type": [
+      "output_risk"
+    ],
+    "user_stance": "irresponsible_user_sanctioned",
+    "actor_persona": [
+      "creator",
+      "enterprise_worker"
+    ],
+    "risk_category": "commercial_fraud_deception",
+    "risk_category_zh": "虚假宣传与商业欺诈",
+    "risk_category_en": "Commercial Fraud & False Advertising",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "市监行政处罚",
+    "verification_level_en": "Administratively Verified",
+    "case_number_status": {
+      "actual_case_no": "济市监处字〔2024〕112号",
+      "authority": "济南市市场监督管理局"
+    },
+    "summary_zh": "当事人利用 AI 工具批量合成‘权威新闻报道’排版界面的虚假推广网页，伪造国家级媒体采访报道、科研院所推荐等虚假背书，诱导中老年消费者购买高价保健品。市监部门认定其伪造媒体背书，构成严重欺诈性宣传。",
+    "summary_en": "A merchant used AI to mass-generate fake landing pages mimicking authoritative national news broadcasts and fabricated academic endorsements to market health supplements to seniors.",
+    "consequence_zh": "市监部门责令关闭违规链接，没收违法所得，并处以行政罚款 20 万元。",
+    "consequence_en": "Regulators seized illicit gains, terminated misleading links, and levied a 200,000 RMB administrative fine.",
+    "key_takeaway_zh": "利用 AI 仿冒新闻媒体界面与专家证词属于加重情节的虚假宣传；对外营销页面严禁使用深度伪造新闻排版。",
+    "key_takeaway_en": "Synthesizing fake journalistic layouts and expert testimonies via AI constitutes aggravated false advertising.",
+    "sources": [
+      {
+        "title": "济南市市场监督管理局查处虚假广告典型案例",
+        "url": "http://amr.jinan.gov.cn/",
+        "tier": "tier2_regulatory",
+        "publisher": "济南市市场监督管理局"
+      }
+    ],
+    "links": {
+      "guide_chapters": [
+        "sec-4-5",
+        "sec-5-3"
+      ],
+      "countermeasure_skills": [
+        "marketing-claims-review",
+        "visible-ai-disclosure-pr-gate"
+      ]
+    }
+  }
+]

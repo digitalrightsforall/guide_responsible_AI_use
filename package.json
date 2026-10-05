@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node scripts/verify-data.js",
     "test:remote": "node scripts/verify-remote.js",
-    "build": "node scripts/generate-readmes.js",
+    "build": "node scripts/generate-readmes.js && node scripts/sync-layout.js",
+    "sync:layout": "node scripts/sync-layout.js",
     "serve": "node scripts/serve.js",
     "build:css": "npx tailwindcss -i site/css/input.css -o site/css/tailwind.css --minify",
     "dev:css": "npx tailwindcss -i site/css/input.css -o site/css/tailwind.css --watch"

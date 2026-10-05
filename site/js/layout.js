@@ -1,0 +1,303 @@
+/**
+ * Unified Layout Component for Responsible & Safe AI Use (putongren.org)
+ * Provides single-source-of-truth Header, Mobile Sub-Nav, Footer, Theme, and Language switching across all pages.
+ */
+
+(function () {
+  'use strict';
+
+  const layoutI18n = {
+    zh: {
+      navBrandTitle: "负责任与安全使用 AI",
+      navBrandSub: "普通人的数字权利 社区共建",
+      navLinkGuide: "实务指南",
+      navLinkLibrary: "技能库",
+      navLinkIncidents: "真实案例库",
+      navLinkPutongren: "普通人的数字权利 官网",
+      mNavGuide: "实务指南",
+      mNavLibrary: "技能库",
+      mNavIncidents: "案例库",
+      mNavPutongren: "官网 ↗",
+      tLangBtn: "English",
+      footerBrandTitle: "普通人的数字权利 · Responsible & Safe AI Use",
+      footerBrandMission: "帮助每一个普通人在机器与算法时代保护自己的权利",
+      footerLinkGuide: "实务指南",
+      footerLinkLibrary: "技能库",
+      footerLinkIncidents: "真实案例库",
+      footerLinkPutongren: "putongren.org 官网 ↗",
+      footerLinkLicense: "MIT 开源许可",
+      footerLinkGithub: "GitHub 仓库 ↗",
+      footerCopyright: "© 2026 普通人的数字权利 (Digital Rights for All). 本项目为非营利开源社区项目，精选现有开源工具，不提供任何商业收费服务。"
+    },
+    en: {
+      navBrandTitle: "Responsible & Safe AI Use",
+      navBrandSub: "Digital Rights for All Community Project",
+      navLinkGuide: "Field Guide",
+      navLinkLibrary: "Skill Library",
+      navLinkIncidents: "Incidents",
+      navLinkPutongren: "putongren.org Site",
+      mNavGuide: "Guide",
+      mNavLibrary: "Skills",
+      mNavIncidents: "Incidents",
+      mNavPutongren: "Site ↗",
+      tLangBtn: "中文",
+      footerBrandTitle: "Digital Rights for All · Responsible & Safe AI Use",
+      footerBrandMission: "Empowering everyday citizens to safeguard their rights in the age of algorithms",
+      footerLinkGuide: "Field Guide",
+      footerLinkLibrary: "Skill Library",
+      footerLinkIncidents: "Incidents",
+      footerLinkPutongren: "putongren.org Site ↗",
+      footerLinkLicense: "MIT License",
+      footerLinkGithub: "GitHub Repo ↗",
+      footerCopyright: "© 2026 Digital Rights for All (putongren.org). Non-profit community initiative curating open-source tools with zero commercial fees."
+    }
+  };
+
+  // Determine current active page based on pathname
+  function detectActivePage() {
+    const path = window.location.pathname;
+    if (path.includes('library.html')) return 'library';
+    if (path.includes('incidents.html')) return 'incidents';
+    return 'guide'; // default to index.html / guide
+  }
+
+  function getSavedLang() {
+    return localStorage.getItem('rai_lang') || 'zh';
+  }
+
+  function getSavedTheme() {
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  function renderHeaderHTML(activePage, lang) {
+    const t = layoutI18n[lang] || layoutI18n.zh;
+    const isGuide = activePage === 'guide';
+    const isLibrary = activePage === 'library';
+    const isIncidents = activePage === 'incidents';
+
+    return `
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Logo & Title -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center transition-transform group-hover:scale-105 text-brand shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-extrabold text-sm sm:text-lg text-slate-900 dark:text-white tracking-tight leading-none mb-1">
+            <span id="nav-brand-title">${t.navBrandTitle}</span>
+          </div>
+          <div class="text-[10px] sm:text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span id="nav-brand-sub">${t.navBrandSub}</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="nav-link-animated ${isGuide ? 'active text-brand font-bold' : 'hover:text-brand dark:hover:text-white'}" id="nav-link-guide" data-page="guide">${t.navLinkGuide}</a>
+        <a href="library.html" class="nav-link-animated ${isLibrary ? 'active text-brand font-bold' : 'hover:text-brand dark:hover:text-white'}" id="nav-link-library" data-page="library">${t.navLinkLibrary}</a>
+        <a href="incidents.html" class="nav-link-animated ${isIncidents ? 'active text-brand font-bold' : 'hover:text-brand dark:hover:text-white'}" id="nav-link-incidents" data-page="incidents">${t.navLinkIncidents}</a>
+        <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:text-brand transition-colors text-slate-500 dark:text-slate-400">
+          <span id="nav-link-putongren">${t.navLinkPutongren}</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="flex items-center gap-1.5 sm:gap-3">
+        <!-- Language Switcher -->
+        <button id="lang-toggle" class="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1 shadow-xs cursor-pointer" aria-label="切换中英语言">
+          <svg class="w-3.5 h-3.5 text-brand shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <span id="t-lang-btn">${t.tLangBtn}</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" aria-label="Toggle theme" class="p-1.5 sm:p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+          <svg class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
+
+        <!-- GitHub -->
+        <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="p-1.5 sm:p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors" title="GitHub Repository">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>`;
+  }
+
+  function renderMobileNavHTML(activePage, lang) {
+    const t = layoutI18n[lang] || layoutI18n.zh;
+    const isGuide = activePage === 'guide';
+    const isLibrary = activePage === 'library';
+    const isIncidents = activePage === 'incidents';
+
+    return `
+    <a href="index.html" class="${isGuide ? 'text-brand font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-brand'} flex items-center gap-1" id="m-nav-guide-link" data-page="guide">
+      <span id="m-nav-guide">${t.mNavGuide}</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="library.html" class="${isLibrary ? 'text-brand font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-brand'} flex items-center gap-1" id="m-nav-library-link" data-page="library">
+      <span id="m-nav-library">${t.mNavLibrary}</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="incidents.html" class="${isIncidents ? 'text-brand font-extrabold' : 'text-slate-600 dark:text-slate-400 hover:text-brand'} flex items-center gap-1" id="m-nav-incidents-link" data-page="incidents">
+      <span id="m-nav-incidents">${t.mNavIncidents}</span>
+    </a>
+    <span class="text-slate-300 dark:text-slate-700">|</span>
+    <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="text-slate-600 dark:text-slate-400 hover:text-brand flex items-center gap-1">
+      <span id="m-nav-putongren">${t.mNavPutongren}</span>
+    </a>`;
+  }
+
+  function renderFooterHTML(activePage, lang) {
+    const t = layoutI18n[lang] || layoutI18n.zh;
+    const isGuide = activePage === 'guide';
+    const isLibrary = activePage === 'library';
+    const isIncidents = activePage === 'incidents';
+
+    return `
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center text-brand shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800 dark:text-slate-200 text-sm" id="footer-brand-title">${t.footerBrandTitle}</div>
+            <div class="text-[11px] text-slate-400" id="footer-brand-mission">${t.footerBrandMission}</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-6 text-slate-600 dark:text-slate-300 font-medium">
+          <a href="index.html" class="${isGuide ? 'text-brand font-bold' : 'hover:text-brand'}" id="footer-link-guide" data-page="guide">${t.footerLinkGuide}</a>
+          <a href="library.html" class="${isLibrary ? 'text-brand font-bold' : 'hover:text-brand'}" id="footer-link-library" data-page="library">${t.footerLinkLibrary}</a>
+          <a href="incidents.html" class="${isIncidents ? 'text-brand font-bold' : 'hover:text-brand'}" id="footer-link-incidents" data-page="incidents">${t.footerLinkIncidents}</a>
+          <a href="https://putongren.org" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-putongren">${t.footerLinkPutongren}</a>
+          <a href="LICENSE" class="hover:text-brand" id="footer-link-license">${t.footerLinkLicense}</a>
+          <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use" target="_blank" rel="noopener noreferrer" class="hover:text-brand" id="footer-link-github">${t.footerLinkGithub}</a>
+        </div>
+      </div>
+      <div class="pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-slate-400 text-[11px]" id="footer-copyright">
+        ${t.footerCopyright}
+      </div>
+    </div>`;
+  }
+
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function updateLayoutTexts(lang) {
+    const t = layoutI18n[lang] || layoutI18n.zh;
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+    setText("nav-brand-title", t.navBrandTitle);
+    setText("nav-brand-sub", t.navBrandSub);
+    setText("nav-link-guide", t.navLinkGuide);
+    setText("nav-link-library", t.navLinkLibrary);
+    setText("nav-link-incidents", t.navLinkIncidents);
+    setText("nav-link-putongren", t.navLinkPutongren);
+    setText("m-nav-guide", t.mNavGuide);
+    setText("m-nav-library", t.mNavLibrary);
+    setText("m-nav-incidents", t.mNavIncidents);
+    setText("m-nav-putongren", t.mNavPutongren);
+    setText("t-lang-btn", t.tLangBtn);
+
+    setText("footer-brand-title", t.footerBrandTitle);
+    setText("footer-brand-mission", t.footerBrandMission);
+    setText("footer-link-guide", t.footerLinkGuide);
+    setText("footer-link-library", t.footerLinkLibrary);
+    setText("footer-link-incidents", t.footerLinkIncidents);
+    setText("footer-link-putongren", t.footerLinkPutongren);
+    setText("footer-link-license", t.footerLinkLicense);
+    setText("footer-link-github", t.footerLinkGithub);
+    setText("footer-copyright", t.footerCopyright);
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }
+
+  function toggleLanguage() {
+    const current = getSavedLang();
+    const nextLang = current === 'zh' ? 'en' : 'zh';
+    setSiteLang(nextLang);
+  }
+
+  function setSiteLang(lang) {
+    localStorage.setItem('rai_lang', lang);
+    updateLayoutTexts(lang);
+    window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang } }));
+  }
+
+  function initSiteLayout() {
+    const activePage = detectActivePage();
+    const lang = getSavedLang();
+
+    // Ensure document lang attribute
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+    // 1. Header injection / refresh
+    const headerEl = document.getElementById('site-header');
+    if (headerEl) {
+      headerEl.innerHTML = renderHeaderHTML(activePage, lang);
+    }
+
+    // 2. Mobile Nav injection / refresh
+    const mobileNavEl = document.getElementById('site-mobile-nav');
+    if (mobileNavEl) {
+      mobileNavEl.innerHTML = renderMobileNavHTML(activePage, lang);
+    }
+
+    // 3. Footer injection / refresh
+    const footerEl = document.getElementById('site-footer');
+    if (footerEl) {
+      footerEl.innerHTML = renderFooterHTML(activePage, lang);
+    }
+
+    // 4. Attach event listeners
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn && !themeBtn.dataset.layoutBound) {
+      themeBtn.addEventListener('click', toggleTheme);
+      themeBtn.dataset.layoutBound = 'true';
+    }
+
+    const langBtn = document.getElementById('lang-toggle');
+    if (langBtn && !langBtn.dataset.layoutBound) {
+      langBtn.addEventListener('click', toggleLanguage);
+      langBtn.dataset.layoutBound = 'true';
+    }
+  }
+
+  // Expose public API
+  window.siteLayout = {
+    detectActivePage,
+    getLang: getSavedLang,
+    setLang: setSiteLang,
+    getTheme: getSavedTheme,
+    toggleTheme,
+    updateLayoutTexts,
+    init: initSiteLayout,
+    i18n: layoutI18n,
+    renderHeaderHTML,
+    renderMobileNavHTML,
+    renderFooterHTML
+  };
+
+  // Auto initialize on DOM ready or immediately if document is already ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSiteLayout);
+  } else {
+    initSiteLayout();
+  }
+})();

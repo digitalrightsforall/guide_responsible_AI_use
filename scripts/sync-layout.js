@@ -163,39 +163,44 @@ pages.forEach(({ file, key }) => {
   let html = fs.readFileSync(filePath, 'utf8');
 
   // 1. Replace <header>...</header>
-  const headerRegex = /(?:<!--\s*(?:Top Navigation Bar|Header \/ Navigation|Unified Header)[\s\S]*?<\/header>|<header id="site-header"[\s\S]*?<\/header>)/i;
   const newHeader = getHeaderHTML(key);
+  const headerRegex = /\s*<header id="site-header"[\s\S]*?<\/header>/i;
   if (headerRegex.test(html)) {
-    html = html.replace(headerRegex, newHeader);
+    html = html.replace(headerRegex, `\n  ${newHeader}`);
   } else {
-    console.warn(`Header regex did not match in ${file}`);
+    html = html.replace(/\s*<!--\s*(?:Top Navigation Bar|Header \/ Navigation|Unified Header)[\s\S]*?<\/header>/i, `\n  ${newHeader}`);
   }
 
   // 2. Replace <nav ... (mobile sub nav)>...</nav>
-  const mobileNavRegex = /(?:<!--\s*Mobile Sub-Navigation Bar[\s\S]*?<\/nav>|<nav id="site-mobile-nav"[\s\S]*?<\/nav>)/i;
   const newMobileNav = getMobileNavHTML(key);
+  const mobileNavRegex = /\s*<nav id="site-mobile-nav"[\s\S]*?<\/nav>/i;
   if (mobileNavRegex.test(html)) {
-    html = html.replace(mobileNavRegex, newMobileNav);
+    html = html.replace(mobileNavRegex, `\n${newMobileNav}`);
   } else {
-    console.warn(`Mobile nav regex did not match in ${file}`);
+    html = html.replace(/\s*<!--\s*Mobile Sub-Navigation Bar[\s\S]*?<\/nav>/i, `\n${newMobileNav}`);
   }
 
-  // 3. Remove any existing footers first to prevent duplicates
-  html = html.replace(/(?:<!--\s*Footer[\s\S]*?<\/footer>|<footer\s+(?:id="site-footer"|class="[^"]*border-t[^"]*")[\s\S]*?<\/footer>)\s*/gi, '');
-
-  // 4. Ensure <script src="js/layout.js"></script> is included
+  // 3. Ensure <script src="js/layout.js"></script> is included
   if (!html.includes('js/layout.js')) {
     html = html.replace(/<script src="js\/(?:guide|library|incidents)\.js"><\/script>/,
       `<script src="js/layout.js"></script>\n  $&`);
   }
 
-  // 5. Insert the single unified footer right before <script src="js/layout.js"> (or first script / </body>)
+  // 4. Replace footer in place if it exists; otherwise insert before layout.js
   const newFooter = getFooterHTML(key);
-  if (html.includes('<script src="js/layout.js">')) {
-    html = html.replace('<script src="js/layout.js">', `${newFooter}\n\n  <script src="js/layout.js">`);
+  const footerRegex = /\s*<footer id="site-footer"[\s\S]*?<\/footer>/i;
+  if (footerRegex.test(html)) {
+    html = html.replace(footerRegex, `\n${newFooter}`);
   } else {
-    const insertPoint = html.lastIndexOf('</body>');
-    html = html.substring(0, insertPoint) + newFooter + '\n\n' + html.substring(insertPoint);
+    const legacyFooter = /\s*(?:<!--\s*Footer[\s\S]*?<\/footer>|<footer\s+(?:id="site-footer"|class="[^"]*border-t[^"]*")[\s\S]*?<\/footer>)/i;
+    if (legacyFooter.test(html)) {
+      html = html.replace(legacyFooter, `\n${newFooter}`);
+    } else if (html.includes('<script src="js/layout.js">')) {
+      html = html.replace('<script src="js/layout.js">', `${newFooter}\n\n  <script src="js/layout.js">`);
+    } else {
+      const insertPoint = html.lastIndexOf('</body>');
+      html = html.substring(0, insertPoint) + newFooter + '\n\n' + html.substring(insertPoint);
+    }
   }
 
   fs.writeFileSync(filePath, html, 'utf8');

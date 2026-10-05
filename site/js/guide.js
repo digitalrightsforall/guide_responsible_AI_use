@@ -370,8 +370,8 @@ const guideContent = {
     heroBadge: "普通人的数字权利 · 实务行动指南",
     heroTitle: "负责任与安全使用 AI：",
     heroTitleHighlight: "普通人的实操指南",
-    heroSubtitle: "面向知识工作者、高校科研学者与开发者的开源自卫手册。建立对输入数据、交互产出与自动化 Agent 的审判式工作流，让使用成果第三方好核查。",
-    metaReadTime: "建议阅读：18 分钟",
+    heroSubtitle: "写给每天都在使用 AI 的普通人：先学会保护个人隐私与数据边界，再让工作成果经得起第三方核验。从日常对话防采集到生产成果防翻车的开源实操手册。",
+    metaReadTime: "建议阅读：快速上手 3 分钟 · 全文精读约 35 分钟",
     metaSkillsCount: "44 项开源规范技能",
     metaScenarios: "6 大核心工作流场景",
     heroCtaPlaybook: "开始阅读实战指南",
@@ -410,7 +410,7 @@ const guideContent = {
               </div>
               <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. 留个心眼“查一查”</span>
-                <p class="text-slate-600 dark:text-slate-400">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在官方权威平台搜索复核。</p>
+                <p class="text-slate-600 dark:text-slate-400">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在权威平台核查（论文查知网/百度学术/doi.org，案号查裁判文书网，名言查原始出处）。</p>
               </div>
             </div>
           </div>
@@ -419,20 +419,27 @@ const guideContent = {
             在你在光标闪烁的对话框中敲下第一行字之前，安全博弈其实早已开始。无论你使用的是国内主流的<strong>Trae、WorkBuddy、豆包、Kimi</strong>，还是国际前沿的<strong>Cursor、Claude、ChatGPT、Gemini</strong>，许多人以为“点一下删除对话”或“关掉聊天记录”就万事大吉。然而底层架构的设计却隐藏着<strong>“控制的错觉”（Illusion of Control）</strong>——前端界面的视图隐藏，绝不等于服务端的彻底销毁。
           </p>
 
-          <!-- 6 Hardening Traps Alert -->
-          <div class="p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4">
-            <div class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center gap-2">
-              <span>⚠️ 跨平台通用的六大“隐形留存与认知不等式” (2026 官方核实)：</span>
-            </div>
-            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc">
-              <li><strong>关闭模型训练 ≠ 数据立即删除</strong>：在 Kimi 与豆包中，关闭训练仅代表后续交互不用于算法迭代，历史聊天记录仍完整留存服务端；豆包清空对话也不会级联清除已提炼的 Memory（须在【设置 &gt; 记忆】单独手动清除）。</li>
-              <li><strong>打开 Privacy Mode ≠ 服务端绝对零留存</strong>：在 Trae IDE 中，开启隐私模式主要承诺对话与输出不用于训练，但为构建全工程上下文理解，仍会临时上传代码计算向量嵌入；且<strong>退出登录时隐私模式会自动失效</strong>！</li>
+          <!-- 6 Hardening Traps Alert (Folded) -->
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4 shadow-xs">
+            <summary class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2">
+                <span>⚠️</span>
+                <span>为什么删了对话还不够？（展开看 6 个常见隐形留存误区）</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开误区 ⬇</span>
+                <span class="hidden group-open:inline">收起误区 ⬆</span>
+              </span>
+            </summary>
+            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc pt-2 leading-relaxed">
+              <li><strong>关闭模型训练 ≠ 数据立即删除</strong>：在各主流应用中，关闭训练仅代表后续交互不用于算法迭代，历史聊天记录仍完整留存服务端；豆包清空对话也不会级联清除已提炼的 Memory（须在【设置 &gt; 记忆】单独手动清除）。</li>
+              <li><strong>打开 Privacy Mode ≠ 服务端绝对零留存</strong>：在 Trae 等 IDE 中，开启隐私模式主要承诺对话与输出不用于训练，但为构建工程上下文仍会临时上传代码计算向量嵌入；且<strong>退出登录时隐私模式会自动失效</strong>！</li>
               <li><strong>关闭 Memory ≠ 既有 Memory 已删除</strong>：豆包、WorkBuddy、ChatGPT 均明确既有记忆为独立存储，关闭记忆开关仅阻断新记忆的生成，旧记忆库依然常驻生效。</li>
-              <li><strong>删除源对话 ≠ 对应提取的 Memory 被删除</strong>：删除产生某条记忆的原始会话，绝不会触发对提炼事实的级联清除，必须前往专门的记忆空间单独注销。</li>
-              <li><strong>删除 Conversation ≠ 上传文件同步删除</strong>：在 Dify、FastGPT 等平台中，单次会话与知识库/附件解耦，删除聊天界面并不销毁后台已持久化的文件与嵌入向量。</li>
+              <li><strong>删除源对话 ≠ 对应提取的 Memory 被删除</strong>：删除产生某条记忆的原始会话，不会触发对提炼事实的级联清除，必须前往专门的记忆空间单独注销。</li>
+              <li><strong>删除 Conversation ≠ 上传文件同步删除</strong>：在知识库与 Agent 类平台中，单次会话与知识库/附件解耦，删除聊天界面并不销毁后台已持久化的文件与嵌入向量。</li>
               <li><strong>《网络安全法》第21条留存 6 个月 ≠ 所有聊天正文必须保存 6 个月</strong>：法律强制留存的法定对象是<strong>“相关网络运行与安全日志”</strong>，而非用户输入的完整提示词与私有正文。绝不能拿合规为服务商的无节制留存找借口。</li>
             </ul>
-          </div>
+          </details>
 
           <!-- Domestic Chinese Tools Hardening Table (Collapsible) -->
           <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
@@ -565,6 +572,13 @@ const guideContent = {
           </div>
         </div>
       </details>
+
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
+        <span>💡 平台设置入口可能会随着版本迭代发生变动。如遇路径失效或发现新平台，欢迎在 GitHub 提交 Issue 补充。</span>
+        <a href="#chapter-1" class="text-brand font-bold hover:underline flex items-center gap-1">
+          <span>想知道为什么要这么做？看第 1 章的 5 个真实案例 ➔</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -603,7 +617,7 @@ const guideContent = {
                 <span>隐形危机二：自信幻觉与认知依附 (MIT/Stanford 实证)</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                认知神经科学实验（如 <a href="https://arxiv.org/abs/2310.13548" target="_blank" class="text-brand hover:underline">Stanford / MIT 认知科学实证 ↗</a>）显示，当人类不加批判地把核心推理完全委托给 AI 代笔时，大脑额叶活跃度与批判反思深度显著衰减。模型的<strong>谄媚倾向（Sycophancy，即讨好盲从用户预设立场）</strong>会顺从人类的偏见，甚至以极具权威感的腔调生成虚构论文引用，悄然瓦解个人的独立思考与质疑本能。
+                认知神经科学实证（如 MIT Media Lab 2025 年脑电实验《Your Brain on ChatGPT》与 Anthropic 谄媚性研究）揭示：当人类过度把核心推理委托给 AI 代笔时，神经连接活跃度显著降低，产生“认知负债”（83% 的受试者甚至无法回忆刚才生成的关键内容）。加之模型的<strong>谄媚倾向（Sycophancy，顺从讨好用户偏好）</strong>，长期缺乏批判反思，个人的独立思考与求证本能会被悄然削弱。
               </p>
             </div>
           </div>
@@ -632,7 +646,7 @@ const guideContent = {
                 <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>案情翻车事实
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       配音演员的录音制品被软件公司未经单独明示许可提取声音特征，用于训练开发商业级 AI 文本转语音 (TTS) 产品并在多平台销售获利。
@@ -640,7 +654,7 @@ const guideContent = {
                   </div>
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>司法裁判与实操防线
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       法院裁定自然人声音权益独立于录音制品著作权，未经单独明示授权不得将录音制作成 AI 商业模型。<strong>警示：取得同事录音或客户素材的使用权限，绝不代表可以随意上传投喂给 AI！</strong>
@@ -654,7 +668,7 @@ const guideContent = {
                 <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 AI 检索加工名誉权案</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">南京市中级人民法院名誉权侵权终审裁判</span>
+                    <span class="text-xs font-bold text-slate-900 dark:text-white">李小亮诉百度“AI智能回答”名誉侵权案（南京中院终审）</span>
                     <span class="text-[10px] text-slate-400 font-mono">江苏高院公开通报</span>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">承担名誉侵权全责</span>
@@ -662,7 +676,7 @@ const guideContent = {
                 <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>案情翻车事实
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       某平台“AI 智能回答”功能在抓取整合网络碎片时发生严重幻觉拼接，错误生成某当事人“因爆炸罪被判处三年有期徒刑”并附带其真实工作肖像。
@@ -670,7 +684,7 @@ const guideContent = {
                   </div>
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>司法裁判与实操防线
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       法院认定 AI 检索整合属于“内容产出”，平台收到受害人侵权通知未及时采取阻断措施须负全责。北京互联网法院 2026 年亦审结多起传播未核验 AI 虚构内容构成名誉侵权的纠纷。
@@ -685,14 +699,14 @@ const guideContent = {
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 最高法裁判指引</span>
                     <span class="text-xs font-bold text-slate-900 dark:text-white">《关于依法审理涉人工智能纠纷案件的意见》</span>
-                    <span class="text-[10px] text-slate-400 font-mono">法发 [2025/2026] 指导</span>
+                    <span class="text-[10px] text-slate-400 font-mono">法发〔2026〕10号 (2026-09-07)</span>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900">罚款·拘留·追究刑责</span>
                 </div>
                 <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>法律责任界定
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       诉讼参与人使用 AI 辅助撰写文书必须严格核实内容真实性并如实向法庭说明；严禁利用大模型伪造证据、编造虚构法律判例与事实。
@@ -700,7 +714,7 @@ const guideContent = {
                   </div>
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>司法裁判与实操防线
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       利用 AI 制造虚假诉讼的，依据《民事诉讼法》第 114 条采取严厉制裁。“这是 AI 生成的”绝非免责金牌，提交者承担 100% 的法律穿透责任。
@@ -721,7 +735,7 @@ const guideContent = {
                 <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>案情翻车事实
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       执业律师轻信 ChatGPT 辅助起草的诉讼法律简报，简报中引用的 6 起先例判决（含案号、判词与法官姓名）全系 AI 凭空编造的虚假幻觉。
@@ -729,7 +743,7 @@ const guideContent = {
                   </div>
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>司法裁判与实操防线
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       主审法官裁定律师存在主观恶意不尽核查义务，对涉事律师及律所各罚款 5,000 美元并向全行业通报。此案确立了全球司法界对 AI 生成引用“零信任物理查验”铁律。
@@ -750,7 +764,7 @@ const guideContent = {
                 <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>案情翻车事实
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       加拿大航空官网的 AI 智能客服向旅客提供了凭空捏造的“事后追溯丧亲优惠票价”退款指南，导致旅客依照指引购票后被加航拒绝退款。
@@ -758,7 +772,7 @@ const guideContent = {
                   </div>
                   <div class="space-y-1">
                     <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>司法裁判与实操防线
+                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
                       裁决所严厉驳回了加航主张“AI 客服是独立实体、加航不应为机器人回答负责”的抗辩，认定企业必须对其部署算法的虚假陈述与疏忽误导承担全部民事赔偿责任。
@@ -777,15 +791,15 @@ const guideContent = {
             </div>
           </div>
 
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            我们为什么拒绝空洞的宏大伦理？
-          </h3>
-          <p class="leading-relaxed">
-            现有的 AI 治理讨论，大多停留在学术精英的象牙塔或跨国科技巨头的合规白皮书中。“公平、向善、透明、负责”等词汇虽然高尚，但当一个普通职员面对一个正在闪烁光标的对话框时，这些宏观口号无法给他提供任何趁手的防护工具。
-          </p>
-          <p class="leading-relaxed">
-            <strong>《负责任与安全使用 AI》开源实务库的诞生，就是为了给每一个普通人递上一把带刺的护盾与一把求证的标尺。</strong>我们不发明虚幻的概念，而是将全球开源社区经过工程实测验证的 44 项规范技能（SKILL.md）系统化收录，让每个人都能以最低的技术门槛，在自己的 IDE、客户端和会话工作流中筑起安全防御。
-          </p>
+          <!-- Chapter 1 Transition to Everyday Action -->
+          <div class="p-4 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 space-y-2 mt-4">
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>💡 应对这些风险，空洞的口号帮不上忙</span>
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              宏观的治理口号并不能在日常对话框前保护普通人。我们需要的是在每一次打字、提问、交付前都能用上的具体习惯（第 2 章的<strong>四大日常追问</strong>）与实操技能（第 3 章的<strong>三档行动方案</strong>）。
+            </p>
+          </div>
         </div>
       </section>
 
@@ -834,12 +848,19 @@ const guideContent = {
             </div>
           </div>
 
-          <!-- 3 Pillars Deep Mapping Table -->
-          <div class="my-5 space-y-2">
-            <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>📋 三大安全支柱深度映射表：中国法治底线与国际工业标准对齐</span>
-            </h4>
-            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+          <!-- 3 Pillars Deep Mapping Table (Folded for Everyday Users) -->
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-brand"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">给专业读者：三大安全支柱深度映射表（法规与工业标准对照）</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开法条标准 ⬇</span>
+                <span class="hidden group-open:inline">收起对照 ⬆</span>
+              </span>
+            </summary>
+            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1 pt-2">
               <span>👉 横向滑动查看完整表格</span>
             </div>
             <div class="overflow-x-auto">
@@ -963,6 +984,9 @@ const guideContent = {
               <span class="w-2 h-2 rounded-full bg-brand"></span>
               <span>认知防线的心智自觉：放大 vs 脚手架 vs 替代</span>
             </h4>
+            <div class="p-3 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs font-semibold text-brand dark:text-brand-container flex items-center gap-2">
+              <span>👉 快速自测：回想你刚才使用 AI 的那一次，你把它当作了“放大器”、“脚手架”，还是直接“替代”了你自己的独立思考？</span>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
                 <span class="font-bold text-emerald-600 dark:text-emerald-400">🟢 放大 (Amplification)</span>
@@ -1021,44 +1045,44 @@ const guideContent = {
 
           <!-- Four Practical Questions Table -->
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            四大日常追问：把抽象原则落地为可执行的习惯检查
+            四大日常追问：把抽象原则落地为可执行的习惯检查（贯穿全书主线）
           </h3>
           <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
             <span>👉 横向滑动查看完整表格</span>
           </div>
           <div class="overflow-x-auto">
-            <table class="min-w-[620px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <table class="min-w-[680px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
-                  <th class="py-3 px-4">日常实务追问</th>
-                  <th class="py-3 px-4">核心安全考量</th>
-                  <th class="py-3 px-4">对齐权威标准与依据</th>
-                  <th class="py-3 px-4">库内技能数</th>
+                  <th class="py-3 px-4 w-1/4">日常实务追问</th>
+                  <th class="py-3 px-4 w-2/5">一句话日常自检与实战对应</th>
+                  <th class="py-3 px-4 w-1/4">对应章节</th>
+                  <th class="py-3 px-4 w-1/12">技能数</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">1. 我能把什么给 AI？</td>
-                  <td class="py-3 px-4">敏感数据脱敏、第三方数据保护、隔离虚拟机执行</td>
-                  <td class="py-3 px-4">Microsoft Presidio、NIST 隐私框架、OWASP Agentic</td>
+                  <td class="py-3 px-4">“如果这段文本或代码被发到公开大群或被竞争对手看到，我会不会有隐私或法律麻烦？”</td>
+                  <td class="py-3 px-4"><a href="#sec-3-1" class="text-brand font-semibold hover:underline">→ 详见 3.1 节、3.4 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">11 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">2. 哪些回答能信？</td>
-                  <td class="py-3 px-4">虚构文献拦截、事实证据忠实度、逻辑自洽</td>
-                  <td class="py-3 px-4">CrossRef/PubMed DOI 规范、Nature 事实核查</td>
+                  <td class="py-3 px-4">“AI 引用的这篇论文、判例案号或关键数据，我自己能不能在官方平台点开找到原文？”</td>
+                  <td class="py-3 px-4"><a href="#sec-3-2" class="text-brand font-semibold hover:underline">→ 详见 3.2 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">3. 什么时候不能听 AI？</td>
-                  <td class="py-3 px-4">破除模型顺从与谄媚、魔鬼代言人逆反审查、决策隔离</td>
-                  <td class="py-3 px-4">Anthropic 对抗评估、IEEE 认知偏差基准</td>
+                  <td class="py-3 px-4">“AI 给出赞同时，它是在真正帮我查漏补缺，还是在顺着我的偏好曲意逢迎？”</td>
+                  <td class="py-3 px-4"><a href="#sec-3-3" class="text-brand font-semibold hover:underline">→ 详见 3.3 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">4. 输出能不能直接发布？</td>
-                  <td class="py-3 px-4">广告法审查、无障碍标准、代码密钥与开源协议</td>
-                  <td class="py-3 px-4">FTC 广告法、W3C WCAG 2.1 AA、OWASP、SPDX</td>
+                  <td class="py-3 px-4">“文案里有没有绝对化极限词？代码里有没有遗漏密钥？成果是否需要标明 AI 辅助生成？”</td>
+                  <td class="py-3 px-4"><a href="#sec-3-5" class="text-brand font-semibold hover:underline">→ 详见 3.5 节、3.6 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">13 项</td>
                 </tr>
               </tbody>
@@ -1079,13 +1103,20 @@ const guideContent = {
           </p>
         </div>
 
+        <!-- What is a Skill (plain-reader) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 space-y-2 text-sm">
+          <div class="font-bold text-slate-900 dark:text-white">先说清楚：本章提到的“技能”是什么？没有技能怎么办？</div>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">“技能”（SKILL.md）是一份写给 AI 助手的<strong>标准操作说明书</strong>：一个文件夹里放着说明文件，有时还附带检查脚本。只有支持 Agent Skills 规范的 AI 工具（例如 Claude Code 等智能体 / 编程工具）才能读取并按步骤执行。</p>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>如果你只用网页版或手机 App（如豆包、Kimi、ChatGPT），用不了技能也没关系。</strong>下面每一节都有“零门槛”做法，只需要浏览器和几分钟时间。想用技能的读者，可以点开文中的技能卡片查看安装命令。</p>
+        </div>
+
         <!-- Section 3.1 -->
         <div id="sec-3-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控的风险就已悄然开始。然而，“单纯抹去姓名”从来不等于真正脱敏——这就是隐私保护学界经典的<strong>马赛克拼图理论（Mosaic Theory）</strong>：哪怕你删去了“张三”的名字，只要保留了“某三甲医院罕见病科室 + 42岁男性 + 某日入院”，熟人或攻击者就能像拼图一样以极高概率还原出当事人真实身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。在中国《个人信息保护法》(PIPL) 框架下，这类信息均属必须严守的敏感个人信息。
+            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控的风险就已悄然开始。然而，“单纯抹去姓名”从来不等于真正脱敏——这就是隐私保护学界经典的<strong>马赛克拼图理论（Mosaic Theory）</strong>：哪怕你删去了“张三”的名字，只要保留了“某三甲医院罕见病科室 + 42岁男性 + 某日入院”，熟人或攻击者就能像拼图一样以极高概率还原出当事人真实身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             与此同时，在让 AI 联网搜索、分析长文档或企业知识库时，还存在<strong>“外部隐形投毒”（间接提示词注入，IPI）</strong>的威胁：攻击者在网页、PDF 或外部邮件里嵌入人眼看不见的暗号指令。当 AI 替你抓取并阅读这些内容时，就会被暗号劫持，背着你悄悄把你的对话记录、私人密码外发给攻击者。
@@ -1113,6 +1144,37 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>把真实姓名、电话、身份证号、住址替换成“[姓名A]”“[电话]”这类占位符再粘贴。</li>
+                  <li>年龄改成年龄段，地址只写到城市，单位只写行业。</li>
+                  <li>涉及国家秘密、工作秘密或他人病历的内容，不要输入任何公共 AI。</li>
+                  <li>让 AI 阅读陌生网页或 PDF 时，不要同时授予它收发邮件、读写文件的权限。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>先在本地文本编辑器里用“查找替换”批量替换敏感词，再复制给 AI。</li>
+                  <li>有条件可在本机运行开源的 Microsoft Presidio 自动识别并替换个人信息。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>在支持技能的工具中启用下方的脱敏类技能（如 <code>pii-safe-documents</code>），由 AI 在发送前自动检查。</li>
+                  <li>安装命令见卡片详情或技能库。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>把你准备发送的文字转给一个不认识当事人的同事看——如果对方能猜出是谁，就还没脱敏干净。</p>
+          </div>
+
           <!-- Real World Exploit / Technical Mechanism Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
@@ -1137,7 +1199,7 @@ const guideContent = {
           </details>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库 (点击卡片查看实证)：</h4>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
             <div class="flex flex-wrap gap-2">
               ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")}
               ${makePill("presidio-anonymize-text", "presidio-anonymize-text · 微软标准文本匿名化")}
@@ -1187,12 +1249,42 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>论文：复制 DOI，粘贴到 <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a> 打开；打不开或文章对不上，就当它不存在。</li>
+                  <li>没有 DOI 的论文：用标题去知网、百度学术或谷歌学术搜索原文。</li>
+                  <li>法律案号：到 <a href="https://wenshu.court.gov.cn/" target="_blank" class="text-brand underline">中国裁判文书网</a> 或人民法院案例库检索。</li>
+                  <li>名人名言、统计数字：找到原始出处再用。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>用 <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref 检索页</a> 批量核对 DOI 与作者、期刊是否一致。</li>
+                  <li>用 Zotero 等文献管理软件按 DOI 导入，导入失败的条目重点复查。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>在支持技能的工具中启用下方的引文核验类技能（如 <code>bibref-verify</code>），自动调用 Crossref / PubMed 逐条比对。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>你交出去的每一条引用，都至少亲手打开过一次原文页面。</p>
+          </div>
+
           <!-- Real World Exploit / Technical Mechanism Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">自回归原罪、司法引证灾难与双环查验实证 (Empirical Hallucination Audit)</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">自回归机制局限、司法引证灾难与双环查验实证 (Empirical Hallucination Audit)</span>
                 <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">双环核验实证</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
@@ -1214,7 +1306,7 @@ const guideContent = {
           </details>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库 (点击卡片查看实证)：</h4>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
             <div class="flex flex-wrap gap-2">
               ${makePill("bibref-verify", "bibref-verify · 参考文献精准核验")}
               ${makePill("citation-verifier", "citation-verifier · 引文真伪验证器")}
@@ -1233,7 +1325,7 @@ const guideContent = {
         <!-- Section 3.3 -->
         <div id="sec-3-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.3 方案决策时 · 击碎 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
+            <span>3.3 方案决策时 · 破除 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             你是否经历过这样的场景：你在提问时暗示了一个偏颇的思路（例如“我觉得单体架构比微服务更适合我们团队”），模型立即赞叹：“您的洞察非常深刻！单体架构正是现阶段的最佳选择！”——在机器学习学术界，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为了迎合人类的好恶反馈，会隐瞒关键反面论据与架构隐患，制造危险的认知回音壁。
@@ -1264,12 +1356,41 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>提问时不要先说自己的倾向，只描述问题和约束条件。</li>
+                  <li>拿到方案后追加一句（可直接复制）：<code>请忽略我的偏好，指出这个方案最脆弱的 3 个假设，以及它最可能失败的场景。</code></li>
+                  <li>再问一句：<code>如果你是反对这个方案的人，你最有力的 3 条理由是什么？</code></li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>开一个新会话或换一个不同厂商的模型，问同一个问题，对比结论是否一致。</li>
+                  <li>重大决定前，至少找一位真人同事看过反方意见。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>启用下方的反谄媚 / 魔鬼代言人类技能（如 <code>sycophancy-challenger</code>），让 AI 固定执行对抗审阅流程。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>你能说出这个决定“最大的风险是什么”，而且这条风险不是 AI 主动夸你时顺带提的。</p>
+          </div>
+
           <!-- Real World Exploit / Technical Mechanism Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF 奖励原罪与三级对抗审阅实操体系 (3-Tier Adversarial Scrutiny Pipeline)</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF 奖励机制缺陷与三级对抗审阅实操体系 (3-Tier Adversarial Scrutiny Pipeline)</span>
                 <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">三级审阅实证</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
@@ -1278,7 +1399,7 @@ const guideContent = {
               </span>
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>RLHF 奖励模型原罪</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。</li>
+              <li><strong>RLHF 奖励模型机制局限</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。</li>
               <li><strong>Tier 1: 认知摩擦微提醒 (Discernment Nudge)</strong>：在 Prompt 中强制植入认知摩擦约束，例如：“请完全忽略我的偏好与倾向，直接指出当前技术方案中最脆弱的 3 个底层假设和潜在失效场景。” 对应技能：<code>discernment-nudge</code>, <code>sycophancy-challenger</code>。</li>
               <li><strong>Tier 2: 魔鬼代言人逆向攻防 (Devil's Advocate & Adversarial Review)</strong>：赋予模型极端敌对的对立角色（如“做空机构分析师”、“苛刻合规官”或“诉讼反方首席律师”），专门对技术架构与商业主张发起进攻性质询与破绽深挖。对应技能：<code>devils-advocate-mad-skills</code>, <code>devils-advocate-reviewer</code>, <code>godfly-opposing-counsel</code>, <code>anti-sycophancy-molly</code>。</li>
               <li><strong>Tier 3: 独立多角色陪审团会诊 (The Jury & Red Team)</strong>：多智能体架构模拟，拆解为架构师、安全官、财务官与反直觉质疑者组成的多维陪审团，实行背靠背独立投票质证，彻底粉碎单一会话同质化回音壁。对应技能：<code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>。</li>
@@ -1286,7 +1407,7 @@ const guideContent = {
           </details>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库 (点击卡片查看实证)：</h4>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
             <div class="flex flex-wrap gap-2">
               ${makePill("sycophancy-challenger", "sycophancy-challenger · 谄媚质疑挑战者")}
               ${makePill("anti-sycophancy-molly", "anti-sycophancy-molly · 防迎合直言护卫")}
@@ -1333,6 +1454,35 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li><strong>只在网页或手机 App 上聊天的读者，可以跳过本节。</strong></li>
+                  <li>如果你用的工具能操作电脑（读写文件、运行命令），保持“默认权限 / 每步确认”，不要开启“完全访问”“自动执行全部”。</li>
+                  <li>让 AI 动手前，先备份重要文件夹。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>不要安装来源不明的插件或 MCP 工具；只开启当前任务真正需要的那几个。</li>
+                  <li>在单独的系统账户、虚拟机或容器里运行 AI 自动执行的任务。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>启用 <code>agent-sandbox-skill</code>，把高风险脚本放进一次性的隔离环境中执行。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>AI 执行的每一个删除、覆盖、联网操作，你都在弹窗里亲眼看过并点了确认。</p>
+          </div>
+
           <!-- Real World Exploit / Architecture Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
@@ -1355,7 +1505,7 @@ const guideContent = {
           </details>
 
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库：</h4>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能：</h4>
             <div class="flex flex-wrap gap-2">
               ${makePill("agent-sandbox-skill", "agent-sandbox-skill · 微虚拟机沙盒执行隔离")}
             </div>
@@ -1390,7 +1540,7 @@ const guideContent = {
                 <span>门禁二：数字包容与法定 Web 无障碍门禁</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                依据中国《无障碍环境建设法》第34条法定强制要求及 W3C WCAG 2.1 AA 国际标准，阻断缺少语义标签、缺失 ARIA 属性、键盘无法导航与对比度不足（低于 4.5:1）的代码进入生产。
+                依据中国《无障碍环境建设法》第32条法定强制要求及 W3C WCAG 2.1 AA 国际标准，阻断缺少语义标签、缺失 ARIA 属性、键盘无法导航与对比度不足（低于 4.5:1）的代码进入生产。
               </p>
               <div>${makePill("web-accessibility", "web-accessibility · 法定 WCAG 无障碍门禁")}</div>
             </div>
@@ -1418,6 +1568,35 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>发布前自问三句：有没有“最、第一、国家级、根治”这类词？</li>
+                  <li>文中的数字和功效，有没有可以出示的来源？</li>
+                  <li>这是 AI 生成或合成的内容吗？如果是，按《人工智能生成合成内容标识办法》（2025 年 9 月 1 日起施行）添加标识。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>网页类成果：用 Chrome 开发者工具中的 Lighthouse 跑一次无障碍检测。</li>
+                  <li>代码类成果：提交前用 Gitleaks 等工具扫描是否夹带密钥。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>启用下方四个门禁技能，在发布流程中自动拦截。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>假如有人逐句追问“这句话的依据是什么”，你都能拿出来。</p>
+          </div>
+
           <!-- Real World Statutory & Judicial Forensic Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
@@ -1441,7 +1620,7 @@ const guideContent = {
                 </ul>
               </li>
               <li><strong>FTC "Operation AI Comply" 国际对比</strong>：美国 FTC 严厉打击缺乏实证支持的 AI 吹嘘（AI Washing）：DoNotPay 因宣传所谓“世界首个机器人律师”被罚款 19.3 万美元并被严禁无实证宣传；2026 年 8 月 CMG Media 等三家公司因虚假宣称 AI“Active Listening”监听消费者语音定向广告和解支付 93 万美元；Air AI 2026 年 3 月因虚假商业机会承诺达成和解。核心在于 Substantiation（每一项效能声称必须具备严密证据支撑）。</li>
-              <li><strong>无障碍环境建设法强制要求</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十四条明确规定，国家支持并推进提供公众服务的网站、移动应用程序符合无障碍标准。结合 W3C WCAG 2.1 AA 国际准则，AI 生成界面的色彩对比度不得低于 4.5:1，所有交互控件必须支持纯键盘导航且具备非文本语义回退机制。</li>
+              <li><strong>无障碍环境建设法强制要求</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条明确规定，国家支持并推进提供公众服务的网站、移动应用程序符合无障碍标准。结合 W3C WCAG 2.1 AA 国际准则，AI 生成界面的色彩对比度不得低于 4.5:1，所有交互控件必须支持纯键盘导航且具备非文本语义回退机制。</li>
               <li><strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中级人民法院于 2024 年 12 月 30 日终审判决的标志性案件。一审认定“触手 AI”平台提供奥特曼 LoRA 模型训练并在模型广场分发、设立“IP作品”专区且具备低成本事前过滤能力而未采取必要措施，构成信息网络传播权之<strong>帮助侵权</strong>，判令下架并赔偿损失；二审驳回上诉、维持原判。该案确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。</li>
               <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 代码补全绝不是许可证清洗机，CI/CD 必须强制引入 SCA 与 SBOM 比对；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
               <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>铁律：“本内容由 AI 生成”只属于来源披露义务，绝不能免除内容发布者的法律侵权或广告违法责任。</strong></li>
@@ -1471,8 +1650,36 @@ const guideContent = {
             一个负责任的协作闭环，终结于两个并行动作：其一，安全清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终输出文本做去套路润色，消除 AI 生成的机械腔调。贯穿始终的铁律是：<strong>未经硬性测试通过，绝不宣称任务完成。</strong>
           </p>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>含敏感内容的对话用完即删；再到【设置 › 记忆】里把相关记忆单独删除。</li>
+                  <li>交付前问自己：“这件事我自己检查过了吗？”没检查过，就不要说“已完成”。</li>
+                  <li>润色是为了表达更清楚，不是为了隐瞒用过 AI——该披露的仍要披露。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>定期（如每月）清理一次各 AI 平台的历史对话和上传文件。</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>启用 <code>verification-before-completion</code>，要求 AI 在宣称完成前先跑完检查。</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>一个月后回看，平台上没有残留你不想留下的对话和文件。</p>
+          </div>
+
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景对应技能武器库：</h4>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能：</h4>
             <div class="flex flex-wrap gap-2">
               ${makePill("verification-before-completion", "verification-before-completion · 完成铁律：硬性检验门禁")}
               ${makePill("humanizer", "humanizer · 人性化文本去套路润色")}
@@ -1523,7 +1730,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与学术红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案——小李为图省事，将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”（如国际知名的 Mata v. Avianca 假判例丑闻），一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
+                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案——小李为图省事，将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”（如学术界多起因包含“作为 AI 语言模型”或虚构不存在 DOI 被期刊直接撤稿与通报的真实案例），一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
               </p>
             </div>
           </div>
@@ -1556,9 +1763,10 @@ const guideContent = {
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>4. 交付成果与审计留痕 (Verification Proof)</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              提交导师与评阅专家的学术成果包含完整附件：经过 CrossRef 官方 API 100% 验真的《文献引文 DOI 真实性核验报告》、The-Judge 裁判官对抗质证留痕记录，以及标准规范的《Nature CRediT AI 使用透明度陈述附录》，使论文每一个事实锚点均可被第三方独立核验。
-            </p>
+            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p>• <strong>最低要求（零门槛）</strong>：引文清单中的每一条文献，必须亲手在 doi.org 或知网/PubMed 检索并点开确认过，确保篇名、作者、刊期真实存在；文末明确附上一句话 AI 使用声明（如仅用于语法润色）。</p>
+              <p>• <strong>理想状态（专业进阶）</strong>：附带经 CrossRef 官方 API 逐条核验的《文献引文真实性报告》与标准规范的《Nature CRediT AI 使用透明度陈述附录》，使学术推演经得起第三方盲审复核。</p>
+            </div>
           </div>
         </div>
 
@@ -1625,9 +1833,10 @@ const guideContent = {
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>4. 交付成果与审计留痕 (Verification Proof)</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              提交的 PR 自动附带完整审计留痕：包含 Gitleaks 零泄漏检测报告、微虚拟机沙盒执行审计日志、SPDX SBOM 依赖合规证明以及 100% 绿灯的自动化测试覆盖率报告，使研发交付成果对企业安全架构组与开源社区完全透明可查。
-            </p>
+            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p>• <strong>最低要求（零门槛）</strong>：提交前本地运行 <code>git diff</code> 逐行复核，确保没有硬编码任何 API Key、密码或内网 IP；手动跑通全部核心单元测试，严禁直接推送未经人工过目的 AI 代码。</p>
+              <p>• <strong>理想状态（专业进阶）</strong>：PR 附带 Gitleaks 密钥扫描通过证明、沙盒执行日志与 SPDX SBOM 依赖许可证合规报告，使交付对安全架构组与开源社区完全透明可查。</p>
+            </div>
           </div>
         </div>
 
@@ -1661,7 +1870,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与法定处罚红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>巨额虚假宣传罚单与无障碍违法风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；某企业因未对 AI 生成营销内容做显著标识被罚 120 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，直接违反《无障碍环境建设法》第34条强制要求。
+                <strong>巨额虚假宣传罚单与无障碍违法风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，直接违反《无障碍环境建设法》第32条强制要求。
               </p>
             </div>
           </div>
@@ -1694,9 +1903,10 @@ const guideContent = {
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>4. 交付成果与审计留痕 (Verification Proof)</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              呈递给法务与营销负责人的《营销合规交付包》包含：经《深度合成管理规定》显著合规标注的宣发正文、《广告法功效声明证据链对照表》（每个宣传点精准对应权威检测报告编号）以及 Lighthouse WCAG 2.1 AA 无障碍合规评分 100 分报告，彻底杜绝虚假宣传与违规诉讼隐患。
-            </p>
+            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p>• <strong>最低要求（零门槛）</strong>：文案交付前亲手通读筛查，删去所有“最、第一、根治、绝对”等绝对化词汇；所有宣称的功效与数字必须有内部真实凭据；对外发布时明确标明“AI 辅助生成”。</p>
+              <p>• <strong>理想状态（专业进阶）</strong>：出具完整的《广告法合规声明对照表》（逐项绑定检测报告编号）与落地页 WCAG 2.1 AA 无障碍合规检测，消除行政处罚与诉讼隐患。</p>
+            </div>
           </div>
         </div>
 
@@ -1730,7 +1940,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与纪律处分红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》第31条确立<strong>“涉密不上网，上网不涉密”</strong>铁律，且《实施条例》规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
+                <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立<strong>“涉密不上网，上网不涉密”</strong>铁律，且《实施条例》第六十一条规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
               </p>
             </div>
           </div>
@@ -1763,8 +1973,83 @@ const guideContent = {
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>4. 交付成果与审计留痕 (Verification Proof)</span>
             </div>
+            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p>• <strong>最低要求（零门槛）</strong>：任何呈送云端 AI 辅助处理的公文或纪要，严禁包含真实企事业单位全称、领导姓名与涉密信息；坚决执行“涉密不上网”铁律。</p>
+              <p>• <strong>理想状态（专业进阶）</strong>：出具本地离线脱敏对照单、Godfly 模拟对抗审计的合同风控意见书及附带人类签署人盖章的《企业 AI 办公合规留痕单 (Provenance Ledger)》。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4.5: Everyday Citizens & Family Routine -->
+        <div id="sec-4-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
+              <span class="w-2 h-2 rounded-full bg-brand"></span>
+              <span>4.5 普通个人与家庭日常：看病求医、辅导作业与防范诈骗</span>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+              家庭生活 · Everyday Citizens & Families
+            </span>
+          </div>
+
+          <!-- Part 1: Pain Point -->
+          <div class="space-y-1.5">
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span>1. 真实生活痛点与诱惑 (Temptation & Pain Point)</span>
+            </div>
             <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              呈报领导审批与内审归档包含三份硬性合规凭单：经本地离线脱敏的《内部会议脱敏与实体置换对照单》（本地安全保管）、Godfly 模拟对抗扫描输出的《合同履约排他与赔偿陷阱风控意见书》，以及带有最终人类责任人签署与模型哈希校验的《企业 AI 办公合规留痕单 (Provenance Ledger)》，为组织在任何内审与纪律检查中构筑坚固防线。
+              日常生活中，普通家庭最常使用 AI 的场景并不是编写代码或起草公文，而是：身体不舒服时把症状或体检化验单随手发给 AI“看病”，让 AI 替孩子直接写作文和解答理化难题，或者在社交软件中收到疑似亲友借钱的语音和视频。面对图省事、图安心的心理，人们很容易把 AI 当成全知全能的家庭医生或全科家庭教师，甚至对高度逼真的 AI 拟真音视频丧失警惕。
+            </p>
+          </div>
+
+          <!-- Part 2: Near-Miss -->
+          <div class="scenario-box-danger space-y-1.5">
+            <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+              <span>2. 常见翻车瞬间与现实伤害 (Near-Miss Incident)</span>
+            </div>
+            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
+              <li><strong>误诊与乱用药险情</strong>：把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测，或自行建议药名与剂量；若不经执业医生核验盲目用药，极易贻误病情造成不可逆健康损害。</li>
+              <li><strong>孩子思维能力“被替代”</strong>：孩子把整道几何大题或作文题目拍照发给 AI 抄答案，表面作业全对，实质丧失了拆解问题与独立构思的过程，形成不可逆的认知依附。</li>
+              <li><strong>深度伪造（Deepfake）AI 拟声换脸诈骗</strong>：诈骗团伙仅截取亲友社交平台公开发布的一两句语音或短视频片段，利用开源声线克隆技术仿造声音致电家中老人谎称“遭遇车祸急需手术费”，造成数万至数十万元财产损失。</li>
+            </ul>
+          </div>
+
+          <!-- Part 3: Defensive Pipeline -->
+          <div class="space-y-2">
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span>3. 家庭自卫流水线：日常四个好习惯 (Defensive Pipeline)</span>
+            </div>
+            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 习惯一 · 问健康：把 AI 当就诊“准备清单”，绝不当“主治医生”</span>
+                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；严守铁律：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，坚决不信大模型的自行配药建议。
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 习惯二 · 伴学习：用追问做“思维脚手架”，严禁直接要现成答案</span>
+                与孩子约定辅导原则：给 AI 的提示词必须是“不要直接告诉我答案，请问我 3 个启发性问题，引导我自己把这道题想出来”。利用 ${makePill("discernment-nudge", "discernment-nudge · 批判性辨识微提醒")} 引导孩子找出 AI 讲解里不合逻辑的漏洞，把 AI 当成练辩论的陪练。
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🛡️ 习惯三 · 防电诈：家庭设立“线下安全暗号”，转账必须多源核验</span>
+                与父母、配偶约定只有家庭内部知道的口令（如“外公最爱吃的菜”或一串数字暗号）。一旦接到声称亲友急用钱、要求转账到陌生账户的微信语音或视频，<strong>无论声音画面多么逼真，先问暗号，并立即挂断通过原手机号二次回拨核实</strong>。
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">📱 习惯四 · 护隐私：帮父母手机检查 APP 权限与长期记忆</span>
+                定期花 3 分钟检查父母常用聊天软件中的 AI 助手，撤销麦克风与相册的常驻后台权限；在设置中关闭“允许使用我的数据训练”，并清空历史累积的个人记忆列表。
+              </div>
+            </div>
+          </div>
+
+          <!-- Part 4: Verification Proof -->
+          <div class="scenario-box-success space-y-1.5">
+            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>4. 家庭自卫检查清单 (Everyday Checklist)</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              每个家庭成员都能轻松达到的安全基线：① 问健康不盲信药名，就医当面遵医嘱；② 辅导作业只问思路步骤，不抄整句整篇；③ 转账汇款必对家庭暗号，回拨本人核实；④ 手机 AI 助手权限只给必要，定期清空个人记忆。
             </p>
           </div>
         </div>
@@ -1780,6 +2065,17 @@ const guideContent = {
         </div>
 
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
+          <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 mb-6">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">
+              我们为什么拒绝空洞的宏大伦理？
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              现有的 AI 治理讨论，大多停留在学术精英的象牙塔或跨国科技巨头的合规白皮书中。“公平、向善、透明、负责”等词汇虽然高尚，但当一个普通职员面对一个正在闪烁光标的对话框时，这些宏观口号无法给他提供任何趁手的防护工具。
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>《负责任与安全使用 AI》开源实务库的诞生，就是为了给每一个普通人递上一把实操的护盾与求证的标尺。</strong>我们不发明虚幻的概念，而是将全球开源社区经过工程实测验证的 44 项规范技能（SKILL.md）系统化收录，让每个人都能以最低的技术门槛，在日常会话工作流中筑起安全防护。
+            </p>
+          </div>
           <p class="leading-relaxed">
             在这个大模型与智能体以指数级速度演进的时代，没有哪一个单一组织或工具能够提供永恒的安全保护。真正的防线，建立在每一个普通人的数字素养与群体自卫意识之上。
           </p>
@@ -1803,6 +2099,22 @@ const guideContent = {
               </a>
             </div>
           </div>
+
+          <!-- Community Fact-Check & Feedback Box -->
+          <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🔍</span>
+              <span>发现指南有错、法条变动或案例失效？</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              我们坚持<strong>“实证可查、事实优先”</strong>。如果指南中的法条条文有更新、案例事实有出入、平台设置入口发生变动，或者某个开源技能链接失效，请毫不犹豫地向我们指正！
+            </p>
+            <div class="pt-2">
+              <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use/issues/new?title=%5B%E5%86%85%E5%AE%B9%E5%8B%98%E8%AF%AF%5D+" target="_blank" class="px-5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center gap-1.5 border border-slate-300/80 dark:border-slate-700">
+                <span>🐛 在 GitHub 提交勘误反馈 ↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     `
@@ -1819,8 +2131,8 @@ const guideContent = {
     heroBadge: "Digital Rights for All · Practical Field Guide",
     heroTitle: "Responsible & Safe AI Use: ",
     heroTitleHighlight: "A Field Guide for Everyone",
-    heroSubtitle: "An open-source handbook for researchers, knowledge workers, and developers. Build critical workflows for inputs, outputs, and autonomous agents with third-party verifiable evidence.",
-    metaReadTime: "Est. Read: 18 min",
+    heroSubtitle: "A practical self-defense manual for everyday citizens using AI: protect your privacy and boundaries first, and ensure what you deliver stands up to third-party verification.",
+    metaReadTime: "Est. Read: 3-min quick start · ~35 mins full guide",
     metaSkillsCount: "44 Open-Source Skills",
     metaScenarios: "6 Core Workflow Scenarios",
     heroCtaPlaybook: "Explore Playbook",
@@ -2014,6 +2326,13 @@ const guideContent = {
           </div>
         </div>
       </details>
+
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
+        <span>💡 Platform settings routes may update with software iterations. If you spot broken links or new options, feel free to open a GitHub Issue.</span>
+        <a href="#chapter-1" class="text-brand font-bold hover:underline flex items-center gap-1">
+          <span>Wonder why this matters? Proceed to Chapter 1 real-world case studies ➔</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -2052,7 +2371,7 @@ const guideContent = {
                 <span>Vulnerability 2: Confident Falsehoods & Cognitive Debt (MIT/Stanford EEG)</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Cognitive neuroscience research demonstrates measurable reduction in prefrontal cortex activity when uncritical users outsource core reasoning to AI. Flattering sycophancy reinforces biases and fabricates fictitious citations (e.g., <em>Mata v. Avianca</em>), eroding human skepticism.
+                Cognitive neuroscience empirical studies (such as MIT Media Lab's 2025 EEG research <em>Your Brain on ChatGPT</em> and Anthropic's sycophancy findings) reveal that outsourcing core reasoning to AI triggers measurable "cognitive debt"—83% of users fail to recall what they just produced. Coupled with sycophancy (flattering user bias), uncritical reliance steadily erodes personal skepticism and independent analytical capability.
               </p>
             </div>
           </div>
@@ -2470,44 +2789,44 @@ const guideContent = {
 
           <!-- Four Practical Questions Table -->
           <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            The Four Practical Questions
+            Four Practical Questions: Translating Principles into Routine Checks (Core Thread)
           </h3>
           <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
-            <span>👉 Swipe horizontally to view full table</span>
+            <span>👉 Scroll horizontally to view full table</span>
           </div>
           <div class="overflow-x-auto">
-            <table class="min-w-[620px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <table class="min-w-[680px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
                 <tr>
-                  <th class="py-3 px-4">Daily Practical Question</th>
-                  <th class="py-3 px-4">Core Security Concerns</th>
-                  <th class="py-3 px-4">Standard Alignment</th>
-                  <th class="py-3 px-4">Curated Skills</th>
+                  <th class="py-3 px-4 w-1/4">Daily Practical Question</th>
+                  <th class="py-3 px-4 w-2/5">One-Sentence Routine Check</th>
+                  <th class="py-3 px-4 w-1/4">Cross-Reference</th>
+                  <th class="py-3 px-4 w-1/12">Skills</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">1. What can I feed to AI?</td>
-                  <td class="py-3 px-4">Sensitive data scrubbing, third-party data protection, sandbox execution</td>
-                  <td class="py-3 px-4">Microsoft Presidio, NIST Privacy Framework, OWASP Agentic</td>
+                  <td class="py-3 px-4">"If this prompt or code snippet were leaked to a public channel or competitor, would it cause privacy or legal issues?"</td>
+                  <td class="py-3 px-4"><a href="#sec-3-1" class="text-brand font-semibold hover:underline">→ See Sec 3.1 &amp; 3.4</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">11 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">2. Which answers can I trust?</td>
-                  <td class="py-3 px-4">Phantom DOI citation audits, claim faithfulness, logical consistency</td>
-                  <td class="py-3 px-4">CrossRef/PubMed DOI Specs, Nature Fact-Checking</td>
+                  <td class="py-3 px-4">"Can I independently verify and open the actual paper, case docket, or statistical source on an official portal?"</td>
+                  <td class="py-3 px-4"><a href="#sec-3-2" class="text-brand font-semibold hover:underline">→ See Sec 3.2</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">3. When NOT to listen to AI?</td>
-                  <td class="py-3 px-4">Breaking sycophancy, devil's advocate reviews, decision isolation</td>
-                  <td class="py-3 px-4">Anthropic Adversarial Eval, IEEE Cognitive Bias Benchmarks</td>
+                  <td class="py-3 px-4">"When AI praises my idea, is it providing rigorous adversarial analysis, or merely flattering my preconceived biases?"</td>
+                  <td class="py-3 px-4"><a href="#sec-3-3" class="text-brand font-semibold hover:underline">→ See Sec 3.3</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">4. Can output be published directly?</td>
-                  <td class="py-3 px-4">Advertising compliance, accessibility gates, license & secret scans</td>
-                  <td class="py-3 px-4">FTC Guidelines, W3C WCAG 2.1 AA, OWASP, SPDX</td>
+                  <td class="py-3 px-4">"Are there illegal absolute claims? Are credentials stripped? Is necessary AI provenance disclosed?"</td>
+                  <td class="py-3 px-4"><a href="#sec-3-5" class="text-brand font-semibold hover:underline">→ See Sec 3.5 &amp; 3.6</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">13 Skills</td>
                 </tr>
               </tbody>
@@ -2526,6 +2845,13 @@ const guideContent = {
           <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2">
             Skills are not static lists. Across these 6 workflow touchpoints, each skill represents precision defense.
           </p>
+        </div>
+
+        <!-- What is a Skill (plain-reader) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 space-y-2 text-sm">
+          <div class="font-bold text-slate-900 dark:text-white">First: what is a "Skill" in this chapter, and what if you cannot use one?</div>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">A Skill (SKILL.md) is a <strong>standard operating procedure written for an AI assistant</strong>: a folder containing instructions and sometimes helper scripts. Only AI tools that support the Agent Skills format (for example agentic / coding tools such as Claude Code) can load and follow them.</p>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>If you only use a web or mobile chat app, that is fine.</strong> Every section below has a "no setup" option that needs nothing but a browser and a few minutes. If you do use Skills, open any skill card for install commands.</p>
         </div>
 
         <!-- Section 3.1 -->
@@ -2554,6 +2880,37 @@ const guideContent = {
                 Run local differential redaction via Presidio to replace quasi-identifier tuples with randomized placeholders; enforce Spotlighting hash delimiters on retrieved RAG texts, clean zero-width characters and hidden PDF layers, and restrict outbound egress channels.
               </p>
             </div>
+          </div>
+
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Replace real names, phone numbers, ID numbers and addresses with placeholders like "[Name A]" or "[Phone]" before pasting.</li>
+                  <li>Turn exact ages into ranges; keep locations at city level; describe employers by industry only.</li>
+                  <li>Never paste state secrets, confidential work material or other people's medical records into public AI tools.</li>
+                  <li>When an AI reads unfamiliar web pages or PDFs, do not also give it permission to send email or read/write files.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Use find-and-replace in a local text editor to swap sensitive terms before copying text to the AI.</li>
+                  <li>If you can, run the open-source Microsoft Presidio locally to detect and replace personal data automatically.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable the redaction skills listed below (e.g. <code>pii-safe-documents</code>) in a Skills-capable tool so the AI checks before sending.</li>
+                  <li>Install commands are in each skill card or the Skill Library.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>Show the text to a colleague who does not know the person involved. If they can guess who it is, it is not redacted yet.</p>
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
@@ -2622,6 +2979,36 @@ const guideContent = {
                 Enforce a zero-trust verification loop; execute dual-loop audits against official CrossRef/PubMed APIs and national databases (CNKI, China Judgments Online) to anchor every claim in verifiable reality.
               </p>
             </div>
+          </div>
+
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Papers: paste the DOI into <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a>. If it fails or the article does not match, treat the citation as non-existent.</li>
+                  <li>No DOI? Search the exact title in Google Scholar or the publisher's site.</li>
+                  <li>Court cases: look up the case number in the official court database of that jurisdiction.</li>
+                  <li>Quotes and statistics: trace them to the original source before using them.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Use the <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref search page</a> to check that DOI, authors and journal match.</li>
+                  <li>Import references by DOI into Zotero; re-check every entry that fails to import.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable citation-checking skills below (e.g. <code>bibref-verify</code>) to compare every reference against Crossref / PubMed automatically.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You have personally opened the source page of every citation you hand in.</p>
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
@@ -2695,6 +3082,35 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Describe the problem and constraints without revealing which answer you prefer.</li>
+                  <li>Then ask (copy as-is): <code>Ignore my preferences. List the 3 weakest assumptions in this plan and the scenario where it is most likely to fail.</code></li>
+                  <li>And: <code>If you opposed this plan, what would your 3 strongest arguments be?</code></li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Ask the same question in a fresh chat or a model from a different vendor and compare the conclusions.</li>
+                  <li>Before a major decision, have at least one human colleague review the counter-arguments.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable anti-sycophancy / devil's-advocate skills below (e.g. <code>sycophancy-challenger</code>) so the AI always runs an adversarial review.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You can name the biggest risk of the decision, and it is not something the AI mentioned only in passing while praising you.</p>
+          </div>
+
           <!-- Real World Exploit / Technical Mechanism Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
@@ -2756,6 +3172,35 @@ const guideContent = {
                 Retain "Default Permissions" with human approval gates; divert risky shell tasks and tests to isolated microVMs (E2B) physically detached from host systems; audit MCP descriptors to preempt semantic supply-chain poisoning.
               </p>
             </div>
+          </div>
+
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li><strong>If you only chat in a browser or phone app, you can skip this section.</strong></li>
+                  <li>If your tool can operate your computer (files, commands), keep "default permissions / confirm each step". Do not enable "full access" or "run everything".</li>
+                  <li>Back up important folders before letting the AI act.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Do not install plugins or MCP tools from unknown sources; enable only the ones the current task needs.</li>
+                  <li>Run AI-automated tasks in a separate OS account, virtual machine or container.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable <code>agent-sandbox-skill</code> to run risky scripts in a disposable isolated environment.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You saw and approved every delete, overwrite and network action the AI performed.</p>
           </div>
 
           <!-- Real World Exploit / Architecture Callout -->
@@ -2839,6 +3284,35 @@ const guideContent = {
             </div>
           </div>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Before publishing, ask: are there words like "best", "No. 1", "cures"?</li>
+                  <li>Can I show a source for every number and performance claim?</li>
+                  <li>Is this AI-generated or synthetic content? If so, label it as required by local rules (in China: the AI-Generated Content Labeling Measures, effective 1 Sep 2025).</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Web pages: run an accessibility audit with Lighthouse in Chrome DevTools.</li>
+                  <li>Code: scan for leaked secrets with a tool such as Gitleaks before committing.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable the four gate skills below to block issues automatically in your release flow.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>If someone asked "what is the basis for this sentence?" line by line, you could answer every time.</p>
+          </div>
+
           <!-- Real World Statutory & Judicial Forensic Callout -->
           <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
@@ -2892,6 +3366,34 @@ const guideContent = {
             Responsible collaboration finishes with two parallel actions: purge local temporary logs to avoid context leakage, and humanize boilerplate machine tones. The iron rule: <strong>Never claim completion without passing hard verification tests.</strong>
           </p>
 
+          <!-- Tiered Actions (plain-reader) -->
+          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
+            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Delete chats containing sensitive content when done, then delete related items under Settings › Memory separately.</li>
+                  <li>Before handing off, ask: "Did I check this myself?" If not, do not call it done.</li>
+                  <li>Polishing is for clarity, not for hiding AI use. Disclose where disclosure is required.</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Clear chat history and uploaded files on each AI platform regularly (e.g. monthly).</li>
+                </ol>
+              </div>
+              <div class="space-y-1.5">
+                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
+                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <li>Enable <code>verification-before-completion</code> so the AI must run checks before claiming completion.</li>
+                </ol>
+              </div>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>A month later, no chats or files you did not want to keep remain on the platform.</p>
+          </div>
+
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Post-Session Arsenal:</h4>
             <div class="flex flex-wrap gap-2">
@@ -2944,7 +3446,7 @@ const guideContent = {
                 <span>2. Near-Miss Incident &amp; Academic Red Lines</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Proprietary Lab Data Leakage &amp; Hallucinated Citations</strong>: Official cases documented by state secrecy authorities (e.g. Researcher Li), who uploaded core experimental results and unpublished data into commercial AI writing apps to save drafting time, causing proprietary lab breakthroughs to leak online and triggering severe administrative sanctions; simultaneously, uninspected LLMs autoregressively synthesize plausible yet non-existent citations—fabricating authors, bogus journal issues, and phantom DOIs (analogous to the Mata v. Avianca judicial scandal). Submitting unverified papers to peer review triggers fatal findings of academic fabrication and destroyed reputations.
+                <strong>Proprietary Lab Data Leakage &amp; Hallucinated Citations</strong>: Official cases documented by state secrecy authorities (e.g. Researcher Li), who uploaded core experimental results and unpublished data into commercial AI writing apps to save drafting time, causing proprietary lab breakthroughs to leak online and triggering severe administrative sanctions; simultaneously, uninspected LLMs autoregressively synthesize plausible yet non-existent citations—fabricating authors, bogus journal issues, and phantom DOIs (analogous to documented academic retractions where papers cited non-existent DOIs generated by LLMs). Submitting unverified papers to peer review triggers fatal findings of academic fabrication and destroyed reputations.
               </p>
             </div>
           </div>
@@ -3189,6 +3691,79 @@ const guideContent = {
             </p>
           </div>
         </div>
+              <!-- Section 4.5: Everyday Citizens & Family Routine -->
+        <div id="sec-4-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
+              <span class="w-2 h-2 rounded-full bg-brand"></span>
+              <span>4.5 Individuals & Family Daily Life: Health Inquiries, Homework & Fraud Defense</span>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+              Everyday Citizens & Families
+            </span>
+          </div>
+
+          <!-- Part 1: Pain Point -->
+          <div class="space-y-1.5">
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span>1. Temptation & Pain Point</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              At home, ordinary users rarely audit shell scripts or review procurement bids. Instead, they upload lab results to ask AI for a diagnosis, let AI generate complete school homework for their children, or receive urgent voice messages on messaging apps asking for money. Seeking convenience and reassurance, people easily treat LLMs as licensed physicians or all-knowing tutors, lowering their guard against synthetic audio and video.
+            </p>
+          </div>
+
+          <!-- Part 2: Near-Miss -->
+          <div class="scenario-box scenario-box-danger space-y-1.5">
+            <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+              <span>2. Near-Miss Incidents & Real-World Hazards</span>
+            </div>
+            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
+              <li><strong>Self-Medication Hazards</strong>: Uploading blood tests leads the AI to offer alarming interpretations or suggest dosage changes; acting on this without a licensed physician risks permanent health damage.</li>
+              <li><strong>Outsourcing Childhood Cognition</strong>: A student snaps photos of geometry questions or essay prompts and copies the AI's exact answers; the homework is spotless, but critical problem-solving skills decay.</li>
+              <li><strong>Deepfake & Voice-Cloning Extortion</strong>: Criminals extract brief audio clips from social media posts and clone a family member's voice to call elderly relatives claiming a car accident requires immediate wire transfers.</li>
+            </ul>
+          </div>
+
+          <!-- Part 3: Defensive Pipeline -->
+          <div class="space-y-2">
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+              <span>3. Family Self-Defense Pipeline: Four Healthy Habits</span>
+            </div>
+            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 Habit 1 · Health Inquiries: Use AI for Clinic Prep, Never for Final Prescriptions</span>
+                Ask AI: "List 5 specific questions I should ask my doctor during tomorrow's appointment." Redact patient names, ID numbers, and hospital IDs first. Follow one iron rule: for medication, dosages, and changes, <strong>only follow in-person medical prescriptions</strong>.
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 Habit 2 · Learning Scaffolding: Ask for Hints, Never Ready-Made Answers</span>
+                Agree with children on a guiding prompt: "Do not give me the answer. Ask me 3 guiding questions so I can solve this myself." Use ${makePill("discernment-nudge", "discernment-nudge · Critical Discernment")} to encourage finding logical flaws in AI responses.
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🛡️ Habit 3 · Deepfake Defense: Establish Offline Family Passphrases</span>
+                Create a memorable offline passphrase known only inside the family. Whenever an unexpected call or message demands urgent wire transfers, <strong>always ask for the passphrase first, hang up, and call the person back on their registered phone number</strong>.
+              </div>
+              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">📱 Habit 4 · Privacy Hygiene: Check App Permissions & Long-Term Memories</span>
+                Spend 3 minutes auditing parents' mobile chat apps: revoke background microphone and photo library permissions, toggle off model improvement training, and clear accumulated personal memory lists.
+              </div>
+            </div>
+          </div>
+
+          <!-- Part 4: Verification Proof -->
+          <div class="scenario-box scenario-box-success space-y-1.5">
+            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>4. Everyday Family Checklist</span>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Baselines anyone can maintain: ① Use health AI only for consultation preparation, never for self-medication; ② Prompt AI for reasoning hints instead of copying answers; ③ Verify family emergencies via secret offline passphrases; ④ Restrict persistent smartphone permissions and purge AI memory.
+            </p>
+          </div>
+        </div>
       </section>
 
       <!-- Chapter 5 -->
@@ -3201,6 +3776,18 @@ const guideContent = {
         </div>
 
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
+          <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 mb-6">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">
+              Why We Reject Hollow, Lofty Ethics
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Mainstream discussions around AI governance often stay confined to ivory towers or multinational tech whitepapers. High-minded terms like "fairness, benevolence, transparency, and accountability" sound noble, but offer zero defense when an everyday employee faces a blinking chat cursor.
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>This open-source practical repository was built to hand every everyday user a tangible shield and verification ruler.</strong> Rather than inventing buzzwords, we systematically curate 44 community-tested, production-proven SKILL.md specs—enabling anyone to fortify their workflow at zero barrier to entry.
+            </p>
+          </div>
+
           <p class="leading-relaxed">
             In an era where models evolve exponentially, no single tool can guarantee immunity. Real defense stems from informed user habits and community stewardship.
           </p>
@@ -3221,6 +3808,22 @@ const guideContent = {
               </a>
               <a href="https://putongren.org" target="_blank" class="px-6 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
                 <span>🌐 Visit putongren.org Community</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Community Fact-Check & Feedback Box -->
+          <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🔍</span>
+              <span>Found an Error, Legal Change, or Broken Link?</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              We stand strictly for <strong>verifiable evidence and factual integrity</strong>. If a statutory article changed, an empirical case fact requires updating, a platform route moved, or a curated skill link is broken, please let us know immediately!
+            </p>
+            <div class="pt-2">
+              <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use/issues/new?title=%5BContent+Correction%5D+" target="_blank" class="px-5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center gap-1.5 border border-slate-300/80 dark:border-slate-700">
+                <span>🐛 Submit an Issue / Correction on GitHub ↗</span>
               </a>
             </div>
           </div>
@@ -3279,6 +3882,7 @@ function updateUI() {
       "sec-4-2": "4.2 软件工程师与开源维护者",
       "sec-4-3": "4.3 文案策划与数字营销专员",
       "sec-4-4": "4.4 政企人员与知识工作者",
+      "sec-4-5": "4.5 普通个人与家庭日常",
       "chapter-5": "5. 倡导与共建 · 开源自卫行动"
     },
     en: {
@@ -3297,6 +3901,7 @@ function updateUI() {
       "sec-4-2": "4.2 Software Engineers & Maintainers",
       "sec-4-3": "4.3 Writers & Marketing Specialists",
       "sec-4-4": "4.4 Enterprise & Administrative Staff",
+      "sec-4-5": "4.5 Individuals & Family Daily Life",
       "chapter-5": "5. Advocacy & Co-Creation: Collective Defense"
     }
   };

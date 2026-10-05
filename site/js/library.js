@@ -1065,10 +1065,10 @@ function openModal(id) {
   }
 
   const guideLinkMaps = {
-    "pre-input": "index.html#sec-3-1",
-    "during-chat": "index.html#sec-3-2",
-    "pre-handoff": "index.html#sec-3-5",
-    "post-session": "index.html#sec-3-6"
+    "pre-input": "index.html#sec-4-1",
+    "during-chat": "index.html#sec-4-2",
+    "pre-handoff": "index.html#sec-4-5",
+    "post-session": "index.html#sec-4-6"
   };
   let guideLink = document.getElementById("modal-guide-link");
   if (!guideLink && githubLink) {

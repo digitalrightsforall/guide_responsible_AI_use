@@ -383,205 +383,6 @@ const guideContent = {
 
     // Chapter HTML Content
     bodyHtml: `
-      <!-- Chapter 0 -->
-      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
-        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · 平台基线</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            第零道防线：平台防静默留存与环境体检 (Choose & Configure)
-          </h2>
-        </div>
-
-        <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
-          <!-- 30s Quick Action Card for Everyday Citizens -->
-          <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
-            <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
-              <span class="text-xl">⚡</span>
-              <span>普通人自卫第一步：30 秒极简安全行动（先做这三件事）</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. 关掉“训练授权”</span>
-                <p class="text-slate-600 dark:text-slate-400">在常用 AI 客户端的【设置】中，关闭“允许使用我的数据改进/训练模型”，防止未公开草稿被吞入公共语料。</p>
-              </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. 清理“长期记忆”</span>
-                <p class="text-slate-600 dark:text-slate-400">在【设置 &gt; 记忆/Memory】定期清理。单次删除对话不会同步删记忆，必须进记忆库单独注销。</p>
-              </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. 留个心眼“查一查”</span>
-                <p class="text-slate-600 dark:text-slate-400">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在权威平台核查（论文查知网/百度学术/doi.org，案号查裁判文书网，名言查原始出处）。</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="leading-relaxed">
-            在你在光标闪烁的对话框中敲下第一行字之前，安全博弈其实早已开始。无论你使用的是国内主流的<strong>Trae、WorkBuddy、豆包、Kimi</strong>，还是国际前沿的<strong>Cursor、Claude、ChatGPT、Gemini</strong>，许多人以为“点一下删除对话”或“关掉聊天记录”就万事大吉。然而底层架构的设计却隐藏着<strong>“控制的错觉”（Illusion of Control）</strong>——前端界面的视图隐藏，绝不等于服务端的彻底销毁。
-          </p>
-
-          <!-- 6 Hardening Traps Alert (Folded) -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4 shadow-xs">
-            <summary class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2">
-                <span>⚠️</span>
-                <span>为什么删了对话还不够？（展开看 6 个常见隐形留存误区）</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开误区 ⬇</span>
-                <span class="hidden group-open:inline">收起误区 ⬆</span>
-              </span>
-            </summary>
-            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc pt-2 leading-relaxed">
-              <li><strong>关闭模型训练 ≠ 数据立即删除</strong>：在各主流应用中，关闭训练仅代表后续交互不用于算法迭代，历史聊天记录仍完整留存服务端；豆包清空对话也不会级联清除已提炼的 Memory（须在【设置 &gt; 记忆】单独手动清除）。</li>
-              <li><strong>打开 Privacy Mode ≠ 服务端绝对零留存</strong>：在 Trae 等 IDE 中，开启隐私模式主要承诺对话与输出不用于训练，但为构建工程上下文仍会临时上传代码计算向量嵌入；且<strong>退出登录时隐私模式会自动失效</strong>！</li>
-              <li><strong>关闭 Memory ≠ 既有 Memory 已删除</strong>：豆包、WorkBuddy、ChatGPT 均明确既有记忆为独立存储，关闭记忆开关仅阻断新记忆的生成，旧记忆库依然常驻生效。</li>
-              <li><strong>删除源对话 ≠ 对应提取的 Memory 被删除</strong>：删除产生某条记忆的原始会话，不会触发对提炼事实的级联清除，必须前往专门的记忆空间单独注销。</li>
-              <li><strong>删除 Conversation ≠ 上传文件同步删除</strong>：在知识库与 Agent 类平台中，单次会话与知识库/附件解耦，删除聊天界面并不销毁后台已持久化的文件与嵌入向量。</li>
-              <li><strong>《网络安全法》第21条留存 6 个月 ≠ 所有聊天正文必须保存 6 个月</strong>：法律强制留存的法定对象是<strong>“相关网络运行与安全日志”</strong>，而非用户输入的完整提示词与私有正文。绝不能拿合规为服务商的无节制留存找借口。</li>
-            </ul>
-          </details>
-
-          <!-- Domestic Chinese Tools Hardening Table (Collapsible) -->
-          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
-            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">🇨🇳</span>
-                <div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国内主流 AI 工具实操配置速查卡（Trae、WorkBuddy、豆包、Kimi、Dify）</h3>
-                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">实测深度基准</span>
-                  </div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">全面对齐 PIPL 与 TC260-005《伦理安全指引 1.0》实测建议</p>
-                </div>
-              </div>
-              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
-                <span class="group-open:hidden">点击展开速查 ⬇</span>
-                <span class="hidden group-open:inline">收起表格 ⬆</span>
-              </span>
-            </summary>
-            <div class="pt-4 space-y-3">
-              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
-                <span>👉 横向滑动查看完整表格</span>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
-                <tr>
-                  <th class="py-3 px-4">工具与形态</th>
-                  <th class="py-3 px-4">核心自卫配置操作</th>
-                  <th class="py-3 px-4">必须警惕的高危陷阱</th>
-                  <th class="py-3 px-4">合规与防护依据</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Trae IDE<br><span class="text-[11px] font-normal text-slate-500">字节跳动 AI 原生 IDE</span></td>
-                  <td class="py-3 px-4">登录后在 <strong>Settings &gt; Account 开启“Privacy Mode（隐私模式）”</strong>；在工程根目录配置 <code>.gitignore</code> 与敏感忽略列表，排除 <code>.env</code>、证书与私有密钥文件。</td>
-                  <td class="py-3 px-4"><strong>退出登录时隐私模式会自动失效</strong>；为构建代码库理解会临时上传代码计算嵌入向量；终端 shell 执行具有真实宿主机破坏力，严禁对不可信工程开启无确认全自动执行。</td>
-                  <td class="py-3 px-4 text-slate-500">Trae 官方隐私政策 / PIPL 合规</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">WorkBuddy AI<br><span class="text-[11px] font-normal text-slate-500">桌面级智能体工作助手</span></td>
-                  <td class="py-3 px-4">输入框底部权限保持<strong>“默认权限”</strong>（限定工作空间，高危删除/脚本/敏感网络强弹窗）；安全中心开启<strong>沙箱安全、删除保护与自动备份</strong>；在“工具管控”中可按单个 MCP 工具启停。</td>
-                  <td class="py-3 px-4">官方明确警告：开启“允许完全访问”后，<strong>写文件、删文件、执行脚本不再逐步确认</strong>，严禁在生产重要设备上长期开启；外部毒化可能利用已授权 MCP 工具篡改本地文件。</td>
-                  <td class="py-3 px-4 text-slate-500">WorkBuddy 本地沙箱与权限分级体系</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">豆包 (Doubao)<br><span class="text-[11px] font-normal text-slate-500">日常对话与知识助手</span></td>
-                  <td class="py-3 px-4">进入 <strong>【我的】&gt;【设置】&gt;【记忆】</strong>，定期逐条审查或清空记忆；在手机系统设置中撤销对相机、相册与剪贴板的常驻后台权限。</td>
-                  <td class="py-3 px-4"><strong>反馈漏洞 (Thumbs Up/Down)</strong>：提交点赞、点踩或报错反馈，会将对应整段对话推送至模型质量审核管线，绕过常规训练关闭；删除历史聊天不会删除已提炼记忆。</td>
-                  <td class="py-3 px-4 text-slate-500">TC260-005《伦理安全指引 1.0》/ PIPL</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Kimi 智能助手<br><span class="text-[11px] font-normal text-slate-500">长文档与学术分析工具</span></td>
-                  <td class="py-3 px-4">在【设置 &gt; 记忆指令】中审查指令；<strong>关闭训练需邮件联系 support@moonshot.cn（账号级 Opt-out）</strong>；长文本上传前务必使用本地脱敏技能替换核心业务数据。</td>
-                  <td class="py-3 px-4">Kimi Work 官方风险披露明确指出完全权限下存在<strong>文件误删、修改系统配置甚至导致设备不可启动</strong>的风险；长文档与联网抓取内容可能包含隐形间接注入指令。</td>
-                  <td class="py-3 px-4 text-slate-500">月之暗面隐私政策 / Kimi Work 权限声明</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">自建 Agent / 框架<br><span class="text-[11px] font-normal text-slate-500">Dify、FastGPT 等</span></td>
-                  <td class="py-3 px-4">务必及时升级安全补丁（Dify &ge; v1.14.2，FastGPT &ge; v4.14.10.3）；MCP Server URL 与 API Key 同等防护，严禁硬编码；配置远程 MCP 访问白名单。</td>
-                  <td class="py-3 px-4">自建不等于免受攻击！真实在野漏洞实证：<strong>Dify CVE-2026-41947</strong> 曾因跨租户 Trace 导致提示词外泄；<strong>FastGPT CVE-2026-40100</strong> 曾因 MCP runTool 导致未认证 SSRF 探测内网。</td>
-                  <td class="py-3 px-4 text-slate-500"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand hover:underline">NVD CVE-2026-41947 ↗</a> / GHSA 安全公告</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-          <!-- International Tools Hardening Table (Collapsible) -->
-          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
-            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">🌐</span>
-                <div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国际主流 AI 工具对照基线（ChatGPT、Claude、Gemini、Cursor）</h3>
-                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">官方依据对照</span>
-                  </div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">官方 Opt-out 路径与独立记忆/知识清理指南</p>
-                </div>
-              </div>
-              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
-                <span class="group-open:hidden">点击展开速查 ⬇</span>
-                <span class="hidden group-open:inline">收起表格 ⬆</span>
-              </span>
-            </summary>
-            <div class="pt-4 space-y-3">
-              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
-                <span>👉 横向滑动查看完整表格</span>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
-                <tr>
-                  <th class="py-3 px-4">平台/工具</th>
-                  <th class="py-3 px-4">必须关闭的核心开关</th>
-                  <th class="py-3 px-4">独立清理重点</th>
-                  <th class="py-3 px-4">官方依据与核实</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">ChatGPT (OpenAI)</td>
-                  <td class="py-3 px-4">设置 &gt; Data Controls 关闭 “Improve the model for everyone”</td>
-                  <td class="py-3 px-4">Settings &gt; Personalization &gt; Memory 独立删除记忆；定期在 Library 清理独立文件</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt" target="_blank" class="hover:underline">OpenAI Data Controls ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Claude (Anthropic)</td>
-                  <td class="py-3 px-4">Settings 关闭 Model Improvement 授权；切忌盲目点赞上传反馈</td>
-                  <td class="py-3 px-4">检查 Settings &gt; Memory；Projects 中上传的 Project Knowledge 须项目内单独清除</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training" target="_blank" class="hover:underline">Claude Privacy Rights ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Gemini (Google)</td>
-                  <td class="py-3 px-4">关闭 Gemini Apps Activity（默认开启）；谨慎使用带有敏感材料的 Feedback</td>
-                  <td class="py-3 px-4">注意即使关闭 Activity 仍有 72h 日志留存；人工审核过的数据可保留 3 年且无法挽回</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://support.google.com/gemini/answer/13594961" target="_blank" class="hover:underline">Gemini Privacy Hub ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Cursor (Anysphere)</td>
-                  <td class="py-3 px-4">开启 Privacy Mode（零数据保留 ZDR）；严禁对不可信工程开启 Run Everything (YOLO)</td>
-                  <td class="py-3 px-4">工程根目录创建 <code>.cursorignore</code>，屏蔽 <code>.env</code>、<code>*.pem</code>、凭证与私有数据文件</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://cursor.com/data-use" target="_blank" class="hover:underline">Cursor Data Use ↗</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
-        <span>💡 平台设置入口可能会随着版本迭代发生变动。如遇路径失效或发现新平台，欢迎在 GitHub 提交 Issue 补充。</span>
-        <a href="#chapter-1" class="text-brand font-bold hover:underline flex items-center gap-1">
-          <span>想知道为什么要这么做？看第 1 章的 5 个真实案例 ➔</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
       <!-- Chapter 1 -->
       <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
@@ -801,14 +602,219 @@ const guideContent = {
             </p>
           </div>
         </div>
+              <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
+          <span>💡 看完这些真实翻车案例与法律代价，你可能会想：“那我天天在用的豆包、Kimi 或 ChatGPT，现在立刻该做什么？”</span>
+          <a href="#chapter-2" class="text-brand font-bold hover:underline flex items-center gap-1">
+            <span>上手第一步：关掉这几个隐形开关 ➔</span>
+          </a>
+        </div>
       </section>
 
       <!-- Chapter 2 -->
       <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · 概念解构</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · 上手第一步</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            概念解构：三大安全支柱与四大日常追问
+            第零道防线：上手第一步：关掉这几个悄悄收集数据的开关 (Choose & Configure)
+          </h2>
+        </div>
+
+        <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
+          <!-- 30s Quick Action Card for Everyday Citizens -->
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
+            <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
+              <span class="text-xl">⚡</span>
+              <span>普通人自卫第一步：30 秒极简安全行动（先做这三件事）</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. 关掉“训练授权”</span>
+                <p class="text-slate-600 dark:text-slate-400">在常用 AI 客户端的【设置】中，关闭“允许使用我的数据改进/训练模型”，防止未公开草稿被吞入公共语料。</p>
+              </div>
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. 清理“长期记忆”</span>
+                <p class="text-slate-600 dark:text-slate-400">在【设置 &gt; 记忆/Memory】定期清理。单次删除对话不会同步删记忆，必须进记忆库单独注销。</p>
+              </div>
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. 留个心眼“查一查”</span>
+                <p class="text-slate-600 dark:text-slate-400">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在权威平台核查（论文查知网/百度学术/doi.org，案号查裁判文书网，名言查原始出处）。</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="leading-relaxed">
+            在你在光标闪烁的对话框中敲下第一行字之前，安全博弈其实早已开始。无论你使用的是国内主流的<strong>Trae、WorkBuddy、豆包、Kimi</strong>，还是国际前沿的<strong>Cursor、Claude、ChatGPT、Gemini</strong>，许多人以为“点一下删除对话”或“关掉聊天记录”就万事大吉。然而底层架构的设计却隐藏着<strong>“控制的错觉”（Illusion of Control）</strong>——前端界面的视图隐藏，绝不等于服务端的彻底销毁。
+          </p>
+
+          <!-- 6 Hardening Traps Alert (Folded) -->
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4 shadow-xs">
+            <summary class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2">
+                <span>⚠️</span>
+                <span>为什么删了对话还不够？（展开看 6 个常见隐形留存误区）</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">展开误区 ⬇</span>
+                <span class="hidden group-open:inline">收起误区 ⬆</span>
+              </span>
+            </summary>
+            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc pt-2 leading-relaxed">
+              <li><strong>关闭模型训练 ≠ 数据立即删除</strong>：在各主流应用中，关闭训练仅代表后续交互不用于算法迭代，历史聊天记录仍完整留存服务端；豆包清空对话也不会级联清除已提炼的 Memory（须在【设置 &gt; 记忆】单独手动清除）。</li>
+              <li><strong>打开 Privacy Mode ≠ 服务端绝对零留存</strong>：在 Trae 等 IDE 中，开启隐私模式主要承诺对话与输出不用于训练，但为构建工程上下文仍会临时上传代码计算向量嵌入；且<strong>退出登录时隐私模式会自动失效</strong>！</li>
+              <li><strong>关闭 Memory ≠ 既有 Memory 已删除</strong>：豆包、WorkBuddy、ChatGPT 均明确既有记忆为独立存储，关闭记忆开关仅阻断新记忆的生成，旧记忆库依然常驻生效。</li>
+              <li><strong>删除源对话 ≠ 对应提取的 Memory 被删除</strong>：删除产生某条记忆的原始会话，不会触发对提炼事实的级联清除，必须前往专门的记忆空间单独注销。</li>
+              <li><strong>删除 Conversation ≠ 上传文件同步删除</strong>：在知识库与 Agent 类平台中，单次会话与知识库/附件解耦，删除聊天界面并不销毁后台已持久化的文件与嵌入向量。</li>
+              <li><strong>《网络安全法》第21条留存 6 个月 ≠ 所有聊天正文必须保存 6 个月</strong>：法律强制留存的法定对象是<strong>“相关网络运行与安全日志”</strong>，而非用户输入的完整提示词与私有正文。绝不能拿合规为服务商的无节制留存找借口。</li>
+            </ul>
+          </details>
+
+          <!-- Domestic Chinese Tools Hardening Table (Collapsible) -->
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🇨🇳</span>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国内主流 AI 工具实操配置速查卡（Trae、WorkBuddy、豆包、Kimi、Dify）</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">实测深度基准</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">全面对齐 PIPL 与 TC260-005《伦理安全指引 1.0》实测建议</p>
+                </div>
+              </div>
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
+                <span class="group-open:hidden">点击展开速查 ⬇</span>
+                <span class="hidden group-open:inline">收起表格 ⬆</span>
+              </span>
+            </summary>
+            <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 横向滑动查看完整表格</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
+                <tr>
+                  <th class="py-3 px-4">工具与形态</th>
+                  <th class="py-3 px-4">核心自卫配置操作</th>
+                  <th class="py-3 px-4">必须警惕的高危陷阱</th>
+                  <th class="py-3 px-4">合规与防护依据</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Trae IDE<br><span class="text-[11px] font-normal text-slate-500">字节跳动 AI 原生 IDE</span></td>
+                  <td class="py-3 px-4">登录后在 <strong>Settings &gt; Account 开启“Privacy Mode（隐私模式）”</strong>；在工程根目录配置 <code>.gitignore</code> 与敏感忽略列表，排除 <code>.env</code>、证书与私有密钥文件。</td>
+                  <td class="py-3 px-4"><strong>退出登录时隐私模式会自动失效</strong>；为构建代码库理解会临时上传代码计算嵌入向量；终端 shell 执行具有真实宿主机破坏力，严禁对不可信工程开启无确认全自动执行。</td>
+                  <td class="py-3 px-4 text-slate-500">Trae 官方隐私政策 / PIPL 合规</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">WorkBuddy AI<br><span class="text-[11px] font-normal text-slate-500">桌面级智能体工作助手</span></td>
+                  <td class="py-3 px-4">输入框底部权限保持<strong>“默认权限”</strong>（限定工作空间，高危删除/脚本/敏感网络强弹窗）；安全中心开启<strong>沙箱安全、删除保护与自动备份</strong>；在“工具管控”中可按单个 MCP 工具启停。</td>
+                  <td class="py-3 px-4">官方明确警告：开启“允许完全访问”后，<strong>写文件、删文件、执行脚本不再逐步确认</strong>，严禁在生产重要设备上长期开启；外部毒化可能利用已授权 MCP 工具篡改本地文件。</td>
+                  <td class="py-3 px-4 text-slate-500">WorkBuddy 本地沙箱与权限分级体系</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">豆包 (Doubao)<br><span class="text-[11px] font-normal text-slate-500">日常对话与知识助手</span></td>
+                  <td class="py-3 px-4">进入 <strong>【我的】&gt;【设置】&gt;【记忆】</strong>，定期逐条审查或清空记忆；在手机系统设置中撤销对相机、相册与剪贴板的常驻后台权限。</td>
+                  <td class="py-3 px-4"><strong>反馈漏洞 (Thumbs Up/Down)</strong>：提交点赞、点踩或报错反馈，会将对应整段对话推送至模型质量审核管线，绕过常规训练关闭；删除历史聊天不会删除已提炼记忆。</td>
+                  <td class="py-3 px-4 text-slate-500">TC260-005《伦理安全指引 1.0》/ PIPL</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Kimi 智能助手<br><span class="text-[11px] font-normal text-slate-500">长文档与学术分析工具</span></td>
+                  <td class="py-3 px-4">在【设置 &gt; 记忆指令】中审查指令；<strong>关闭训练需邮件联系 support@moonshot.cn（账号级 Opt-out）</strong>；长文本上传前务必使用本地脱敏技能替换核心业务数据。</td>
+                  <td class="py-3 px-4">Kimi Work 官方风险披露明确指出完全权限下存在<strong>文件误删、修改系统配置甚至导致设备不可启动</strong>的风险；长文档与联网抓取内容可能包含隐形间接注入指令。</td>
+                  <td class="py-3 px-4 text-slate-500">月之暗面隐私政策 / Kimi Work 权限声明</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">自建 Agent / 框架<br><span class="text-[11px] font-normal text-slate-500">Dify、FastGPT 等</span></td>
+                  <td class="py-3 px-4">务必及时升级安全补丁（Dify &ge; v1.14.2，FastGPT &ge; v4.14.10.3）；MCP Server URL 与 API Key 同等防护，严禁硬编码；配置远程 MCP 访问白名单。</td>
+                  <td class="py-3 px-4">自建不等于免受攻击！真实在野漏洞实证：<strong>Dify CVE-2026-41947</strong> 曾因跨租户 Trace 导致提示词外泄；<strong>FastGPT CVE-2026-40100</strong> 曾因 MCP runTool 导致未认证 SSRF 探测内网。</td>
+                  <td class="py-3 px-4 text-slate-500"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand hover:underline">NVD CVE-2026-41947 ↗</a> / GHSA 安全公告</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+          <!-- International Tools Hardening Table (Collapsible) -->
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🌐</span>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">国际主流 AI 工具对照基线（ChatGPT、Claude、Gemini、Cursor）</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">官方依据对照</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">官方 Opt-out 路径与独立记忆/知识清理指南</p>
+                </div>
+              </div>
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
+                <span class="group-open:hidden">点击展开速查 ⬇</span>
+                <span class="hidden group-open:inline">收起表格 ⬆</span>
+              </span>
+            </summary>
+            <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 横向滑动查看完整表格</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
+                <tr>
+                  <th class="py-3 px-4">平台/工具</th>
+                  <th class="py-3 px-4">必须关闭的核心开关</th>
+                  <th class="py-3 px-4">独立清理重点</th>
+                  <th class="py-3 px-4">官方依据与核实</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">ChatGPT (OpenAI)</td>
+                  <td class="py-3 px-4">设置 &gt; Data Controls 关闭 “Improve the model for everyone”</td>
+                  <td class="py-3 px-4">Settings &gt; Personalization &gt; Memory 独立删除记忆；定期在 Library 清理独立文件</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt" target="_blank" class="hover:underline">OpenAI Data Controls ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Claude (Anthropic)</td>
+                  <td class="py-3 px-4">Settings 关闭 Model Improvement 授权；切忌盲目点赞上传反馈</td>
+                  <td class="py-3 px-4">检查 Settings &gt; Memory；Projects 中上传的 Project Knowledge 须项目内单独清除</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training" target="_blank" class="hover:underline">Claude Privacy Rights ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Gemini (Google)</td>
+                  <td class="py-3 px-4">关闭 Gemini Apps Activity（默认开启）；谨慎使用带有敏感材料的 Feedback</td>
+                  <td class="py-3 px-4">注意即使关闭 Activity 仍有 72h 日志留存；人工审核过的数据可保留 3 年且无法挽回</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://support.google.com/gemini/answer/13594961" target="_blank" class="hover:underline">Gemini Privacy Hub ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Cursor (Anysphere)</td>
+                  <td class="py-3 px-4">开启 Privacy Mode（零数据保留 ZDR）；严禁对不可信工程开启 Run Everything (YOLO)</td>
+                  <td class="py-3 px-4">工程根目录创建 <code>.cursorignore</code>，屏蔽 <code>.env</code>、<code>*.pem</code>、凭证与私有数据文件</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://cursor.com/data-use" target="_blank" class="hover:underline">Cursor Data Use ↗</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
+        <span>💡 关好这几个基础开关后，如何在日常对话与交互中真正筑牢防线？</span>
+        <a href="#chapter-3" class="text-brand font-bold hover:underline flex items-center gap-1">
+          <span>进入第 3 章：掌握三大安全支柱与四大日常追问 ➔</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+      <!-- Chapter 3 -->
+      <section id="chapter-3" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · 核心心智</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+            核心心智：三大安全支柱与四大日常追问
           </h2>
         </div>
 
@@ -1064,25 +1070,25 @@ const guideContent = {
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">1. 我能把什么给 AI？</td>
                   <td class="py-3 px-4">“如果这段文本或代码被发到公开大群或被竞争对手看到，我会不会有隐私或法律麻烦？”</td>
-                  <td class="py-3 px-4"><a href="#sec-3-1" class="text-brand font-semibold hover:underline">→ 详见 3.1 节、3.4 节</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-1" class="text-brand font-semibold hover:underline">→ 详见 4.1 节、4.4 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">11 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">2. 哪些回答能信？</td>
                   <td class="py-3 px-4">“AI 引用的这篇论文、判例案号或关键数据，我自己能不能在官方平台点开找到原文？”</td>
-                  <td class="py-3 px-4"><a href="#sec-3-2" class="text-brand font-semibold hover:underline">→ 详见 3.2 节</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-2" class="text-brand font-semibold hover:underline">→ 详见 4.2 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">3. 什么时候不能听 AI？</td>
                   <td class="py-3 px-4">“AI 给出赞同时，它是在真正帮我查漏补缺，还是在顺着我的偏好曲意逢迎？”</td>
-                  <td class="py-3 px-4"><a href="#sec-3-3" class="text-brand font-semibold hover:underline">→ 详见 3.3 节</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-3" class="text-brand font-semibold hover:underline">→ 详见 4.3 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 项</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">4. 输出能不能直接发布？</td>
                   <td class="py-3 px-4">“文案里有没有绝对化极限词？代码里有没有遗漏密钥？成果是否需要标明 AI 辅助生成？”</td>
-                  <td class="py-3 px-4"><a href="#sec-3-5" class="text-brand font-semibold hover:underline">→ 详见 3.5 节、3.6 节</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-5" class="text-brand font-semibold hover:underline">→ 详见 4.5 节、4.6 节</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">13 项</td>
                 </tr>
               </tbody>
@@ -1091,10 +1097,10 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 3 -->
-      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 4 -->
+      <section id="chapter-4" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · 实战图谱</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 4 · 实战图谱</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             实战图谱：44 个技能如何精准应对现实风险？
           </h2>
@@ -1111,9 +1117,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.1 -->
-        <div id="sec-3-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
+            <span>4.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控的风险就已悄然开始。然而，“单纯抹去姓名”从来不等于真正脱敏——这就是隐私保护学界经典的<strong>马赛克拼图理论（Mosaic Theory）</strong>：哪怕你删去了“张三”的名字，只要保留了“某三甲医院罕见病科室 + 42岁男性 + 某日入院”，熟人或攻击者就能像拼图一样以极高概率还原出当事人真实身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
@@ -1216,7 +1222,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.2 -->
-        <div id="sec-3-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.2 对话推演时 · 撕开自回归幻觉与伪造文献的伪装 (During-Chat)</span>
           </h3>
@@ -1323,7 +1329,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.3 -->
-        <div id="sec-3-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.3 方案决策时 · 破除 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
           </h3>
@@ -1424,9 +1430,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.4 (Agent Execution Security) -->
-        <div id="sec-3-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.4 执行时 · Agent 权限越权与沙盒隔离 (Execution Safety)</span>
+            <span>4.4 执行时 · Agent 权限越权与沙盒隔离 (Execution Safety)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             随着具备 Shell 终端执行、文件改写和 MCP 扩展能力的智能体（Trae IDE、WorkBuddy、Cursor Agent、Claude Code 等）普及，<strong>AI 的安全威胁完成了从“生成错误文本”到“执行毁灭动作”的本质跃迁</strong>。一个轻率的 <code>rm -rf</code>、一个对外部毒化 Issue 的盲目解析，或者一个被投毒的 MCP 工具，都可能直接擦除你的项目甚至突破宿主机防线。
@@ -1513,9 +1519,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.5 (Pre-Handoff) -->
-        <div id="sec-3-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.5 交付前 · 生产发布的“四大法定门禁”与生成标识 (Pre-Handoff)</span>
+            <span>4.5 交付前 · 生产发布的“四大法定门禁”与生成标识 (Pre-Handoff)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             这是负责任 AI 工作流中具有法律效力的最后关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭直觉直接放行。在法律层面上，<strong>AI 从来不是法律责任的主体，任何生成物均由使用者与发布企业承担完全法律责任</strong>。未经门禁校验的内容可能瞬间触发市场监管部门的行政处罚罚单、无障碍侵权纠纷、密钥失窃灾难，乃至开源侵权诉讼。
@@ -1642,9 +1648,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.6 (Post-Session) -->
-        <div id="sec-3-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.6 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
+            <span>4.6 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             一个负责任的协作闭环，终结于两个并行动作：其一，安全清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终输出文本做去套路润色，消除 AI 生成的机械腔调。贯穿始终的铁律是：<strong>未经硬性测试通过，绝不宣称任务完成。</strong>
@@ -1688,10 +1694,10 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 4 -->
-      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 5 -->
+      <section id="chapter-5" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 4 · 角色剧本</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 5 · 角色剧本</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             角色剧本：普通人的一日安全工作流
           </h2>
@@ -1701,7 +1707,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.1 -->
-        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-1" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -1771,11 +1777,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.2 -->
-        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-2" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>剧本二：软件工程师与开源维护者的一天</span>
+              <span>5.2 软件工程师与开源维护者的一天</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               研发运维 · Software Engineers &amp; Maintainers
@@ -1841,11 +1847,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.3 -->
-        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-3" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>剧本三：文案策划与数字营销专员的一天</span>
+              <span>5.3 文案策划与数字营销专员的一天</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               创意营销 · Writers &amp; Marketing Specialists
@@ -1911,11 +1917,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.4 -->
-        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-4" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>剧本四：政企行政与企业知识工作者的一天</span>
+              <span>5.4 政企行政与企业知识工作者的一天</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               政企行政与法务合规 · Enterprise, Legal &amp; Administrative Staff
@@ -1981,11 +1987,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.5: Everyday Citizens & Family Routine -->
-        <div id="sec-4-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-5" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>4.5 普通个人与家庭日常：看病求医、辅导作业与防范诈骗</span>
+              <span>5.5 普通个人与家庭日常：看病求医、辅导作业与防范诈骗</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
               家庭生活 · Everyday Citizens & Families
@@ -2055,10 +2061,10 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 5 -->
-      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 6 -->
+      <section id="chapter-6" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 5 · 倡导与共建</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 6 · 倡导与共建</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             倡导与共建：数字自卫从个人走向社群
           </h2>
@@ -2117,7 +2123,7 @@ const guideContent = {
           </div>
         </div>
       </section>
-    `
+  `
   },
   en: {
     pageTitle: "Practical Field Guide - Digital Rights for All · Responsible & Safe AI Use",
@@ -2144,198 +2150,6 @@ const guideContent = {
 
     // Chapter HTML Content (English)
     bodyHtml: `
-      <!-- Chapter 0 -->
-      <section id="chapter-0" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
-        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · BASELINE</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            Defensive Baseline: Anti-Harvesting & Platform Hardening (Choose & Configure)
-          </h2>
-        </div>
-
-        <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
-          <!-- 30s Quick Action Card for Everyday Citizens (EN) -->
-          <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
-            <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
-              <span class="text-xl">⚡</span>
-              <span>First Step to Digital Self-Defense: 30-Second Quick Start (Do These 3 Things First)</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. Turn off "Training"</span>
-                <p class="text-slate-600 dark:text-slate-400">In your AI client's Settings, disable "Improve model for everyone" to prevent unreleased drafts from being absorbed into training corpora.</p>
-              </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. Audit "Memory"</span>
-                <p class="text-slate-600 dark:text-slate-400">Regularly review Settings &gt; Memory. Deleting a chat conversation does NOT wipe memory entries—purge them individually.</p>
-              </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. Verify Before You Hand Off</span>
-                <p class="text-slate-600 dark:text-slate-400">Before sharing AI outputs, manually double-check citations, statutory references, and names against authoritative sources.</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="leading-relaxed">
-            Before typing a single word into the blinking prompt, security boundaries have already been negotiated. Many believe clicking "Delete Chat" or toggling off history provides immunity. However, underlying architecture reveals an <strong>"Illusion of Control"</strong>—hiding views on the UI does not equal complete server-side destruction.
-          </p>
-
-          <!-- 6 Hardening Traps Alert -->
-          <div class="p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4">
-            <div class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center gap-2">
-              <span>⚠️ 6 Silent Retention Truths & Non-Equivalences (2026 Verified):</span>
-            </div>
-            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc">
-              <li><strong>Opting Out of Training ≠ Immediate Deletion</strong>: In Kimi and Doubao, opting out only stops future conversations from optimizing weights; historical chats remain indefinitely on servers. Doubao chat clearing does not cascade-delete extracted memory.</li>
-              <li><strong>Turning On Privacy Mode ≠ Absolute Zero Retention</strong>: In Trae IDE, Privacy Mode guarantees conversations and outputs are not used for training, but code snippets are temporarily uploaded to compute vector embeddings for whole-codebase indexing. Furthermore, <strong>logging out automatically disables Privacy Mode</strong>!</li>
-              <li><strong>Disabling Memory ≠ Deleting Existing Memory</strong>: Doubao, WorkBuddy, and ChatGPT decouple historical memory storage. Toggling off the Memory feature only halts new memory extraction; previously captured facts remain active unless purged manually.</li>
-              <li><strong>Deleting Source Chat ≠ Cascade-Deleting Associated Memories</strong>: Deleting the original conversation where a memory was formed does not wipe the synthesized memory entry. You must purge it in dedicated Memory settings.</li>
-              <li><strong>Deleting Conversation ≠ Deleting Uploaded Knowledge Files</strong>: In Dify, FastGPT, and ChatGPT Projects, backend document stores and vector embeddings are decoupled from ephemeral chat sessions. Deleting a chat leaves knowledge embeddings intact.</li>
-              <li><strong>Cybersecurity Law Art. 21 (6-Month Rule) ≠ Saving Full Chat Transcripts for 6 Months</strong>: Statutory Chinese mandates require retaining <strong>"network operation and cybersecurity logs"</strong> for &ge; 6 months, not the full text of user prompts or private code. Never let platforms use compliance as an excuse for unbounded data hoards.</li>
-            </ul>
-          </div>
-
-          <!-- Domestic Chinese Tools Matrix (Collapsible) -->
-          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
-            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">🇨🇳</span>
-                <div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Chinese Platforms Matrix (Trae, WorkBuddy, Doubao, Kimi, Dify)</h3>
-                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Empirical Baseline</span>
-                  </div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Aligned with PIPL & TC260-005 Guidelines 1.0</p>
-                </div>
-              </div>
-              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
-                <span class="group-open:hidden">Expand Table ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <div class="pt-4 space-y-3">
-              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
-                <span>👉 Swipe horizontally to view full table</span>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
-                <tr>
-                  <th class="py-3 px-4">Tool & Modality</th>
-                  <th class="py-3 px-4">Core Self-Defense Configuration</th>
-                  <th class="py-3 px-4">Critical Traps to Watch</th>
-                  <th class="py-3 px-4">Compliance Basis</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Trae IDE<br><span class="text-[11px] font-normal text-slate-500">ByteDance AI Native IDE</span></td>
-                  <td class="py-3 px-4">Log in and turn on <strong>Privacy Mode</strong> in Settings &gt; Account; add <code>.gitignore</code> and ignore rules in workspace to mask <code>.env</code>, certificates, and private keys.</td>
-                  <td class="py-3 px-4"><strong>Logging out automatically disables Privacy Mode</strong>; temporarily uploads code to compute vector embeddings; shell execution has host-level impact—never enable unconfirmed auto-execution on untrusted repos.</td>
-                  <td class="py-3 px-4 text-slate-500">Trae Privacy Policy / PIPL</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">WorkBuddy AI<br><span class="text-[11px] font-normal text-slate-500">Desktop Agent Assistant</span></td>
-                  <td class="py-3 px-4">Maintain <strong>Default Permissions</strong> (workspace boundary, confirmation prompts for dangerous deletes/scripts/network); enable <strong>Sandbox, Delete Protection & Auto Backup</strong>; toggle MCP tools individually.</td>
-                  <td class="py-3 px-4">Official warning: Enabling "Full Access" <strong>bypasses confirmation prompts for writing, deleting files, and running scripts</strong>; never enable permanently on production machines. Poisoned inputs can abuse authorized MCP tools.</td>
-                  <td class="py-3 px-4 text-slate-500">WorkBuddy Sandbox & Permissions</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Doubao<br><span class="text-[11px] font-normal text-slate-500">Everyday Chat & Assistant</span></td>
-                  <td class="py-3 px-4">Navigate to <strong>Me &gt; Settings &gt; Memory</strong> to inspect and delete synthesized memory; revoke unnecessary mobile camera, album, and clipboard permissions.</td>
-                  <td class="py-3 px-4"><strong>Feedback Loophole (Thumbs Up/Down)</strong>: Submitting upvote, downvote, or bug feedback sends the entire associated conversation to quality review pipelines, bypassing regular opt-outs; clearing chats does not wipe memory.</td>
-                  <td class="py-3 px-4 text-slate-500">TC260-005 Guidelines 1.0 / PIPL</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Kimi<br><span class="text-[11px] font-normal text-slate-500">Long-Context Document Tool</span></td>
-                  <td class="py-3 px-4">Review saved memory in [Settings &gt; Memory Instructions]; <strong>opt out of training via email to support@moonshot.cn (account-level opt-out)</strong>; mask proprietary data locally before uploading.</td>
-                  <td class="py-3 px-4">Kimi Work official risk notice explicitly warns of <strong>file overwrite, accidental deletion, system configuration alteration, or unbootable devices</strong> under full autonomous permissions; web scrapes may harbor indirect prompt injection.</td>
-                  <td class="py-3 px-4 text-slate-500">Moonshot Privacy Policy / Kimi Work Notice</td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Self-Hosted Frameworks<br><span class="text-[11px] font-normal text-slate-500">Dify, FastGPT, etc.</span></td>
-                  <td class="py-3 px-4">Promptly patch to secure releases (Dify &ge; v1.14.2, FastGPT &ge; v4.14.10.3); safeguard MCP Server URLs as API Keys without hardcoding; enforce strict IP allowlists for remote MCP tools.</td>
-                  <td class="py-3 px-4">Self-hosting does not equal automatic immunity! Real in-the-wild CVEs: <strong>Dify CVE-2026-41947</strong> allowed tenant authorization bypass leaking prompts via Trace configs; <strong>FastGPT CVE-2026-40100</strong> allowed unauthenticated SSRF via MCP runTool.</td>
-                  <td class="py-3 px-4 text-slate-500"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand hover:underline">NVD CVE-2026-41947 ↗</a> / GHSA Advisories</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-          <!-- International Tools Hardening Table (Collapsible) -->
-          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
-            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">🌐</span>
-                <div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Global Platforms Baseline (ChatGPT, Claude, Gemini, Cursor)</h3>
-                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Official Baselines</span>
-                  </div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Official Opt-Out Switches & Knowledge Base Purging</p>
-                </div>
-              </div>
-              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
-                <span class="group-open:hidden">Expand Table ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <div class="pt-4 space-y-3">
-              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
-                <span>👉 Swipe horizontally to view full table</span>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
-                <tr>
-                  <th class="py-3 px-4">Platform / Tool</th>
-                  <th class="py-3 px-4">Essential Opt-Out Switches</th>
-                  <th class="py-3 px-4">Independent Cleaning Action</th>
-                  <th class="py-3 px-4">Official Documentation</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">ChatGPT (OpenAI)</td>
-                  <td class="py-3 px-4">Settings &gt; Data Controls: Turn off "Improve the model for everyone"</td>
-                  <td class="py-3 px-4">Settings &gt; Personalization &gt; Memory: Clean memories; clean files in Library</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt" target="_blank" class="hover:underline">OpenAI Data Controls ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Claude (Anthropic)</td>
-                  <td class="py-3 px-4">Settings: Turn off Model Improvement; avoid submitting feedback on sensitive prompts</td>
-                  <td class="py-3 px-4">Check Settings &gt; Memory; clean persistent Project Knowledge within Project settings</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training" target="_blank" class="hover:underline">Claude Privacy Rights ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Gemini (Google)</td>
-                  <td class="py-3 px-4">Turn off Gemini Apps Activity (default on); exercise caution with Feedback buttons</td>
-                  <td class="py-3 px-4">Note 72h retention persists after turning off activity; reviewed data held up to 3 years</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://support.google.com/gemini/answer/13594961" target="_blank" class="hover:underline">Gemini Privacy Hub ↗</a></td>
-                </tr>
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Cursor (Anysphere)</td>
-                  <td class="py-3 px-4">Enable Privacy Mode (ZDR); never use Run Everything (YOLO) on untrusted code</td>
-                  <td class="py-3 px-4">Create <code>.cursorignore</code> in workspace root to mask <code>.env</code> and keys</td>
-                  <td class="py-3 px-4 text-brand"><a href="https://cursor.com/data-use" target="_blank" class="hover:underline">Cursor Data Use ↗</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
-        <span>💡 Platform settings routes may update with software iterations. If you spot broken links or new options, feel free to open a GitHub Issue.</span>
-        <a href="#chapter-1" class="text-brand font-bold hover:underline flex items-center gap-1">
-          <span>Wonder why this matters? Proceed to Chapter 1 real-world case studies ➔</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
       <!-- Chapter 1 -->
       <section id="chapter-1" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
@@ -2555,10 +2369,208 @@ const guideContent = {
             <strong>This curated repository and field guide exist to place tactical shields and verification rulers directly into people's hands.</strong> Rather than inventing buzzwords, we curate 44 production-tested, standard-aligned open-source SKILL.md packages to provide tangible defense in your daily workflow.
           </p>
         </div>
+              <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
+          <span>💡 Having seen these real-world casualties and legal liabilities, you might ask: "What should I immediately do with my daily AI apps?"</span>
+          <a href="#chapter-2" class="text-brand font-bold hover:underline flex items-center gap-1">
+            <span>First Steps: Turn Off Hidden Switches ➔</span>
+          </a>
+        </div>
       </section>
 
       <!-- Chapter 2 -->
       <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · BASELINE</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+            Defensive Baseline: Anti-Harvesting & Platform Hardening (Choose & Configure)
+          </h2>
+        </div>
+
+        <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
+          <!-- 30s Quick Action Card for Everyday Citizens (EN) -->
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
+            <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
+              <span class="text-xl">⚡</span>
+              <span>First Step to Digital Self-Defense: 30-Second Quick Start (Do These 3 Things First)</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. Turn off "Training"</span>
+                <p class="text-slate-600 dark:text-slate-400">In your AI client's Settings, disable "Improve model for everyone" to prevent unreleased drafts from being absorbed into training corpora.</p>
+              </div>
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. Audit "Memory"</span>
+                <p class="text-slate-600 dark:text-slate-400">Regularly review Settings &gt; Memory. Deleting a chat conversation does NOT wipe memory entries—purge them individually.</p>
+              </div>
+              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+                <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. Verify Before You Hand Off</span>
+                <p class="text-slate-600 dark:text-slate-400">Before sharing AI outputs, manually double-check citations, statutory references, and names against authoritative sources.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="leading-relaxed">
+            Before typing a single word into the blinking prompt, security boundaries have already been negotiated. Many believe clicking "Delete Chat" or toggling off history provides immunity. However, underlying architecture reveals an <strong>"Illusion of Control"</strong>—hiding views on the UI does not equal complete server-side destruction.
+          </p>
+
+          <!-- 6 Hardening Traps Alert -->
+          <div class="p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4">
+            <div class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center gap-2">
+              <span>⚠️ 6 Silent Retention Truths & Non-Equivalences (2026 Verified):</span>
+            </div>
+            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc">
+              <li><strong>Opting Out of Training ≠ Immediate Deletion</strong>: In Kimi and Doubao, opting out only stops future conversations from optimizing weights; historical chats remain indefinitely on servers. Doubao chat clearing does not cascade-delete extracted memory.</li>
+              <li><strong>Turning On Privacy Mode ≠ Absolute Zero Retention</strong>: In Trae IDE, Privacy Mode guarantees conversations and outputs are not used for training, but code snippets are temporarily uploaded to compute vector embeddings for whole-codebase indexing. Furthermore, <strong>logging out automatically disables Privacy Mode</strong>!</li>
+              <li><strong>Disabling Memory ≠ Deleting Existing Memory</strong>: Doubao, WorkBuddy, and ChatGPT decouple historical memory storage. Toggling off the Memory feature only halts new memory extraction; previously captured facts remain active unless purged manually.</li>
+              <li><strong>Deleting Source Chat ≠ Cascade-Deleting Associated Memories</strong>: Deleting the original conversation where a memory was formed does not wipe the synthesized memory entry. You must purge it in dedicated Memory settings.</li>
+              <li><strong>Deleting Conversation ≠ Deleting Uploaded Knowledge Files</strong>: In Dify, FastGPT, and ChatGPT Projects, backend document stores and vector embeddings are decoupled from ephemeral chat sessions. Deleting a chat leaves knowledge embeddings intact.</li>
+              <li><strong>Cybersecurity Law Art. 21 (6-Month Rule) ≠ Saving Full Chat Transcripts for 6 Months</strong>: Statutory Chinese mandates require retaining <strong>"network operation and cybersecurity logs"</strong> for &ge; 6 months, not the full text of user prompts or private code. Never let platforms use compliance as an excuse for unbounded data hoards.</li>
+            </ul>
+          </div>
+
+          <!-- Domestic Chinese Tools Matrix (Collapsible) -->
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🇨🇳</span>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Chinese Platforms Matrix (Trae, WorkBuddy, Doubao, Kimi, Dify)</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Empirical Baseline</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Aligned with PIPL & TC260-005 Guidelines 1.0</p>
+                </div>
+              </div>
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
+                <span class="group-open:hidden">Expand Table ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
+            </summary>
+            <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 Swipe horizontally to view full table</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
+                <tr>
+                  <th class="py-3 px-4">Tool & Modality</th>
+                  <th class="py-3 px-4">Core Self-Defense Configuration</th>
+                  <th class="py-3 px-4">Critical Traps to Watch</th>
+                  <th class="py-3 px-4">Compliance Basis</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Trae IDE<br><span class="text-[11px] font-normal text-slate-500">ByteDance AI Native IDE</span></td>
+                  <td class="py-3 px-4">Log in and turn on <strong>Privacy Mode</strong> in Settings &gt; Account; add <code>.gitignore</code> and ignore rules in workspace to mask <code>.env</code>, certificates, and private keys.</td>
+                  <td class="py-3 px-4"><strong>Logging out automatically disables Privacy Mode</strong>; temporarily uploads code to compute vector embeddings; shell execution has host-level impact—never enable unconfirmed auto-execution on untrusted repos.</td>
+                  <td class="py-3 px-4 text-slate-500">Trae Privacy Policy / PIPL</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">WorkBuddy AI<br><span class="text-[11px] font-normal text-slate-500">Desktop Agent Assistant</span></td>
+                  <td class="py-3 px-4">Maintain <strong>Default Permissions</strong> (workspace boundary, confirmation prompts for dangerous deletes/scripts/network); enable <strong>Sandbox, Delete Protection & Auto Backup</strong>; toggle MCP tools individually.</td>
+                  <td class="py-3 px-4">Official warning: Enabling "Full Access" <strong>bypasses confirmation prompts for writing, deleting files, and running scripts</strong>; never enable permanently on production machines. Poisoned inputs can abuse authorized MCP tools.</td>
+                  <td class="py-3 px-4 text-slate-500">WorkBuddy Sandbox & Permissions</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Doubao<br><span class="text-[11px] font-normal text-slate-500">Everyday Chat & Assistant</span></td>
+                  <td class="py-3 px-4">Navigate to <strong>Me &gt; Settings &gt; Memory</strong> to inspect and delete synthesized memory; revoke unnecessary mobile camera, album, and clipboard permissions.</td>
+                  <td class="py-3 px-4"><strong>Feedback Loophole (Thumbs Up/Down)</strong>: Submitting upvote, downvote, or bug feedback sends the entire associated conversation to quality review pipelines, bypassing regular opt-outs; clearing chats does not wipe memory.</td>
+                  <td class="py-3 px-4 text-slate-500">TC260-005 Guidelines 1.0 / PIPL</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Kimi<br><span class="text-[11px] font-normal text-slate-500">Long-Context Document Tool</span></td>
+                  <td class="py-3 px-4">Review saved memory in [Settings &gt; Memory Instructions]; <strong>opt out of training via email to support@moonshot.cn (account-level opt-out)</strong>; mask proprietary data locally before uploading.</td>
+                  <td class="py-3 px-4">Kimi Work official risk notice explicitly warns of <strong>file overwrite, accidental deletion, system configuration alteration, or unbootable devices</strong> under full autonomous permissions; web scrapes may harbor indirect prompt injection.</td>
+                  <td class="py-3 px-4 text-slate-500">Moonshot Privacy Policy / Kimi Work Notice</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Self-Hosted Frameworks<br><span class="text-[11px] font-normal text-slate-500">Dify, FastGPT, etc.</span></td>
+                  <td class="py-3 px-4">Promptly patch to secure releases (Dify &ge; v1.14.2, FastGPT &ge; v4.14.10.3); safeguard MCP Server URLs as API Keys without hardcoding; enforce strict IP allowlists for remote MCP tools.</td>
+                  <td class="py-3 px-4">Self-hosting does not equal automatic immunity! Real in-the-wild CVEs: <strong>Dify CVE-2026-41947</strong> allowed tenant authorization bypass leaking prompts via Trace configs; <strong>FastGPT CVE-2026-40100</strong> allowed unauthenticated SSRF via MCP runTool.</td>
+                  <td class="py-3 px-4 text-slate-500"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand hover:underline">NVD CVE-2026-41947 ↗</a> / GHSA Advisories</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+          <!-- International Tools Hardening Table (Collapsible) -->
+          <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
+            <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🌐</span>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">Global Platforms Baseline (ChatGPT, Claude, Gemini, Cursor)</h3>
+                    <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Official Baselines</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Official Opt-Out Switches & Knowledge Base Purging</p>
+                </div>
+              </div>
+              <span class="adaptive-toggle-hint text-xs text-brand font-bold flex items-center gap-1 shrink-0">
+                <span class="group-open:hidden">Expand Table ⬇</span>
+                <span class="hidden group-open:inline">Collapse ⬆</span>
+              </span>
+            </summary>
+            <div class="pt-4 space-y-3">
+              <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+                <span>👉 Swipe horizontally to view full table</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-[640px] sm:min-w-full text-xs sm:text-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-left font-bold">
+                <tr>
+                  <th class="py-3 px-4">Platform / Tool</th>
+                  <th class="py-3 px-4">Essential Opt-Out Switches</th>
+                  <th class="py-3 px-4">Independent Cleaning Action</th>
+                  <th class="py-3 px-4">Official Documentation</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">ChatGPT (OpenAI)</td>
+                  <td class="py-3 px-4">Settings &gt; Data Controls: Turn off "Improve the model for everyone"</td>
+                  <td class="py-3 px-4">Settings &gt; Personalization &gt; Memory: Clean memories; clean files in Library</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://help.openai.com/en/articles/7730893-data-controls-in-chatgpt" target="_blank" class="hover:underline">OpenAI Data Controls ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Claude (Anthropic)</td>
+                  <td class="py-3 px-4">Settings: Turn off Model Improvement; avoid submitting feedback on sensitive prompts</td>
+                  <td class="py-3 px-4">Check Settings &gt; Memory; clean persistent Project Knowledge within Project settings</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training" target="_blank" class="hover:underline">Claude Privacy Rights ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Gemini (Google)</td>
+                  <td class="py-3 px-4">Turn off Gemini Apps Activity (default on); exercise caution with Feedback buttons</td>
+                  <td class="py-3 px-4">Note 72h retention persists after turning off activity; reviewed data held up to 3 years</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://support.google.com/gemini/answer/13594961" target="_blank" class="hover:underline">Gemini Privacy Hub ↗</a></td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">Cursor (Anysphere)</td>
+                  <td class="py-3 px-4">Enable Privacy Mode (ZDR); never use Run Everything (YOLO) on untrusted code</td>
+                  <td class="py-3 px-4">Create <code>.cursorignore</code> in workspace root to mask <code>.env</code> and keys</td>
+                  <td class="py-3 px-4 text-brand"><a href="https://cursor.com/data-use" target="_blank" class="hover:underline">Cursor Data Use ↗</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
+        <span>💡 Now that basic switches are configured, how do you sustain defense throughout your workflow?</span>
+        <a href="#chapter-3" class="text-brand font-bold hover:underline flex items-center gap-1">
+          <span>Proceed to Chapter 3: Three Pillars & Four Daily Questions ➔</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+      <!-- Chapter 3 -->
+      <section id="chapter-3" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · DECONSTRUCTION</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2808,25 +2820,25 @@ const guideContent = {
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">1. What can I feed to AI?</td>
                   <td class="py-3 px-4">"If this prompt or code snippet were leaked to a public channel or competitor, would it cause privacy or legal issues?"</td>
-                  <td class="py-3 px-4"><a href="#sec-3-1" class="text-brand font-semibold hover:underline">→ See Sec 3.1 &amp; 3.4</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-1" class="text-brand font-semibold hover:underline">→ See Sec 4.1 &amp; 4.4</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">11 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">2. Which answers can I trust?</td>
                   <td class="py-3 px-4">"Can I independently verify and open the actual paper, case docket, or statistical source on an official portal?"</td>
-                  <td class="py-3 px-4"><a href="#sec-3-2" class="text-brand font-semibold hover:underline">→ See Sec 3.2</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-2" class="text-brand font-semibold hover:underline">→ See Sec 4.2</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">3. When NOT to listen to AI?</td>
                   <td class="py-3 px-4">"When AI praises my idea, is it providing rigorous adversarial analysis, or merely flattering my preconceived biases?"</td>
-                  <td class="py-3 px-4"><a href="#sec-3-3" class="text-brand font-semibold hover:underline">→ See Sec 3.3</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-3" class="text-brand font-semibold hover:underline">→ See Sec 4.3</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">10 Skills</td>
                 </tr>
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">4. Can output be published directly?</td>
                   <td class="py-3 px-4">"Are there illegal absolute claims? Are credentials stripped? Is necessary AI provenance disclosed?"</td>
-                  <td class="py-3 px-4"><a href="#sec-3-5" class="text-brand font-semibold hover:underline">→ See Sec 3.5 &amp; 3.6</a></td>
+                  <td class="py-3 px-4"><a href="#sec-4-5" class="text-brand font-semibold hover:underline">→ See Sec 4.5 &amp; 4.6</a></td>
                   <td class="py-3 px-4 font-mono font-bold text-brand">13 Skills</td>
                 </tr>
               </tbody>
@@ -2835,8 +2847,8 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 3 -->
-      <section id="chapter-3" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 4 -->
+      <section id="chapter-4" class="space-y-12 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · TACTICAL MAP</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -2855,9 +2867,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.1 -->
-        <div id="sec-3-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.1 Pre-Input: Data Redaction, Mosaic Theory & Invisible Injection Defense</span>
+            <span>4.1 Pre-Input: Data Redaction, Mosaic Theory & Invisible Injection Defense</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             When preparing to feed drafts, logs, or customer files to an AI model, data loss begins immediately. However, simply removing explicit names is dangerous security theater: in classic privacy research, Latanya Sweeney's <strong>Mosaic Theory</strong> experiment demonstrated that just 3 quasi-identifiers—birth date, gender, and 5-digit ZIP code—are sufficient to uniquely re-identify 87% of the US population from publicly available voter records. Under China's Personal Information Protection Law (PIPL Art. 28), medical health, financial accounts, and tracking information are classified as sensitive personal info; retaining "Grade-A tertiary hospital rare disease ward + 42-year-old male + admission date" creates an irreversible re-identification hazard.
@@ -2954,9 +2966,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.2 -->
-        <div id="sec-3-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.2 During-Chat: Piercing Autoregressive Hallucinations & Fabricated Citations</span>
+            <span>4.2 During-Chat: Piercing Autoregressive Hallucinations & Fabricated Citations</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             The most dangerous characteristic of modern models is their supreme confidence. When asked for academic foundations, legal precedents, or technical sources, they generate beautifully formatted citations featuring real scholars, authoritative journals, and valid-looking <code>10.xxxx</code> DOIs. Yet upon verification, you discover the DOI is dead or the cited paper asserts the exact opposite of what the model claimed.
@@ -3055,7 +3067,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.3 -->
-        <div id="sec-3-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.3 During-Chat: Smashing RLHF Sycophancy & Cognitive Echo Chambers</span>
           </h3>
@@ -3150,7 +3162,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.4 (Agent Execution Safety) -->
-        <div id="sec-3-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.4 Execution Safety: Agent Privilege Isolation & Sandbox Defense</span>
           </h3>
@@ -3233,7 +3245,7 @@ const guideContent = {
         </div>
 
         <!-- Section 3.5 (Pre-Handoff) -->
-        <div id="sec-3-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>3.5 Pre-Handoff: Four Statutory Publication Gates & Mandatory AI Disclosure</span>
           </h3>
@@ -3358,9 +3370,9 @@ const guideContent = {
         </div>
 
         <!-- Section 3.6 (Post-Session) -->
-        <div id="sec-3-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28">
+        <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.6 Post-Session: Session Cleanup & Verification Before Completion</span>
+            <span>4.6 Post-Session: Session Cleanup & Verification Before Completion</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Responsible collaboration finishes with two parallel actions: purge local temporary logs to avoid context leakage, and humanize boilerplate machine tones. The iron rule: <strong>Never claim completion without passing hard verification tests.</strong>
@@ -3404,8 +3416,8 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 4 -->
-      <section id="chapter-4" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 5 -->
+      <section id="chapter-5" class="space-y-8 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 4 · PERSONA PLAYBOOKS</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -3417,11 +3429,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.1 -->
-        <div id="sec-4-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-1" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>Playbook 1: Graduate Researchers &amp; Scholars</span>
+              <span>5.1 Graduate Researchers &amp; Scholars</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               Academic Research · Graduate Researchers &amp; Scholars
@@ -3486,7 +3498,7 @@ const guideContent = {
         </div>
 
         <!-- Section 4.2 -->
-        <div id="sec-4-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-2" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -3555,11 +3567,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.3 -->
-        <div id="sec-4-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-3" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>Playbook 3: Writers &amp; Marketing Specialists</span>
+              <span>5.3 Writers &amp; Marketing Specialists</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               Content &amp; Growth · Writers &amp; Marketing Specialists
@@ -3624,11 +3636,11 @@ const guideContent = {
         </div>
 
         <!-- Section 4.4 -->
-        <div id="sec-4-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-4" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>Playbook 4: Enterprise, Legal &amp; Administrative Staff</span>
+              <span>5.4 Enterprise, Legal &amp; Administrative Staff</span>
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               Corporate Governance · Enterprise, Legal &amp; Administrative Staff
@@ -3692,7 +3704,7 @@ const guideContent = {
           </div>
         </div>
               <!-- Section 4.5: Everyday Citizens & Family Routine -->
-        <div id="sec-4-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs">
+        <div id="sec-5-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-5" class="hidden"></span>
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
               <span class="w-2 h-2 rounded-full bg-brand"></span>
@@ -3766,10 +3778,10 @@ const guideContent = {
         </div>
       </section>
 
-      <!-- Chapter 5 -->
-      <section id="chapter-5" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
+      <!-- Chapter 6 -->
+      <section id="chapter-6" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 5 · ADVOCACY</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 6 · ADVOCACY</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             Advocacy & Co-Creation: Digital Self-Defense as a Collective Act
           </h2>
@@ -3829,7 +3841,7 @@ const guideContent = {
           </div>
         </div>
       </section>
-    `
+  `
   }
 };
 // Update UI based on language
@@ -3867,42 +3879,42 @@ function updateUI() {
   // Dynamic TOC links translation
   const tocLabels = {
     zh: {
-      "chapter-0": "0. 基线 · 平台防静默留存与环境体检",
       "chapter-1": "1. 序幕 · 算法时代的平民处境",
-      "chapter-2": "2. 概念解构 · 三大安全支柱与四大日常追问",
-      "chapter-3": "3. 实战图谱 · 44 个技能如何精准应对",
-      "sec-3-1": "3.1 输入前·数据脱敏与外部投毒防范",
-      "sec-3-2": "3.2 对话中·撕开幻觉与伪造文献",
-      "sec-3-3": "3.3 决策时·打破谄媚与认知依附",
-      "sec-3-4": "3.4 执行时·Agent 权限越权与沙盒隔离",
-      "sec-3-5": "3.5 交付前·四大法定发布门禁",
-      "sec-3-6": "3.6 收尾阶段·会话清理与完成校验",
-      "chapter-4": "4. 角色剧本 · 普通人的一日安全工作流",
-      "sec-4-1": "4.1 学者与高校师生",
-      "sec-4-2": "4.2 软件工程师与开源维护者",
-      "sec-4-3": "4.3 文案策划与数字营销专员",
-      "sec-4-4": "4.4 政企人员与知识工作者",
-      "sec-4-5": "4.5 普通个人与家庭日常",
-      "chapter-5": "5. 倡导与共建 · 开源自卫行动"
+      "chapter-2": "2. 上手第一步 · 关掉这几个隐形开关",
+      "chapter-3": "3. 核心心智 · 三大安全支柱与四大日常追问",
+      "chapter-4": "4. 实战图谱 · 44 个技能如何精准应对",
+      "sec-4-1": "4.1 输入前·数据脱敏与外部投毒防范",
+      "sec-4-2": "4.2 对话中·撕开幻觉与伪造文献",
+      "sec-4-3": "4.3 决策时·打破谄媚与认知依附",
+      "sec-4-4": "4.4 执行时·Agent 权限越权与沙盒隔离",
+      "sec-4-5": "4.5 交付前·四大法定发布门禁",
+      "sec-4-6": "4.6 收尾阶段·会话清理与完成校验",
+      "chapter-5": "5. 角色剧本 · 普通人的一日安全工作流",
+      "sec-5-1": "5.1 学者与高校师生",
+      "sec-5-2": "5.2 软件工程师与开源维护者",
+      "sec-5-3": "5.3 文案策划与数字营销专员",
+      "sec-5-4": "5.4 政企人员与知识工作者",
+      "sec-5-5": "5.5 普通个人与家庭日常",
+      "chapter-6": "6. 倡导与共建 · 开源自卫行动"
     },
     en: {
-      "chapter-0": "0. Baseline: Anti-Harvesting & Hardening",
       "chapter-1": "1. Prelude: Citizens in the Algorithmic Age",
-      "chapter-2": "2. Concepts: Three Pillars & Four Questions",
-      "chapter-3": "3. Arsenal: Deploying 44 Curated Skills",
-      "sec-3-1": "3.1 Pre-Input: Data Masking & Poisoning Defense",
-      "sec-3-2": "3.2 During-Chat: Piercing Hallucinations & Citations",
-      "sec-3-3": "3.3 During-Chat: Smashing Sycophancy & Echo Chambers",
-      "sec-3-4": "3.4 Execution: Agent Privilege & Sandbox Defense",
-      "sec-3-5": "3.5 Pre-Handoff: Four Statutory Publication Gates",
-      "sec-3-6": "3.6 Post-Session: Cleanup & Verification Gate",
-      "chapter-4": "4. Persona Playbooks: Daily Safe Workflows",
-      "sec-4-1": "4.1 Graduate Researchers & Scholars",
-      "sec-4-2": "4.2 Software Engineers & Maintainers",
-      "sec-4-3": "4.3 Writers & Marketing Specialists",
-      "sec-4-4": "4.4 Enterprise & Administrative Staff",
-      "sec-4-5": "4.5 Individuals & Family Daily Life",
-      "chapter-5": "5. Advocacy & Co-Creation: Collective Defense"
+      "chapter-2": "2. First Steps: Turn Off Hidden Data Collection Switches",
+      "chapter-3": "3. Core Mental Models: Three Pillars & Four Questions",
+      "chapter-4": "4. Action Arsenal: Deploying 44 Curated Skills",
+      "sec-4-1": "4.1 Pre-Input: Data Masking & Poisoning Defense",
+      "sec-4-2": "4.2 During-Chat: Piercing Hallucinations & Citations",
+      "sec-4-3": "4.3 During-Chat: Smashing Sycophancy & Echo Chambers",
+      "sec-4-4": "4.4 Execution: Agent Privilege & Sandbox Defense",
+      "sec-4-5": "4.5 Pre-Handoff: Four Statutory Publication Gates",
+      "sec-4-6": "4.6 Post-Session: Cleanup & Verification Gate",
+      "chapter-5": "5. Persona Playbooks: Daily Safe Workflows",
+      "sec-5-1": "5.1 Graduate Researchers & Scholars",
+      "sec-5-2": "5.2 Software Engineers & Maintainers",
+      "sec-5-3": "5.3 Writers & Marketing Specialists",
+      "sec-5-4": "5.4 Enterprise & Administrative Staff",
+      "sec-5-5": "5.5 Individuals & Family Daily Life",
+      "chapter-6": "6. Advocacy & Co-Creation: Collective Defense"
     }
   };
   const labels = tocLabels[currentLang] || tocLabels.zh;

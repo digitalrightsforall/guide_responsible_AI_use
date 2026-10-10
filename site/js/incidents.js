@@ -15,17 +15,19 @@ const i18n = {
     heroBadge: "普通人的数字权利 · 真实事件与判例库",
     heroTitle: "生成式 AI 使用者真实案件与责任事件库",
     heroHighlight: "警惕滥用致责，捍卫使用者合法权益",
-    heroSubtitle: "聚焦个体与机构作为“大模型/智能体使用者”的真实法律责任与侵害遭遇。收录经司法裁判、市监行政重罚、官方保密与安全通报证实的 19 起高频踩坑与责任事故，提供案号出处、法理研判与开源自卫防范技能。",
+    heroSubtitle: "聚焦个体与机构作为“大模型/智能体使用者”的真实法律责任与侵害遭遇。收录经司法裁判、市监行政重罚、官方保密与安全通报证实的 31 起高频踩坑与责任事故，提供案号出处、法理研判与开源自卫防范技能。",
     heroGuideLink: "阅读《实务指南》深入系统性防范流水线 →",
     heroLibraryLink: "探索 44 项开源防范技能包 →",
 
-    statTotal: "实证案例收录",
+    statTotalValue: "{total} 起",
+    statTotalLabel: "案例收录",
     statTotalSub: "司法判决/行政处罚/官方通报",
-    statVerified: "权威案号/通报可查",
-    statVerifiedSub: "拒绝编造虚假参考文号",
-    statDual: "双向责任立场",
-    statDualSub: "权益受损 8 起 · 违规致责 11 起",
-    statLifecycle: "全生命周期覆盖",
+    statVerifiedValue: "{verified}/{total}",
+    statVerifiedLabel: "已定位一手原文",
+    statVerifiedSub: "其余标注「待复核」",
+    statDualLabel: "双向责任立场",
+    statDualSub: "权益受损 {infringed} 起 · 违规致责 {sanctioned} 起",
+    statLifecycleLabel: "全生命周期覆盖",
     statLifecycleSub: "输入泄密 · 输出幻觉 · 执行失控",
 
     bannerShieldTitle: "🛡️ 使用者权益受损事件 (User Rights Infringed)",
@@ -97,17 +99,19 @@ const i18n = {
     heroBadge: "Digital Rights for All · Real-World AI Incidents",
     heroTitle: "Real-World AI Incidents & Accountability Casebook",
     heroHighlight: "Guarding User Rights & Preventing Accountability Failures",
-    heroSubtitle: "Focusing on the real legal liabilities and infringements encountered by everyday individuals and organizations as LLM & Agent users. Curating 19 verified judicial rulings, regulatory fines, and official state security notices with docket numbers and open-source defenses.",
+    heroSubtitle: "Focusing on the real legal liabilities and infringements encountered by everyday individuals and organizations as LLM & Agent users. Curating 31 verified judicial rulings, regulatory fines, and official state security notices with docket numbers and open-source defenses.",
     heroGuideLink: "Read the Practical Field Guide for defensive pipelines →",
     heroLibraryLink: "Explore 44 Curated Open-Source Skills →",
 
-    statTotal: "Verified Cases",
+    statTotalValue: "{total} Cases",
+    statTotalLabel: "Incidents Curated",
     statTotalSub: "Judicial / Regulatory / Official Notices",
-    statVerified: "Official Docket Records",
-    statVerifiedSub: "No hallucinated or fictitious citations",
-    statDual: "Dual Accountability Axis",
-    statDualSub: "8 Rights Harmed · 11 Users Penalized",
-    statLifecycle: "Full Lifecycle Coverage",
+    statVerifiedValue: "{verified}/{total}",
+    statVerifiedLabel: "Primary Source Linked",
+    statVerifiedSub: "Others Marked 'Pending Review'",
+    statDualLabel: "Dual Accountability Axis",
+    statDualSub: "{infringed} Rights Harmed · {sanctioned} Penalized",
+    statLifecycleLabel: "Full Lifecycle Coverage",
     statLifecycleSub: "Input Leaks · Output Hallucinations · Agent Action",
 
     bannerShieldTitle: "🛡️ User Rights Infringed Incidents",
@@ -201,6 +205,7 @@ function toggleLanguage() {
   localStorage.setItem("lang", currentLang);
   document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
   updateStaticTexts();
+  updateFilterCounts();
   filterAndRender();
 }
 
@@ -350,6 +355,17 @@ function updateFilterCounts() {
   updateCountBadge("#btn-life-input .filter-count", counts.lifecycle.input_risk);
   updateCountBadge("#btn-life-output .filter-count", counts.lifecycle.output_risk);
   updateCountBadge("#btn-life-execution .filter-count", counts.lifecycle.execution_risk);
+
+  // Synchronize Top Metric Badges
+  const verifiedCount = incidentsData.filter(i => i.verification_level === "VERIFIED").length;
+  const t = i18n[currentLang];
+  const setEl = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+
+  setEl("stat-total-value", t.statTotalValue.replace("{total}", incidentsData.length));
+  setEl("stat-verified-value", t.statVerifiedValue.replace("{verified}", verifiedCount).replace("{total}", incidentsData.length));
+  setEl("stat-dual-sub", t.statDualSub
+    .replace("{infringed}", counts.stance.user_rights_infringed)
+    .replace("{sanctioned}", counts.stance.irresponsible_user_sanctioned));
 }
 
 // Filter and Render
@@ -464,6 +480,11 @@ function renderIncidents(list) {
 
     const caseDocket = inc.case_number_status?.actual_case_no || "";
 
+    const isPending = inc.verification_level === "PENDING_REVIEW";
+    const verificationBadgeClass = isPending
+      ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+      : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+
     return `
       <article id="${inc.id}" class="incident-card bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-brand/40 hover:shadow-md transition-all flex flex-col justify-between space-y-4 scroll-mt-28">
         <!-- Top Badges Row -->
@@ -474,7 +495,7 @@ function renderIncidents(list) {
               <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${regionFlag} ${escapeHtml(inc.jurisdiction)}</span>
               <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800">${escapeHtml(category)}</span>
             </div>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">${escapeHtml(verification)}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${verificationBadgeClass}">${escapeHtml(verification)}</span>
           </div>
 
           <!-- Title -->
@@ -584,11 +605,16 @@ function openIncidentModal(incidentId, updateHistory = true) {
     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${lifecycleLabels[r] || r}</span>
   `).join("");
 
-  document.getElementById("incident-modal-badges").innerHTML = `
+    const isPendingModal = inc.verification_level === "PENDING_REVIEW";
+    const verificationBadgeClassModal = isPendingModal
+      ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+      : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+
+    document.getElementById("incident-modal-badges").innerHTML = `
     <span class="px-2 py-0.5 rounded-full text-xs font-bold border ${stanceClass}">${stanceBadge}</span>
     <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${regionFlag} ${escapeHtml(inc.jurisdiction)}</span>
     <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800">${escapeHtml(isZh ? inc.risk_category_zh : inc.risk_category_en)}</span>
-    <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">${escapeHtml(isZh ? inc.verification_level_zh : inc.verification_level_en)}</span>
+    <span class="px-2 py-0.5 rounded-full text-xs font-bold border ${verificationBadgeClassModal}">${escapeHtml(isZh ? inc.verification_level_zh : inc.verification_level_en)}</span>
     ${lifecycleBadgesHtml}
   `;
 
@@ -627,19 +653,39 @@ function openIncidentModal(incidentId, updateHistory = true) {
   }).join("");
 
   // Primary Sources
-  const sourcesHtml = (inc.sources || []).map(s => `
-    <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/60">
-      <div class="min-w-0 pr-2">
-        <span class="font-bold text-slate-800 dark:text-slate-200 block truncate text-xs">${escapeHtml(s.title)}</span>
-        <span class="text-[10px] text-slate-400 block">${escapeHtml(s.publisher || "")}</span>
+  const tierLabels = {
+    tier1_legal: isZh ? "官方文书/司法通报" : "Official Legal/Judicial",
+    tier2_regulatory: isZh ? "监管部门披露" : "Regulatory Authority",
+    tier2_media: isZh ? "权威媒体报道" : "Authoritative Media",
+    tier3_selfmedia: isZh ? "行业媒体/自媒体" : "Industry/Self-Media",
+    tier4_individual: isZh ? "个人申诉/博客" : "Individual Claim/Blog"
+  };
+
+  const sourcesHtml = (inc.sources || []).map(s => {
+    const tierName = tierLabels[s.tier] || s.tier || "";
+    const isHp = s.url_scope === "homepage";
+    const linkText = isHp
+      ? (isZh ? "访问机构门户（原文待补）" : "Portal (Source Link Pending)")
+      : (isZh ? "查看原始文书" : "View Source");
+    return `
+      <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/60">
+        <div class="min-w-0 pr-2">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-bold text-slate-800 dark:text-slate-200 text-xs">${escapeHtml(s.title)}</span>
+            ${tierName ? `<span class="px-1.5 py-0.2 rounded text-[9px] font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${escapeHtml(tierName)}</span>` : ""}
+          </div>
+          <span class="text-[10px] text-slate-400 block">${escapeHtml(s.publisher || "")}</span>
+        </div>
+        ${s.url ? `
+          <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" class="shrink-0 text-brand font-bold text-xs hover:underline flex items-center gap-1">
+            <span>${linkText} ↗</span>
+          </a>
+        ` : `
+          <span class="shrink-0 text-slate-400 text-[11px]">${isZh ? '来源待复核补全' : 'Source pending'}</span>
+        `}
       </div>
-      ${s.url ? `
-        <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" class="shrink-0 text-brand font-bold text-xs hover:underline flex items-center gap-1">
-          <span>${isZh ? '查看原始文书' : 'View Source'} ↗</span>
-        </a>
-      ` : ''}
-    </div>
-  `).join("");
+    `;
+  }).join("");
 
   // Modal Body Content
   document.getElementById("incident-modal-body").innerHTML = `

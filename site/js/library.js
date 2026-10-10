@@ -204,20 +204,6 @@ async function loadItems() {
 }
 
 function updateFilterCounts() {
-  // Client ecosystem counts
-  const clientCounts = {
-    all: itemsData.length,
-    "Trae IDE": itemsData.filter((i) => i.clients && i.clients.includes("Trae IDE")).length,
-    "WorkBuddy": itemsData.filter((i) => i.clients && i.clients.includes("WorkBuddy")).length,
-    "Cursor": itemsData.filter((i) => i.clients && i.clients.includes("Cursor")).length,
-    "Claude Code": itemsData.filter((i) => i.clients && i.clients.includes("Claude Code")).length,
-    "Web/通用提示词": itemsData.filter((i) => i.clients && i.clients.includes("Web/通用提示词")).length
-  };
-  Object.entries(clientCounts).forEach(([client, count]) => {
-    const el = document.querySelector(`[data-client="${client}"] .filter-count`);
-    if (el) el.textContent = count;
-  });
-
   const catCounts = {
     all: itemsData.length,
     "feed-to-ai": itemsData.filter((i) => i.category === "feed-to-ai").length,
@@ -257,16 +243,6 @@ function setupEventListeners() {
   searchInput?.addEventListener("input", (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
     renderCards();
-  });
-
-  // Client ecosystem filter buttons
-  document.querySelectorAll("[data-client]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("[data-client]").forEach((b) => b.classList.remove("active-client"));
-      btn.classList.add("active-client");
-      currentClient = btn.getAttribute("data-client");
-      renderCards();
-    });
   });
 
   // Category buttons
@@ -411,6 +387,26 @@ function setBtnLabel(id, text) {
   if (labelEl) labelEl.textContent = text;
 }
 
+// Utility: Clean title & namespace helpers
+function getCleanTitle(rawName) {
+  const name = (rawName || "").trim();
+  if (name === "jkitchin/skillz (citation-verifier)") return "Citation Verifier";
+  if (name === "jihlenburg/mad-skills (devils-advocate)") return "Devil's Advocate";
+  const m = name.match(/^(.*?)\s*\([^)]+\)$/);
+  return m ? m[1].trim() : name;
+}
+
+function getRepoSlug(rawName, url) {
+  const name = (rawName || "").trim();
+  const m = name.match(/\(([^)]+)\)$/);
+  if (m) return m[1].trim();
+  if (url && url.includes("github.com/")) {
+    const parts = url.split("github.com/")[1].split("/");
+    if (parts.length >= 2) return `${parts[0]}/${parts[1]}`;
+  }
+  return "";
+}
+
 // Render Item Cards
 function renderCards() {
   const container = document.getElementById("cards-container") || document.getElementById("items-grid");
@@ -418,10 +414,6 @@ function renderCards() {
   if (!container) return;
 
   const filtered = itemsData.filter((item) => {
-    // Client filter
-    if (currentClient !== "all") {
-      if (!item.clients || !item.clients.includes(currentClient)) return false;
-    }
     // Category filter
     if (currentCategory !== "all" && item.category !== currentCategory) return false;
     // Timing filter
@@ -429,16 +421,16 @@ function renderCards() {
     // Search query
     if (searchQuery) {
       const matchName = item.name.toLowerCase().includes(searchQuery);
+      const matchCleanName = getCleanTitle(item.name).toLowerCase().includes(searchQuery);
       const matchSummary = (currentLang === "zh" ? item.summary_cn : item.summary_en).toLowerCase().includes(searchQuery);
       const matchWhy = (currentLang === "zh" ? item.why_chosen_cn : item.why_chosen_en).toLowerCase().includes(searchQuery);
       const matchCare = (currentLang === "zh" ? item.why_care_cn : item.why_care_en).toLowerCase().includes(searchQuery);
       const matchHow = (currentLang === "zh" ? item.how_to_use_cn : item.how_to_use_en).toLowerCase().includes(searchQuery);
       const matchTiming = (currentLang === "zh" ? item.timing_desc_cn : item.timing_desc_en).toLowerCase().includes(searchQuery);
-      const matchClients = item.clients.some((c) => c.toLowerCase().includes(searchQuery));
       const matchPersona = item.target_persona.toLowerCase().includes(searchQuery);
       const matchBadges = (item.regulatory_badges || []).some((b) => b.toLowerCase().includes(searchQuery)) ||
                           (item.regulatory_badges_en || []).some((b) => b.toLowerCase().includes(searchQuery));
-      if (!matchName && !matchSummary && !matchWhy && !matchCare && !matchHow && !matchTiming && !matchClients && !matchPersona && !matchBadges) return false;
+      if (!matchName && !matchCleanName && !matchSummary && !matchWhy && !matchCare && !matchHow && !matchTiming && !matchPersona && !matchBadges) return false;
     }
     return true;
   });
@@ -463,16 +455,6 @@ function renderCards() {
 
   container.innerHTML = filtered.map((item) => renderCard(item)).join("");
 
-  // Attach copy listeners
-  container.querySelectorAll("[data-copy]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const content = btn.getAttribute("data-copy");
-      navigator.clipboard.writeText(content).then(() => {
-        showToast(t.copied);
-      });
-    });
-  });
-
   // Attach details modal listeners
   container.querySelectorAll("[data-details]").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -483,28 +465,30 @@ function renderCards() {
 
 function renderCard(item) {
   const t = i18n[currentLang];
-  const whyCare = currentLang === "zh" ? item.why_care_cn : item.why_care_en;
-  const whyChosen = currentLang === "zh" ? item.why_chosen_cn : item.why_chosen_en;
-  const howToUse = currentLang === "zh" ? item.how_to_use_cn : item.how_to_use_en;
-  const timingDesc = currentLang === "zh" ? item.timing_desc_cn : item.timing_desc_en;
-  const categoryTitle = currentLang === "zh" ? item.category_title_cn : item.category_title_en;
+  const isZh = currentLang === "zh";
+  const cleanTitle = getCleanTitle(item.name);
+  const repoSlug = getRepoSlug(item.name, item.url);
+  const whyCare = isZh ? item.why_care_cn : item.why_care_en;
+  const whyChosen = isZh ? item.why_chosen_cn : item.why_chosen_en;
+  const timingDesc = isZh ? item.timing_desc_cn : item.timing_desc_en;
+  const categoryTitle = isZh ? item.category_title_cn : item.category_title_en;
 
   // Timing Badge label and color scheme
   const timingConfig = {
     "pre-input": {
-      label: currentLang === "zh" ? "输入前·防采集与隔离" : "Pre-Input: Privacy",
+      label: isZh ? "输入前·防采集与隔离" : "Pre-Input: Privacy",
       color: "bg-teal-50 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 border-teal-200 dark:border-teal-800"
     },
     "during-chat": {
-      label: currentLang === "zh" ? "交互中·求证与防盲信" : "During-Chat: Fact-Check",
+      label: isZh ? "交互中·求证与防盲信" : "During-Chat: Fact-Check",
       color: "bg-indigo-50 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
     },
     "pre-handoff": {
-      label: currentLang === "zh" ? "交付前·合规与核验包" : "Pre-Handoff: Audit",
+      label: isZh ? "交付前·合规与核验包" : "Pre-Handoff: Audit",
       color: "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800"
     },
     "post-session": {
-      label: currentLang === "zh" ? "归档时·隐私与日志清理" : "Post-Session: Cleanup",
+      label: isZh ? "归档时·隐私与日志清理" : "Post-Session: Cleanup",
       color: "bg-purple-50 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800"
     }
   };
@@ -520,142 +504,64 @@ function renderCard(item) {
   return `
     <div class="skill-card ${readyClass} flex flex-col justify-between p-6 sm:p-7 space-y-6">
       <div class="space-y-4">
-        <!-- 1. Header Badges & Category -->
-        <div class="flex flex-wrap items-center justify-between gap-2 pb-1 border-b border-slate-100 dark:border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="text-[11px] font-bold px-3 py-1 rounded-full border ${timingMeta.color}">
-              ${timingMeta.label}
+        <!-- 1. Clean Skill Title (No Repo Jargon) & Subtle Byline -->
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="text-[10px] font-bold text-brand uppercase tracking-wider block">
+              ${categoryTitle}
             </span>
-            <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-              SKILL.md
-            </span>
+            ${repoSlug ? `<span class="text-[11px] font-mono text-slate-400 dark:text-slate-500 truncate" title="代码源自: ${escapeHtml(repoSlug)}">by ${escapeHtml(repoSlug.split('/')[0])}</span>` : ''}
           </div>
-          <span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500">
-            ${categoryTitle}
-          </span>
-        </div>
-
-        <!-- 2. Skill Name + GitHub Link + Regulatory Badges -->
-        <div class="space-y-2">
           <h3 class="text-lg font-black text-slate-900 dark:text-white leading-tight">
             <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="hover:text-brand transition-colors inline-flex items-center gap-1.5 group">
-              <span>${item.name}</span>
+              <span>${escapeHtml(cleanTitle)}</span>
               <svg class="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-brand shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
           </h3>
-          ${(() => {
-            const badges = (currentLang === "zh" || !item.regulatory_badges_en) ? item.regulatory_badges : item.regulatory_badges_en;
-            if (!badges || badges.length === 0) return '';
-            return `
-              <div class="flex flex-wrap gap-1.5 pt-0.5">
-                ${badges.map(b => `
-                  <span class="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50/90 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80 shadow-2xs">
-                    ${escapeHtml(b)}
-                  </span>
-                `).join('')}
-              </div>
-            `;
-          })()}
         </div>
 
-        <!-- 3. Dimension: 为何普通人应该关心 (Why Everyday People Should Care) -->
-        <div class="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/25 border border-amber-200/70 dark:border-amber-900/40 text-xs">
-          <span class="font-extrabold text-amber-900 dark:text-amber-200 flex items-center gap-1.5 mb-1.5">
-            ${t.whyCareLabel}
-          </span>
-          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${whyCare}</p>
-        </div>
-
-        <!-- 4. Dimension: 为什么精选使用 (Why Chosen / Core Purpose) -->
-        <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/15 dark:border-brand/25 text-xs">
-          <span class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 mb-1">
-            ${t.whyChosenLabel}
-          </span>
-          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${whyChosen}</p>
-        </div>
-
-        <!-- 5. Dimension: 准确使用时机 (When to Use in Workflow) -->
-        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1">
-          <span class="font-bold text-slate-800 dark:text-slate-200 block">${t.whenToUseLabel}</span>
-          <p class="text-slate-500 dark:text-slate-400 leading-relaxed">${timingDesc}</p>
-        </div>
-
-        <!-- 6. Dimension: 如何使用 (How to Use & Command) -->
-        <div class="space-y-1.5 text-xs">
-          <span class="font-bold text-slate-800 dark:text-slate-200 block">${t.howToUseLabel}</span>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">${howToUse}</p>
-          <div class="relative mt-2 p-2.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-[11px] overflow-x-auto flex items-center justify-between gap-3 border border-slate-800">
-            <span class="truncate">${escapeHtml(item.action_content)}</span>
-            <button data-copy="${escapeHtml(item.action_content)}" class="shrink-0 px-2.5 py-1 rounded-lg bg-brand hover:bg-brand-dim text-white font-sans text-[11px] font-bold transition-colors cursor-pointer" title="点击复制命令">
-              复制
-            </button>
+        <!-- 2. Co-equal Content Sections (平级排版，三者均取消补丁色块，均带彩色提示圆点) -->
+        <div class="space-y-4 pt-1 text-xs">
+          <!-- 平级维度 1: 为何普通人应该关心 -->
+          <div>
+            <span class="font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-1.5 mb-1.5 text-xs sm:text-[13px]">
+              <span class="w-1.5 h-1.5 rounded-full dot-amber shrink-0"></span>
+              ${t.whyCareLabel}
+            </span>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed pl-3">${whyCare}</p>
           </div>
-        </div>
 
-        <!-- 7. Dimension: 运行状态与实证指标 (Operational Status & Verified Evidence) -->
-        ${(() => {
-          const isZh = currentLang === "zh";
-          const stageText = isZh ? (item.status?.stage_cn || item.status?.stage || "开箱即用") : (item.status?.stage_en || item.status?.stage || "Ready to Use");
-          const isSetup = (item.status?.stage || "").includes("需配置") || (item.status?.stage || "").includes("Requires");
-          const stageColor = isSetup
-            ? "bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60"
-            : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60";
-          const dotColor = isSetup ? "bg-amber-500" : "bg-emerald-500";
-          const stageTooltip = isZh
-            ? "已通过本地环境安装测试与技能规范语法校验，逻辑规则完整闭环。"
-            : "Verified via local installation tests and skill specification validation.";
-          
-          const adoptionText = isZh ? (item.status?.adoption_cn || item.status?.adoption || "已实测") : (item.status?.adoption_en || item.status?.adoption || "Verified");
-          const adoptionTooltip = isZh
-            ? "基于真实 GitHub 开源星数与权威机构维护记录，代码完全公开透明。"
-            : "Based on real GitHub stars and verified maintainer records, 100% public code.";
-          
-          const trustText = isZh ? (item.status?.trust_source_cn || item.status?.trust_source || "") : (item.status?.trust_source_en || item.status?.trust_source || "");
+          <!-- 平级维度 2: 为什么精选收录 -->
+          <div>
+            <span class="font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-1.5 mb-1.5 text-xs sm:text-[13px]">
+              <span class="w-1.5 h-1.5 rounded-full dot-brand shrink-0"></span>
+              ${t.whyChosenLabel}
+            </span>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed pl-3">${whyChosen}</p>
+          </div>
 
-          return `
-            <div class="text-xs rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-1.5">
-              <div class="flex items-center justify-between gap-1">
-                <span class="font-bold text-slate-700 dark:text-slate-300 block">${t.statusLabel}</span>
-                <button type="button" class="status-guide-trigger text-[11px] font-semibold text-brand dark:text-brand-container hover:underline cursor-pointer flex items-center gap-0.5" title="${t.statusGuideBtn}">
-                  ${t.statusGuideBtn}
-                </button>
-              </div>
-              <div class="flex flex-wrap gap-1.5 pt-0.5">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${stageColor}" title="${stageTooltip}">
-                  <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
-                  ${stageText}
-                </span>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200/80 text-slate-700 dark:bg-slate-700 dark:text-slate-300" title="${adoptionTooltip}">
-                  ${adoptionText}
-                </span>
-              </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5 leading-relaxed">${trustText}</p>
-            </div>
-          `;
-        })()}
-
-        <!-- Metadata -->
-        <div class="text-[11px] text-slate-400 dark:text-slate-500 space-y-0.5 pt-1">
-          <p><span class="font-semibold text-slate-600 dark:text-slate-400">${t.targetPersona}</span> ${item.target_persona}</p>
-          <p><span class="font-semibold text-slate-600 dark:text-slate-400">${t.supportedClients}</span> ${item.clients.join("、")}</p>
+          <!-- 平级维度 3: 准确使用时机 (完全平级排版，带清晰彩色提示圆点) -->
+          <div>
+            <span class="font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-1.5 mb-1.5 text-xs sm:text-[13px]">
+              <span class="w-1.5 h-1.5 rounded-full dot-timing shrink-0"></span>
+              ${t.whenToUseLabel}
+            </span>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed pl-3">${timingDesc}</p>
+          </div>
         </div>
       </div>
 
-      <!-- Card Action Footer -->
+      <!-- 4. Card Action Footer -->
       <div class="mt-4 flex flex-wrap items-center justify-between gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-        <div class="flex items-center gap-2">
-          <button data-details="${item.id}" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-brand/10 hover:bg-brand/20 text-brand dark:text-brand-container transition-colors cursor-pointer" title="${t.viewDetails}">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            ${t.viewDetails}
-          </button>
-          <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-        </div>
-        <button data-copy="${escapeHtml(item.action_content)}" class="btn-primary inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          ${t.copyCommand}
+        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+
+        <button data-details="${item.id}" class="btn-primary inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all shadow-sm cursor-pointer" title="${t.viewDetails}">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          ${t.viewDetails}
+          <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
     </div>
@@ -842,11 +748,28 @@ function openModal(id) {
     `;
   }
 
-  const titleEl = document.getElementById("modal-title");
-  if (titleEl) titleEl.textContent = item.name;
-
   const catEl = document.getElementById("modal-category");
   if (catEl) catEl.textContent = categoryTitle;
+
+  const titleEl = document.getElementById("modal-title");
+  const cleanTitle = getCleanTitle(item.name);
+  const repoSlug = getRepoSlug(item.name, item.url);
+  if (titleEl) {
+    titleEl.innerHTML = `
+      <div class="space-y-1">
+        <span class="block text-2xl font-black text-slate-900 dark:text-white">${escapeHtml(cleanTitle)}</span>
+        ${repoSlug ? `
+          <div class="flex items-center gap-2 pt-0.5">
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">所属开源项目:</span>
+            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono font-bold text-brand hover:underline inline-flex items-center gap-1">
+              <span>${escapeHtml(repoSlug)}</span>
+              <span class="text-[10px]">↗</span>
+            </a>
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
 
   const bodyEl = document.getElementById("modal-body");
   if (bodyEl) {
@@ -969,47 +892,38 @@ function openModal(id) {
 
       ${(() => {
         const hasReviews = item.third_party_reviews && item.third_party_reviews.length > 0;
-        
-        let contentHtml = "";
-        if (hasReviews) {
-          const revCards = item.third_party_reviews.map((rev) => {
-            const title = currentLang === "zh" ? rev.title_zh : rev.title_en;
-            const excerpt = currentLang === "zh" ? rev.excerpt_zh : rev.excerpt_en;
-            return `
-              <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800">
-                    ${t.reviewBadge}
-                  </span>
-                  <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
-                    ${escapeHtml(rev.source)}
-                  </span>
-                </div>
-                <div>
-                  <a href="${escapeHtml(rev.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-900 dark:text-slate-100 hover:text-brand dark:hover:text-brand-container text-xs sm:text-sm inline-flex items-center gap-1 group">
-                    <span>${escapeHtml(title)}</span>
-                    <span class="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
-                  </a>
-                  <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs mt-1">${escapeHtml(excerpt)}</p>
-                </div>
+        if (!hasReviews) return "";
+
+        const revCards = item.third_party_reviews.map((rev) => {
+          const title = currentLang === "zh" ? rev.title_zh : rev.title_en;
+          const excerpt = currentLang === "zh" ? rev.excerpt_zh : rev.excerpt_en;
+          return `
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 space-y-1.5 shadow-xs hover:border-brand/40 dark:hover:border-brand/40 transition-colors">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800">
+                  ${t.reviewBadge}
+                </span>
+                <span class="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+                  ${escapeHtml(rev.source)}
+                </span>
               </div>
-            `;
-          }).join("");
-          contentHtml = `<div class="space-y-2">${revCards}</div>`;
-        } else {
-          contentHtml = `
-            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed italic">
-              ${t.noReviewsNote}
-            </p>
+              <div>
+                <a href="${escapeHtml(rev.url)}" target="_blank" rel="noopener noreferrer" class="font-bold text-slate-900 dark:text-slate-100 hover:text-brand dark:hover:text-brand-container text-xs sm:text-sm inline-flex items-center gap-1 group">
+                  <span>${escapeHtml(title)}</span>
+                  <span class="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs">↗</span>
+                </a>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs mt-1">${escapeHtml(excerpt)}</p>
+              </div>
+            </div>
           `;
-        }
+        }).join("");
 
         return `
           <div class="p-4 rounded-2xl bg-indigo-50/50 dark:bg-slate-800/40 border border-indigo-100 dark:border-slate-800 space-y-2.5">
             <h4 class="font-extrabold text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5 text-xs sm:text-sm">
               ${t.reviewsLabel}
             </h4>
-            ${contentHtml}
+            <div class="space-y-2">${revCards}</div>
           </div>
         `;
       })()}

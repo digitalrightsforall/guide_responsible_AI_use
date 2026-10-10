@@ -48,16 +48,7 @@
       "how_aligned_zh": "遵循微软 Presidio 确立的 18 类个人身份数据分级与可逆假名化标准，在本地沙盒生成脱敏副本，阻断云端商业 AI 直接触碰原始敏感文件。",
       "how_aligned_en": "Directly implements the 18 PII entity recognition rules established by Microsoft Presidio, executing local reversible masking and pseudonymization."
     },
-    "third_party_reviews": [
-      {
-        "source": "AgentSkills Open Standard Catalog",
-        "title_zh": "AgentSkills 开放技能标准规范收录：本地隐私沙盒",
-        "title_en": "AgentSkills Open Standard: Local Privacy Sandbox Specification",
-        "url": "https://github.com/danyuchn/pii-guard#privacy-architecture",
-        "excerpt_zh": "被收录为 AgentSkills 推荐的本地脱敏隔离参考范式，强调云端大模型应作为非受信环境处理。",
-        "excerpt_en": "Cataloged as a reference pattern for untrusted LLM environments requiring pre-ingestion redaction."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "PIPL 第23条",
       "TC260-005"
@@ -294,16 +285,7 @@
       "how_aligned_zh": "严格遵循美国卫生健康部 HIPAA 安全港法案关于 18 类受保护健康信息（PHI）的剔除规则，防止个人医疗诊断记录被云端商业 AI 逆向比对。",
       "how_aligned_en": "Adheres to the 18 HIPAA identifier removal rules, preventing patient re-identification from commercial LLM inputs."
     },
-    "third_party_reviews": [
-      {
-        "source": "HuggingFace OpenMed Collection (Maziyar Panahi)",
-        "title_zh": "OpenMed 开源临床医疗数据治理规范与模型生态",
-        "title_en": "OpenMed Clinical Data Ingestion Standards & Governance",
-        "url": "https://github.com/maziyarpanahi/openmed#clinical-guidelines",
-        "excerpt_zh": "由顶尖开源医学 AI 团队维护，为临床医生与患者病历处理确立了严格的本地安全准入规范。",
-        "excerpt_en": "Maintained by leading medical AI researchers establishing strict clinical data isolation guidelines."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "HIPAA 18项去标识",
       "医疗数据合规"
@@ -362,16 +344,7 @@
       "how_aligned_zh": "基于微软 Presidio 开源匿名化引擎核心规范，实现精确的实体代换、假名化与可逆还原操作，保障文本交给大模型润色时个人隐私完全留在本地。",
       "how_aligned_en": "Implements Microsoft Presidio's reversible masking and pseudonymization architecture to protect text before cloud submission."
     },
-    "third_party_reviews": [
-      {
-        "source": "VectorSpaceLab AREX Skills Catalog",
-        "title_zh": "AREX 开源智能体工具箱官方收录规范",
-        "title_en": "VectorSpaceLab AREX Toolkit Standard Inclusion",
-        "url": "https://github.com/VectorSpaceLab/AREX-Skill#presidio-integration",
-        "excerpt_zh": "作为 AREX 智能体框架官方首层安全中间件收录，为所有上下文交互提供透明的脱敏拦截。",
-        "excerpt_en": "Integrated as standard first-layer safety middleware in the AREX agent toolkit."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "微软 Presidio 架构",
       "可逆假名化"
@@ -548,16 +521,7 @@
       "how_aligned_zh": "落实 Anthropic MCP 协议官方安全规范中的“最小权限”准则，针对本地 MCP 文件服务器与终端配置执行权限邻近性静态审计，严防过度授权。",
       "how_aligned_en": "Operationalizes Anthropic's official MCP least-privilege security guidelines to audit desktop file-system exposures."
     },
-    "third_party_reviews": [
-      {
-        "source": "Nova Hunting Security Research (305★)",
-        "title_zh": "Nova Hunting 智能体 MCP 权限邻近性与本地目录越权审计报告",
-        "title_en": "Nova Hunting: MCP Boundary Auditing & Privilege Proximity Analysis",
-        "url": "https://github.com/Nova-Hunting/nova-proximity#security-report",
-        "excerpt_zh": "开源研究团队针对 Anthropic MCP 客户端本地配置漏洞发布的专业防护分析报告。",
-        "excerpt_en": "Security research team report evaluating real-world configuration flaws in local MCP agent hosts."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "MCP 协议安全",
       "本地宿主隔离"
@@ -617,16 +581,7 @@
       "how_aligned_zh": "将工业界标准的 STRIDE 威胁建模方法论落地为 AI 可直接解析的资产保护清单，显式定义严禁提供给大模型的机密边界。",
       "how_aligned_en": "Translates industry-standard STRIDE threat modeling into explicit guardrails defining confidential assets forbidden from LLMs."
     },
-    "third_party_reviews": [
-      {
-        "source": "Tech Leads Club (6.6k★)",
-        "title_zh": "Tech Leads Club 架构师技能目录：应用安全威胁建模规范",
-        "title_en": "Tech Leads Club Skills Catalog: AppSec Threat Modeling Standards",
-        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(security)/security-threat-model",
-        "excerpt_zh": "收录于 6600+ 星的知名工程领导者开源套件，作为工程团队日常架构审查的标准插件。",
-        "excerpt_en": "Included in the 6.6k-star technical leadership repository as an architectural safety standard."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "STRIDE / DREAD",
       "大模型威胁建模"
@@ -926,16 +881,7 @@
       "how_aligned_zh": "遵循卡耐基梅隆大学可计算学术理念，将学术写作中的引用校验与代码执行环境深度绑定，自动输出全量引文真实性审计表。",
       "how_aligned_en": "Authored by renowned CMU computational researcher John Kitchin, embedding automated reference checking into workflows."
     },
-    "third_party_reviews": [
-      {
-        "source": "CMU Kitchin Research Group",
-        "title_zh": "卡耐基梅隆大学科研计算工具集 (Skillz)",
-        "title_en": "Carnegie Mellon University Scientific Computing Skillz Framework",
-        "url": "https://github.com/jkitchin/skillz",
-        "excerpt_zh": "由 CMU 教授亲自设计并用于日常计算研究与学术出版真实性校验的开源工具。",
-        "excerpt_en": "Official computational tool authored by CMU faculty for automated citation integrity checks."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "CMU 可计算论文",
       "代码与数据可复验"
@@ -1114,16 +1060,7 @@
       "how_aligned_zh": "依据追踪全球主流大模型真实幻觉率的 HHEM 分类器标准，在 RAG 检索回答生成时自动发起事实一致性纠偏。",
       "how_aligned_en": "Directly integrates the industry-standard HHEM benchmark to detect and correct factual drift in real time."
     },
-    "third_party_reviews": [
-      {
-        "source": "Vectara Engineering Official Blog",
-        "title_zh": "Vectara 官方工程博客：在企业级 RAG 智能体中度量与消除幻觉",
-        "title_en": "Vectara Blog: Measuring and Mitigating Hallucinations in Production RAG",
-        "url": "https://vectara.com/blog/measuring-hallucination-in-rag-systems/",
-        "excerpt_zh": "Vectara 官方详细解析如何通过其开源 Agent 技能将幻觉识别整合入生产级会话流程。",
-        "excerpt_en": "Vectara's engineering breakdown of incorporating hallucination correction skills into production agents."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Vectara HHEM",
       "全球事实一致性"
@@ -1183,16 +1120,7 @@
       "how_aligned_zh": "严格依照《自然·机器智能》关于 AI 仅作为结构与方法形式审查工具、人类保留实质裁量权的伦理标准，将双盲同行评审标准化为审查流水线。",
       "how_aligned_en": "Adheres to Nature Machine Intelligence ethics ensuring AI serves as a methodological sanity check while human peer review remains sovereign."
     },
-    "third_party_reviews": [
-      {
-        "source": "K-Dense AI Scientific Ecosystem (46k★)",
-        "title_zh": "K-Dense 科学智能体官方同行评审流水线",
-        "title_en": "K-Dense Scientific Agent Skills Catalog: Automated Peer Review",
-        "url": "https://github.com/K-Dense-AI/scientific-agent-skills#peer-review",
-        "excerpt_zh": "来自拥有 4.6 万 Star 的开源科学智能体项目，将期刊审稿人多轮评审方法固化为开箱即用的质量门禁。",
-        "excerpt_en": "From the 46k-star scientific agent suite, standardizing multi-reviewer journal auditing."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Nature 机器智能准则",
       "同行评审可解释"
@@ -1252,16 +1180,7 @@
       "how_aligned_zh": "贯彻“无确凿证据即保持沉默 (Evidence or silence)”的实证架构准则，任何主观技术推论若无一手命令或代码依据直接判定为不合格。",
       "how_aligned_en": "Reflects foundational software engineering principles where technical decisions must be backed by verifiable evidence."
     },
-    "third_party_reviews": [
-      {
-        "source": "Tech Leads Club (6.6k★)",
-        "title_zh": "Tech Leads Club 架构师技能集：严苛品质法官 (The Judge) 准则",
-        "title_en": "Tech Leads Club: The Judge Quality & Evidence-Or-Silence Standard",
-        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(quality)/the-judge",
-        "excerpt_zh": "收录于 6600+ 星的架构师技能库，作为软件交付验收前杜绝 AI 猜想的硬性门禁。",
-        "excerpt_en": "Included in the 6.6k-star engineering catalog enforcing empirical evidence before PR approvals."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Martin Fowler 准则",
       "实证决策架构"
@@ -1321,16 +1240,7 @@
       "how_aligned_zh": "依托诺贝尔经济学奖得主卡尼曼对抗认知偏误的“慢思考”理论，利用莎士比亚弄臣机制强制智能体专职挖掘方案中被忽略的荒谬假设。",
       "how_aligned_en": "Forces deliberate 'System 2' friction into AI discussions, countering conversational confirmation bias."
     },
-    "third_party_reviews": [
-      {
-        "source": "Tech Leads Club (6.6k★)",
-        "title_zh": "莎士比亚弄臣机制：打破决策盲区与回音室效应的批判性思考协议",
-        "title_en": "Tech Leads Club: The Court Jester Protocol for Breaking Cognitive Bias",
-        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(critical-thinking)/the-fool",
-        "excerpt_zh": "收录于顶尖工程领导者仓库，专职作为打破管理层回音室效应的反常识质询工具。",
-        "excerpt_en": "Featured in the 6.6k-star repository as a dedicated critical inquiry tool breaking executive echo chambers."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "双系统认知防偏",
       "苏格拉底反诘"
@@ -1570,16 +1480,7 @@
       "how_aligned_zh": "将哈佛商业评论经典的“事前尸检”决策法转化为技能守则：提前假定方案已彻底惨败，让 AI 倒推核心致败因素并给出补救防线。",
       "how_aligned_en": "Implements Gary Klein's HBR management methodology assuming project failure in advance to uncover blind spots."
     },
-    "third_party_reviews": [
-      {
-        "source": "Academic Research Skills (49k★)",
-        "title_zh": "4.9 万星顶尖学术研究技能库：恶魔代言人严苛审稿智能体",
-        "title_en": "Academic Research Skills (49k★ Stars): Devil's Advocate Reviewer",
-        "url": "https://github.com/Imbad0202/academic-research-skills#devils-advocate",
-        "excerpt_zh": "收录于 4.9 万 Star 的顶尖科研工具库，作为学术同行苛刻评审的模拟标准。",
-        "excerpt_en": "Included in the 49k-star scholarly repository emulating adversarial peer review."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "事前尸检 (Pre-Mortem)",
       "重大决策防灾"
@@ -1759,16 +1660,7 @@
       "how_aligned_zh": "依托孔多塞陪审团定理数学模型，通过唤起多名独立子智能体进行背靠背盲审与法定反对者打分，击碎群体迷思与顺从回音室。",
       "how_aligned_en": "Mathematical foundation of collective intelligence proving independent anonymous jurors drastically outperform any single oracle."
     },
-    "third_party_reviews": [
-      {
-        "source": "Tech Leads Club (6.6k★)",
-        "title_zh": "Tech Leads Club 架构师技能集：多智能体匿名盲审陪审团 (The Jury)",
-        "title_en": "Tech Leads Club: The Multi-Agent Blind Jury Deliberation Protocol",
-        "url": "https://github.com/tech-leads-club/agent-skills/tree/main/packages/skills-catalog/skills/(decision-making)/the-jury",
-        "excerpt_zh": "收录于架构师顶尖技能库，将关键决策分散到多角色盲审机制中避免单点误导。",
-        "excerpt_en": "Featured in the 6.6k-star technical leadership repository for consensus deliberation."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "孔多塞陪审团定理",
       "分布式群体决策"
@@ -1828,16 +1720,7 @@
       "how_aligned_zh": "落实 Anthropic 官方提出的“AI Fluency”用户赋能规范，在回答末尾温和注入审慎思考阻尼，引导人类自主核实关键假设。",
       "how_aligned_en": "Advocates gentle cognitive friction at completion to ensure human accountability is never abdicated to algorithms."
     },
-    "third_party_reviews": [
-      {
-        "source": "Anthropic Official Skills Repository (177k★)",
-        "title_zh": "Anthropic 官方技能库收录：鉴别力提醒 (Discernment Nudge) 官方规范",
-        "title_en": "Anthropic Official Skills: Discernment Nudge (177k★ Stars)",
-        "url": "https://github.com/anthropics/skills/tree/main/skills/discernment-nudge",
-        "excerpt_zh": "Anthropic 官方亲自研发维护的旗舰技能，作为人机协作批判性思考的示范标准。",
-        "excerpt_en": "Anthropic's flagship skill designed to instill healthy critical skepticism and real-world verification habits in users."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Anthropic AI Fluency",
       "认知阻尼防盲从"
@@ -1896,16 +1779,7 @@
       "how_aligned_zh": "确立严格的技术定力守则，明令禁止智能体在收到评审意见时轻率说出“您说得对，我马上改”，必须先经技术推导验证意见合理性。",
       "how_aligned_en": "Forbids submissive compliance by demanding empirical technical verification before accepting code critiques."
     },
-    "third_party_reviews": [
-      {
-        "source": "Marc Nuri Tech Blog",
-        "title_zh": "Marc Nuri 深度评测：Superpowers 智能体技能框架中的代码评审守则",
-        "title_en": "Superpowers: The Claude Code Skills Framework Shipped as Markdown",
-        "url": "https://marcnuri.com/superpowers-an-agentic-skills-framework/",
-        "excerpt_zh": "资深开发者 Marc Nuri 撰写长文高度评价 Superpowers 规范智能体对待评审意见的态度，拒绝无脑盲从。",
-        "excerpt_en": "Marc Nuri's technical review highlighting Superpowers' opinionated rules preventing coding agents from blindly breaking valid code."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Superpowers 铁律",
       "反盲从代码评审"
@@ -2084,16 +1958,7 @@
       "how_aligned_zh": "遵循开源促进会关于人机协作代码透明性的倡议，自动在 GitHub PR 描述中清晰标注 AI 参与的模块边界与测试覆盖情况。",
       "how_aligned_en": "Advocates honest disclosure preventing developers from dumping unverified AI-generated code onto open-source maintainers."
     },
-    "third_party_reviews": [
-      {
-        "source": "Harlan Wilt (Nuxt Core Team)",
-        "title_zh": "Harlan Agent Kit 开源贡献透明度声明规范",
-        "title_en": "Harlan Agent Kit: Transparent AI Disclosure PR Gate",
-        "url": "https://github.com/harlan-zw/harlan-agent-kit#pr-gate",
-        "excerpt_zh": "知名 Nuxt 核心维护者编写的开源工具，为开源社区维护者提供透明可信的 AI 代码提交范本。",
-        "excerpt_en": "Authored by prominent Nuxt maintainer, injecting transparent AI disclosures and test boundaries into open-source PRs."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "OSI 开源 AI 披露",
       "代码协作透明度"
@@ -2392,24 +2257,7 @@
       "how_aligned_zh": "落实 GitHub 29 万星现象级框架的绝对铁律：严禁在未出示最新测试或命令输出通过证据前宣称任务完成或直接交付。",
       "how_aligned_en": "The legendary 'Iron Law' in Jesse Vincent's 290k-star framework: absolute prohibition on claiming completion without fresh command output."
     },
-    "third_party_reviews": [
-      {
-        "source": "Marc Nuri Tech Blog",
-        "title_zh": "Marc Nuri 独立技术评测：Superpowers 智能体技能框架全解析",
-        "title_en": "Superpowers: The Claude Code Skills Framework Shipped as Markdown",
-        "url": "https://marcnuri.com/superpowers-an-agentic-skills-framework/",
-        "excerpt_zh": "开发者 Marc Nuri 撰文详细剖析 Superpowers 的工程规范，称赞其通过 Markdown 技能为智能体注入严苛的完成前验证纪律。",
-        "excerpt_en": "In-depth review praising Superpowers for enforcing rigorous testing discipline and verification-before-completion without proprietary SDKs."
-      },
-      {
-        "source": "GitConnected (Level Up Coding)",
-        "title_zh": "GitConnected 专题报道：面向现代开发者的 Agentic Skills 纪律架构",
-        "title_en": "Discipline in AI Coding Agents: The Superpowers Methodology",
-        "url": "https://gitconnected.com/",
-        "excerpt_zh": "技术社区重点介绍将‘先出示测试结果再汇报完成’固化为技能守则，有效终结了 AI 编码时的谎报与敷衍。",
-        "excerpt_en": "Highlights the evidence-first verification workflow as an essential methodology preventing premature agent success claims."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "Superpowers 铁律",
       "交付前实测举证"
@@ -2469,24 +2317,7 @@
       "how_aligned_zh": "直接依托维基百科官方编辑社群制定的反 AI 文本典型特征指南，在公开发布前清除空洞排比、过度乐观与机械三段论等刻板“AI 腔调”。",
       "how_aligned_en": "Official Wikipedia editorial guideline identifying robotic tells, hollow triads, exaggerated optimism, and cliché AI phrasing."
     },
-    "third_party_reviews": [
-      {
-        "source": "Dev.to Technical Review",
-        "title_zh": "Dev.to 社区深度评测：Humanizer 如何洗去 AI 写作的机械味",
-        "title_en": "Stripping Away AI Tells with Humanizer SKILL.md",
-        "url": "https://dev.to/",
-        "excerpt_zh": "开发者社区详尽测试了 Humanizer 在保留原意的前提下剥离机器特征的表现，称其为最实用的发布前文本打磨技能。",
-        "excerpt_en": "Detailed review evaluating Humanizer's two-pass process for removing synthetic tropes while preserving core factual claims."
-      },
-      {
-        "source": "TypingMind Agent Skills Directory",
-        "title_zh": "TypingMind 官方技能生态精选收录",
-        "title_en": "TypingMind Curated Agent Skills Catalog Inclusion",
-        "url": "https://typingmind.com/",
-        "excerpt_zh": "作为热门写作润色技能被主流桌面智能体客户端官方技能库重点收录推介。",
-        "excerpt_en": "Featured prominently in mainstream desktop agent environments as an essential writing polish skill."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "维基百科去 AI 味",
       "反空洞套话规范"
@@ -2546,16 +2377,7 @@
       "how_aligned_zh": "依据 FTC 广告真实性与事先实证（Prior Substantiation）法定原则，自动识别绝对化断言、未证实疗效与对比性营销说辞，强制提供实证支持或进行合规降级改写。",
       "how_aligned_en": "Directly enforces FTC prior substantiation doctrine, classifying absolute and comparative claims in AI text to prevent misleading advertising and regulatory enforcement."
     },
-    "third_party_reviews": [
-      {
-        "source": "Anthropic Claude for Legal Suite",
-        "title_zh": "Anthropic 官方法务与合规智能体套件发布公告",
-        "title_en": "Anthropic Claude for Legal Suite: Automated Marketing Claims Review",
-        "url": "https://github.com/anthropics/claude-for-legal#readme",
-        "excerpt_zh": "官方开源的法务与合规自动化工具套件，获 9.5k★ 关注，专为产品经理与市场运营防范虚假陈述与法律暴露设计。",
-        "excerpt_en": "Official open-source legal AI suite with 9.5k★, engineered to safeguard product and marketing teams against unsubstantiated liabilities."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "广告法第9条/28条",
       "FTC 广告实证原则"
@@ -2614,16 +2436,7 @@
       "how_aligned_zh": "全面实施 W3C WCAG 2.1 AA 级四大无障碍支柱（可感知、可操作、可理解、健壮性），在前端页面发布前强制核验屏幕阅读器标签、焦点导航与色彩对比度。",
       "how_aligned_en": "Implements W3C WCAG 2.1 AA (POUR) criteria across generated frontend code, validating ARIA tags, contrast ratios, and screen-reader compatibility."
     },
-    "third_party_reviews": [
-      {
-        "source": "Tech Leads Club Quality Suite",
-        "title_zh": "Tech Leads Club 生产级工程质量控制技能套件",
-        "title_en": "Tech Leads Club Production Quality & Accessibility Catalog",
-        "url": "https://github.com/tech-leads-club/agent-skills#readme",
-        "excerpt_zh": "收录于 Tech Leads Club 6.6k★ 核心质量套件，被多个开源前端项目采用作为代码合入前的数字无障碍强制核验门禁。",
-        "excerpt_en": "Cataloged in Tech Leads Club (6.6k★) quality suite, widely utilized as a mandatory gate for digital accessibility compliance."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "无障碍环境建设法",
       "WCAG 2.1 AA"
@@ -2682,16 +2495,7 @@
       "how_aligned_zh": "整合 OWASP Top 10 漏洞审计模型与 Gitleaks 凭证规则库，对智能体产出的代码补丁执行自动化 Diff 扫描，拦截 API 密钥、数据库连接串与越权风险。",
       "how_aligned_en": "Combines OWASP Top 10 vulnerability heuristics with Gitleaks secret pattern recognition, intercepting hardcoded credentials and CVE risks in agent PR diffs."
     },
-    "third_party_reviews": [
-      {
-        "source": "Consensys Security Tooling",
-        "title_zh": "Consensys 官方代码库安全审查与凭证防泄露技能",
-        "title_en": "Consensys Repository Security Review Skill",
-        "url": "https://github.com/Consensys/repo-security-review#readme",
-        "excerpt_zh": "由知名区块链安全与基础设施机构 Consensys 开源，针对大模型自主生成代码时的凭证残留与漏洞提供流水线级硬性阻断。",
-        "excerpt_en": "Open-sourced by Consensys, providing automated pipelines to halt credential leakage and critical vulnerabilities in agent-generated PRs."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "OWASP 凭证防泄漏",
       "Gitleaks 扫描"
@@ -2750,16 +2554,7 @@
       "how_aligned_zh": "严格贯彻国际 ISO/IEC 5962:2021 SPDX 机器可读协议标签与 Apache 基金会官方三方依赖兼容性政策（Category A/B/X），防止代码库遭受不兼容协议污染。",
       "how_aligned_en": "Enforces ISO/IEC 5962:2021 SPDX identification and Apache 3rd-party licensing policies, preventing copyleft contamination and uncredited code imports."
     },
-    "third_party_reviews": [
-      {
-        "source": "Apache Software Foundation Magpie",
-        "title_zh": "Apache 官方智能体项目 Magpie：许可证合规审计技能",
-        "title_en": "Apache Magpie: Agent-Assisted License Compliance Audit",
-        "url": "https://github.com/apache/magpie#readme",
-        "excerpt_zh": "由全球最大的开源软件基金会 Apache 官方主导研发，专为大模型辅助开发时的开源许可证与著作权合规门禁量身定制。",
-        "excerpt_en": "Engineered directly by the Apache Software Foundation to govern AI-generated contributions under rigorous open-source IP policies."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "SPDX 标准",
       "防 GPL 传染"
@@ -2818,16 +2613,7 @@
       "how_aligned_zh": "针对 OWASP Agentic Top 10 核心风险‘过度授权 (Excessive Agency)’与级联故障，落实系统级沙盒隔离控制，把智能体的物理破坏半径限制在零。",
       "how_aligned_en": "Implements deterministic isolation controls against OWASP Agentic Top 10 Excessive Agency and cascading failures, restricting agent destructive radius to zero."
     },
-    "third_party_reviews": [
-      {
-        "source": "AI Agent Security Insights 2026",
-        "title_zh": "Agent 执行安全前沿评测：基于微虚拟机的沙盒隔离实践",
-        "title_en": "Agentic Action Security: MicroVM Sandbox Isolation in Practice",
-        "url": "https://github.com/disler/agent-sandbox-skill#readme",
-        "excerpt_zh": "将代码执行与宿主机物理隔离是防范间接注入导致远程代码执行（RCE）的确定性防线，被视为 2026 年个人 Agent 标配防护技能。",
-        "excerpt_en": "Hard isolation via ephemeral microVMs provides deterministic defense against prompt-injection-driven remote code execution on developer machines."
-      }
-    ],
+    "third_party_reviews": [],
     "regulatory_badges": [
       "E2B 沙盒",
       "宿主机防逃逸"

@@ -708,3 +708,177 @@ body {
   }
 }
 
+/* ==========================================================================
+   V2 Design Exploration: Lightweight Cards ("A tease, not a summary") & Themed Bands
+   Inspired by Harvard Civic Skill Exchange architecture
+   ========================================================================== */
+
+/* 1. Themed Bands (Full-bleed Rhythm & Governance) */
+.v2-band {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(94, 64, 224, 0.15);
+  background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+  color: #f8fafc;
+}
+.dark .v2-band {
+  border-color: rgba(195, 184, 255, 0.2);
+  background: linear-gradient(135deg, #13112c 0%, #090d16 100%);
+}
+
+.v2-band-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.v2-band-pillar {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.15rem 1.25rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.v2-band-pillar:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 2. V2 Streamlined Cards ("A tease, not a summary") */
+.v2-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.35rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+}
+
+.dark .v2-card {
+  background-color: #161b22;
+  border-color: #30363d;
+}
+
+.v2-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94, 64, 224, 0.35);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.06), 0 4px 8px -4px rgba(0, 0, 0, 0.03);
+}
+
+.dark .v2-card:hover {
+  border-color: rgba(195, 184, 255, 0.35);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.35);
+}
+
+.v2-card.card-ready {
+  border-top: 3px solid #10b981;
+}
+.dark .v2-card.card-ready {
+  border-top: 3px solid #059669;
+}
+
+.v2-card.card-setup {
+  border-top: 3px solid #f59e0b;
+}
+.dark .v2-card.card-setup {
+  border-top: 3px solid #d97706;
+}
+
+.v2-card-lede {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #475569;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.dark .v2-card-lede {
+  color: #94a3b8;
+}
+
+.v2-tag-client {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+.dark .v2-tag-client {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.v2-btn-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: rgba(94, 64, 224, 0.08);
+  color: var(--primary);
+  border: 1px solid rgba(94, 64, 224, 0.15);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.dark .v2-btn-details {
+  background-color: rgba(195, 184, 255, 0.1);
+  color: var(--primary-container);
+  border-color: rgba(195, 184, 255, 0.2);
+}
+.v2-btn-details:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateX(2px);
+}
+.dark .v2-btn-details:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.v2-btn-copy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.6875rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #1e293b;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  max-width: 140px;
+}
+.v2-btn-copy-chip:hover {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #ffffff;
+}
+
+/* Co-equal indicator dots */
+.dot-amber {
+  background-color: #f59e0b;
+}
+.dot-brand {
+  background-color: #5e40e0;
+}
+.dot-timing {
+  background-color: #10b981;
+}
+
+
+

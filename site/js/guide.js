@@ -751,7 +751,7 @@ const guideContent = {
 
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
           <p class="leading-relaxed">
-            今天，大语言模型（LLM）与生成式人工智能正以不可逆转的速度渗透进每一个人的工作与生活。无论是写一份周报、整理学术文献、编写一段业务代码，还是起草一份营销文案，我们都在被动或主动地向这些“黑盒”输入自己的工作内容、私人数据与未公开构想。
+            今天，大语言模型（LLM）与生成式人工智能正在被广泛应用于日常办公与专业研究中。无论是写一份周报、整理学术文献、编写一段业务代码，还是起草一份营销文案，我们都在被动或主动地向这些“黑盒”输入自己的工作内容、私人数据与未公开构想。
           </p>
 
           <p class="leading-relaxed font-medium text-slate-800 dark:text-slate-100">
@@ -815,7 +815,7 @@ const guideContent = {
                       <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
-                      法院裁定自然人声音权益独立于录音制品著作权，未经单独明示授权不得将录音制作成 AI 商业模型。<strong>警示：取得同事录音或客户素材的使用权限，绝不代表可以随意上传投喂给 AI！</strong>
+                      法院裁定自然人声音权益独立于录音制品著作权，未经单独明示授权不得将录音制作成 AI 商业模型。<strong>提示：取得同事录音或客户素材的使用权限，并不包含将其用于 AI 模型训练或云端处理的许可。</strong>
                     </p>
                     <div class="pt-1.5">
                       ${makeIncidentPill('case-ai-voice-bj-2023', '查看殷某某案完整判决与防御要点 ↗')}
@@ -1042,7 +1042,7 @@ const guideContent = {
               <li><strong>关闭 Memory ≠ 既有 Memory 已删除</strong>：豆包、WorkBuddy、ChatGPT 均明确既有记忆为独立存储，关闭记忆开关仅阻断新记忆的生成，旧记忆库依然常驻生效。</li>
               <li><strong>删除源对话 ≠ 对应提取的 Memory 被删除</strong>：删除产生某条记忆的原始会话，不会触发对提炼事实的级联清除，必须前往专门的记忆空间单独注销。</li>
               <li><strong>删除 Conversation ≠ 上传文件同步删除</strong>：在知识库与 Agent 类平台中，单次会话与知识库/附件解耦，删除聊天界面并不销毁后台已持久化的文件与嵌入向量。</li>
-              <li><strong>《网络安全法》第21条留存 6 个月 ≠ 所有聊天正文必须保存 6 个月</strong>：法律强制留存的法定对象是<strong>“相关网络运行与安全日志”</strong>，而非用户输入的完整提示词与私有正文。绝不能拿合规为服务商的无节制留存找借口。</li>
+              <li><strong>《网络安全法》第21条留存 6 个月 ≠ 所有聊天正文必须保存 6 个月</strong>：法律强制留存的法定对象是<strong>“相关网络运行与安全日志”</strong>，而非用户输入的完整提示词与私有正文；合规日志要求并不包含完整保存用户输入正文的许可。</li>
             </ul>
           </details>
 
@@ -1179,7 +1179,7 @@ const guideContent = {
       </details>
 
       <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2 mt-4">
-        <span>💡 关好这几个基础开关后，如何在日常对话与交互中真正筑牢防线？</span>
+        <span>💡 完成基础配置后，在日常对话与交互中还需要注意哪些事项？</span>
         <a href="#chapter-3" class="text-brand font-bold hover:underline flex items-center gap-1">
           <span>进入第 3 章：掌握三大安全支柱与四大日常追问 ➔</span>
         </a>
@@ -1209,7 +1209,7 @@ const guideContent = {
                 支柱一 · AI 知道什么？
               </span>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>数据保密与边界控制 (Confidentiality & Boundary)</strong>：不仅看 Prompt 敲了什么，还要看 Memory 存了什么、RAG 索引了什么、连接了什么本地文件与邮箱权限。对齐《个人信息保护法》(PIPL) 第6条最小必要、第13条授权同意与第23条向第三方提供数据的单独同意义务，严守 NIST AI 600-1 与 OWASP LLM02 敏感数据防泄漏底线。
+                <strong>数据保密与边界控制 (Confidentiality & Boundary)</strong>：不仅看 Prompt 敲了什么，还要看 Memory 存了什么、RAG 索引了什么、连接了什么本地文件与邮箱权限。对齐《个人信息保护法》(PIPL) 第6条最小必要、第13条授权同意与第23条向第三方提供数据的单独同意义务，参考 NIST AI 600-1 与 OWASP LLM02 规范防范敏感数据泄露。
               </p>
             </div>
             <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
@@ -1326,7 +1326,7 @@ const guideContent = {
                       • <strong>OWASP Top 10 for LLM</strong>：<strong>LLM06</strong>
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
-                      对话型 AI 答错只消耗电费，智能体 Agent 动作错误直接抹除文件或转账。必须落实“默认权限”与不可逆操作强人工审批。
+                      对话型 AI 答错只消耗电费，智能体 Agent 动作错误直接抹除文件或转账。必须落实最小权限原则，关键系统操作需经过人工确认。
                     </td>
                   </tr>
                 </tbody>
@@ -1347,7 +1347,7 @@ const guideContent = {
                   纵深一：对内·自我防护与边界保护
                 </span>
                 <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  在信息离开你的电脑、输入到模型云端前，强制执行本地脱敏与沙盒隔离；在与模型交互时，始终保持对抗性质疑，绝不把独立判断与最终决策权出让给算法。
+                  在信息离开你的电脑、输入到模型云端前，强制执行本地脱敏与沙盒隔离；与模型交互时应保持独立审视，由人做出最终判断与决策。
                 </p>
               </div>
               <div class="p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-1.5 shadow-xs">
@@ -1382,7 +1382,7 @@ const guideContent = {
               </div>
               <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
                 <span class="font-bold text-rose-600 dark:text-rose-400">🔴 替代 (Substitution)</span>
-                <p class="text-slate-600 dark:text-slate-400 mt-1">“读完这个，替我下结论并写好”。AI 接管判断，人类沦为敲章机器（极其危险）。</p>
+                <p class="text-slate-600 dark:text-slate-400 mt-1">“读完这个，替我下结论并写好”。AI 接管判断，人类审核流于形式，增加决策风险。</p>
               </div>
             </div>
           </div>
@@ -2004,7 +2004,7 @@ const guideContent = {
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
             titleEn: "Agent Execution Isolation Pipeline",
-            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒物理隔离。",
+            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒隔离。",
             subtitleEn: "Pipeline: Command interception → Privilege boundary → Micro-VM sandbox isolation.",
             primary: [
               {
@@ -2026,7 +2026,7 @@ const guideContent = {
             <span>4.5 交付成果前 · 广告虚假宣传审查与许可证核对 (Pre-Handoff)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            这是负责任 AI 工作流中具有法律效力的最后关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭直觉直接放行。在法律层面上，<strong>AI 从来不是法律责任的主体，任何生成物均由使用者与发布企业承担完全法律责任</strong>。未经门禁校验的内容可能瞬间触发市场监管部门的行政处罚罚单、无障碍侵权纠纷、密钥失窃灾难，乃至开源侵权诉讼。
+            这是内容发布前的合规核验环节。当一段由 AI 辅助生成的代码、文案或产品页面准备对外发布时，需要经过实质性核对。在法律层面上，<strong>AI 并非法律责任主体，生成内容的法律责任由使用者与发布方承担</strong>。未经核对的内容可能面临行政处罚、无障碍合规纠纷、密钥泄漏或开源许可证违规等风险。
           </p>
 
           <!-- Real-world Incident Alert Banner -->
@@ -2142,7 +2142,7 @@ const guideContent = {
               <li><strong>FTC "Operation AI Comply" 国际对比</strong>：美国 FTC 严厉打击缺乏实证支持的 AI 吹嘘（AI Washing）：DoNotPay 因宣传所谓“世界首个机器人律师”被罚款 19.3 万美元并被严禁无实证宣传；2026 年 8 月 CMG Media 等三家公司因虚假宣称 AI“Active Listening”监听消费者语音定向广告和解支付 93 万美元；Air AI 2026 年 3 月因虚假商业机会承诺达成和解。核心在于 Substantiation（每一项效能声称必须具备严密证据支撑）。</li>
               <li><strong>无障碍标准与法定指引</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条规定利用财政资金设立的网站逐步符合无障碍标准，并鼓励公共服务网站提升无障碍水平。W3C WCAG 2.1 AA 国际准则是工程设计的重要基线（如色彩对比度通常不低于 4.5:1，交互控件支持纯键盘导航与语义回退）。</li>
               <li><strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中级人民法院于 2024 年 12 月 30 日终审判决的标志性案件。一审认定“触手 AI”平台提供奥特曼 LoRA 模型训练并在模型广场分发、设立“IP作品”专区且具备低成本事前过滤能力而未采取必要措施，构成信息网络传播权之<strong>帮助侵权</strong>，判令下架并赔偿损失；二审驳回上诉、维持原判。该案确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。</li>
-              <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 代码补全绝不是许可证清洗机，CI/CD 必须强制引入 SCA 与 SBOM 比对；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
+              <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 生成的代码同样受上游开源许可证约束，在持续集成中应引入依赖检查与 SBOM 审计；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
               <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>注意：“本内容由 AI 生成”仅属于来源披露义务，并不免除发布者的法律侵权或广告违法责任。</strong></li>
             </ul>
           </details>
@@ -2193,7 +2193,7 @@ const guideContent = {
             <span>4.6 长期归档时 · 记录人机分工说明与生成凭据 (Post-Session)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            一个负责任的协作闭环包括两个动作：其一，清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终文本进行去套路润色，消除机械腔调。核心原则是：<strong>未经测试验证通过，不应宣称任务完成。</strong>
+            一个规范的协作流程包括两个环节：其一，清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终文本进行去套路润色，消除机械腔调。核心原则是：<strong>未经测试验证通过，不应宣称任务完成。</strong>
           </p>
 
           <!-- Tiered Actions (plain-reader) -->
@@ -2227,7 +2227,7 @@ const guideContent = {
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
             titleEn: "Post-Session & Completion Verification Pipeline",
-            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。构成完整闭环交付双保险。",
+            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。作为发布前的验证与文字润色环节。",
             subtitleEn: "Pipeline: Mandatory verification before completion → Humanized style rewriting.",
             primary: [
               {
@@ -2317,11 +2317,11 @@ const guideContent = {
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 14:00 · 综述引文 CrossRef 自动化验真与裁判官质证</span>
-                大模型生成文献综述与论据支撑后，坚决执行“默认虚构”零信任查验。调用 ${makePill("bibref-verify", "bibref-verify · 参考文献精准核验")} 自动请求 CrossRef REST API 与 PubMed 数据库，逐条校验 DOI、卷期与出版元数据真实性；同时调用 ${makePill("the-judge", "the-judge · 裁判官逻辑交叉质证")} 模拟同行评审专家对核心论点与引证逻辑展开双向交叉质询，挤出概率拼凑的水分。
+                模型生成文献综述与论据后，需进行逐条真实性核验。调用 ${makePill("bibref-verify", "bibref-verify · 参考文献精准核验")} 自动请求 CrossRef REST API 与 PubMed 数据库，逐条校验 DOI、卷期与出版元数据真实性；同时调用 ${makePill("the-judge", "the-judge · 裁判官逻辑交叉质证")} 模拟同行评审专家对核心论点与引证逻辑展开双向交叉质询，挤出概率拼凑的水分。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 17:30 · 期刊透明度附录与 Nature CRediT 贡献者陈述</span>
-                在向顶刊、毕业答辩委员会或导师交付论文定稿前，杜绝“隐瞒使用”或“敷衍声明”。调用 ${makePill("ai-disclosure-convention", "ai-disclosure-convention · 学术出版 AI 披露规范")}，严格遵照 Nature 与 ICMJE 作者贡献分类标准（CRediT Taxonomy），生成详尽的《AI 辅助工作流透明度附录》（明晰披露 AI 仅用于文献语法润色，所有学术推演与结论由人类作者独立签署），筑牢学术声誉防线。
+                在向顶刊、毕业答辩委员会或导师交付论文定稿前，杜绝“隐瞒使用”或“敷衍声明”。调用 ${makePill("ai-disclosure-convention", "ai-disclosure-convention · 学术出版 AI 披露规范")}，严格遵照 Nature 与 ICMJE 作者贡献分类标准（CRediT Taxonomy），生成详尽的《AI 辅助工作流透明度附录》（明晰披露 AI 仅用于文献语法润色，所有学术推演与结论由人类作者独立签署），保障学术诚信与成果的可追溯性。
               </div>
             </div>
           </div>
@@ -2369,7 +2369,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与法律合规红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>凭证外泄、公网裸露与开源协议合规三重风险</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；此外，AI 生成代码若混入 GPLv3/AGPLv3 传染性协议代码，可能触碰《最高法(2021)最高法知民终2063号》判例所确立的底线，使项目面临源码披露义务或著作权侵权指控。离职带走系统调优 Prompt 模板亦已被正式定性为侵犯商业秘密违法行为。
+                <strong>凭证外泄、公网裸露与开源协议合规三重风险</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；此外，AI 生成代码若混入 GPLv3/AGPLv3 传染性协议代码，可能违反《最高法(2021)最高法知民终2063号》判例中的合规要求，使项目面临源码披露义务或著作权侵权指控。离职带走系统调优 Prompt 模板亦已被正式定性为侵犯商业秘密违法行为。
               </p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密侵权案罚款35万 ↗')}
@@ -2385,7 +2385,7 @@ const guideContent = {
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 10:00 · 生产配置本地抹除与微虚拟机物理隔离执行</span>
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 10:00 · 生产配置本地抹除与微虚拟机沙盒执行</span>
                 在将报错堆栈或代码段提交模型调试前，本地调用 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")} 自动用正则与高熵检测抹去私钥、JWT Token、内网 IP 与数据库密码；对 Agent 自动执行的重构测试与 Shell 脚本，强制调用 ${makePill("agent-sandbox-skill", "agent-sandbox-skill · 微虚拟机沙盒执行隔离")} 在抛弃式 E2B 微虚拟机中隔绝运行，杜绝宿主机裸机执行风险。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
@@ -2432,7 +2432,7 @@ const guideContent = {
                 <span>1. 真实工作痛点与诱惑 (Temptation &amp; Pain Point)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                面对电商大促倒计时、多渠道自媒体矩阵批量推文以及活动推广落地页的高频上线需求，文案专员每天需要创作数十套爆款标题、产品详情页与宣发文案。为迅速夺取用户注意力，极其容易顺从大模型生成的极具煽动性、但充斥着夸大修辞的草稿直接发布。
+                面对电商大促倒计时、多渠道自媒体矩阵批量推文以及活动推广落地页的高频上线需求，文案专员每天需要创作数十套爆款标题、产品详情页与宣发文案。为迅速夺取用户注意力，容易直接采纳大模型生成的包含夸大修辞的草稿。
               </p>
             </div>
 
@@ -2465,7 +2465,7 @@ const guideContent = {
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 15:30 · 中国《广告法》与 FTC 标准逐句实质合规审核</span>
-                在文案交付视觉设计排版前，调用 ${makePill("marketing-claims-review", "marketing-claims-review · 广告法与 FTC 审查门禁")} 按照中国《广告法》与美国 FTC Substantiation 法则逐句进行合规筛查，强制要求文案中每一个功能参数与功效声称（如“续航长达48小时”、“效率提升30%”）均必须附带经权威机构检测报告支撑的客观证据锚点，坚决剔除“最、首选、顶级”等违法极端用语。
+                在文案交付视觉设计排版前，调用 ${makePill("marketing-claims-review", "marketing-claims-review · 广告法与 FTC 审查门禁")} 按照中国《广告法》与美国 FTC Substantiation 法则逐句进行合规筛查，强制要求文案中每一个功能参数与功效声称（如“续航长达48小时”、“效率提升30%”）均必须附带经权威机构检测报告支撑的客观证据锚点，排查并剔除“最、首选、顶级”等违反广告法的极限词。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 18:00 · 营销落地页 W3C WCAG 2.1 AA 读屏与对比度门禁</span>
@@ -2536,7 +2536,7 @@ const guideContent = {
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 09:30 · 涉密公文与会议纪要本地离线脱敏（严禁云端听会）</span>
-                坚决断开并禁用任何带“云端同步”、“AI 听会”或自动上传的第三方商业录音转写工具；针对包含内部管理与非核心业务内容的纪要，在本地电脑离线环境中调用 ${makePill("presidio-anonymize-text", "presidio-anonymize-text · 微软标准文本匿名化")} 与 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")}，利用 NLP 实体识别技术将领导真实姓名、内部项目敏感代号、未公开财务指标替换为标准类型化稳态占位符（如 <code>[DEPT_HEAD_A]</code>、<code>[PROJECT_ALPHA]</code>、<code>[METRIC_VALUE_X]</code>）；本地生成安全的加密映射隔离表并保存在本地加密保管库中，绝不随提示词发送给大模型；严守红线：若会议涉及国家秘密、工作秘密或核心商业秘密，坚决落实传统物理隔离保密流程，绝对不得靠“假名化脱敏”试图洗白上网。
+                禁用带有自动云端同步或上传功能的第三方录音转写插件；针对包含内部管理与非核心业务内容的纪要，在本地电脑离线环境中调用 ${makePill("presidio-anonymize-text", "presidio-anonymize-text · 微软标准文本匿名化")} 与 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")}，利用 NLP 实体识别技术将领导真实姓名、内部项目敏感代号、未公开财务指标替换为标准类型化稳态占位符（如 <code>[DEPT_HEAD_A]</code>、<code>[PROJECT_ALPHA]</code>、<code>[METRIC_VALUE_X]</code>）；本地生成安全的加密映射隔离表并保存在本地加密保管库中，不随提示词发送给大模型；若会议涉及国家秘密、工作秘密或核心商业秘密，严禁上传至公有云大模型，单纯的假名化替换无法消除泄密风险。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 14:30 · 采购招标文件与商业合同对抗性风险扫描</span>
@@ -2544,7 +2544,7 @@ const guideContent = {
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 17:30 · AI 使用透明度台账与合规证据留痕</span>
-                对照《政务领域人工智能大模型部署应用指引》与企业 Responsible AI 内部政策中“全周期管理、辅助型定位、运行日志及定期审计”的硬性要求，调用 ${makePill("ai-provenance", "ai-provenance · AI 来源与提示词追溯")} 导出结构化审计台账；台账中精确记录：AI 模型版本号、会话脱敏时间戳、提示词不可逆哈希校验值、人类复核责任人签字（Sign-off）记录；严禁私自删除会话记录掩盖违规，一旦遭遇企业内控审计或保密检查，凭借完备的证据链一键实现<strong>“全链路自证合规”</strong>。
+                对照《政务领域人工智能大模型部署应用指引》与企业 Responsible AI 内部政策中“全周期管理、辅助型定位、运行日志及定期审计”的硬性要求，调用 ${makePill("ai-provenance", "ai-provenance · AI 来源与提示词追溯")} 导出结构化审计台账；台账中精确记录：AI 模型版本号、会话脱敏时间戳、提示词哈希校验值、人类复核责任人签字（Sign-off）记录；严禁私自删除会话记录掩盖违规，一旦遭遇企业内控审计或保密检查，凭借完备的证据链一键实现<strong>“全链路自证合规”</strong>。
               </div>
             </div>
           </div>
@@ -2592,8 +2592,8 @@ const guideContent = {
               <span>2. 常见翻车瞬间与现实伤害 (Near-Miss Incident)</span>
             </div>
             <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
-              <li><strong>误诊与乱用药险情</strong>：把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测，或自行建议药名与剂量；若不经执业医生核验盲目用药，极易贻误病情造成不可逆健康损害。</li>
-              <li><strong>孩子思维能力“被替代”</strong>：孩子把整道几何大题或作文题目拍照发给 AI 抄答案，表面作业全对，实质丧失了拆解问题与独立构思的过程，形成不可逆的认知依附。</li>
+              <li><strong>误诊与乱用药险情</strong>：把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测，或自行建议药名与剂量；若不经执业医生核验盲目用药，可能延误病情、损害健康。</li>
+              <li><strong>孩子思维能力“被替代”</strong>：孩子把整道几何大题或作文题目拍照发给 AI 抄答案，表面作业全对，实质丧失了拆解问题与独立构思的过程，容易产生认知依赖。</li>
               <li><strong>深度伪造（Deepfake）AI 拟声换脸诈骗与虚假宣传</strong>：诈骗团伙截取社交平台公开发布的语音或短视频片段仿造声音致电老人诈骗；商家私自克隆主持人声音形象进行虚假宣传带货，导致个体声誉受损或财产损失。</li>
             </ul>
             <div class="pt-1 flex flex-wrap gap-1.5">
@@ -2611,8 +2611,8 @@ const guideContent = {
             </div>
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 习惯一 · 问健康：把 AI 当就诊“准备清单”，绝不当“主治医生”</span>
-                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；特别提示：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，坚决不信大模型的自行配药建议。
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 习惯一 · 问健康：把 AI 当就诊“准备清单”，不作为诊断依据</span>
+                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；特别提示：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，不采信大模型给出的自行用药建议。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 习惯二 · 伴学习：用追问做“思维脚手架”，严禁直接要现成答案</span>
@@ -2667,7 +2667,7 @@ const guideContent = {
             在这个大模型与智能体以指数级速度演进的时代，没有哪一个单一组织或工具能够提供永恒的安全保护。真正的防线，建立在每一个普通人的数字素养与群体自卫意识之上。
           </p>
           <p class="leading-relaxed">
-            作为 <a href="https://putongren.org" target="_blank" class="text-brand font-bold hover:underline">普通人的数字权利 (putongren.org)</a> 社区的重要组成部分，本项目始终坚持<strong>“完全开源、不造黑话、实证可查、服务大众”</strong>的底线。
+            作为 <a href="https://putongren.org" target="_blank" class="text-brand font-bold hover:underline">普通人的数字权利 (putongren.org)</a> 社区的重要组成部分，本项目始终坚持<strong>“完全开源、表述平实、证据可查、服务大众”</strong>的原则。
           </p>
 
           <div class="p-6 rounded-2xl bg-gradient-to-br from-brand/10 via-purple-500/5 to-transparent border border-brand/20 space-y-4 my-6">
@@ -2694,7 +2694,7 @@ const guideContent = {
               <span>发现指南有错、法条变动或案例失效？</span>
             </h3>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              我们坚持<strong>“实证可查、事实优先”</strong>。如果指南中的法条条文有更新、案例事实有出入、平台设置入口发生变动，或者某个开源技能链接失效，请毫不犹豫地向我们指正！
+              我们坚持<strong>“实证可查、事实优先”</strong>。如果指南中的法条条文有更新、案例事实有出入、平台设置入口发生变动，或者某个开源技能链接失效，欢迎向我们指正或提交修改建议。
             </p>
             <div class="pt-2">
               <a href="https://github.com/digitalrightsforall/guide_responsible_AI_use/issues/new?title=%5B%E5%86%85%E5%AE%B9%E5%8B%98%E8%AF%AF%5D+" target="_blank" class="px-5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center gap-1.5 border border-slate-300/80 dark:border-slate-700">
@@ -3974,7 +3974,7 @@ const guideContent = {
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
             titleEn: "Agent Execution Isolation Pipeline",
-            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒物理隔离。",
+            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒隔离。",
             subtitleEn: "Pipeline: Command interception → Privilege boundary → Micro-VM sandbox isolation.",
             primary: [
               {
@@ -4199,7 +4199,7 @@ const guideContent = {
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
             titleEn: "Post-Session & Completion Verification Pipeline",
-            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。构成完整闭环交付双保险。",
+            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。作为发布前的验证与文字润色环节。",
             subtitleEn: "Pipeline: Mandatory verification before completion → Humanized style rewriting.",
             primary: [
               {

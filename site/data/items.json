@@ -2063,7 +2063,7 @@
     ],
     "target_persona": "Content Creators, Editors, Media Production Teams",
     "summary_en": "Gates finalized content before human upload review, verifying final artifacts, scripts, publishing metadata, and asset provenance against a fail-closed policy.",
-    "summary_cn": "在内容最终发布前进行闭环校验，检查文稿版权、外部链接有效性与来源凭据，资料不全时给出拦截提示。",
+    "summary_cn": "在内容最终发布前进行完整校验，检查文稿版权、外部链接有效性与来源凭据，资料不全时给出拦截提示。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/45ck/content-machine.git && cp -R content-machine/skills/publish-prep-review .agents/skills/",
     "why_care_cn": "发布前检查文中的图片授权、外链有效性与争议性表述，避免发布到公开平台后因侵权或链接失效产生纠纷。",

@@ -83,7 +83,7 @@
     },
     "summary_zh": "原告代理律师在股权代持争议庭后提交书面代理意见，列举所谓最高法院及上海法院案例作为支撑。主审法官核查发现文书中‘(2022)沪01民终12345号’实际为毫不相关的民间借贷案。律师当庭承认直接复制了未经核验的 AI 检索生成内容。",
     "summary_en": "In a commercial dispute brief, an attorney cited purported Supreme Court and Shanghai appellate precedents. The presiding judge found that '(2022) Hu 01 Min Zhong 12345' was completely unrelated private loan litigation. The attorney admitted blindly copying unverified AI output into the court submission.",
-    "consequence_zh": "法院对虚假参考案例坚决不予采纳，并在判决书中对代理律师正式批评，责令严格核验并警示司法秩序红线；双方均服判未上诉。",
+    "consequence_zh": "法院对该虚假参考案例不予采纳，并在判决书中对代理律师提出批评，要求严格核查并遵守诉讼规范；双方均服判未上诉。",
     "consequence_en": "The court rejected the fabricated references, explicitly criticized the attorney in the judgment, and issued a strict warning regarding judicial integrity. Neither party appealed.",
     "key_takeaway_zh": "向法庭提交诉讼材料前需核查案号与判决真实性，不能直接采信模型生成的内容，可通过中国裁判文书网或最高法案例库进行核对。",
     "key_takeaway_en": "AI-generated case numbers and statutory citations are statistical token guesses, not verified facts. Never copy them into briefs or papers without independent verification in official databases.",

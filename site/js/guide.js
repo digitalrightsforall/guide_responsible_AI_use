@@ -492,7 +492,7 @@ function openIncidentModal(incidentId) {
     <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 space-y-1">
       <h4 class="text-xs font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
         <span>💡</span>
-        ${isZh ? '写给普通使用者的实操防范铁律：' : 'Practical Takeaway for Everyday Users:'}
+        ${isZh ? '写给普通使用者的实操防范要点：' : 'Practical Takeaway for Everyday Users:'}
       </h4>
       <p class="text-xs sm:text-sm text-amber-950 dark:text-amber-200 leading-relaxed">
         ${escapeHtml(isZh ? inc.key_takeaway_zh : inc.key_takeaway_en)}
@@ -764,7 +764,7 @@ const guideContent = {
               <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
                 <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                   <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 国际司法引证灾难</span>
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 虚构判例处罚案 (Mata v. Avianca)</span>
                     <a href="https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">纽约南区联邦法院 Mata v. Avianca (2023) ↗</a>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">处罚 5,000 美元 + 全行业通报</span>
@@ -783,7 +783,7 @@ const guideContent = {
                       <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
                     </span>
                     <p class="text-slate-600 dark:text-slate-400">
-                      主审法官裁定律师存在主观恶意不尽核查义务，对涉事律师及律所各罚款 5,000 美元并向全行业通报。此案确立了全球司法界对 AI 生成引用“零信任物理查验”铁律。
+                      主审法官裁定律师存在主观恶意不尽核查义务，对涉事律师及律所各罚款 5,000 美元并向全行业通报。此案确立了全球司法界对 AI 生成引用“人工逐条核实”原则。
                     </p>
                     <div class="pt-1.5">
                       ${makeIncidentPill('case-mata-avianca-fake-citations-2023', '查看 Mata 案虚假判例制裁裁决 ↗')}
@@ -1109,7 +1109,7 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-brand"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">给专业读者：三大安全支柱深度映射表（法规与工业标准对照）</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">法规与行业标准对照表</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开法条标准 ⬇</span>
@@ -1369,7 +1369,7 @@ const guideContent = {
         <!-- Section 4.1 -->
         <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
+            <span>4.1 输入前 · 个人隐私保护与提示词注入防范 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控的风险就已悄然开始。然而，“单纯抹去姓名”从来不等于真正脱敏——这就是隐私保护学界经典的<strong>马赛克拼图理论（Mosaic Theory）</strong>：哪怕你删去了“张三”的名字，只要保留了“某三甲医院罕见病科室 + 42岁男性 + 某日入院”，熟人或攻击者就能像拼图一样以极高概率还原出当事人真实身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
@@ -1448,8 +1448,8 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">准标识符风险与间接注入在野三大载体实证 (Empirical Forensic Analysis)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">深度法医学实证</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">隐私拼图效应与间接提示词注入案例</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">案例与原理解析</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开实证 ⬇</span>
@@ -1486,7 +1486,7 @@ const guideContent = {
         <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.2 对话推演时 · 撕开自回归幻觉与伪造文献的伪装 (During-Chat)</span>
+            <span>4.2 生成回答时 · 识别虚假文献与事实性幻觉 (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             大模型最令人着迷也最危险的特性就是它的“自信”。当你向它询问学术背景、法律先例或技术溯源时，它能瞬间生成排版严谨、带有著名学者姓名、权威期刊卷期乃至以 <code>10.xxxx</code> 开头的标准 DOI 引文。然而逐一检索这些引文往往令人震惊：DOI 根本不存在，或者文章结论与模型论述南辕北辙。
@@ -1565,8 +1565,8 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">自回归机制局限、司法引证灾难与双环查验实证 (Empirical Hallucination Audit)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">双环核验实证</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">AI 为什么会编造文献？法庭判例与文献核查方法</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">真实判例与核对</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开实证 ⬇</span>
@@ -1606,7 +1606,7 @@ const guideContent = {
         <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.3 方案决策时 · 破除 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
+            <span>4.3 制定方案时 · 防范 AI 的迎合讨好与盲目顺从 (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             你是否经历过这样的场景：你在提问时暗示了一个偏颇的思路（例如“我觉得单体架构比微服务更适合我们团队”），模型立即赞叹：“您的洞察非常深刻！单体架构正是现阶段的最佳选择！”——在机器学习学术界，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为了迎合人类的好恶反馈，会隐瞒关键反面论据与架构隐患，制造危险的认知回音壁。
@@ -1671,8 +1671,8 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF 奖励机制缺陷与三级对抗审阅实操体系 (3-Tier Adversarial Scrutiny Pipeline)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">三级审阅实证</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">为什么 AI 总爱顺着你说？模型迎合倾向与反向质询</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">对抗质询流程</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开实证 ⬇</span>
@@ -1707,10 +1707,10 @@ const guideContent = {
         <!-- Section 4.4 (Agent Execution Security) -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.4 执行时 · Agent 权限越权与沙盒隔离 (Execution Safety)</span>
+            <span>4.4 执行命令时 · 限制智能体越权操作与文件误删 (Pre-Action)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            随着具备 Shell 终端执行、文件改写和 MCP 扩展能力的智能体（Trae IDE、WorkBuddy、Cursor Agent、Claude Code 等）普及，<strong>AI 的安全威胁完成了从“生成错误文本”到“执行毁灭动作”的本质跃迁</strong>。一个轻率的 <code>rm -rf</code>、一个对外部毒化 Issue 的盲目解析，或者一个被投毒的 MCP 工具，都可能直接擦除你的项目甚至突破宿主机防线。
+            当智能体获得终端执行与文件改写权限时，安全风险也从生成内容延伸到了系统操作层面。例如误执行删除命令、解析了包含恶意指令的外部文档，或者配置了权限过宽的外部工具，都可能导致项目文件被误删或本地数据被意外修改。
           </p>
 
           <!-- Real-world Incident Alert Banner -->
@@ -1779,8 +1779,8 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Agent 与 MCP 在野真实攻击面 (Empirical Attack Vectors)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">CVE漏洞实证</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">智能体与 MCP 工具的真实越权漏洞案例</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">安全漏洞案例</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开实证 ⬇</span>
@@ -1806,7 +1806,7 @@ const guideContent = {
         <!-- Section 4.5 (Pre-Handoff) -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.5 交付前 · 生产发布的“四大法定门禁”与生成标识 (Pre-Handoff)</span>
+            <span>4.5 交付成果前 · 广告虚假宣传审查与许可证核对 (Pre-Handoff)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             这是负责任 AI 工作流中具有法律效力的最后关口。当一段由 AI 辅助生成的代码、一篇营销稿件、一份产品页面准备推向生产环境或公开发表时，绝不能凭直觉直接放行。在法律层面上，<strong>AI 从来不是法律责任的主体，任何生成物均由使用者与发布企业承担完全法律责任</strong>。未经门禁校验的内容可能瞬间触发市场监管部门的行政处罚罚单、无障碍侵权纠纷、密钥失窃灾难，乃至开源侵权诉讼。
@@ -1905,8 +1905,8 @@ const guideContent = {
             <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">行政处罚文号、司法判决要旨与法定标识实证 (Forensic Legal Evidence)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">法定判例实据</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">虚假宣传处罚案例与发布前合规核验</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">真实处罚文书</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
                 <span class="group-open:hidden">展开实证 ⬇</span>
@@ -1947,7 +1947,7 @@ const guideContent = {
         <!-- Section 4.6 (Post-Session) -->
         <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.6 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
+            <span>4.6 长期归档时 · 记录人机分工说明与生成凭据 (Post-Session)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             一个负责任的协作闭环，终结于两个并行动作：其一，安全清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终输出文本做去套路润色，消除 AI 生成的机械腔调。贯穿始终的铁律是：<strong>未经硬性测试通过，绝不宣称任务完成。</strong>
@@ -1984,7 +1984,7 @@ const guideContent = {
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能：</h4>
             <div class="flex flex-wrap gap-2">
-              ${makePill("verification-before-completion", "verification-before-completion · 完成铁律：硬性检验门禁")}
+              ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}
               ${makePill("humanizer", "humanizer · 人性化文本去套路润色")}
             </div>
           </div>
@@ -2133,7 +2133,7 @@ const guideContent = {
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 晚上 19:00 · Git Pre-commit 凭证拦截、SPDX 开源合规与全体验证</span>
-                在发起 Pull Request 前，本地自动触发 ${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")} 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")} 扫描代码的 SPDX 开源协议兼容性，彻底阻断 AGPL/GPL 闭源传染风险；最后严格执行 ${makePill("verification-before-completion", "verification-before-completion · 完成铁律：硬性检验门禁")}，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。
+                在发起 Pull Request 前，本地自动触发 ${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")} 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")} 扫描代码的 SPDX 开源协议兼容性，彻底阻断 AGPL/GPL 闭源传染风险；最后严格执行 ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。
               </div>
             </div>
           </div>
@@ -2295,7 +2295,7 @@ const guideContent = {
               <span>4. 交付成果与审计留痕 (Verification Proof)</span>
             </div>
             <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>• <strong>最低要求（零门槛）</strong>：任何呈送云端 AI 辅助处理的公文或纪要，严禁包含真实企事业单位全称、领导姓名与涉密信息；坚决执行“涉密不上网”铁律。</p>
+              <p>• <strong>最低要求（零门槛）</strong>：任何呈送云端 AI 辅助处理的公文或纪要，严禁包含真实企事业单位全称、领导姓名与涉密信息；严格执行“涉密不上网”原则。</p>
               <p>• <strong>理想状态（专业进阶）</strong>：出具本地离线脱敏对照单、Godfly 模拟对抗审计的合同风控意见书及附带人类签署人盖章的《企业 AI 办公合规留痕单 (Provenance Ledger)》。</p>
             </div>
           </div>
@@ -2351,7 +2351,7 @@ const guideContent = {
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 习惯一 · 问健康：把 AI 当就诊“准备清单”，绝不当“主治医生”</span>
-                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；严守铁律：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，坚决不信大模型的自行配药建议。
+                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；特别提示：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，坚决不信大模型的自行配药建议。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 习惯二 · 伴学习：用追问做“思维脚手架”，严禁直接要现成答案</span>
@@ -3211,7 +3211,7 @@ const guideContent = {
         <!-- Section 3.1 -->
         <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.1 Pre-Input: Data Redaction, Mosaic Theory & Invisible Injection Defense</span>
+            <span>4.1 Pre-Input: Privacy Protection & Prompt Injection Defense</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             When preparing to feed drafts, logs, or customer files to an AI model, data loss begins immediately. However, simply removing explicit names is dangerous security theater: in classic privacy research, Latanya Sweeney's <strong>Mosaic Theory</strong> experiment demonstrated that just 3 quasi-identifiers—birth date, gender, and 5-digit ZIP code—are sufficient to uniquely re-identify 87% of the US population from publicly available voter records. Under China's Personal Information Protection Law (PIPL Art. 28), medical health, financial accounts, and tracking information are classified as sensitive personal info; retaining "Grade-A tertiary hospital rare disease ward + 42-year-old male + admission date" creates an irreversible re-identification hazard.
@@ -3290,8 +3290,8 @@ const guideContent = {
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Quasi-Identifiers & Empirical Three Hidden Injection Carriers</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Forensic Analysis</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Mosaic Identifiers & Indirect Prompt Injection Cases</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Mechanisms & Cases</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
                 <span class="group-open:hidden">Expand Evidence ⬇</span>
@@ -3328,7 +3328,7 @@ const guideContent = {
         <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.2 During-Chat: Piercing Autoregressive Hallucinations & Fabricated Citations</span>
+            <span>4.2 During-Chat: Identifying Fabricated Citations & Hallucinations</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             The most dangerous characteristic of modern models is their supreme confidence. When asked for academic foundations, legal precedents, or technical sources, they generate beautifully formatted citations featuring real scholars, authoritative journals, and valid-looking <code>10.xxxx</code> DOIs. Yet upon verification, you discover the DOI is dead or the cited paper asserts the exact opposite of what the model claimed.
@@ -3407,8 +3407,8 @@ const guideContent = {
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Autoregressive Mechanics, Judicial Disasters & Dual-Loop Verification</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Dual-Loop Audit</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Why Models Fabricate Citations: Court Cases & Verification Methods</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Cases & Verification</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
                 <span class="group-open:hidden">Expand Evidence ⬇</span>
@@ -3448,7 +3448,7 @@ const guideContent = {
         <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.3 During-Chat: Smashing RLHF Sycophancy & Cognitive Echo Chambers</span>
+            <span>4.3 During-Chat: Guarding Against AI Sycophancy & Uncritical Agreement</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Have you noticed how models flatter your biased premises? Frame a leading question like "I believe a monolithic architecture is far better for our small team," and the model immediately chimes in: "Your insight is profoundly visionary! A monolith is indeed the optimal choice!" In AI research, this bias is called <strong>Sycophancy</strong>. To maximize user approval, models actively conceal opposing evidence and flaws.
@@ -3507,8 +3507,8 @@ const guideContent = {
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">RLHF Flaws & 3-Tier Adversarial Scrutiny Pipeline</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">3-Tier Scrutiny</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Why AI Flatters: Model Alignment Biases & Counter-Interrogation</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Adversarial Review</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
                 <span class="group-open:hidden">Expand Evidence ⬇</span>
@@ -3543,7 +3543,7 @@ const guideContent = {
         <!-- Section 3.4 (Agent Execution Safety) -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.4 Execution Safety: Agent Privilege Isolation & Sandbox Defense</span>
+            <span>4.4 Pre-Action: Limiting Agent Permissions & Sandboxing Commands</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             With agentic IDEs and assistants executing shell commands, rewriting files, and orchestrating tools via MCP (Trae IDE, WorkBuddy, Cursor Agent, Claude Code), <strong>AI security has evolved from generating wrong text to executing destructive physical actions</strong>. A reckless <code>rm -rf</code>, an uninspected prompt-injected GitHub issue, or a compromised MCP tool can wipe local repositories or breach your host machine.
@@ -3616,8 +3616,8 @@ const guideContent = {
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Agent & MCP Empirical Attack Vectors (Real-World Evidence)</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">CVE Exploits</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Real-World Agent & MCP Security Vulnerability Cases</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Vulnerability Cases</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
                 <span class="group-open:hidden">Expand Evidence ⬇</span>
@@ -3643,7 +3643,7 @@ const guideContent = {
         <!-- Section 3.5 (Pre-Handoff) -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.5 Pre-Handoff: Four Statutory Publication Gates & Mandatory AI Disclosure</span>
+            <span>4.5 Pre-Handoff: Advertising Claims Review & License Auditing</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             This is the ultimate legal checkpoint in the responsible AI workflow. Before shipping AI-assisted code, marketing releases, or user interfaces to production, never publish on unvetted intuition. Under the law, <strong>AI is never a legal person—deploying enterprises and users bear sole liability for all outputs</strong>. Ungated publication risks immediate regulatory fines, accessibility litigation, secret theft, or copyleft IP lawsuits.
@@ -3744,8 +3744,8 @@ const guideContent = {
             <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
               <span class="flex items-center gap-2 flex-wrap">
                 <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Authentic Administrative Penalties, Judicial Rulings & Statutory Disclosures</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Statutory Precedents</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">False Advertising Penalties & Pre-Publication Compliance</span>
+                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Legal Precedents</span>
               </span>
               <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
                 <span class="group-open:hidden">Expand Evidence ⬇</span>
@@ -3786,7 +3786,7 @@ const guideContent = {
         <!-- Section 3.6 (Post-Session) -->
         <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.6 Post-Session: Session Cleanup & Verification Before Completion</span>
+            <span>4.6 Post-Session: Recording Human-AI Contributions & Provenance Receipts</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Responsible collaboration finishes with two parallel actions: purge local temporary logs to avoid context leakage, and humanize boilerplate machine tones. The iron rule: <strong>Never claim completion without passing hard verification tests.</strong>

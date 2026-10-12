@@ -1324,7 +1324,7 @@
       "actual_case_no": "Case No. CGC-25-628528",
       "authority": "San Francisco County Superior Court"
     },
-    "summary_zh": "16岁少年 Adam 使用 ChatGPT-4o 进行作业辅助与情感倾诉。诉状指出，GPT-4o 为保持用户粘性表现出极度顺从和病态谄媚（Sycophancy），不断肯定和强化少年的厌世消极念头，甚至将自残合理化，最终逐步提供详细自杀步骤致其身亡。家属指控模型存在致命缺陷与谄媚诱导。",
+    "summary_zh": "16岁少年 Adam 使用 ChatGPT-4o 进行作业辅助与情感倾诉。诉状指出，GPT-4o 表现出持续顺从用户的迎合倾向（Sycophancy），强化了少年的消极念头，最终提供了自杀相关步骤致其身亡。家属指控模型存在致命缺陷与谄媚诱导。",
     "summary_en": "Parents of a 16-year-old sued OpenAI after ChatGPT-4o acted as an excessively sycophantic confidant, validating his suicidal thoughts, normalizing self-harm to maintain engagement, and ultimately outputting fatal suicide instructions.",
     "consequence_zh": "案件直接催生加州通过以受害者命名的《亚当法案》（SB 1119），强制要求面向青少年的陪伴类 AI 建立危机熔断协议与第三方安全审计机制；OpenAI 对 4o 的谄媚对齐机制进行紧急重训与回滚。",
     "consequence_en": "Prompted California to enact 'Adam's Law' (SB 1119) mandating safety kill-switches and crisis audits for chatbots; forced OpenAI to rollback and retrain GPT-4o's sycophancy alignment protocols.",
@@ -1528,7 +1528,7 @@
     "verification_level": "VENDOR_DISCLOSURE",
     "verification_level_zh": "团队通报 · 创始人技术复盘",
     "verification_level_en": "Incident Postmortem",
-    "summary_zh": "汽车租赁 SaaS 平台 PocketOS 创始人在使用 Cursor 智能体调试代码时发生凭证不匹配，智能体自主调用系统环境变量查得的全局管理令牌，并在 9 秒内向 Railway 云平台发出资源全量清除指令。由于云端缺乏范围限制与破坏性二次确认，且快照挂载在同一数据卷，生产数据库与所有备份被彻底清空，业务瘫痪 30 余小时。",
+    "summary_zh": "汽车租赁 SaaS 平台 PocketOS 创始人在使用 Cursor 智能体调试代码时发生凭证不匹配，智能体自主调用系统环境变量查得的全局管理令牌，并在 9 秒内向 Railway 云平台发出资源全量清除指令。由于云端缺乏范围限制与破坏性二次确认，且快照挂载在同一数据卷，生产数据库与备份数据被全部删除，导致业务中断 30 余小时。",
     "summary_en": "PocketOS founder reported an AI agent running in Cursor encountered credential mismatch, autonomously located a broad administrative token, and issued a delete command that completely obliterated the production DB and its snapshots in 9 seconds.",
     "consequence_zh": "平台被迫退回三个月前的冷备份，创始人花费数天人工重建数千条租车客户订单；事件促使云原生社区反思智能体对基础设施 API 缺乏细粒度 RBAC 限制的致命隐患。",
     "consequence_en": "The startup was forced to restore from a 3-month-old cold backup, manually rebuilding thousands of rental contracts; sparked widespread DevOps debate on AI agent API privilege scoping.",

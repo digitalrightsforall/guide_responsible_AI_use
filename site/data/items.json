@@ -1781,7 +1781,7 @@
     },
     "third_party_reviews": [],
     "regulatory_badges": [
-      "Superpowers 铁律",
+      "Superpowers 验证规范",
       "反盲从代码评审"
     ],
     "regulatory_badges_en": [
@@ -2250,7 +2250,7 @@
     "how_to_use_cn": "配置为全局工作流规则，当模型准备宣布完成时，拦截该回复并强制触发自动化测试命令。",
     "how_to_use_en": "Functions as an uncompromising agent guardrail that halts completion claims unless verified command outputs are produced.",
     "standard_alignment": {
-      "name_zh": "Superpowers 软件工程铁律：完成声明前必须出示实测通过命令证据",
+      "name_zh": "Superpowers 软件工程规范：完成声明前必须出示实测通过命令证据",
       "name_en": "Superpowers Framework: The Iron Law of Verification (290k★ Stars)",
       "organization": "Jesse Vincent (obra) / Superpowers Framework",
       "url": "https://github.com/obra/superpowers/tree/main/skills/verification-before-completion",
@@ -2259,7 +2259,7 @@
     },
     "third_party_reviews": [],
     "regulatory_badges": [
-      "Superpowers 铁律",
+      "Superpowers 验证规范",
       "交付前实测举证"
     ],
     "regulatory_badges_en": [
@@ -2305,7 +2305,7 @@
     "summary_cn": "对照维基百科编写的 AI 文本特征指南，调整生硬的排比句与模板化套话，使文字读起来自然直接，保留原有事实不变。",
     "action_type": "install_code",
     "action_content": "git clone https://github.com/blader/humanizer.git && cp -R humanizer/.agents/skills/humanizer .agents/skills/",
-    "why_care_cn": "AI 生成的文章常带有明显的模板特征（例如频繁使用“不仅...更...”、“总而言之”）。直接发布容易显得生硬机械，该技能帮助删减不必要的修饰，使表达更朴实清晰。",
+    "why_care_cn": "AI 生成的文章常带有模板化特征（例如模式化转折或空洞过渡句）。直接发布容易显得生硬，该技能帮助删减不必要的修饰，使表达更朴实直接。",
     "why_care_en": "AI writing often carries unmistakable, hollow clichés that alienate readers and trigger platform downranking. Humanizer restores authentic human tone.",
     "how_to_use_cn": "向 Agent 输入指令：“用 humanizer 检查并改写此段落”，技能将标出文中的模板化用词并给出自然的修改版本。",
     "how_to_use_en": "Prompt the agent: \"Apply humanizer to remove AI tells and retain authentic voice\" before final publication.",

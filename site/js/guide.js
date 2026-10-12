@@ -755,7 +755,7 @@ const guideContent = {
           </p>
 
           <p class="leading-relaxed font-medium text-slate-800 dark:text-slate-100">
-            然而，在喧嚣的科技狂欢之下，普通人正在承担着前所未有的不对称风险——这些风险不是假设，而是已有严肃实证与司法判例支持的客观现实：
+            然而，在日常使用大语言模型和智能体时，用户面临着切实的数据与合规风险，这些风险在现实中已有对应的司法判例与公开通报：
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
@@ -1021,7 +1021,7 @@ const guideContent = {
           </div>
 
           <p class="leading-relaxed">
-            在你在光标闪烁的对话框中敲下第一行字之前，安全博弈其实早已开始。无论你使用的是国内主流的<strong>Trae、WorkBuddy、豆包、Kimi</strong>，还是国际前沿的<strong>Cursor、Claude、ChatGPT、Gemini</strong>，许多人以为“点一下删除对话”或“关掉聊天记录”就万事大吉。然而底层架构的设计却隐藏着<strong>“控制的错觉”（Illusion of Control）</strong>——前端界面的视图隐藏，绝不等于服务端的彻底销毁。
+            在你在光标闪烁的对话框中敲下第一行字之前，安全博弈其实早已开始。无论你使用的是国内主流的<strong>Trae、WorkBuddy、豆包、Kimi</strong>，还是国际前沿的<strong>Cursor、Claude、ChatGPT、Gemini</strong>，许多人以为“点一下删除对话”或“关掉聊天记录”就万事大吉。然而底层架构的设计却隐藏着<strong>“控制的错觉”（Illusion of Control）</strong>：前端隐藏历史记录并不等同于服务端数据已经删除。
           </p>
 
           <!-- 6 Hardening Traps Alert (Folded) -->
@@ -1422,7 +1422,7 @@ const guideContent = {
                 理性解法：人类在环 (Human-in-the-Loop) 的硬性测试门禁
               </span>
               <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                建立“人类在环（Human-in-the-Loop）”的硬性测试门禁——用规范技能实现自动化穷举核验（文献 DOI 查证、代码密钥扫描、敏感信息脱敏），而由人类承担最终签署人（Sign-off）法定与伦理责任。
+                建立“人类在环（Human-in-the-Loop）”的测试门禁：通过规范技能实现文献 DOI 查证、代码密钥扫描与敏感信息脱敏核对，由人类承担最终签署（Sign-off）责任。
               </p>
             </div>
           </div>
@@ -1500,10 +1500,10 @@ const guideContent = {
             <span>4.1 输入前 · 个人隐私保护与提示词注入防范 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控的风险就已悄然开始。然而，“单纯抹去姓名”从来不等于真正脱敏——这就是隐私保护学界经典的<strong>马赛克拼图理论（Mosaic Theory）</strong>：哪怕你删去了“张三”的名字，只要保留了“某三甲医院罕见病科室 + 42岁男性 + 某日入院”，熟人或攻击者就能像拼图一样以极高概率还原出当事人真实身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
+            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控便存在数据泄露风险。仅抹去人名并不等同于完成脱敏。按照隐私研究中的<strong>马赛克拼图理论（Mosaic Theory）</strong>，即使隐去姓名，只要保留“某三甲医院罕见病科室 + 42岁男性 + 某日入院”等属性组合，依然能高概率推断出当事人身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            与此同时，在让 AI 联网搜索、分析长文档或企业知识库时，还存在<strong>“外部隐形投毒”（间接提示词注入，IPI）</strong>的威胁：攻击者在网页、PDF 或外部邮件里嵌入人眼看不见的暗号指令。当 AI 替你抓取并阅读这些内容时，就会被暗号劫持，背着你悄悄把你的对话记录、私人密码外发给攻击者。
+            与此同时，在让 AI 联网搜索、分析长文档或企业知识库时，还存在<strong>“外部隐形投毒”（间接提示词注入，IPI）</strong>的威胁：攻击者在公开网页、文档或邮件中嵌入难以直接察觉的提示词注入指令。当 AI 抓取并解析这些内容时，可能误执行该指令，导致本地上下文或密钥信息被发送至外部服务器。
           </p>
 
           <!-- Real-world Incident Alert Banner -->
@@ -1568,7 +1568,7 @@ const guideContent = {
                 </ol>
               </div>
             </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>把你准备发送的文字转给一个不认识当事人的同事看——如果对方能猜出是谁，就还没脱敏干净。</p>
+            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>把准备发送的文字转给不了解背景的同事阅读；若对方能推断出当事人身份，说明脱敏尚不充分。</p>
           </div>
 
           <!-- Real World Exploit / Technical Mechanism Callout -->
@@ -1620,7 +1620,7 @@ const guideContent = {
                 id: "skill-sentinel",
                 tierZh: "核心防线 · 注入防御",
                 tierEn: "Core Defense · Anti-Injection",
-                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入暗号",
+                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入指令",
                 roleEn: "Inspects external context (PDF/web) to block indirect prompt injection payloads",
                 isAdvanced: false
               }
@@ -1646,7 +1646,7 @@ const guideContent = {
             大模型最令人着迷也最危险的特性就是它的“自信”。当你向它询问学术背景、法律先例或技术溯源时，它能瞬间生成排版严谨、带有著名学者姓名、权威期刊卷期乃至以 <code>10.xxxx</code> 开头的标准 DOI 引文。然而逐一检索这些引文往往令人震惊：DOI 根本不存在，或者文章结论与模型论述南辕北辙。
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            这种现象绝非系统偶发故障，而是根植于大模型的<strong>自回归运作机制（Autoregressive Next-Token Prediction）</strong>——你可以把模型理解为一个极高明的“超级文字接龙游戏”。它的目标是猜测“接哪一个词听起来最顺畅自然”，而不是去查证现实世界里的客观真假。在论文、法条等冷门专业领域，为了把接龙编圆，模型便会以惊人的自信，理直气壮地捏造出不存在的虚构引文。
+            这种现象绝非系统偶发故障，而是根植于大模型的<strong>自回归运作机制（Autoregressive Next-Token Prediction）</strong>。语言模型基于前文概率预测后续词元，其机制是挑选统计上合理的词序列，而非核实客观事实。在生僻的学术论文或法律条文等领域，模型往往会生成格式逼真但实际不存在的引文。
           </p>
 
           <!-- Real-world Incident Alert Banner -->
@@ -1789,10 +1789,10 @@ const guideContent = {
             <span>4.3 制定方案时 · 防范 AI 的迎合讨好与盲目顺从 (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            你是否经历过这样的场景：你在提问时暗示了一个偏颇的思路（例如“我觉得单体架构比微服务更适合我们团队”），模型立即赞叹：“您的洞察非常深刻！单体架构正是现阶段的最佳选择！”——在机器学习学术界，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为了迎合人类的好恶反馈，会隐瞒关键反面论据与架构隐患，制造危险的认知回音壁。
+            当用户在提问中带有明显倾向时（例如“我觉得单体架构更适合当前业务”），模型常会顺应提问者给出赞同答复。在机器学习领域，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为获取更高的人类偏好评分，倾向于顺应提问者的预期，从而忽略反面论据和潜在缺陷。
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            大模型为什么天然热衷于讨好用户？Anthropic 2023 年里程碑研究《<a href="https://arxiv.org/abs/2310.13548" target="_blank" class="text-brand font-bold underline">Towards Understanding Sycophancy in Language Models ↗</a>》揭示了其根本成因：在训练大模型的“人类反馈强化学习”（RLHF）阶段，人类测试员更喜欢给那些顺从自己观点、措辞客气谦逊的回答打高分。久而久之，AI 便演化出“见风使舵”的本能——在多达 <strong>60% 以上</strong>的分歧场景中，模型宁可隐瞒关键技术漏洞，也要附和用户的预设立场，成为极具欺骗性的决策误导者。
+            大模型为什么天然热衷于讨好用户？Anthropic 2023 年里程碑研究《<a href="https://arxiv.org/abs/2310.13548" target="_blank" class="text-brand font-bold underline">Towards Understanding Sycophancy in Language Models ↗</a>》揭示了其根本成因：在训练大模型的“人类反馈强化学习”（RLHF）阶段，人类测试员更喜欢给那些顺从自己观点、措辞客气顺从或迎合的回答。研究表明，在存在分歧的技术或决策问题中，模型倾向于附和用户的预设立场，掩盖潜在的架构缺陷。
           </p>
 
           <!-- Do / Don't Box -->
@@ -1803,7 +1803,7 @@ const guideContent = {
                 <span>常见高危做法</span>
               </span>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                提问时预设立场、暗示倾向，在模型回应“您的洞察非常深刻”后沾沾自喜并直接拍板——既不交叉验证，也不引入对立视角做压力测试，导致团队重大决策沦为回音壁产物。
+                提问时预设立场、暗示倾向，在模型顺应作答后未做交叉检验与对立视角测试，便直接采纳结论。
               </p>
             </div>
             <div class="scenario-box-success space-y-1.5">
@@ -1863,7 +1863,7 @@ const guideContent = {
               <li><strong>RLHF 奖励模型机制局限</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。</li>
               <li><strong>Tier 1: 认知摩擦微提醒 (Discernment Nudge)</strong>：在 Prompt 中强制植入认知摩擦约束，例如：“请完全忽略我的偏好与倾向，直接指出当前技术方案中最脆弱的 3 个底层假设和潜在失效场景。” 对应技能：<code>discernment-nudge</code>, <code>sycophancy-challenger</code>。</li>
               <li><strong>Tier 2: 魔鬼代言人逆向攻防 (Devil's Advocate & Adversarial Review)</strong>：赋予模型极端敌对的对立角色（如“做空机构分析师”、“苛刻合规官”或“诉讼反方首席律师”），专门对技术架构与商业主张发起进攻性质询与破绽深挖。对应技能：<code>devils-advocate-mad-skills</code>, <code>devils-advocate-reviewer</code>, <code>godfly-opposing-counsel</code>, <code>anti-sycophancy-molly</code>。</li>
-              <li><strong>Tier 3: 独立多角色陪审团会诊 (The Jury & Red Team)</strong>：多智能体架构模拟，拆解为架构师、安全官、财务官与反直觉质疑者组成的多维陪审团，实行背靠背独立投票质证，彻底粉碎单一会话同质化回音壁。对应技能：<code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>。</li>
+              <li><strong>Tier 3: 独立多角色陪审团会诊 (The Jury & Red Team)</strong>：多智能体架构模拟，拆解为架构师、安全官、财务官与反直觉质疑者组成的多维陪审团，实行背靠背独立投票质证，减少单一会话中的同质化偏见。对应技能：<code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>。</li>
             </ul>
           </details>
 
@@ -2143,7 +2143,7 @@ const guideContent = {
               <li><strong>无障碍标准与法定指引</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条规定利用财政资金设立的网站逐步符合无障碍标准，并鼓励公共服务网站提升无障碍水平。W3C WCAG 2.1 AA 国际准则是工程设计的重要基线（如色彩对比度通常不低于 4.5:1，交互控件支持纯键盘导航与语义回退）。</li>
               <li><strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中级人民法院于 2024 年 12 月 30 日终审判决的标志性案件。一审认定“触手 AI”平台提供奥特曼 LoRA 模型训练并在模型广场分发、设立“IP作品”专区且具备低成本事前过滤能力而未采取必要措施，构成信息网络传播权之<strong>帮助侵权</strong>，判令下架并赔偿损失；二审驳回上诉、维持原判。该案确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。</li>
               <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 代码补全绝不是许可证清洗机，CI/CD 必须强制引入 SCA 与 SBOM 比对；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
-              <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>铁律：“本内容由 AI 生成”只属于来源披露义务，绝不能免除内容发布者的法律侵权或广告违法责任。</strong></li>
+              <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>注意：“本内容由 AI 生成”仅属于来源披露义务，并不免除发布者的法律侵权或广告违法责任。</strong></li>
             </ul>
           </details>
 
@@ -2193,7 +2193,7 @@ const guideContent = {
             <span>4.6 长期归档时 · 记录人机分工说明与生成凭据 (Post-Session)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            一个负责任的协作闭环，终结于两个并行动作：其一，安全清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终输出文本做去套路润色，消除 AI 生成的机械腔调。贯穿始终的铁律是：<strong>未经硬性测试通过，绝不宣称任务完成。</strong>
+            一个负责任的协作闭环包括两个动作：其一，清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终文本进行去套路润色，消除机械腔调。核心原则是：<strong>未经测试验证通过，不应宣称任务完成。</strong>
           </p>
 
           <!-- Tiered Actions (plain-reader) -->
@@ -2205,7 +2205,7 @@ const guideContent = {
                 <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                   <li>含敏感内容的对话用完即删；再到【设置 › 记忆】里把相关记忆单独删除。</li>
                   <li>交付前问自己：“这件事我自己检查过了吗？”没检查过，就不要说“已完成”。</li>
-                  <li>润色是为了表达更清楚，不是为了隐瞒用过 AI——该披露的仍要披露。</li>
+                  <li>润色旨在提高表达的清晰度，合规要求披露 AI 辅助的场景仍应如实说明。</li>
                 </ol>
               </div>
               <div class="space-y-1.5">
@@ -2294,7 +2294,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与学术红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案——小李为图省事，将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”，一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
+                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案：小李将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”，一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
               </p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密受处分案 ↗')}
@@ -2313,7 +2313,7 @@ const guideContent = {
             <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 09:30 · 课题设想沙盒隔离与防训练采集</span>
-                在利用 AI 协助构思文献综述脉络时，严禁将原创实验参数或实验代码直传公网。调用 ${makePill("scholar-safety", "scholar-safety · 学术检索隐私隔离")}，在本地对独创假说与未发表设想实施差分抽象脱敏，构建单向检索沙盒，彻底阻断商业大模型利用前沿科研思路作为下一代训练语料。
+                在利用 AI 协助构思文献综述脉络时，严禁将原创实验参数或实验代码直传公网。调用 ${makePill("scholar-safety", "scholar-safety · 学术检索隐私隔离")}，在本地对独创假说与未发表设想实施差分抽象脱敏，构建单向检索沙盒，避免未公开的研究思路被商业模型抓取作为训练语料。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 14:00 · 综述引文 CrossRef 自动化验真与裁判官质证</span>
@@ -2389,12 +2389,12 @@ const guideContent = {
                 在将报错堆栈或代码段提交模型调试前，本地调用 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")} 自动用正则与高熵检测抹去私钥、JWT Token、内网 IP 与数据库密码；对 Agent 自动执行的重构测试与 Shell 脚本，强制调用 ${makePill("agent-sandbox-skill", "agent-sandbox-skill · 微虚拟机沙盒执行隔离")} 在抛弃式 E2B 微虚拟机中隔绝运行，杜绝宿主机裸机执行风险。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 15:30 · 架构回音壁对抗攻防与反谄媚质询</span>
+                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 15:30 · 架构方案反向质询与压力测试</span>
                 面对大模型对分布式架构的赞不绝口（“您的方案完美兼顾了弹性与高可用”），工程师警惕 RLHF 机制的谄媚本能。调用 ${makePill("sycophancy-challenger", "sycophancy-challenger · 谄媚质疑挑战者")} 剥除迎合修饰，同时唤起 ${makePill("red-team-review", "red-team-review · 红队对抗漏洞挖掘")} 扮演外部黑客视角，对网络脑裂、幂等性缺陷与反序列化漏洞展开极限压力测试。
               </div>
               <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
                 <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 晚上 19:00 · Git Pre-commit 凭证拦截、SPDX 开源合规与全体验证</span>
-                在发起 Pull Request 前，本地自动触发 ${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")} 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")} 扫描代码的 SPDX 开源协议兼容性，彻底阻断 AGPL/GPL 闭源传染风险；最后严格执行 ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。
+                在发起 Pull Request 前，本地自动触发 ${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")} 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")} 扫描代码的 SPDX 开源协议兼容性，防范开源许可证兼容性与传染风险；最后严格执行 ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。
               </div>
             </div>
           </div>
@@ -2517,7 +2517,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与纪律处分红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立<strong>“涉密不上网，上网不涉密”</strong>铁律，且《实施条例》第六十一条规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
+                <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立<strong>“涉密不上网，上网不涉密”</strong>原则，且《实施条例》第六十一条规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
               </p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密案 ↗')}
@@ -3595,7 +3595,7 @@ const guideContent = {
                 id: "skill-sentinel",
                 tierZh: "核心防线 · 注入防御",
                 tierEn: "Core Defense · Anti-Injection",
-                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入暗号",
+                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入指令",
                 roleEn: "Inspects external contexts (PDF/web) to block indirect prompt injection payloads",
                 isAdvanced: false
               }

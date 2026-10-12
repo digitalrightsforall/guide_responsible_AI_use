@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills (负责任与安全使用 AI 技能精选) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![精选技能数](https://img.shields.io/badge/精选技能-44%20项-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![规范标准](https://img.shields.io/badge/规范格式-SKILL.md-success.svg)](https://agentskills.io) [![链接健康度](https://img.shields.io/badge/开源可达性-44%2F44%20全部存活-brightgreen.svg)](#-运行状态与实证指标评定说明) [![社区共建](https://img.shields.io/badge/共建社区-普通人的数字权利-orange.svg)](https://putongren.org)
 
-> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 44 个成熟开源 `SKILL.md` 规范技能。我们不制造新工具，而是帮助普通人在日常使用 AI 时把好关：**对内防商业 AI 过度采集与盲信幻觉，对外让第三方能够更好核查验证成果**。
+> 一个面向日常知识工作者、研究人员、写作者和专业人士的精选技能清单。收录开箱即用的 44 个成熟开源 `SKILL.md` 规范技能。本项目精选成熟的开源技能，帮助普通人在日常使用 AI 时做好把关：**对内防范数据过度采集与盲信幻觉，对外提升成果的第三方可核验性**。
 
 [English Version](README.md) | **中文版** | 📖 [阅读实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [在线实务技能库 (Library)](https://putongren.org/guide_responsible_AI_use/library.html)
 
@@ -8,10 +8,10 @@
 
 ## 🌟 项目生态：双轮驱动实操架构
 
-本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者构建了“认知 + 武器”的双轮驱动实操生态：
+本项目为广大日常使用大语言模型与智能体 IDE 的普通工作者提供了结合长篇指南与交互技能库的完整实操参考：
 
 * 📖 **[实务长篇指南 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**（*网站首页 / `site/index.html`*）：
-  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **6 大核心工作流场景**（涵盖平台防静默留存基线、Agent 执行沙盒隔离等）穿针引线串联全量 44 项技能，提供微卡片原地交互与 5 大角色一日安全工作流。
+  深度叙事长篇指南。系统解构算法时代的平民处境（数据主权剥夺、自信幻觉与认知依附），解析为何宏大伦理必须落地为桌面防线，并通过 **6 大核心工作流场景**（涵盖平台防静默留存基线、Agent 执行沙盒隔离等）串联全量 44 项技能，提供微卡片原地交互与 5 大角色的一日安全工作流。
 
 * 🛡️ **[实务技能库 (Skill Library)](https://putongren.org/guide_responsible_AI_use/library.html)**（*交互技能库 / `site/library.html`*）：
   开箱即用的交互式技能筛选与搜索平台。支持按 4 大实务分类、4 大工作流时序进行即时组合过滤，提供实时关键词搜索、运行状态与实证弹窗、技术标准溯源与一键复制安装命令。
@@ -25,7 +25,7 @@
 
 本项目由[**「普通人的数字权利」共创社区 (putongren.org)**](https://putongren.org)发起，致力于帮助每一个人在机器与算法时代守护个人数字权利与尊严。
 
-本项目坚持**“只精选，不生造”**，从开源生态中甄选真实存在的优秀开源工具。当前我们将负责任与安全使用 AI 的实务内涵拆解为两大核心维度：
+本项目精选开源生态中经过验证的实用工具。当前我们将负责任与安全使用 AI 的实务内涵拆解为两大核心维度：
 
 1. **🛡️ 对内·自我防护与边界**：
    - **防范数据过度采集**：警惕商业大模型通过晦涩协议，将你的日常对话、未公开草稿、私有源码或敏感个案当做免费语料静默采集，坚决在本地筑牢数据边界。
@@ -36,20 +36,20 @@
    - **硬性发布门禁**：通过广告主张核查、SPDX 开源协议合规、代码密钥扫描、Web 无障碍审计等法定与行业标准门禁，阻断违规内容流出。
 
 > [!NOTE]
-> 这一拆解本身并非固化的教条，而是**保持动态演进**的实务框架，随着模型能力与应用形态的深入不断更新演化。
+> 这一实务框架将随着模型能力与应用形态的演进保持持续更新。
 
 ---
 
 ## 🧭 四大核心实务问题导航
 
-我们在实务中不讨论空洞的高尚词汇，而是将负责任与安全使用 AI 归结为日常最紧迫的**四大实务追问**。全量 44 项开源规范技能已系统收录在我们的在线交互平台中：
+我们将负责任与安全使用 AI 归结为日常最直接的**四大实务追问**。全量 44 项开源规范技能已系统收录在我们的在线交互平台中：
 
 | 实务问题 | 核心自卫威胁与实务内涵 | 包含技能 | 在线交互入口 |
 | :--- | :--- | :---: | :--- |
-| **1. 我能把什么给 AI？** | 阻断商业大模型对隐私草案、敏感个案与 PII 数据的隐蔽采集与语料兼并 | **11 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
-| **2. 哪些回答能信？** | 撕开 AI 极度自信的虚构引文（DOI 查伪）、捏造数据与权威口吻幻觉 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
-| **3. 什么时候不能听 AI？** | 破除大模型的算法谄媚（Sycophancy）与人类自动化偏见，坚守终审决策权 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
-| **4. 输出能不能直接发布？** | 强制执行商业广告法核查、SPDX 协议合规、代码密钥扫描与无障碍门禁 | **13 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
+| **1. 我能把什么给 AI？** | 防范商业模型对未公开草案、敏感信息与个人身份数据的过度采集 | **11 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
+| **2. 哪些回答能信？** | 核查虚构引文（DOI 查真伪）、捏造数据与事实性幻觉 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
+| **3. 什么时候不能听 AI？** | 防范模型的谄媚迎合（Sycophancy）与盲目顺从，保持独立核查 | **10 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
+| **4. 输出能不能直接发布？** | 执行广告合规核查、开源协议审计、凭证扫描与无障碍检查 | **13 项** | [👉 前往技能库检索筛选](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
 
 > 🌟 **欢迎体验完整的在线双轮驱动平台**：
 > - 📖 **[阅读《实务指南》 (Field Guide)](https://putongren.org/guide_responsible_AI_use/)**：6 大真实工作流场景深度推演，行文内嵌微卡片原地交互。

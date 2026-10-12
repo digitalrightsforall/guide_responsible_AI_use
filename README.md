@@ -1,6 +1,6 @@
 # Awesome Responsible AI Skills [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Vetted Skills](https://img.shields.io/badge/Vetted%20Skills-44%20Curated-8a2be2.svg)](https://putongren.org/guide_responsible_AI_use/library.html) [![Format: SKILL.md](https://img.shields.io/badge/Format-SKILL.md-success.svg)](https://agentskills.io) [![Remote Health](https://img.shields.io/badge/URLs%20Health-44%2F44%20Live-brightgreen.svg)](#-operational-status--verified-evidence-methodology) [![Community](https://img.shields.io/badge/Community-putongren.org-orange.svg)](https://putongren.org)
 
-> A curated collection of 44 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—guarding inward against data harvesting and blind trust, and delivering outward with third-party verifiability.
+> A curated collection of 44 production-ready `SKILL.md` packages designed to help everyday knowledge workers, researchers, writers, and professionals practice **Responsible and Safe AI Use**—protecting personal data against unintended ingestion and ensuring deliverables are verifiable by third parties.
 
 **English** | [中文版](README_CN.md) | 📖 [Practical Field Guide](https://putongren.org/guide_responsible_AI_use/) | 🛡️ [Interactive Skill Library](https://putongren.org/guide_responsible_AI_use/library.html)
 
@@ -25,11 +25,11 @@ This project is designed as an interactive, dual-engine platform for everyone us
 
 This project is initiated as a public-interest practical toolkit by [**Digital Rights for All (普通人的数字权利 - putongren.org)**](https://putongren.org), dedicated to helping everyone protect their rights, privacy, and agency in the algorithmic era.
 
-In this project, we curate **existing, proven open-source skills** (we strictly curate, not invent). The practical connotation of responsible and safe AI use is unpacked into two dynamic pillars:
+In this project, we curate **existing, proven open-source skills** (curated from vetted open-source projects). The practical connotation of responsible and safe AI use is unpacked into two dynamic pillars:
 
 1. **🛡️ Inward: Self-Defense & Boundaries (对内·自我防护与边界)**:
    - **Prevent Data Over-Harvesting**: Guard against commercial LLM vendors silently turning your draft proposals, interview transcripts, and private source code into their next-generation training corpora.
-   - **Pierce Confident Hallucinations & Sycophancy**: Guard against models fabricating citations with high conviction or flattering your flawed premises, preserving human critical judgment.
+   - **Verify Confident Hallucinations & Sycophancy**: Guard against models fabricating citations with high conviction or flattering your flawed premises, preserving human critical judgment.
 
 2. **📐 Outward: Third-Party Verifiability (对外·成果第三方可核验)**:
    - **Auditable Evidence Chains**: Ensure that when you deliver an AI-assisted report, code change, or paper, colleagues, clients, and readers can readily audit the source evidence, reasoning logs, and data anchors.
@@ -47,7 +47,7 @@ Rather than debating abstract ethics, this project anchors responsible and safe 
 | Practical Question | Threat Addressed & Core Connotation | Skills Count | Web Explorer |
 | :--- | :--- | :---: | :--- |
 | **1. What can I feed to AI?** | Prevent commercial LLMs from harvesting proprietary drafts, sensitive cases, and PII into training corpora | **11 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#feed-to-ai) |
-| **2. Which answers can I trust?** | Pierce confident hallucinations, phantom DOI citations, fabricated numbers, and plausible falsehoods | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
+| **2. Which answers can I trust?** | Verify confident hallucinations, fake DOI citations, fabricated numbers, and plausible falsehoods | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#answers-to-trust) |
 | **3. When should I NOT listen to AI?** | Break algorithmic sycophancy and automation bias to defend human critical scrutiny and judgment | **10 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#when-not-to-listen) |
 | **4. Can the output be published directly?** | Enforce advertising substantiation, SPDX license hygiene, secret scanning, and accessibility gates | **13 Skills** | [👉 Explore in Skill Library](https://putongren.org/guide_responsible_AI_use/library.html#can-publish-directly) |
 

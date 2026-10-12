@@ -107,8 +107,37 @@ function setupEventListeners() {
     });
   });
 
-  // Delegate inline skill & incident pill clicks
+  // Delegate inline skill & incident pill & compact card clicks
   document.getElementById("narrative-content")?.addEventListener("click", (e) => {
+    // Copy Command button on compact card
+    const copyBtn = e.target.closest(".skill-copy-btn");
+    if (copyBtn) {
+      e.stopPropagation();
+      const skillId = copyBtn.getAttribute("data-skill");
+      if (skillId && itemsById[skillId]) {
+        const item = itemsById[skillId];
+        const cmd = item.action_content || item.install?.action_content || `curl -sL ${item.url}/raw/main/SKILL.md -o .agents/skills/${item.id}/SKILL.md`;
+        navigator.clipboard.writeText(cmd).then(() => {
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = currentLang === "zh" ? "<span>✅ 已复制</span>" : "<span>✅ Copied</span>";
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+          }, 2000);
+        });
+      }
+      return;
+    }
+
+    // Inspect Evidence button on compact card
+    const inspectBtn = e.target.closest(".skill-inspect-btn");
+    if (inspectBtn) {
+      const skillId = inspectBtn.getAttribute("data-skill");
+      if (skillId && itemsById[skillId]) {
+        openModal(skillId);
+        return;
+      }
+    }
+
     const pill = e.target.closest(".inline-skill-pill");
     if (pill) {
       const skillId = pill.getAttribute("data-skill");
@@ -581,6 +610,105 @@ function makePill(skillId, label) {
 // Helper to render interactive incident pill in text (External link to incidents.html?id=...)
 function makeIncidentPill(incidentId, label) {
   return `<a href="incidents.html?id=${encodeURIComponent(incidentId)}" target="_blank" rel="noopener noreferrer" class="inline-incident-pill" data-incident="${incidentId}" title="在新窗口查看真实案例详情与裁判依据"><svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;display:inline-block;flex-shrink:0;vertical-align:-1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>${escapeHtml(label || incidentId)}</span><svg width="10" height="10" style="width:10px;height:10px;margin-left:2px;display:inline-block;opacity:0.7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>`;
+}
+
+// Helper to render compact skill cards
+function renderSkillCard(skillId, tierLabelZh, tierLabelEn, roleDescZh, roleDescEn, isAdvanced = false) {
+  const item = itemsById[skillId];
+  const isZh = currentLang === "zh";
+  const tier = isZh ? tierLabelZh : tierLabelEn;
+  const role = isZh ? roleDescZh : roleDescEn;
+  const name = item ? item.name : skillId;
+  const clients = item?.clients ? item.clients.slice(0, 3).join(" / ") : "通用客户端";
+  const isOutOfBox = (item?.status?.stage || "").includes("开箱即用");
+  const statusLabel = isZh 
+    ? (isOutOfBox ? "🟢 开箱即用" : "🟡 需装依赖")
+    : (isOutOfBox ? "🟢 Ready" : "🟡 Deps Req");
+  const statusClass = isOutOfBox ? "status-ready" : "status-dep";
+  const tierClass = isAdvanced ? "tier-advanced" : "tier-required";
+  
+  return `
+    <div class="skill-compact-card">
+      <div class="space-y-2">
+        <div class="flex items-center justify-between gap-1.5 flex-wrap">
+          <span class="skill-card-tag ${tierClass}">
+            ${escapeHtml(tier)}
+          </span>
+          <span class="skill-card-tag ${statusClass}">
+            ${escapeHtml(statusLabel)}
+          </span>
+        </div>
+        <div>
+          <h5 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white leading-snug">
+            ${escapeHtml(name)}
+          </h5>
+          <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+            ${escapeHtml(role)}
+          </p>
+        </div>
+      </div>
+      <div class="pt-2.5 mt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
+        <div class="text-[10px] text-slate-400 dark:text-slate-500 flex items-center justify-between truncate">
+          <span>${isZh ? '支持' : 'Clients'}: ${escapeHtml(clients)}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 pt-0.5">
+          <button type="button" class="skill-inspect-btn px-2 py-1.5 rounded-lg bg-brand/10 dark:bg-brand/20 hover:bg-brand/20 dark:hover:bg-brand/30 text-brand dark:text-brand-container text-[11px] font-bold text-center transition-colors" data-skill="${skillId}">
+            🔬 ${isZh ? '决策实证' : 'Evidence'}
+          </button>
+          <button type="button" class="skill-copy-btn px-2 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] font-bold text-center transition-colors truncate" data-skill="${skillId}">
+            📋 ${isZh ? '获取命令' : 'Copy Cmd'}
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Helper to render an entire defensive pipeline block with primary cards & expandable alternates
+function renderSkillPipelineSection(options) {
+  const isZh = currentLang === "zh";
+  const title = isZh ? options.titleZh : options.titleEn;
+  const subtitle = isZh ? options.subtitleZh : options.subtitleEn;
+  const primaryCardsHtml = options.primary.map(p => 
+    renderSkillCard(p.id, p.tierZh, p.tierEn, p.roleZh, p.roleEn, p.isAdvanced)
+  ).join("");
+  
+  let moreHtml = "";
+  if (options.alternates && options.alternates.length > 0) {
+    const pillsHtml = options.alternates.map(a => makePill(a.id, a.label)).join("");
+    const moreTitle = isZh 
+      ? `查看另外 ${options.alternates.length} 个备选/补充技能（根据环境自由选用） ▾`
+      : `View ${options.alternates.length} alternative & supplementary skills ▾`;
+    moreHtml = `
+      <details class="more-skills-drawer group">
+        <summary class="cursor-pointer text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-brand">
+          <span>📦 ${moreTitle}</span>
+          <span class="text-[10px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <div class="pt-2 flex flex-wrap gap-1.5">
+          ${pillsHtml}
+        </div>
+      </details>
+    `;
+  }
+
+  return `
+    <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3.5 my-4 shadow-2xs">
+      <div class="space-y-1">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+          <span>🛠️</span>
+          <span>${escapeHtml(title)}</span>
+        </h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400">
+          ${escapeHtml(subtitle)}
+        </p>
+      </div>
+      <div class="skill-card-grid ${options.primary.length >= 3 ? 'cols-3' : ''}">
+        ${primaryCardsHtml}
+      </div>
+      ${moreHtml}
+    </div>
+  `;
 }
 
 // Bilingual Narrative Content Dictionary
@@ -1466,21 +1594,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")}
-              ${makePill("presidio-anonymize-text", "presidio-anonymize-text · 微软标准文本匿名化")}
-              ${makePill("pii-detection-pipeline", "pii-detection-pipeline · 隐私多重检测流")}
-              ${makePill("skill-sanitizer", "skill-sanitizer · 投喂数据净化")}
-              ${makePill("openmed-clinical-ingestion", "openmed-clinical-ingestion · 临床病历隐私合规")}
-              ${makePill("skillguard", "skillguard · 技能静态恶意检测")}
-              ${makePill("skill-sentinel", "skill-sentinel · 提示词注入前哨")}
-              ${makePill("security-threat-model", "security-threat-model · 威胁建模分析")}
-              ${makePill("scholar-safety", "scholar-safety · 学术检索隐私隔离")}
-              ${makePill("nova-proximity", "nova-proximity · 敏感数据越界预警")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Pre-Input Defensive Pipeline)",
+            titleEn: "Pre-Input Defensive Pipeline & Curated Skills",
+            subtitleZh: "工序：敏感数据本地脱敏 → 投喂内容清洗 → 外部提示词注入拦截。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Local PII redaction → data sanitization → prompt injection defense.",
+            primary: [
+              {
+                id: "pii-safe-documents",
+                tierZh: "核心防线 · 输入前",
+                tierEn: "Core Defense · Pre-Input",
+                roleZh: "在本地生成可逆脱敏副本，防止向大模型泄露真实个人与客户隐私",
+                roleEn: "Creates local redacted working copy to protect private PII from cloud upload",
+                isAdvanced: false
+              },
+              {
+                id: "skill-sanitizer",
+                tierZh: "核心防线 · 数据净化",
+                tierEn: "Core Defense · Sanitization",
+                roleZh: "投喂文本清洗器，过滤代码与文本中隐藏的凭据、内网地址与恶意识别符",
+                roleEn: "Sanitizes sensitive tokens, private IPs and internal credentials before ingestion",
+                isAdvanced: false
+              },
+              {
+                id: "skill-sentinel",
+                tierZh: "核心防线 · 注入防御",
+                tierEn: "Core Defense · Anti-Injection",
+                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入暗号",
+                roleEn: "Inspects external context (PDF/web) to block indirect prompt injection payloads",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "presidio-anonymize-text", label: "presidio-anonymize-text · 微软标准文本匿名化" },
+              { id: "pii-detection-pipeline", label: "pii-detection-pipeline · 隐私多重检测流" },
+              { id: "openmed-clinical-ingestion", label: "openmed-clinical-ingestion · 临床病历隐私合规" },
+              { id: "skillguard", label: "skillguard · 技能静态恶意检测" },
+              { id: "security-threat-model", label: "security-threat-model · 威胁建模分析" },
+              { id: "scholar-safety", label: "scholar-safety · 学术检索隐私隔离" },
+              { id: "nova-proximity", label: "nova-proximity · 敏感数据越界预警" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.2 -->
@@ -1586,21 +1740,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("bibref-verify", "bibref-verify · 参考文献精准核验")}
-              ${makePill("citation-verifier", "citation-verifier · 引文真伪验证器")}
-              ${makePill("citation-faithfulness-checker", "citation-faithfulness-checker · 引文忠实度核对")}
-              ${makePill("citation-integrity-auditor", "citation-integrity-auditor · 学术引用完整性审计")}
-              ${makePill("claim-source-fact-checker", "claim-source-fact-checker · 主张来源查证")}
-              ${makePill("post-generation-fact-check", "post-generation-fact-check · 生成后事实查核")}
-              ${makePill("vectara-hallucination-corrector", "vectara-hallucination-corrector · 幻觉自动纠错")}
-              ${makePill("hallucination-risk-reviewer", "hallucination-risk-reviewer · 幻觉风险评估")}
-              ${makePill("kdense-peer-review", "kdense-peer-review · 严密同行审议")}
-              ${makePill("the-judge", "the-judge · 裁判官逻辑交叉质证")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Fact & Citation Verification Pipeline)",
+            titleEn: "Fact & Citation Verification Pipeline",
+            subtitleZh: "工序：卷期与DOI外部校验 → 引文对齐核实 → 主张忠实度交叉查证。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: DOI & Volume verification → Citation alignment → Claim source cross-check.",
+            primary: [
+              {
+                id: "bibref-verify",
+                tierZh: "核心核验 · 卷期真伪",
+                tierEn: "Core Verification · BibRef",
+                roleZh: "调用 CrossRef 与 PubMed 官方接口，严密校验引文作者、期卷号与真实 DOI",
+                roleEn: "Queries CrossRef & PubMed REST APIs to verify authentic authors, volume and DOI",
+                isAdvanced: false
+              },
+              {
+                id: "citation-verifier",
+                tierZh: "核心核验 · 来源真伪",
+                tierEn: "Core Verification · Sources",
+                roleZh: "通用引文真伪核查器，快速筛查学术论文和报告中是否存在凭空捏造的虚构来源",
+                roleEn: "Fast universal citation checker to uncover hallucinated or fabricated citations",
+                isAdvanced: false
+              },
+              {
+                id: "claim-source-fact-checker",
+                tierZh: "核心核验 · 忠实度比对",
+                tierEn: "Core Verification · Faithfulness",
+                roleZh: "主张与来源比对器，逐句质问‘原文到底有没有这个结论’，防止歪曲断章取义",
+                roleEn: "Verifies whether source texts actually substantiate the specific claims made by AI",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "citation-faithfulness-checker", label: "citation-faithfulness-checker · 引文忠实度核对" },
+              { id: "citation-integrity-auditor", label: "citation-integrity-auditor · 学术引用完整性审计" },
+              { id: "post-generation-fact-check", label: "post-generation-fact-check · 生成后事实查核" },
+              { id: "vectara-hallucination-corrector", label: "vectara-hallucination-corrector · 幻觉纠错 (需依赖)" },
+              { id: "hallucination-risk-reviewer", label: "hallucination-risk-reviewer · 幻觉风险评估" },
+              { id: "kdense-peer-review", label: "kdense-peer-review · 严密同行审议" },
+              { id: "the-judge", label: "the-judge · 裁判官逻辑交叉质证" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.3 -->
@@ -1687,21 +1867,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能 (点击卡片查看实证)：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("sycophancy-challenger", "sycophancy-challenger · 谄媚质疑挑战者")}
-              ${makePill("anti-sycophancy-molly", "anti-sycophancy-molly · 防迎合直言护卫")}
-              ${makePill("devils-advocate-mad-skills", "devils-advocate-mad-skills · 魔鬼代言人逆反推演")}
-              ${makePill("devils-advocate-reviewer", "devils-advocate-reviewer · 批评性对抗审阅")}
-              ${makePill("godfly-opposing-counsel", "godfly-opposing-counsel · 模拟对方辩友质证")}
-              ${makePill("the-fool", "the-fool · 愚者反直觉质疑")}
-              ${makePill("the-jury", "the-jury · 多角色陪审团会诊")}
-              ${makePill("red-team-review", "red-team-review · 红队对抗漏洞挖掘")}
-              ${makePill("discernment-nudge", "discernment-nudge · 批判性辨识微提醒")}
-              ${makePill("receiving-code-review", "receiving-code-review · 客观代码审查受纳")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Anti-Sycophancy & Critical Review Pipeline)",
+            titleEn: "Anti-Sycophancy & Critical Review Pipeline",
+            subtitleZh: "工序：认知摩擦微提醒 → 单角色魔鬼代言人逆向质询 → 多角色陪审团会诊。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Cognitive friction nudge → Devil's Advocate scrutiny → Multi-agent Jury review.",
+            primary: [
+              {
+                id: "discernment-nudge",
+                tierZh: "核心防线 · 认知摩擦",
+                tierEn: "Core Defense · Cognitive Nudge",
+                roleZh: "轻量级认知摩擦约束，强制模型不附和倾向，列出方案最薄弱的 3 个假设",
+                roleEn: "Lightweight cognitive friction nudge forcing models to highlight hidden weak assumptions",
+                isAdvanced: false
+              },
+              {
+                id: "devils-advocate-mad-skills",
+                tierZh: "核心防线 · 逆向推演",
+                tierEn: "Core Defense · Adversarial",
+                roleZh: "魔鬼代言人单兵攻防，站在对立面疯狂质询方案漏洞与商业盲区",
+                roleEn: "Adversarial devil's advocate role questioning your plan from a harsh opposing angle",
+                isAdvanced: false
+              },
+              {
+                id: "the-jury",
+                tierZh: "进阶会诊 · 陪审团",
+                tierEn: "Advanced Defense · Multi-Agent Jury",
+                roleZh: "多智能体独立会诊，由架构师、风控官与质疑者背靠背独立投票质证",
+                roleEn: "Simulates a cross-disciplinary jury for blind, independent review and consensus voting",
+                isAdvanced: true
+              }
+            ],
+            alternates: [
+              { id: "sycophancy-challenger", label: "sycophancy-challenger · 谄媚质疑挑战者" },
+              { id: "anti-sycophancy-molly", label: "anti-sycophancy-molly · 防迎合直言护卫" },
+              { id: "devils-advocate-reviewer", label: "devils-advocate-reviewer · 批评性对抗审阅" },
+              { id: "godfly-opposing-counsel", label: "godfly-opposing-counsel · 模拟对方辩友质证" },
+              { id: "the-fool", label: "the-fool · 愚者反直觉质疑" },
+              { id: "red-team-review", label: "red-team-review · 红队对抗漏洞挖掘" },
+              { id: "receiving-code-review", label: "receiving-code-review · 客观代码审查受纳" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.4 (Agent Execution Security) -->
@@ -1795,12 +2001,23 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("agent-sandbox-skill", "agent-sandbox-skill · 微虚拟机沙盒执行隔离")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
+            titleEn: "Agent Execution Isolation Pipeline",
+            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒物理隔离。",
+            subtitleEn: "Pipeline: Command interception → Privilege boundary → Micro-VM sandbox isolation.",
+            primary: [
+              {
+                id: "agent-sandbox-skill",
+                tierZh: "核心防线 · 沙盒执行",
+                tierEn: "Core Defense · Micro-VM Sandbox",
+                roleZh: "将 Agent 执行的高风险命令置于临时沙盒与微虚拟机中，杜绝系统文件误删与逃逸",
+                roleEn: "Executes agent CLI commands within disposable micro-VM sandboxes to prevent system destruction",
+                isAdvanced: false
+              }
+            ],
+            alternates: []
+          })}
         </div>
 
         <!-- Section 4.5 (Pre-Handoff) -->
@@ -1930,18 +2147,44 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 交付透明度与披露配套技能：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("ai-disclosure-convention", "ai-disclosure-convention · 透明披露规范")}
-              ${makePill("visible-ai-disclosure-pr-gate", "visible-ai-disclosure-pr-gate · PR 可视化披露门禁")}
-              ${makePill("ai-provenance", "ai-provenance · AI 生产血统追溯")}
-              ${makePill("skill-provenance-tracker", "skill-provenance-tracker · 技能调用溯源")}
-              ${makePill("publish-prep-review", "publish-prep-review · 发布前综合预审")}
-              ${makePill("vertu-seo-publish-gate", "vertu-seo-publish-gate · SEO 发布质检门禁")}
-              ${makePill("gdpr-compliance-audit", "gdpr-compliance-audit · GDPR 权利合规审计")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Pre-Handoff & Disclosure Pipeline)",
+            titleEn: "Pre-Handoff & Disclosure Pipeline",
+            subtitleZh: "工序：代码与发布物自动披露 → 人机贡献血统存证 → 商业发布前全面质检。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Code/PR disclosure gate → AI provenance tracking → Pre-publish compliance audit.",
+            primary: [
+              {
+                id: "visible-ai-disclosure-pr-gate",
+                tierZh: "核心门禁 · 代码披露",
+                tierEn: "Core Gate · Code Disclosure",
+                roleZh: "在 GitHub PR 中自动检测并生成可视化 AI 贡献披露报告，满足团队审查透明度",
+                roleEn: "Automated PR gate that generates visible disclosures of AI contributions in code",
+                isAdvanced: false
+              },
+              {
+                id: "publish-prep-review",
+                tierZh: "核心门禁 · 发布预审",
+                tierEn: "Core Gate · Pre-Publish Audit",
+                roleZh: "商业宣发与文案发布前综合质检，审查虚假效能主张、敏感合规与事实漏洞",
+                roleEn: "Comprehensive review prior to publishing content, guarding against unsubstantiated claims",
+                isAdvanced: false
+              },
+              {
+                id: "ai-provenance",
+                tierZh: "核心存证 · 血统溯源",
+                tierEn: "Core Audit · Provenance",
+                roleZh: "人机协作血统存证系统，记录提示词、模型版本与人工修改轨迹以备合规审计",
+                roleEn: "Auditable record keeping prompt traces, model hashes and human editing history",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "ai-disclosure-convention", label: "ai-disclosure-convention · 透明披露规范" },
+              { id: "skill-provenance-tracker", label: "skill-provenance-tracker · 技能调用溯源" },
+              { id: "vertu-seo-publish-gate", label: "vertu-seo-publish-gate · SEO 发布质检门禁" },
+              { id: "gdpr-compliance-audit", label: "gdpr-compliance-audit · GDPR 权利合规审计" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.6 (Post-Session) -->
@@ -1981,13 +2224,31 @@ const guideContent = {
             <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>一个月后回看，平台上没有残留你不想留下的对话和文件。</p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ 本场景推荐自卫技能：</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}
-              ${makePill("humanizer", "humanizer · 人性化文本去套路润色")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
+            titleEn: "Post-Session & Completion Verification Pipeline",
+            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。构成完整闭环交付双保险。",
+            subtitleEn: "Pipeline: Mandatory verification before completion → Humanized style rewriting.",
+            primary: [
+              {
+                id: "verification-before-completion",
+                tierZh: "核心门禁 · 终局检验",
+                tierEn: "Core Gate · Verification",
+                roleZh: "严禁 AI 口头宣称完成：强制跑完验证套件与事实检查，提供证据后方可交付",
+                roleEn: "Enforces evidence-based task completion: forbids LLM declaring done without tests",
+                isAdvanced: false
+              },
+              {
+                id: "humanizer",
+                tierZh: "核心润色 · 去套路化",
+                tierEn: "Core Polish · Humanize",
+                roleZh: "基于维基百科 AI 文本特征，消除‘不仅...而且’、虚高术语与机械套路腔",
+                roleEn: "Rewrites AI-sounding prose to remove robotic patterns, cliches and inflated claims",
+                isAdvanced: false
+              }
+            ],
+            alternates: []
+          })}
         </div>
       </section>
 
@@ -3308,21 +3569,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Pre-Input Skills Arsenal (Click to inspect evidence):</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("pii-safe-documents", "pii-safe-documents · Document Masking")}
-              ${makePill("presidio-anonymize-text", "presidio-anonymize-text · Presidio Anonymizer")}
-              ${makePill("pii-detection-pipeline", "pii-detection-pipeline · PII Multi-Scan")}
-              ${makePill("skill-sanitizer", "skill-sanitizer · Ingestion Sanitizer")}
-              ${makePill("openmed-clinical-ingestion", "openmed-clinical-ingestion · Clinical Privacy")}
-              ${makePill("skillguard", "skillguard · Static Malicious Audit")}
-              ${makePill("skill-sentinel", "skill-sentinel · Injection Sentinel")}
-              ${makePill("security-threat-model", "security-threat-model · Threat Modeling")}
-              ${makePill("scholar-safety", "scholar-safety · Research Data Isolation")}
-              ${makePill("nova-proximity", "nova-proximity · Proximity Warning")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Pre-Input Defensive Pipeline)",
+            titleEn: "Pre-Input Defensive Pipeline & Curated Skills",
+            subtitleZh: "工序：敏感数据本地脱敏 → 投喂内容清洗 → 外部提示词注入拦截。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Local PII redaction → data sanitization → prompt injection defense. Curating 3 core tools with alternates on demand.",
+            primary: [
+              {
+                id: "pii-safe-documents",
+                tierZh: "核心防线 · 输入前",
+                tierEn: "Core Defense · Pre-Input",
+                roleZh: "在本地生成可逆脱敏副本，防止向大模型泄露真实个人与客户隐私",
+                roleEn: "Generates local reversible redacted copy to prevent leaking personal PII to cloud models",
+                isAdvanced: false
+              },
+              {
+                id: "skill-sanitizer",
+                tierZh: "核心防线 · 数据净化",
+                tierEn: "Core Defense · Sanitization",
+                roleZh: "投喂文本清洗器，过滤代码与文本中隐藏的凭据、内网地址与恶意识别符",
+                roleEn: "Sanitizes sensitive tokens, private internal IPs, and credentials prior to ingestion",
+                isAdvanced: false
+              },
+              {
+                id: "skill-sentinel",
+                tierZh: "核心防线 · 注入防御",
+                tierEn: "Core Defense · Anti-Injection",
+                roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入暗号",
+                roleEn: "Inspects external contexts (PDF/web) to block indirect prompt injection payloads",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "presidio-anonymize-text", label: "presidio-anonymize-text · Presidio Anonymizer" },
+              { id: "pii-detection-pipeline", label: "pii-detection-pipeline · PII Multi-Scan" },
+              { id: "openmed-clinical-ingestion", label: "openmed-clinical-ingestion · Clinical Privacy" },
+              { id: "skillguard", label: "skillguard · Static Malicious Audit" },
+              { id: "security-threat-model", label: "security-threat-model · Threat Modeling" },
+              { id: "scholar-safety", label: "scholar-safety · Research Data Isolation" },
+              { id: "nova-proximity", label: "nova-proximity · Proximity Warning" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.2 -->
@@ -3428,21 +3715,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Fact-Checking Arsenal:</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("bibref-verify", "bibref-verify · BibRef Verification")}
-              ${makePill("citation-verifier", "citation-verifier · Citation Validator")}
-              ${makePill("citation-faithfulness-checker", "citation-faithfulness-checker · Faithfulness Checker")}
-              ${makePill("citation-integrity-auditor", "citation-integrity-auditor · Integrity Auditor")}
-              ${makePill("claim-source-fact-checker", "claim-source-fact-checker · Claim Source Checker")}
-              ${makePill("post-generation-fact-check", "post-generation-fact-check · Post-Generation Audit")}
-              ${makePill("vectara-hallucination-corrector", "vectara-hallucination-corrector · Hallucination Corrector")}
-              ${makePill("hallucination-risk-reviewer", "hallucination-risk-reviewer · Risk Reviewer")}
-              ${makePill("kdense-peer-review", "kdense-peer-review · Peer Review")}
-              ${makePill("the-judge", "the-judge · The Judge")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Fact & Citation Verification Pipeline)",
+            titleEn: "Fact & Citation Verification Pipeline",
+            subtitleZh: "工序：卷期与DOI外部校验 → 引文对齐核实 → 主张忠实度交叉查证。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: DOI & Volume verification → Citation alignment → Claim source cross-check.",
+            primary: [
+              {
+                id: "bibref-verify",
+                tierZh: "核心核验 · 卷期真伪",
+                tierEn: "Core Verification · BibRef",
+                roleZh: "调用 CrossRef 与 PubMed 官方接口，严密校验引文作者、期卷号与真实 DOI",
+                roleEn: "Queries CrossRef & PubMed REST APIs to verify authentic authors, volume and DOI",
+                isAdvanced: false
+              },
+              {
+                id: "citation-verifier",
+                tierZh: "核心核验 · 来源真伪",
+                tierEn: "Core Verification · Sources",
+                roleZh: "通用引文真伪核查器，快速筛查学术论文和报告中是否存在凭空捏造的虚构来源",
+                roleEn: "Fast universal citation checker to uncover hallucinated or fabricated citations",
+                isAdvanced: false
+              },
+              {
+                id: "claim-source-fact-checker",
+                tierZh: "核心核验 · 忠实度比对",
+                tierEn: "Core Verification · Faithfulness",
+                roleZh: "主张与来源比对器，逐句质问‘原文到底有没有这个结论’，防止歪曲断章取义",
+                roleEn: "Verifies whether source texts actually substantiate the specific claims made by AI",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "citation-faithfulness-checker", label: "citation-faithfulness-checker · Faithfulness Checker" },
+              { id: "citation-integrity-auditor", label: "citation-integrity-auditor · Integrity Auditor" },
+              { id: "post-generation-fact-check", label: "post-generation-fact-check · Post-Generation Audit" },
+              { id: "vectara-hallucination-corrector", label: "vectara-hallucination-corrector · Hallucination Corrector (Deps Req)" },
+              { id: "hallucination-risk-reviewer", label: "hallucination-risk-reviewer · Risk Reviewer" },
+              { id: "kdense-peer-review", label: "kdense-peer-review · Peer Review" },
+              { id: "the-judge", label: "the-judge · The Judge" }
+            ]
+          })}
         </div>
 
         <!-- Section 4.3 -->
@@ -3523,21 +3836,47 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Adversarial Scrutiny Arsenal:</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("sycophancy-challenger", "sycophancy-challenger · Sycophancy Challenger")}
-              ${makePill("anti-sycophancy-molly", "anti-sycophancy-molly · Direct Guard Molly")}
-              ${makePill("devils-advocate-mad-skills", "devils-advocate-mad-skills · Devil's Advocate")}
-              ${makePill("devils-advocate-reviewer", "devils-advocate-reviewer · Critical Reviewer")}
-              ${makePill("godfly-opposing-counsel", "godfly-opposing-counsel · Opposing Counsel")}
-              ${makePill("the-fool", "the-fool · The Fool")}
-              ${makePill("the-jury", "the-jury · The Jury")}
-              ${makePill("red-team-review", "red-team-review · Red Team Review")}
-              ${makePill("discernment-nudge", "discernment-nudge · Discernment Nudge")}
-              ${makePill("receiving-code-review", "receiving-code-review · Code Review Reception")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Anti-Sycophancy & Critical Review Pipeline)",
+            titleEn: "Anti-Sycophancy & Critical Review Pipeline",
+            subtitleZh: "工序：认知摩擦微提醒 → 单角色魔鬼代言人逆向质询 → 多角色陪审团会诊。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Cognitive friction nudge → Devil's Advocate scrutiny → Multi-agent Jury review.",
+            primary: [
+              {
+                id: "discernment-nudge",
+                tierZh: "核心防线 · 认知摩擦",
+                tierEn: "Core Defense · Cognitive Nudge",
+                roleZh: "轻量级认知摩擦约束，强制模型不附和倾向，列出方案最薄弱的 3 个假设",
+                roleEn: "Lightweight cognitive friction nudge forcing models to highlight hidden weak assumptions",
+                isAdvanced: false
+              },
+              {
+                id: "devils-advocate-mad-skills",
+                tierZh: "核心防线 · 逆向推演",
+                tierEn: "Core Defense · Adversarial",
+                roleZh: "魔鬼代言人单兵攻防，站在对立面疯狂质询方案漏洞与商业盲区",
+                roleEn: "Adversarial devil's advocate role questioning your plan from a harsh opposing angle",
+                isAdvanced: false
+              },
+              {
+                id: "the-jury",
+                tierZh: "进阶会诊 · 陪审团",
+                tierEn: "Advanced Defense · Multi-Agent Jury",
+                roleZh: "多智能体独立会诊，由架构师、风控官与质疑者背靠背独立投票质证",
+                roleEn: "Simulates a cross-disciplinary jury for blind, independent review and consensus voting",
+                isAdvanced: true
+              }
+            ],
+            alternates: [
+              { id: "sycophancy-challenger", label: "sycophancy-challenger · Sycophancy Challenger" },
+              { id: "anti-sycophancy-molly", label: "anti-sycophancy-molly · Direct Guard Molly" },
+              { id: "devils-advocate-reviewer", label: "devils-advocate-reviewer · Critical Reviewer" },
+              { id: "godfly-opposing-counsel", label: "godfly-opposing-counsel · Opposing Counsel" },
+              { id: "the-fool", label: "the-fool · The Fool" },
+              { id: "red-team-review", label: "red-team-review · Red Team Review" },
+              { id: "receiving-code-review", label: "receiving-code-review · Code Review Reception" }
+            ]
+          })}
         </div>
 
         <!-- Section 3.4 (Agent Execution Safety) -->
@@ -3632,12 +3971,23 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Execution Isolation Arsenal:</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("agent-sandbox-skill", "agent-sandbox-skill · MicroVM Sandbox Execution")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
+            titleEn: "Agent Execution Isolation Pipeline",
+            subtitleZh: "工序：敏感指令拦截 → 最小权限边界收敛 → 临时微虚拟机沙盒物理隔离。",
+            subtitleEn: "Pipeline: Command interception → Privilege boundary → Micro-VM sandbox isolation.",
+            primary: [
+              {
+                id: "agent-sandbox-skill",
+                tierZh: "核心防线 · 沙盒执行",
+                tierEn: "Core Defense · Micro-VM Sandbox",
+                roleZh: "将 Agent 执行的高风险命令置于临时沙盒与微虚拟机中，杜绝系统文件误删与逃逸",
+                roleEn: "Executes agent CLI commands within disposable micro-VM sandboxes to prevent system destruction",
+                isAdvanced: false
+              }
+            ],
+            alternates: []
+          })}
         </div>
 
         <!-- Section 3.5 (Pre-Handoff) -->
@@ -3769,18 +4119,44 @@ const guideContent = {
             </ul>
           </details>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Delivery Transparency & Provenance Arsenal:</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("ai-disclosure-convention", "ai-disclosure-convention · Disclosure Convention")}
-              ${makePill("visible-ai-disclosure-pr-gate", "visible-ai-disclosure-pr-gate · PR Disclosure Gate")}
-              ${makePill("ai-provenance", "ai-provenance · AI Provenance Tracking")}
-              ${makePill("skill-provenance-tracker", "skill-provenance-tracker · Skill Invocation Provenance")}
-              ${makePill("publish-prep-review", "publish-prep-review · Pre-Publish Audit")}
-              ${makePill("vertu-seo-publish-gate", "vertu-seo-publish-gate · SEO Quality Gate")}
-              ${makePill("gdpr-compliance-audit", "gdpr-compliance-audit · GDPR Compliance Audit")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Pre-Handoff & Disclosure Pipeline)",
+            titleEn: "Pre-Handoff & Disclosure Pipeline",
+            subtitleZh: "工序：代码与发布物自动披露 → 人机贡献血统存证 → 商业发布前全面质检。首推 3 项核心技能，其余按需选用。",
+            subtitleEn: "Pipeline: Code/PR disclosure gate → AI provenance tracking → Pre-publish compliance audit.",
+            primary: [
+              {
+                id: "visible-ai-disclosure-pr-gate",
+                tierZh: "核心门禁 · 代码披露",
+                tierEn: "Core Gate · Code Disclosure",
+                roleZh: "在 GitHub PR 中自动检测并生成可视化 AI 贡献披露报告，满足团队审查透明度",
+                roleEn: "Automated PR gate that generates visible disclosures of AI contributions in code",
+                isAdvanced: false
+              },
+              {
+                id: "publish-prep-review",
+                tierZh: "核心门禁 · 发布预审",
+                tierEn: "Core Gate · Pre-Publish Audit",
+                roleZh: "商业宣发与文案发布前综合质检，审查虚假效能主张、敏感合规与事实漏洞",
+                roleEn: "Comprehensive review prior to publishing content, guarding against unsubstantiated claims",
+                isAdvanced: false
+              },
+              {
+                id: "ai-provenance",
+                tierZh: "核心存证 · 血统溯源",
+                tierEn: "Core Audit · Provenance",
+                roleZh: "人机协作血统存证系统，记录提示词、模型版本与人工修改轨迹以备合规审计",
+                roleEn: "Auditable record keeping prompt traces, model hashes and human editing history",
+                isAdvanced: false
+              }
+            ],
+            alternates: [
+              { id: "ai-disclosure-convention", label: "ai-disclosure-convention · Disclosure Convention" },
+              { id: "skill-provenance-tracker", label: "skill-provenance-tracker · Skill Invocation Provenance" },
+              { id: "vertu-seo-publish-gate", label: "vertu-seo-publish-gate · SEO Quality Gate" },
+              { id: "gdpr-compliance-audit", label: "gdpr-compliance-audit · GDPR Compliance Audit" }
+            ]
+          })}
         </div>
 
         <!-- Section 3.6 (Post-Session) -->
@@ -3820,13 +4196,31 @@ const guideContent = {
             <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>A month later, no chats or files you did not want to keep remain on the platform.</p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">🛠️ Post-Session Arsenal:</h4>
-            <div class="flex flex-wrap gap-2">
-              ${makePill("verification-before-completion", "verification-before-completion · Verification Gate")}
-              ${makePill("humanizer", "humanizer · Humanize Output")}
-            </div>
-          </div>
+          ${renderSkillPipelineSection({
+            titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
+            titleEn: "Post-Session & Completion Verification Pipeline",
+            subtitleZh: "工序：硬性测试检验门禁 → 消除 AI 套路机械腔润色。构成完整闭环交付双保险。",
+            subtitleEn: "Pipeline: Mandatory verification before completion → Humanized style rewriting.",
+            primary: [
+              {
+                id: "verification-before-completion",
+                tierZh: "核心门禁 · 终局检验",
+                tierEn: "Core Gate · Verification",
+                roleZh: "严禁 AI 口头宣称完成：强制跑完验证套件与事实检查，提供证据后方可交付",
+                roleEn: "Enforces evidence-based task completion: forbids LLM declaring done without tests",
+                isAdvanced: false
+              },
+              {
+                id: "humanizer",
+                tierZh: "核心润色 · 去套路化",
+                tierEn: "Core Polish · Humanize",
+                roleZh: "基于维基百科 AI 文本特征，消除‘不仅...而且’、虚高术语与机械套路腔",
+                roleEn: "Rewrites AI-sounding prose to remove robotic patterns, cliches and inflated claims",
+                isAdvanced: false
+              }
+            ],
+            alternates: []
+          })}
         </div>
       </section>
 

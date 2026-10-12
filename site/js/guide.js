@@ -278,8 +278,8 @@ function openModal(skillId) {
         ${escapeHtml(trustSource)}
       </p>
       <div class="pt-1 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-        <span>🔬 ${isZh ? '测试验证：' : 'Verification: '}</span>
-        <span class="font-medium">${escapeHtml(verifiedBy || "项目组测试")}</span>
+        <span>🔬 ${isZh ? '验证状态：' : 'Verification: '}</span>
+        <span class="font-medium">${escapeHtml(verifiedBy || (isZh ? "项目收录 · 语法/结构静态检验" : "Cataloged · Static Syntax & Structure Check"))}</span>
       </div>
     </div>
 
@@ -647,7 +647,7 @@ const guideContent = {
                 <span>隐形危机二：自信幻觉与认知依附 (MIT/Stanford 实证)</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                认知神经科学实证（如 MIT Media Lab 2025 年脑电实验《Your Brain on ChatGPT》与 Anthropic 谄媚性研究）揭示：当人类过度把核心推理委托给 AI 代笔时，神经连接活跃度显著降低，产生“认知负债”（83% 的受试者甚至无法回忆刚才生成的关键内容）。加之模型的<strong>谄媚倾向（Sycophancy，顺从讨好用户偏好）</strong>，长期缺乏批判反思，个人的独立思考与求证本能会被悄然削弱。
+                认知神经科学与人机交互研究（如 MIT Media Lab 2025 年预印本《Your Brain on ChatGPT》及 Anthropic 谄媚性研究）提示：当过度把推理完全委托给 AI 代写时，可能产生即时记忆与注意力留存不足等“认知负担”（实验中深度依赖模型的测试组参与者多达 15/18 人难以准确引用刚生成的关键要点）。加之模型的<strong>谄媚倾向（Sycophancy，顺从讨好用户偏好）</strong>，若缺乏主动核查与批判反思，个人的独立审校与求证本能可能受到干扰。
               </p>
             </div>
           </div>
@@ -865,7 +865,7 @@ const guideContent = {
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · 上手第一步</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
-            第零道防线：上手第一步：关掉这几个悄悄收集数据的开关 (Choose & Configure)
+            上手第一步：关掉这几个悄悄收集数据的开关 (Choose & Configure)
           </h2>
         </div>
 
@@ -978,7 +978,7 @@ const guideContent = {
                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td class="py-3 px-4 font-bold text-slate-800 dark:text-slate-100">自建 Agent / 框架<br><span class="text-[11px] font-normal text-slate-500">Dify、FastGPT 等</span></td>
                   <td class="py-3 px-4">务必及时升级安全补丁（Dify &ge; v1.14.2，FastGPT &ge; v4.14.10.3）；MCP Server URL 与 API Key 同等防护，严禁硬编码；配置远程 MCP 访问白名单。</td>
-                  <td class="py-3 px-4">自建不等于免受攻击！真实在野漏洞实证：<strong>Dify CVE-2026-41947</strong> 曾因跨租户 Trace 导致提示词外泄；<strong>FastGPT CVE-2026-40100</strong> 曾因 MCP runTool 导致未认证 SSRF 探测内网。</td>
+                  <td class="py-3 px-4">自建不等于免受攻击！公开披露并修复的典型安全漏洞：<strong>Dify CVE-2026-41947</strong> 曾因跨租户 Trace 导致提示词暴露风险；<strong>FastGPT CVE-2026-40100</strong> 曾因 MCP runTool 导致未认证 SSRF 探测内网。</td>
                   <td class="py-3 px-4 text-slate-500"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand hover:underline">NVD CVE-2026-41947 ↗</a> / GHSA 安全公告</td>
                 </tr>
               </tbody>
@@ -1090,7 +1090,7 @@ const guideContent = {
                 支柱二 · AI 相信什么？
               </span>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>认知完整与防投毒 (Cognitive Integrity & Anti-Poisoning)</strong>：AI 读取的外部文档、网页或 Issue 本身可能是带毒武器（间接提示词注入）。对齐《生成式人工智能服务管理暂行办法》第4条真实性防伪要求与最高法 2026 事实核验自负原则，防御 OWASP LLM01 注入劫持与 LLM05 供应链污染，坚守“外部内容皆代码”的求证防线。
+                <strong>认知完整与防投毒 (Cognitive Integrity & Anti-Poisoning)</strong>：AI 读取的外部文档、网页或 Issue 本身可能是带毒武器（间接提示词注入）。对齐《生成式人工智能服务管理暂行办法》第4条真实性防伪要求与最高法 2026 事实核验自负原则，防御 OWASP LLM01 注入劫持与 LLM05 供应链污染，坚守“外部内容均按不可信输入处理”的求证防线。
               </p>
             </div>
             <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
@@ -1154,7 +1154,7 @@ const guideContent = {
                       • <strong>ISO/IEC 42001</strong> A.7 数据控制
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
-                      员工把同事简历、客户身份证、病历录音贴入公共 AI，构成<strong>向第三方非法提供个人信息</strong>；去标识化不构成绝对合规免责港。
+                      员工若擅自将同事简历、客户身份证、病历录音贴入公共 AI，可能构成<strong>违法处理或向第三方未授权提供个人信息</strong>；去标识化不构成绝对合规免责抗辩。
                     </td>
                   </tr>
                   <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
@@ -1366,7 +1366,7 @@ const guideContent = {
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>如果你只用网页版或手机 App（如豆包、Kimi、ChatGPT），用不了技能也没关系。</strong>下面每一节都有“零门槛”做法，只需要浏览器和几分钟时间。想用技能的读者，可以点开文中的技能卡片查看安装命令。</p>
         </div>
 
-        <!-- Section 3.1 -->
+        <!-- Section 4.1 -->
         <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.1 输入前 · 数据脱敏、马赛克重组防御与外部隐形投毒拦截 (Pre-Input)</span>
@@ -1483,10 +1483,10 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.2 -->
+        <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.2 对话推演时 · 撕开自回归幻觉与伪造文献的伪装 (During-Chat)</span>
+            <span>4.2 对话推演时 · 撕开自回归幻觉与伪造文献的伪装 (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             大模型最令人着迷也最危险的特性就是它的“自信”。当你向它询问学术背景、法律先例或技术溯源时，它能瞬间生成排版严谨、带有著名学者姓名、权威期刊卷期乃至以 <code>10.xxxx</code> 开头的标准 DOI 引文。然而逐一检索这些引文往往令人震惊：DOI 根本不存在，或者文章结论与模型论述南辕北辙。
@@ -1603,10 +1603,10 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.3 -->
+        <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.3 方案决策时 · 破除 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
+            <span>4.3 方案决策时 · 破除 RLHF 机制带来的“谄媚盲从” (During-Chat)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             你是否经历过这样的场景：你在提问时暗示了一个偏颇的思路（例如“我觉得单体架构比微服务更适合我们团队”），模型立即赞叹：“您的洞察非常深刻！单体架构正是现阶段的最佳选择！”——在机器学习学术界，这种现象被称为<strong>“谄媚倾向（Sycophancy）”</strong>。模型为了迎合人类的好恶反馈，会隐瞒关键反面论据与架构隐患，制造危险的认知回音壁。
@@ -1704,7 +1704,7 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.4 (Agent Execution Security) -->
+        <!-- Section 4.4 (Agent Execution Security) -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.4 执行时 · Agent 权限越权与沙盒隔离 (Execution Safety)</span>
@@ -1789,7 +1789,7 @@ const guideContent = {
             </summary>
             <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
               <li><strong>权限门禁 ≠ 物理容器</strong>：WorkBuddy 将权限严谨分为“默认权限”（限制工作空间、弹窗确认）与“完全访问”；Kimi Work 官方明确提示完全权限存在文件覆盖和系统改动风险。没有容器沙箱前，严禁开启无确认全自动执行。</li>
-              <li><strong>MCP 服务端 SSRF 风险（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40100" target="_blank" class="text-brand font-bold underline">FastGPT CVE-2026-40100 ↗</a>）</strong>：真实在野实证表明，MCP <code>runTool</code> 接口曾存在未认证 SSRF，外部攻击者可诱导 AI 平台向内部私有地址发起探测，将 AI 沦为内网渗透跳板。</li>
+              <li><strong>MCP 服务端 SSRF 风险（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40100" target="_blank" class="text-brand font-bold underline">FastGPT CVE-2026-40100 ↗</a>）</strong>：公开安全漏洞分析显示，MCP <code>runTool</code> 接口曾存在未认证 SSRF，外部请求可被诱导向内部私有地址发起探测，需及时升级防护补丁并建立网络隔离。</li>
               <li><strong>跨租户配置泄露（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand font-bold underline">Dify CVE-2026-41947 ↗</a>）</strong>：Dify 曾曝出 Trace 配置未授权访问，攻击者可将受害者的提示词和响应流重定向至外部监听端点（已在 v1.14.2 修复）。</li>
               <li><strong>MCP 语义供应链投毒 (Tool Poisoning)</strong>：学术界与 PoC 证实，恶意 MCP 工具可在描述元数据中隐蔽嵌入系统指令，即使用户未主动调用该工具，也会劫持模型对上下文的任务推演。</li>
             </ul>
@@ -1803,7 +1803,7 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.5 (Pre-Handoff) -->
+        <!-- Section 4.5 (Pre-Handoff) -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.5 交付前 · 生产发布的“四大法定门禁”与生成标识 (Pre-Handoff)</span>
@@ -1843,7 +1843,7 @@ const guideContent = {
                 <span>门禁二：数字包容与法定 Web 无障碍门禁</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                依据中国《无障碍环境建设法》第32条法定强制要求及 W3C WCAG 2.1 AA 国际标准，阻断缺少语义标签、缺失 ARIA 属性、键盘无法导航与对比度不足（低于 4.5:1）的代码进入生产。
+                中国《无障碍环境建设法》第32条对利用财政资金建设的公共服务网站提出合规要求，并鼓励各类公众服务平台提升无障碍水平。W3C WCAG 2.1 AA 是国际通行的关键设计与审计基线，防范生成代码缺失语义标签、缺乏键盘导航或对比度严重不足（低于 4.5:1）。
               </p>
               <div>${makePill("web-accessibility", "web-accessibility · 法定 WCAG 无障碍门禁")}</div>
             </div>
@@ -1923,7 +1923,7 @@ const guideContent = {
                 </ul>
               </li>
               <li><strong>FTC "Operation AI Comply" 国际对比</strong>：美国 FTC 严厉打击缺乏实证支持的 AI 吹嘘（AI Washing）：DoNotPay 因宣传所谓“世界首个机器人律师”被罚款 19.3 万美元并被严禁无实证宣传；2026 年 8 月 CMG Media 等三家公司因虚假宣称 AI“Active Listening”监听消费者语音定向广告和解支付 93 万美元；Air AI 2026 年 3 月因虚假商业机会承诺达成和解。核心在于 Substantiation（每一项效能声称必须具备严密证据支撑）。</li>
-              <li><strong>无障碍环境建设法强制要求</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条明确规定，国家支持并推进提供公众服务的网站、移动应用程序符合无障碍标准。结合 W3C WCAG 2.1 AA 国际准则，AI 生成界面的色彩对比度不得低于 4.5:1，所有交互控件必须支持纯键盘导航且具备非文本语义回退机制。</li>
+              <li><strong>无障碍标准与法定指引</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条规定利用财政资金设立的网站逐步符合无障碍标准，并鼓励公共服务网站提升无障碍水平。W3C WCAG 2.1 AA 国际准则是工程设计的重要基线（如色彩对比度通常不低于 4.5:1，交互控件支持纯键盘导航与语义回退）。</li>
               <li><strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中级人民法院于 2024 年 12 月 30 日终审判决的标志性案件。一审认定“触手 AI”平台提供奥特曼 LoRA 模型训练并在模型广场分发、设立“IP作品”专区且具备低成本事前过滤能力而未采取必要措施，构成信息网络传播权之<strong>帮助侵权</strong>，判令下架并赔偿损失；二审驳回上诉、维持原判。该案确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。</li>
               <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 代码补全绝不是许可证清洗机，CI/CD 必须强制引入 SCA 与 SBOM 比对；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
               <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>铁律：“本内容由 AI 生成”只属于来源披露义务，绝不能免除内容发布者的法律侵权或广告违法责任。</strong></li>
@@ -1944,7 +1944,7 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.6 (Post-Session) -->
+        <!-- Section 4.6 (Post-Session) -->
         <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.6 收尾阶段 · 会话清理与完成校验 (Post-Session)</span>
@@ -1999,7 +1999,7 @@ const guideContent = {
             角色剧本：普通人的一日安全工作流
           </h2>
           <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2">
-            如何把这 44 个开源安全技能组装成符合你日常工作节奏的自卫链条？以下是四种典型职业身份（高校学者、软件工程师、文案营销、政企行政与企业知识工作者）的真实一日战术攻防演练。
+            如何把这 44 个开源安全技能组装成符合你日常工作节奏的自卫链条？以下是五类典型使用者（高校学者、软件工程师、文案营销、政企行政人员以及普通个人与家庭日常）的真实一日战术攻防演练。
           </p>
         </div>
 
@@ -2108,7 +2108,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与法律合规红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>凭证外泄、公网裸露与开源协议传染三重暴雷</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；更危险的是，AI 生成代码混入 GPLv3/AGPLv3 传染性协议代码，触碰《最高法(2021)最高法知民终2063号》底线，导致闭源商业项目面临被强制开源或侵权诉讼。此外，离职带走系统调优 Prompt 模板已被正式定性为侵犯商业秘密违法行为。
+                <strong>凭证外泄、公网裸露与开源协议合规三重风险</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；此外，AI 生成代码若混入 GPLv3/AGPLv3 传染性协议代码，可能触碰《最高法(2021)最高法知民终2063号》判例所确立的底线，使项目面临源码披露义务或著作权侵权指控。离职带走系统调优 Prompt 模板亦已被正式定性为侵犯商业秘密违法行为。
               </p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密侵权案罚款35万 ↗')}
@@ -2181,7 +2181,7 @@ const guideContent = {
                 <span>2. 高危翻车瞬间与法定处罚红线 (Near-Miss Incident)</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>巨额虚假宣传罚单与无障碍违法风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，直接违反《无障碍环境建设法》第32条强制要求。
+                <strong>巨额虚假宣传罚单与无障碍合规风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，可能难以达到政府与公共服务平台采购对于《无障碍环境建设法》及 WCAG 标准的无障碍合规要求。
               </p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 ${makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品罚款20万 ↗')}
@@ -2507,7 +2507,7 @@ const guideContent = {
                 <span>Vulnerability 2: Confident Falsehoods & Cognitive Debt (MIT/Stanford EEG)</span>
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Cognitive neuroscience empirical studies (such as MIT Media Lab's 2025 EEG research <em>Your Brain on ChatGPT</em> and Anthropic's sycophancy findings) reveal that outsourcing core reasoning to AI triggers measurable "cognitive debt"—83% of users fail to recall what they just produced. Coupled with sycophancy (flattering user bias), uncritical reliance steadily erodes personal skepticism and independent analytical capability.
+                Emerging cognitive science and HCI literature (such as MIT Media Lab's 2025 preprint <em>Your Brain on ChatGPT</em> and Anthropic's sycophancy investigations) suggests that wholesale delegation of analytical drafting to LLMs can introduce immediate memory decay and lower recall retention (in initial trials, 15 of 18 participants in the heavy-reliance condition struggled to accurately cite key points of just-generated text). Coupled with algorithmic sycophancy, uncritical reliance risks weakening personal verification habits without active critical scrutiny.
               </p>
             </div>
           </div>
@@ -3325,7 +3325,7 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.2 -->
+        <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.2 During-Chat: Piercing Autoregressive Hallucinations & Fabricated Citations</span>
@@ -3445,10 +3445,10 @@ const guideContent = {
           </div>
         </div>
 
-        <!-- Section 3.3 -->
+        <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>3.3 During-Chat: Smashing RLHF Sycophancy & Cognitive Echo Chambers</span>
+            <span>4.3 During-Chat: Smashing RLHF Sycophancy & Cognitive Echo Chambers</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Have you noticed how models flatter your biased premises? Frame a leading question like "I believe a monolithic architecture is far better for our small team," and the model immediately chimes in: "Your insight is profoundly visionary! A monolith is indeed the optimal choice!" In AI research, this bias is called <strong>Sycophancy</strong>. To maximize user approval, models actively conceal opposing evidence and flaws.

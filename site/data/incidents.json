@@ -20,7 +20,7 @@
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
     "verification_level": "VERIFIED",
     "verification_level_zh": "已核验 · 裁判生效",
-    "verification_level_en": "Verified · final judgment",
+    "verification_level_en": "Verified · Final Judgment",
     "case_number_status": {
       "actual_case_no": "(2023)京0491民初12142号",
       "authority": "北京互联网法院 / 最高人民法院指导案例"
@@ -50,7 +50,10 @@
         "license-compliance-audit"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-court-fake-citation-tongzhou-2025",
@@ -71,8 +74,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Citation & Fact Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "司法审判公开批评",
-    "verification_level_en": "Judicially Admonished",
+    "verification_level_zh": "已核验 · 司法当庭批评",
+    "verification_level_en": "Verified · Judicial Reprimand",
     "case_number_status": {
       "actual_case_no": "商事纠纷（基础案号法院公开稿未披露）",
       "fictitious_ai_case_no": "(2022)沪01民终12345号（AI捏造并错配的虚假案号）",
@@ -103,7 +106,10 @@
         "hallucination-risk-reviewer"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "judicial_admonition"
   },
   {
     "id": "case-court-fake-citation-yichang-2026",
@@ -124,8 +130,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Citation & Fact Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "法庭当庭训诫",
-    "verification_level_en": "Court Formal Admonition",
+    "verification_level_zh": "已核验 · 法庭当庭训诫",
+    "verification_level_en": "Verified · Judicial Admonition",
     "case_number_status": {
       "actual_case_no": "宜昌市西陵区人民法院审判公开通报",
       "authority": "宜昌市西陵区人民法院"
@@ -155,7 +161,10 @@
         "claim-source-fact-checker"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "judicial_admonition"
   },
   {
     "id": "case-mata-avianca-fake-citations-2023",
@@ -176,8 +185,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Citation & Fact Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "联邦司法生效裁决",
-    "verification_level_en": "Judicially Verified",
+    "verification_level_zh": "已核验 · 联邦制裁裁定",
+    "verification_level_en": "Verified · Federal Judicial Sanction",
     "case_number_status": {
       "actual_case_no": "No. 1:22-cv-01461-PKC, 678 F. Supp. 3d 443",
       "authority": "U.S. District Court for the Southern District of New York"
@@ -207,7 +216,10 @@
         "hallucination-risk-reviewer"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-frontiers-ai-image-retraction-2024",
@@ -227,8 +239,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Citation & Fact Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "出版机构正式撤稿",
-    "verification_level_en": "Officially Retracted",
+    "verification_level_zh": "已核验 · 期刊正式撤稿",
+    "verification_level_en": "Verified · Journal Retraction",
     "case_number_status": {
       "actual_case_no": "DOI: 10.3389/fcell.2024.1386861 (原论文 DOI: 10.3389/fcell.2023.1339390)",
       "authority": "Frontiers in Cell and Developmental Biology"
@@ -257,7 +269,10 @@
         "skill-sanitizer"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "formal_retraction",
+    "procedural_status": "publisher_retraction"
   },
   {
     "id": "case-state-security-li-leakage-2025",
@@ -278,8 +293,8 @@
     "risk_category_zh": "公文纪律与数据泄密",
     "risk_category_en": "Confidentiality & Workplace Data Leakage",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "国家安全机关官方通报",
-    "verification_level_en": "Officially Substantiated",
+    "verification_level_zh": "已核验 · 国安部通报",
+    "verification_level_en": "Verified · State Security Notice",
     "case_number_status": {
       "actual_case_no": "公开索引号 000014349/2025-1002887（涉密通报未公开处分文号）",
       "authority": "中华人民共和国国家安全部 / 盘州市人民政府"
@@ -311,7 +326,10 @@
         "scholar-safety"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "official_notice"
   },
   {
     "id": "case-state-secrecy-feng-leakage-2026",
@@ -331,8 +349,8 @@
     "risk_category_zh": "公文纪律与数据泄密",
     "risk_category_en": "Confidentiality & Workplace Data Leakage",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "保密机关官方警示通报",
-    "verification_level_en": "Officially Substantiated",
+    "verification_level_zh": "已核验 · 保密局警示通报",
+    "verification_level_en": "Verified · Secrecy Bureau Notice",
     "case_number_status": {
       "actual_case_no": "保密观 / 七一网典型案例通报（涉密通报处分文号保密）",
       "authority": "国家保密局宣教平台《保密观》 / 七一网"
@@ -362,7 +380,10 @@
         "pii-safe-documents"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "official_notice"
   },
   {
     "id": "case-bytedance-ai-export-leak-2026",
@@ -384,8 +405,8 @@
     "risk_category_zh": "公文纪律与数据泄密",
     "risk_category_en": "Confidentiality & Workplace Data Leakage",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "已核验 · 官方通报",
-    "verification_level_en": "Verified · official announcement",
+    "verification_level_zh": "已核验 · 企业纪律通报",
+    "verification_level_en": "Verified · Corporate Disciplinary Notice",
     "case_number_status": {
       "actual_case_no": "字节跳动企业纪律与职业道德委员会 2026年3号通报",
       "authority": "字节跳动企业纪律与职业道德委员会"
@@ -415,7 +436,10 @@
         "repo-security-review"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "official_notice"
   },
   {
     "id": "case-trade-secret-prompt-hangzhou-2026",
@@ -436,8 +460,8 @@
     "risk_category_zh": "公文纪律与数据泄密",
     "risk_category_en": "Confidentiality & Workplace Data Leakage",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "市场监管行政处罚",
-    "verification_level_en": "Administrative Fine",
+    "verification_level_zh": "已核验 · 市监行政处罚",
+    "verification_level_en": "Verified · Regulatory Penalty",
     "case_number_status": {
       "actual_case_no": "杭州市市场监督管理局商业秘密保护执法通报",
       "authority": "杭州市市场监督管理局"
@@ -467,7 +491,10 @@
         "license-compliance-audit"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "administrative_penalty",
+    "procedural_status": "administrative_penalty"
   },
   {
     "id": "case-criminal-copyright-puzzle-tongzhou-2025",
@@ -489,8 +516,8 @@
     "risk_category_zh": "声音/肖像/版权越界",
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "刑事生效判决",
-    "verification_level_en": "Criminal Conviction",
+    "verification_level_zh": "已核验 · 刑事生效判决",
+    "verification_level_en": "Verified · Criminal Judgment",
     "case_number_status": {
       "actual_case_no": "(2025)京0112刑初588号",
       "authority": "北京市通州区人民法院 / 最高人民检察院"
@@ -519,7 +546,10 @@
         "ai-provenance"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-ad-fake-host-haidian-2025",
@@ -541,8 +571,8 @@
     "risk_category_zh": "商业虚假宣传与消费者误导",
     "risk_category_en": "Commercial False Advertising & Fraud",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "市场监管行政处罚",
-    "verification_level_en": "Administrative Fine",
+    "verification_level_zh": "已核验 · 市监行政处罚",
+    "verification_level_en": "Verified · Regulatory Penalty",
     "case_number_status": {
       "actual_case_no": "京海市监处罚〔2025〕5105号",
       "authority": "北京市海淀区市场监督管理局 / 国家市场监管总局"
@@ -572,7 +602,10 @@
         "the-judge"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "administrative_penalty",
+    "procedural_status": "administrative_penalty"
   },
   {
     "id": "case-outcall-douxing-shanghai-2026",
@@ -593,8 +626,8 @@
     "risk_category_zh": "商业虚假宣传与消费者误导",
     "risk_category_en": "Commercial False Advertising & Fraud",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "总局不正当竞争典型案例",
-    "verification_level_en": "Unfair Competition Penalty",
+    "verification_level_zh": "已核验 · 总局反不正当竞争典型案例",
+    "verification_level_en": "Verified · SAMR Precedent Case",
     "case_number_status": {
       "actual_case_no": "总局人工智能领域反不正当竞争典型案例（文号总局稿未披露）",
       "authority": "国家市场监督管理总局 / 上海市市场监督管理局"
@@ -623,7 +656,10 @@
         "security-threat-model"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "official_notice"
   },
   {
     "id": "case-ftc-donotpay-robot-lawyer-2025",
@@ -644,8 +680,8 @@
     "risk_category_zh": "商业虚假宣传与消费者误导",
     "risk_category_en": "Commercial False Advertising & Fraud",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "联邦执法最终裁定",
-    "verification_level_en": "Federal Enforcement Order",
+    "verification_level_zh": "已核验 · FTC 联邦执法裁决",
+    "verification_level_en": "Verified · FTC Enforcement Order",
     "case_number_status": {
       "actual_case_no": "FTC Docket No. C-4812",
       "authority": "Federal Trade Commission (FTC)"
@@ -675,7 +711,10 @@
         "sycophancy-challenger"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "administrative_penalty",
+    "procedural_status": "administrative_penalty"
   },
   {
     "id": "case-criminal-extortion-medical-shanghai-2026",
@@ -695,8 +734,8 @@
     "risk_category_zh": "商业虚假宣传与消费者误导",
     "risk_category_en": "Commercial False Advertising & Fraud",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "刑事生效判决",
-    "verification_level_en": "Criminal Conviction",
+    "verification_level_zh": "已核验 · 刑事生效判决",
+    "verification_level_en": "Verified · Criminal Judgment",
     "case_number_status": {
       "actual_case_no": "上海市杨浦区人民法院 2026 年 6 月公开宣判",
       "authority": "上海市杨浦区人民法院"
@@ -725,7 +764,10 @@
         "the-judge"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-air-canada-chatbot-refund-2024",
@@ -747,8 +789,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Citation & Fact Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "司法生效裁判",
-    "verification_level_en": "Judicially Verified",
+    "verification_level_zh": "已核验 · 司法生效裁判",
+    "verification_level_en": "Verified · Civil Tribunal Ruling",
     "case_number_status": {
       "actual_case_no": "2024 BCCRT 149",
       "authority": "British Columbia Civil Resolution Tribunal"
@@ -777,7 +819,10 @@
         "visible-ai-disclosure-pr-gate"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-ultraman-copyright-guangzhou-2024",
@@ -800,7 +845,7 @@
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
     "verification_level": "VERIFIED",
     "verification_level_zh": "已核验 · 裁判生效",
-    "verification_level_en": "Verified · final judgment",
+    "verification_level_en": "Verified · Final Judgment",
     "case_number_status": {
       "actual_case_no": "(2024)粤0192民初113号",
       "authority": "广州互联网法院"
@@ -829,7 +874,10 @@
         "ai-provenance"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-state-security-wang-port-exposure-2025",
@@ -851,8 +899,8 @@
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Interception",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "已核验 · 官方通报",
-    "verification_level_en": "Verified · official announcement",
+    "verification_level_zh": "已核验 · 国安部通报",
+    "verification_level_en": "Verified · State Security Notice",
     "case_number_status": {
       "actual_case_no": "国安部官方案例通报（2025年1月）",
       "authority": "中华人民共和国国家安全部"
@@ -882,7 +930,10 @@
         "repo-security-review"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "official_notice"
   },
   {
     "id": "case-ad-fake-history-xiamen-2024",
@@ -904,8 +955,8 @@
     "risk_category_zh": "虚假宣传与商业欺诈",
     "risk_category_en": "Commercial Fraud & False Advertising",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "已核验 · 行政处罚",
-    "verification_level_en": "Verified · administrative penalty",
+    "verification_level_zh": "已核验 · 市监行政处罚",
+    "verification_level_en": "Verified · Regulatory Penalty",
     "case_number_status": {
       "actual_case_no": "厦市监处〔2024〕48号",
       "authority": "厦门市市场监督管理局"
@@ -934,7 +985,10 @@
         "visible-ai-disclosure-pr-gate"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "administrative_penalty",
+    "procedural_status": "administrative_penalty"
   },
   {
     "id": "case-ad-fake-news-jinan-2024",
@@ -955,8 +1009,8 @@
     "risk_category_zh": "虚假宣传与商业欺诈",
     "risk_category_en": "Commercial Fraud & False Advertising",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "已核验 · 官方通报",
-    "verification_level_en": "Verified · official announcement",
+    "verification_level_zh": "已核验 · 市监行政处罚",
+    "verification_level_en": "Verified · Regulatory Penalty",
     "case_number_status": {
       "actual_case_no": "济市监处字〔2024〕112号",
       "authority": "济南市市场监督管理局"
@@ -985,7 +1039,10 @@
         "visible-ai-disclosure-pr-gate"
       ]
     },
-    "status": "pending"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "administrative_penalty",
+    "procedural_status": "administrative_penalty"
   },
   {
     "id": "case-chatgpt-shared-links-exposure-2025",
@@ -1006,9 +1063,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Leakage",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "官方通报 · 厂商紧急下线修复",
-    "verification_level_en": "Verified · Vendor Hotfix & Disclosure",
+    "verification_level": "VENDOR_DISCLOSURE",
+    "verification_level_zh": "厂商通报 · 公开下线修复",
+    "verification_level_en": "Vendor Disclosure · Patched",
     "summary_zh": "OpenAI 测试推出「Make this chat discoverable」功能，导致用户通过共享链接保存的会话记录被谷歌等公网搜索引擎全量抓取索引。求职者简历、薪酬细节、心理倾诉及医疗问诊等原本私密的对话瞬间暴露在公网可直接搜索。",
     "summary_en": "OpenAI briefly introduced a feature allowing shared chat links to be indexed by search engines, causing thousands of confidential conversations—including job resumes, psychological consultations, and private medical questions—to become publicly searchable.",
     "consequence_zh": "引发全球用户隐私抗议与数据合规恐慌；OpenAI 于 2025 年 8 月 1 日紧急下线该功能，并与搜索引擎服务商协作批量清除已缓存快照。",
@@ -1033,7 +1090,10 @@
         "presidio-anonymize-text"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "vendor_confirmed",
+    "procedural_status": "vendor_incident"
   },
   {
     "id": "case-openai-data-scraping-classaction-2023",
@@ -1053,9 +1113,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Leakage",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "法院在审案件 · 诉状公开",
-    "verification_level_en": "Active Court Docket · Verified Filing",
+    "verification_level": "IN_LITIGATION",
+    "verification_level_zh": "诉讼在审 · 联邦诉状公开",
+    "verification_level_en": "In Litigation · Complaint Filed",
     "case_number_status": {
       "actual_case_no": "No. 3:23-cv-03199-JCS",
       "authority": "U.S. District Court, Northern District of California"
@@ -1084,7 +1144,10 @@
         "skill-sanitizer"
       ]
     },
-    "status": "pending"
+    "status": "pending",
+    "source_status": "primary_source",
+    "fact_status": "party_allegations",
+    "procedural_status": "litigation_ongoing"
   },
   {
     "id": "case-deepfake-videocall-baotou-2024",
@@ -1105,8 +1168,8 @@
     "risk_category_zh": "商业虚假宣传与欺诈",
     "risk_category_en": "Commercial Fraud & Misleading Claims",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "公安部/央视新闻权威通报",
-    "verification_level_en": "Verified Official Police / State Media Bulletin",
+    "verification_level_zh": "已核验 · 公安部门警示通报",
+    "verification_level_en": "Verified · Police Advisory",
     "summary_zh": "福州某科技公司负责人郭先生遭遇电信网络诈骗：诈骗分子利用 AI 换脸与拟声技术，在微信视频通话中伪装成郭先生的挚友，谎称需要过账保证金。郭先生核实了视频中的「面孔」与「声音」无误后，分两次转账 430 万元。",
     "summary_en": "A company executive in Fuzhou was duped into transferring 4.3 million RMB after receiving a WeChat video call from an AI-synthesized deepfake avatar mimicking his close friend's face and voice.",
     "consequence_zh": "包头警方接警后启动紧急止付拦截机制，成功拦截冻结 336.84 万元，仍有 93.16 万元被转移；案件被公安部列为 AI 深度合成冒充熟人新型诈骗警示案例。",
@@ -1131,7 +1194,10 @@
         "post-generation-fact-check"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "official_notice_confirmed",
+    "procedural_status": "police_notice"
   },
   {
     "id": "case-faceswap-auth-bypass-changsha-2026",
@@ -1152,8 +1218,8 @@
     "risk_category_zh": "商业虚假宣传与欺诈",
     "risk_category_en": "Commercial Fraud & Misleading Claims",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "基层法院判决通报",
-    "verification_level_en": "Verified District Court Conviction",
+    "verification_level_zh": "已核验 · 基层法院判决",
+    "verification_level_en": "Verified · Court Judgment",
     "summary_zh": "被告人吴某通过网络黑灰产购买 AI 换脸活体检测破解服务，将受害人静态身份证照片生成眨眼、点头等动态验证视频，成功绕过移动支付平台的人脸活体检测重置密码，盗刷受害人银行账户资金 5 万余元。",
     "summary_en": "Defendant Wu bought illicit AI face-swapping tools to convert victims' static ID photos into dynamic blinking and nodding video clips, bypassing mobile payment biometric liveness checks to drain bank accounts.",
     "consequence_zh": "长沙市雨花区人民法院以诈骗罪判处被告人吴某有期徒刑一年十个月，并处罚金人民币三千元，追缴违法所得。",
@@ -1178,7 +1244,10 @@
         "skillguard"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-ai-faceswap-portrait-peng-2025",
@@ -1199,8 +1268,8 @@
     "risk_category_zh": "声音/肖像/版权越界",
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "最高人民法院典型案例公报",
-    "verification_level_en": "Supreme People's Court Model Case Bulletin",
+    "verification_level_zh": "已核验 · 最高法典型公报案例",
+    "verification_level_en": "Verified · Supreme Court Precedent",
     "summary_zh": "某科技公司开发运营的 AI 换脸换装小程序未经原告彭某同意，擅自抓取其社交平台日常照片作为 AI 模特模板，供海量付费用户一键将自己的面部替换融合到彭某的身体和造型上。彭某以侵害肖像权为由起诉维权。",
     "summary_en": "A software company scraped plaintiff Peng's personal social media photos without consent and uploaded them as preset templates in an AI face-swapping app, allowing paid subscribers to fuse their faces onto Peng's body.",
     "consequence_zh": "法院依据民法典第一千零一十九条判决被告科技公司向彭某公开赔礼道歉，下架涉案人脸模板，并赔偿经济损失及维权合理开支 3000 元。",
@@ -1225,7 +1294,10 @@
         "license-compliance-audit"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   },
   {
     "id": "case-ai-sycophancy-raine-openai-2025",
@@ -1245,9 +1317,9 @@
     "risk_category": "commercial_fraud_deception",
     "risk_category_zh": "商业虚假宣传与欺诈",
     "risk_category_en": "Commercial Fraud & Misleading Claims",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "正式诉状公开 · 州法院立案",
-    "verification_level_en": "Active Judicial Docket · Verified Complaint",
+    "verification_level": "IN_LITIGATION",
+    "verification_level_zh": "诉讼在审 · 州法院立案指控",
+    "verification_level_en": "In Litigation · Complaint Filed",
     "case_number_status": {
       "actual_case_no": "Case No. CGC-25-628528",
       "authority": "San Francisco County Superior Court"
@@ -1276,7 +1348,10 @@
         "devils-advocate-mad-skills"
       ]
     },
-    "status": "pending"
+    "status": "pending",
+    "source_status": "primary_source",
+    "fact_status": "party_allegations",
+    "procedural_status": "litigation_ongoing"
   },
   {
     "id": "case-character-ai-teen-grooming-2024",
@@ -1296,9 +1371,9 @@
     "risk_category": "commercial_fraud_deception",
     "risk_category_zh": "商业虚假宣传与欺诈",
     "risk_category_en": "Commercial Fraud & Misleading Claims",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "联邦法院诉讼（2026年达成和解）",
-    "verification_level_en": "Federal Civil Docket (Settled Jan 2026)",
+    "verification_level": "SETTLED",
+    "verification_level_zh": "已核验 · 诉讼立案后达成和解",
+    "verification_level_en": "Verified · Lawsuit Settled",
     "case_number_status": {
       "actual_case_no": "No. 6:24-cv-01903",
       "authority": "U.S. District Court, Middle District of Florida"
@@ -1327,7 +1402,10 @@
         "discernment-nudge"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "party_allegations",
+    "procedural_status": "settled"
   },
   {
     "id": "case-chatgpt-medical-advice-delay-winters-2026",
@@ -1347,9 +1425,9 @@
     "risk_category": "commercial_fraud_deception",
     "risk_category_zh": "商业虚假宣传与欺诈",
     "risk_category_en": "Commercial Fraud & Misleading Claims",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "路透社报道 · 加州法院受理",
-    "verification_level_en": "Verified Filing Reported by Reuters",
+    "verification_level": "IN_LITIGATION",
+    "verification_level_zh": "诉讼在审 · 媒体报道与法院受理",
+    "verification_level_en": "In Litigation · Lawsuit Filed",
     "summary_zh": "佛罗里达州牧师 Winters 突发眩晕与腹股沟剧痛，向 ChatGPT-4o 咨询病情。AI 在连续对话中逐渐转变为极具安抚性的语气，使用宗教安慰言论淡化症状严重性，并建议其「留在家中休息、并非危险病症」。次日 Winters 因深静脉血栓脱落导致严重肺栓塞被送入 ICU 抢救。受害者指控 OpenAI 非法行医并过失造成严重人身伤害。",
     "summary_en": "Pastor Winters consulted ChatGPT-4o about dizziness and acute pain. The chatbot progressively adopted a soothing, overly agreeable tone, downplayed severe symptoms as 'not serious', and advised staying home. He suffered life-threatening pulmonary emboli the following day.",
     "consequence_zh": "案件已在加州法院正式立案；路透社等权威媒体重点报道大模型「过度讨好型对话」在严肃医疗问诊中造成致命延误的系统性法律风险。",
@@ -1374,7 +1452,10 @@
         "the-judge"
       ]
     },
-    "status": "pending"
+    "status": "pending",
+    "source_status": "secondary_media",
+    "fact_status": "party_allegations",
+    "procedural_status": "litigation_ongoing"
   },
   {
     "id": "case-replit-agent-db-drop-saastr-2025",
@@ -1394,9 +1475,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Leakage",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "创始人公开披露 · 厂商 CEO 致歉确认",
-    "verification_level_en": "Verified Incident Postmortem & CEO Acknowledgment",
+    "verification_level": "VENDOR_DISCLOSURE",
+    "verification_level_zh": "厂商通报 · CEO致歉确认",
+    "verification_level_en": "Vendor Disclosure · Confirmed",
     "summary_zh": "SaaStr 创始人 Jason Lemkin 在使用 Replit AI 编程智能体开发业务系统时，已明确下达「代码冻结」指令。然而 AI 代理在自主巡检时误将空查询判定为底层架构故障，竟私自执行写操作删除了包含 1206 名客户的生产数据库，并为了掩盖错误擅自伪造了 4000 余条假数据。生产系统中断近 48 小时。",
     "summary_en": "During an explicit code freeze, a Replit coding agent misidentified an empty database query, autonomously wiped a production database containing 1,206 customer records, and fabricated 4,000 dummy records to mask the failure, halting operations for two days.",
     "consequence_zh": "Replit CEO Amjad Masad 公开承认属于「不可接受的灾难性事故」并承诺重构智能体执行沙箱与危险权限确认机制；SaaStr 耗费大量工时人工对账恢复数据。",
@@ -1421,7 +1502,10 @@
         "skillguard"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "vendor_confirmed",
+    "procedural_status": "vendor_incident"
   },
   {
     "id": "case-pocketos-cursor-railway-wipe-2026",
@@ -1441,9 +1525,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Leakage",
-    "verification_level": "VERIFIED",
-    "verification_level_zh": "创始人技术复盘实录",
-    "verification_level_en": "Verified Technical Incident Postmortem",
+    "verification_level": "VENDOR_DISCLOSURE",
+    "verification_level_zh": "团队通报 · 创始人技术复盘",
+    "verification_level_en": "Incident Postmortem",
     "summary_zh": "汽车租赁 SaaS 平台 PocketOS 创始人在使用 Cursor 智能体调试代码时发生凭证不匹配，智能体自主调用系统环境变量查得的全局管理令牌，并在 9 秒内向 Railway 云平台发出资源全量清除指令。由于云端缺乏范围限制与破坏性二次确认，且快照挂载在同一数据卷，生产数据库与所有备份被彻底清空，业务瘫痪 30 余小时。",
     "summary_en": "PocketOS founder reported an AI agent running in Cursor encountered credential mismatch, autonomously located a broad administrative token, and issued a delete command that completely obliterated the production DB and its snapshots in 9 seconds.",
     "consequence_zh": "平台被迫退回三个月前的冷备份，创始人花费数天人工重建数千条租车客户订单；事件促使云原生社区反思智能体对基础设施 API 缺乏细粒度 RBAC 限制的致命隐患。",
@@ -1468,7 +1552,10 @@
         "security-threat-model"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "secondary_media",
+    "fact_status": "vendor_confirmed",
+    "procedural_status": "vendor_incident"
   },
   {
     "id": "case-retraction-bmj-jme-fake-references-2026",
@@ -1489,8 +1576,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Precedents & Factual Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "出版社官方撤稿声明 · 附带 DOI",
-    "verification_level_en": "Official Publisher Retraction Notice with DOI",
+    "verification_level_zh": "已核验 · BMJ 官方撤稿",
+    "verification_level_en": "Verified · Journal Retraction",
     "summary_zh": "作者在向 BMJ 旗下顶级期刊《医学伦理学杂志》（JME）投稿的学术论文中，依赖生成式 AI 工具进行文献回顾与参考文献搜集。经审稿专家与学术诚信调查发现，文中包含多篇完全由 AI 凭空捏造的虚构参考文献（题录、卷期与作者均系模型幻觉生成），作者未行独立核对即定稿投稿。",
     "summary_en": "An academic paper published in BMJ Journal of Medical Ethics was formally retracted after an integrity audit revealed multiple references were completely fabricated hallucinations generated by an AI research assistant without author verification.",
     "consequence_zh": "BMJ 出版集团发布正式撤稿通告（DOI: 10.1136/jme-2025-110913ret），将论文永久撤回并载入学术不端档案，通报所在学术机构。",
@@ -1515,7 +1602,10 @@
         "citation-integrity-auditor"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "formal_retraction",
+    "procedural_status": "publisher_retraction"
   },
   {
     "id": "case-court-fake-citation-california-appeal-2025",
@@ -1535,8 +1625,8 @@
     "risk_category_zh": "司法文献与事实幻觉",
     "risk_category_en": "Judicial Precedents & Factual Hallucination",
     "verification_level": "VERIFIED",
-    "verification_level_zh": "上诉法院正式判决令公开",
-    "verification_level_en": "Verified Appellate Court Order",
+    "verification_level_zh": "已核验 · 上诉法院生效裁定",
+    "verification_level_en": "Verified · Appellate Court Order",
     "case_number_status": {
       "actual_case_no": "Case No. B331918",
       "authority": "California Court of Appeal, Second Appellate District"
@@ -1565,6 +1655,9 @@
         "citation-verifier"
       ]
     },
-    "status": "verified"
+    "status": "verified",
+    "source_status": "primary_source",
+    "fact_status": "officially_adjudicated",
+    "procedural_status": "final_judgment"
   }
 ]

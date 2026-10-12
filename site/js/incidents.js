@@ -15,16 +15,16 @@ const i18n = {
     heroBadge: "普通人的数字权利 · 真实事件与判例库",
     heroTitle: "生成式 AI 使用者真实案件与责任事件库",
     heroHighlight: "警惕滥用致责，捍卫使用者合法权益",
-    heroSubtitle: "聚焦个体与机构作为“大模型/智能体使用者”的真实法律责任与侵害遭遇。收录经司法裁判、市监行政重罚、官方保密与安全通报证实的 31 起高频踩坑与责任事故，提供案号出处、法理研判与开源自卫防范技能。",
+    heroSubtitle: "收录 31 起已定位公开来源的 AI 使用风险事件，涵盖生效裁判、行政处罚、官方通报、在审诉讼、厂商披露与媒体调查。提供案号文号、事实研判与开源自卫防范技能。",
     heroGuideLink: "阅读《实务指南》深入系统性防范流水线 →",
     heroLibraryLink: "探索 44 项开源防范技能包 →",
 
     statTotalValue: "{total} 起",
     statTotalLabel: "案例收录",
-    statTotalSub: "司法判决/行政处罚/官方通报",
-    statVerifiedValue: "{verified}/{total}",
-    statVerifiedLabel: "已定位一手原文",
-    statVerifiedSub: "其余标注「待复核」",
+    statTotalSub: "司法裁判/行政监管/官方通报",
+    statVerifiedValue: "{primary}/{total}",
+    statVerifiedLabel: "一手公报与裁判",
+    statVerifiedSub: "{secondary} 起权威媒体与在审调查",
     statDualLabel: "双向责任立场",
     statDualSub: "权益受损 {infringed} 起 · 违规致责 {sanctioned} 起",
     statLifecycleLabel: "全生命周期覆盖",
@@ -75,7 +75,7 @@ const i18n = {
     modalConsequenceLabel: "实质后果与法律 / 纪律惩处：",
     modalTakeawayLabel: "写给普通使用者的实操防范铁律：",
     modalSkillsLabel: "🛡️ 推荐自卫技能（点击可直达技能详情）：",
-    modalSourcesLabel: "第一手权威出处与公开裁判文书：",
+    modalSourcesLabel: "来源与相关材料 (Sources & Case Records)：",
     modalCloseBtn: "关闭窗口",
     modalGuideBtn: "在指南中查看对应章节 ➔",
 
@@ -99,16 +99,16 @@ const i18n = {
     heroBadge: "Digital Rights for All · Real-World AI Incidents",
     heroTitle: "Real-World AI Incidents & Accountability Casebook",
     heroHighlight: "Guarding User Rights & Preventing Accountability Failures",
-    heroSubtitle: "Focusing on the real legal liabilities and infringements encountered by everyday individuals and organizations as LLM & Agent users. Curating 31 verified judicial rulings, regulatory fines, and official state security notices with docket numbers and open-source defenses.",
+    heroSubtitle: "Curating 31 public-record AI risk incidents across finalized judgments, regulatory enforcement, state security notices, active lawsuits, vendor incidents, and investigative reports. Complete with case citations and open-source defenses.",
     heroGuideLink: "Read the Practical Field Guide for defensive pipelines →",
     heroLibraryLink: "Explore 44 Curated Open-Source Skills →",
 
     statTotalValue: "{total} Cases",
     statTotalLabel: "Incidents Curated",
     statTotalSub: "Judicial / Regulatory / Official Notices",
-    statVerifiedValue: "{verified}/{total}",
-    statVerifiedLabel: "Primary Source Linked",
-    statVerifiedSub: "Others Marked 'Pending Review'",
+    statVerifiedValue: "{primary}/{total}",
+    statVerifiedLabel: "Primary Docket & Gazette",
+    statVerifiedSub: "{secondary} Authoritative Media / In-Litigation",
     statDualLabel: "Dual Accountability Axis",
     statDualSub: "{infringed} Rights Harmed · {sanctioned} Penalized",
     statLifecycleLabel: "Full Lifecycle Coverage",
@@ -159,7 +159,7 @@ const i18n = {
     modalConsequenceLabel: "Substantial Consequences & Legal Sanctions:",
     modalTakeawayLabel: "Key Takeaway for Everyday Users:",
     modalSkillsLabel: "🛡️ Recommended Countermeasures (Click to view skill):",
-    modalSourcesLabel: "Primary Source Citations & Official Judgments:",
+    modalSourcesLabel: "Sources & Case Documentation:",
     modalCloseBtn: "Close",
     modalGuideBtn: "View in Field Guide ➔",
 
@@ -357,12 +357,14 @@ function updateFilterCounts() {
   updateCountBadge("#btn-life-execution .filter-count", counts.lifecycle.execution_risk);
 
   // Synchronize Top Metric Badges
-  const verifiedCount = incidentsData.filter(i => i.verification_level === "VERIFIED").length;
+  const primaryCount = incidentsData.filter(i => i.source_status === "primary_source").length;
+  const secondaryCount = incidentsData.filter(i => i.source_status === "secondary_media").length;
   const t = i18n[currentLang];
   const setEl = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
 
   setEl("stat-total-value", t.statTotalValue.replace("{total}", incidentsData.length));
-  setEl("stat-verified-value", t.statVerifiedValue.replace("{verified}", verifiedCount).replace("{total}", incidentsData.length));
+  setEl("stat-verified-value", t.statVerifiedValue.replace("{primary}", primaryCount).replace("{total}", incidentsData.length));
+  setEl("stat-verified-sub", t.statVerifiedSub.replace("{secondary}", secondaryCount));
   setEl("stat-dual-sub", t.statDualSub
     .replace("{infringed}", counts.stance.user_rights_infringed)
     .replace("{sanctioned}", counts.stance.irresponsible_user_sanctioned));
@@ -480,10 +482,14 @@ function renderIncidents(list) {
 
     const caseDocket = inc.case_number_status?.actual_case_no || "";
 
-    const isPending = inc.verification_level === "PENDING_REVIEW";
-    const verificationBadgeClass = isPending
-      ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-800"
-      : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+    let verificationBadgeClass = "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+    if (inc.verification_level === "IN_LITIGATION") {
+      verificationBadgeClass = "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800";
+    } else if (inc.verification_level === "VENDOR_DISCLOSURE") {
+      verificationBadgeClass = "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800";
+    } else if (inc.verification_level === "SETTLED") {
+      verificationBadgeClass = "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+    }
 
     return `
       <article id="${inc.id}" class="incident-card bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-brand/40 hover:shadow-md transition-all flex flex-col justify-between space-y-4 scroll-mt-28">
@@ -605,10 +611,14 @@ function openIncidentModal(incidentId, updateHistory = true) {
     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${lifecycleLabels[r] || r}</span>
   `).join("");
 
-    const isPendingModal = inc.verification_level === "PENDING_REVIEW";
-    const verificationBadgeClassModal = isPendingModal
-      ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border-amber-200 dark:border-amber-800"
-      : "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+    let verificationBadgeClassModal = "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+    if (inc.verification_level === "IN_LITIGATION") {
+      verificationBadgeClassModal = "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800";
+    } else if (inc.verification_level === "VENDOR_DISCLOSURE") {
+      verificationBadgeClassModal = "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800";
+    } else if (inc.verification_level === "SETTLED") {
+      verificationBadgeClassModal = "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+    }
 
     document.getElementById("incident-modal-badges").innerHTML = `
     <span class="px-2 py-0.5 rounded-full text-xs font-bold border ${stanceClass}">${stanceBadge}</span>

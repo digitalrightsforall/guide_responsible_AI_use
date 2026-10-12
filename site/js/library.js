@@ -603,10 +603,10 @@ function getStatusGuideHtml(lang) {
       <div class="space-y-3.5">
         <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
           <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. 运行状态与可用性 (Usability & Test Verification)
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. 运行状态与分级验证 (Verification Tiers)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            所有收录技能均经过本地环境真实安装与语法校验。<strong>「开箱即用 (实测通过)」</strong>表示无需额外繁琐环境配置，复制命令放入 Cursor、Claude Code 或 Antigravity 技能目录即可直接生效；<strong>「需配置依赖 (环境就绪)」</strong>则表示需具备 Python 依赖包或 API Key，所有配置规则均经本地闭环测试。
+            本项目对收录技能实施分级检验：<strong>① 仓库链接存活巡检</strong>（自动 HTTP 探测可达）；<strong>② 技能规范结构校验</strong>（符合 SKILL.md 格式与字段规范）；<strong>③ 本地静态语法检验</strong>。对于“开箱即用”条目，指放入支持 Agent Skills 的客户端即可被识别；“需配置依赖”指具备明确前置环境要求。<strong>未做功能基准评测的条目如实标注，不宣称绝对安全或完全阻断。</strong>
           </p>
         </div>
 
@@ -615,16 +615,16 @@ function getStatusGuideHtml(lang) {
             <span class="w-2 h-2 rounded-full bg-brand inline-block"></span> 2. 开源热度与事实依据 (Community Adoption & Empirical Evidence)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            严格基于真实 GitHub 关注度（如 Superpowers 290k★、Anthropic 官方研究库 177k★/9.5k★、Tech Leads Club 6.6k★）或权威机构开源背书。对独立开发者维护的高聚焦工具，如实标注为<strong>「独立开源 (本地测试通过)」</strong>，绝不编造虚假数据或夸大其词。
+            基于真实公开 GitHub Stars 数据（如 Superpowers 290k★、Anthropic 官方研究库 177k★/9.5k★、Tech Leads Club 6.6k★）。对独立开发者维护的聚焦工具，如实标注为<strong>「独立开源 (项目收录)」</strong>，客观呈现社区采纳现状。
           </p>
         </div>
 
         <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
           <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. 实证与安全原则 (Evidence & Safety Guarantees)
+            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. 标准对齐说明 (Standards Alignment Disclaimer)
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            所有技能代码均完全公开透明可供审计，经客户端沙盒隔离运行验证，绝无恶意网络回传、越权文件读取或后门行为，切实保障普通用户的数字权利与数据安全。
+            各条目展示的 ISO/IEC、OWASP、GDPR、PIPL 等标准与法规对齐，系**项目维护团队基于机制与最佳实践的技术合规映射，非官方标准制定机构或第三方认证机构之授权认证**。
           </p>
         </div>
       </div>
@@ -634,28 +634,28 @@ function getStatusGuideHtml(lang) {
       <div class="space-y-3.5">
         <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 space-y-1">
           <h4 class="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. Usability & Test Verification
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> 1. Usability & Tiered Verification
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            Every curated skill is verified via local installation and syntax linting. <strong>"Ready to Use (Verified)"</strong> means zero complex setup—simply copy into Cursor, Claude Code, or Antigravity skills folders. <strong>"Requires Setup (Ready)"</strong> indicates prerequisites like Python packages or API keys, with full configuration instructions tested.
+            Skills undergo tiered verification: <strong>① Repo Reachability</strong> (HTTP 2xx/3xx health checks); <strong>② Schema Conformance</strong> (strict SKILL.md structure); <strong>③ Local Syntax Validation</strong>. "Ready to Use" indicates client discovery without binary prerequisites. Unbenchmarked skills are presented transparently without claiming absolute immunity.
           </p>
         </div>
 
         <div class="p-3.5 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 dark:border-brand/30 space-y-1">
           <h4 class="font-bold text-brand dark:text-brand-container flex items-center gap-1.5 text-xs sm:text-sm">
-            <span class="w-2 h-2 rounded-full bg-brand inline-block"></span> 2. Community Adoption & Empirical Evidence
+            <span class="w-2 h-2 rounded-full bg-brand inline-block"></span> 2. Community Adoption
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            Strictly grounded in real GitHub stars (e.g. Superpowers 290k★, Anthropic Official 177k★/9.5k★, Tech Leads Club 6.6k★) and verified organization custodianship. For specialized independent projects, we transparently note <strong>"Independent Open Source (Verified)"</strong>—never fabricating fake metrics.
+            Stars and adoption metrics reflect public GitHub data. Focused independent packages are labeled as "Independent Open Source (Cataloged)" to present genuine adoption states without hyperbole.
           </p>
         </div>
 
         <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
           <h4 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-xs sm:text-sm">
-            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. Evidence & Safety Principles
+            <span class="w-2 h-2 rounded-full bg-slate-500 inline-block"></span> 3. Standards Alignment Disclaimer
           </h4>
           <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            All skill codebases are 100% public and auditable on GitHub, tested within client sandboxes with zero unauthorized network exfiltration, protecting users' digital sovereignty and data privacy.
+            Mappings to ISO/IEC, OWASP, GDPR, and PIPL represent the **curators' technical compliance analysis, not official certifications granted by governing standards bodies**.
           </p>
         </div>
       </div>

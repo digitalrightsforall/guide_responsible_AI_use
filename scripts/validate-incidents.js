@@ -19,6 +19,26 @@ const validCategories = new Set([
   "commercial_fraud_deception"
 ]);
 const validLifecycle = new Set(["input_risk", "output_risk", "execution_risk"]);
+const validSourceStatus = new Set(["primary_source", "secondary_media"]);
+const validFactStatus = new Set([
+  "officially_adjudicated",
+  "formal_retraction",
+  "official_notice_confirmed",
+  "administrative_penalty",
+  "vendor_confirmed",
+  "party_allegations"
+]);
+const validProceduralStatus = new Set([
+  "final_judgment",
+  "judicial_admonition",
+  "publisher_retraction",
+  "official_notice",
+  "administrative_penalty",
+  "vendor_incident",
+  "litigation_ongoing",
+  "police_notice",
+  "settled"
+]);
 
 let errors = [];
 let warnings = [];
@@ -31,6 +51,9 @@ incidents.forEach((inc, idx) => {
   if (!validStances.has(inc.user_stance)) errors.push(`${pfx} invalid user_stance: ${inc.user_stance}`);
   if (!validRegions.has(inc.region)) errors.push(`${pfx} invalid region: ${inc.region}`);
   if (!validCategories.has(inc.risk_category)) errors.push(`${pfx} invalid risk_category: ${inc.risk_category}`);
+  if (!validSourceStatus.has(inc.source_status)) errors.push(`${pfx} invalid or missing source_status: ${inc.source_status}`);
+  if (!validFactStatus.has(inc.fact_status)) errors.push(`${pfx} invalid or missing fact_status: ${inc.fact_status}`);
+  if (!validProceduralStatus.has(inc.procedural_status)) errors.push(`${pfx} invalid or missing procedural_status: ${inc.procedural_status}`);
 
   (inc.lifecycle_risk_type || []).forEach(lr => {
     if (!validLifecycle.has(lr)) errors.push(`${pfx} invalid lifecycle_risk_type: ${lr}`);

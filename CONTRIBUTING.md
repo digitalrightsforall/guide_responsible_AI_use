@@ -44,21 +44,26 @@ Every submitted item (whether for the README or the website dataset) must provid
 
 | Field Name | Type | Description | Allowed Values / Example |
 | :--- | :--- | :--- | :--- |
-| `id` | `string` | Unique kebab-case identifier | `skillguard`, `the-judge` |
+| `id` | `string` | Unique kebab-case identifier | `pii-safe-documents`, `the-judge` |
 | `name` | `string` | Display name of the skill | `The Judge (tech-leads-club/agent-skills)` |
-| `url` | `string` | Direct public GitHub repository link | `https://github.com/...` |
 | `category` | `enum` | Which of the 4 questions it answers | `feed-to-ai`<br>`answers-to-trust`<br>`when-not-to-listen`<br>`can-publish-directly` |
+| `category_title_en` | `string` | Category display title (EN) | `What can I feed to AI?` |
+| `category_title_cn` | `string` | Category display title (CN) | `我能把什么给 AI？` |
 | `timing` | `enum` | When to use in workflow | `pre-input`<br>`during-chat`<br>`pre-handoff`<br>`post-session` |
-| `timing_desc` | `string` | Specific touchpoint description | "Before ingestion: run before passing text to agent" |
-| `why_chosen` | `string` | Why chosen (threat/purpose) | Specific problem and threat addressed |
+| `timing_desc_en` / `_cn`| `string` | Specific touchpoint description | "Before ingestion: run before passing text to agent" |
+| `why_chosen_en` / `_cn` | `string` | Why chosen (threat/purpose) | Specific problem and threat addressed |
+| `why_care_en` / `_cn`   | `string` | Why ordinary users should care | "Protects private draft proposals from leakage" |
+| `how_to_use_en` / `_cn` | `string` | Practical trigger/execution steps | "Trigger before submitting code review" |
+| `summary_en` / `_cn`    | `string` | 1-2 sentence plain-language description | Explains what risk it prevents or what task it accomplishes. |
 | `status` | `object` | Maturity & Trust Signals | `{ "stage": "...", "adoption": "...", "trust_source": "..." }` |
 | `type` | `enum` | Technical format | Strictly `SKILL.md` |
 | `clients` | `array` | Supported AI platforms/clients | `["Claude Code", "Antigravity", "Cursor"]` |
 | `target_persona` | `string` | Primary user group | `General Knowledge Workers`, `Researchers`, `Writers` |
-| `summary` | `string` | 1-2 sentence plain-language description | Explains what risk it prevents or what task it accomplishes. |
-| `standard_alignment` | `object` | Underlying technical / international standard aligned | `{ "name_zh": "...", "name_en": "...", "organization": "...", "url": "...", "how_aligned_zh": "...", "how_aligned_en": "..." }` |
-| `third_party_reviews` | `array` | Direct third-party media reviews or catalog inclusions | Array of `{ "source": "...", "title_zh": "...", "title_en": "...", "url": "...", "excerpt_zh": "...", "excerpt_en": "..." }` (empty array `[]` if none) |
-| `artifact` | `object` | Actionable installation command | See template below. |
+| `action_type` | `string` | Action type for installation/setup | Strictly `"install_code"` |
+| `action_content` | `string` | Bash command to fetch/install skill | `git clone ... && cp -R ... .agents/skills/` |
+| `standard_alignment` | `object` | Project analytical mapping to standard/law | `{ "name_zh": "...", "name_en": "...", "organization": "...", "url": "...", "how_aligned_zh": "...", "how_aligned_en": "..." }` *(注：系维护者技术映射，非官方认证)* |
+| `third_party_reviews` | `array` | Independent third-party reviews/citations | Array of review objects (empty array `[]` if none) |
+| `regulatory_badges` | `array` | Relevant regulatory/standard badges | `["PIPL", "GDPR"]` |
 
 ---
 

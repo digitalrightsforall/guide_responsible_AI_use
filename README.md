@@ -83,11 +83,20 @@ All skills in this repository strictly adhere to the open **Agent Skills specifi
 
 ## 🔬 Operational Status & Verified Evidence Methodology
 
-To ensure absolute transparency and banish obscure technical jargon, each skill is rated with plain-language, verifiable indicators:
+To ensure absolute transparency and banish obscure technical jargon, each skill is rated with plain-language, tiered indicators:
 
-* **🟢 Ready to Use (Verified):** Pure prompt/rules engineering conforming to the `SKILL.md` specification with zero local binary dependencies. Effective immediately upon placement into the client skill directory. All workflow steps have passed local syntax and logic testing.
+* **🟢 Ready to Use (Verified):** Pure prompt/rules engineering conforming to the `SKILL.md` specification with zero local binary dependencies. Effective immediately upon placement into the client skill directory. All workflow steps have passed local syntax and structural verification.
 * **🟡 Requires Setup (Ready):** Requires a local environment dependency (e.g. Python 3.10+, SpaCy NER model, Gitleaks scanner) or a dedicated API token. Clear prerequisites are documented in the skill details.
-* **100% Remote Verification:** All 44 repositories are verified live via `npm run test:remote` (44/44 HTTP 200). We enforce zero placeholders and zero synthetic prompts.
+* **🌐 Repository Reachability:** All 44 repositories are verified reachable live via automated health checks (44/44 HTTP 2xx/3xx).
+* **⚠️ Standards Alignment Disclaimer:** Mappings to ISO/IEC, SPDX, and PIPL standards reflect **curators' technical alignment analyses rather than formal third-party accreditations**.
+
+> [!TIP]
+> **First time here? Try the Beginner 5 Starter Skills (No Local Setup Required)**:
+> 1. `pii-safe-documents` (Personal Data & PII Sanitizer)
+> 2. `citation-verifier` (Citation & DOI Authenticity Verifier)
+> 3. `devils-advocate` (Anti-Sycophancy Critical Challenger)
+> 4. `visible-ai-disclosure-pr-gate` (AI Disclosure & PR Compliance Gate)
+> 5. `repo-security-review` (Credential & Secret Leak Prevention)
 
 ---
 

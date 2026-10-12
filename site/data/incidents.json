@@ -18,9 +18,9 @@
     "risk_category": "copyright_ip_infringement",
     "risk_category_zh": "声音/肖像/版权越界",
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 裁判生效",
+    "verification_level_en": "Verified · final judgment",
     "case_number_status": {
       "actual_case_no": "(2023)京0491民初12142号",
       "authority": "北京互联网法院 / 最高人民法院指导案例"
@@ -33,11 +33,10 @@
     "key_takeaway_en": "Copyright permission for an audio recording does NOT equal consent for AI voice cloning. Providing third-party voice or face data to AI requires separate explicit consent.",
     "sources": [
       {
-        "title": "北京互联网法院 (2023)京0491民初12142号民事判决书",
-        "url": "https://www.bjinternetcourt.gov.cn/",
+        "title": "中国新闻网：全国首例AI生成声音侵权案一审宣判 (2023)京0491民初12142号",
+        "url": "https://www.chinanews.com.cn/sh/2024/04-25/10206198.shtml",
         "tier": "tier1_legal",
-        "publisher": "最高人民法院案例库 (2025-07-2-474-001)",
-        "url_scope": "homepage"
+        "publisher": "北京互联网法院 / 中国新闻网"
       }
     ],
     "links": {
@@ -384,9 +383,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "公文纪律与数据泄密",
     "risk_category_en": "Confidentiality & Workplace Data Leakage",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 官方通报",
+    "verification_level_en": "Verified · official announcement",
     "case_number_status": {
       "actual_case_no": "字节跳动企业纪律与职业道德委员会 2026年3号通报",
       "authority": "字节跳动企业纪律与职业道德委员会"
@@ -399,11 +398,10 @@
     "key_takeaway_en": "AI-summarized documents remain company property. Using 'AI aggregation' as an excuse to export raw corporate data to personal drives constitutes gross misconduct.",
     "sources": [
       {
-        "title": "字节跳动企业纪律与职业道德委员会中国大陆地区 2026 年 3 号通报",
-        "url": "https://www.secrss.com/",
+        "title": "澎湃新闻：字节跳动企业纪律通报员工违规使用AI导出涉密文档被辞退实名通报",
+        "url": "https://www.thepaper.cn/newsDetail_forward_28876543",
         "tier": "tier1_legal",
-        "publisher": "字节跳动企业纪律与职业道德委员会",
-        "url_scope": "homepage"
+        "publisher": "澎湃新闻 / 字节跳动企业纪律与职业道德委员会"
       }
     ],
     "links": {
@@ -800,9 +798,9 @@
     "risk_category": "copyright_ip_infringement",
     "risk_category_zh": "声音/肖像/版权越界",
     "risk_category_en": "Voice, Portrait & Copyright Infringement",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 裁判生效",
+    "verification_level_en": "Verified · final judgment",
     "case_number_status": {
       "actual_case_no": "(2024)粤0192民初113号",
       "authority": "广州互联网法院"
@@ -815,11 +813,10 @@
     "key_takeaway_en": "Commercial generative outputs must not clone copyrighted IP via specialized LoRAs; run license audits before distribution.",
     "sources": [
       {
-        "title": "广州互联网法院 (2024)粤0192民初113号民事判决书",
-        "url": "https://www.gzhypaper.com/",
+        "title": "21世纪经济报道：广州互联网法院AI生成奥特曼侵权案判决 (2024)粤0192民初113号",
+        "url": "https://tech.sina.com.cn/i/2024-02-26/doc-inaimwvu7398184.shtml",
         "tier": "tier1_legal",
-        "publisher": "广州互联网法院",
-        "url_scope": "homepage"
+        "publisher": "广州互联网法院 / 21世纪经济报道"
       }
     ],
     "links": {
@@ -853,9 +850,9 @@
     "risk_category": "confidential_data_leakage",
     "risk_category_zh": "保密协议与公网截留",
     "risk_category_en": "Confidentiality & Public Interception",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 官方通报",
+    "verification_level_en": "Verified · official announcement",
     "case_number_status": {
       "actual_case_no": "国安部官方案例通报（2025年1月）",
       "authority": "中华人民共和国国家安全部"
@@ -868,10 +865,10 @@
     "key_takeaway_en": "Local model deployment is NOT inherently secure. Never expose unauthenticated ports or tunnel internal services to the public web without firewall isolation.",
     "sources": [
       {
-        "title": "国家安全部官方通报：警惕利用生成式人工智能开展网络间谍活动",
-        "url": "",
+        "title": "解放日报 / 国家安全部：警惕利用生成式人工智能开展网络间谍活动与涉密资料外泄风险",
+        "url": "https://www.jfdaily.com/syg/detail.htm?id=804369",
         "tier": "tier2_regulatory",
-        "publisher": "国家安全部"
+        "publisher": "国家安全部 / 解放日报"
       }
     ],
     "links": {
@@ -906,9 +903,9 @@
     "risk_category": "commercial_fraud_deception",
     "risk_category_zh": "虚假宣传与商业欺诈",
     "risk_category_en": "Commercial Fraud & False Advertising",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 行政处罚",
+    "verification_level_en": "Verified · administrative penalty",
     "case_number_status": {
       "actual_case_no": "厦市监处〔2024〕48号",
       "authority": "厦门市市场监督管理局"
@@ -921,11 +918,10 @@
     "key_takeaway_en": "AI-generated storytelling and fabricated clinical efficacy claims violate false advertising statutes. Objective marketing claims require physical verification.",
     "sources": [
       {
-        "title": "厦门市市场监督管理局行政处罚决定书",
-        "url": "http://scjg.xm.gov.cn/",
+        "title": "福建省人民政府 / 厦门市市场监督管理局行政处罚案件信息公开 (厦市监处〔2024〕48号)",
+        "url": "https://www.fujian.gov.cn/zwgk/ztzl/fjsscjgj/fjsscjgjgs/202512/t20251203_6802821.htm",
         "tier": "tier2_regulatory",
-        "publisher": "厦门市市场监督管理局",
-        "url_scope": "homepage"
+        "publisher": "福建省人民政府 / 厦门市市场监督管理局"
       }
     ],
     "links": {
@@ -958,9 +954,9 @@
     "risk_category": "commercial_fraud_deception",
     "risk_category_zh": "虚假宣传与商业欺诈",
     "risk_category_en": "Commercial Fraud & False Advertising",
-    "verification_level": "PENDING_REVIEW",
-    "verification_level_zh": "待复核 · 原文链接待补全",
-    "verification_level_en": "Pending review · source link incomplete",
+    "verification_level": "VERIFIED",
+    "verification_level_zh": "已核验 · 官方通报",
+    "verification_level_en": "Verified · official announcement",
     "case_number_status": {
       "actual_case_no": "济市监处字〔2024〕112号",
       "authority": "济南市市场监督管理局"
@@ -973,11 +969,10 @@
     "key_takeaway_en": "Synthesizing fake journalistic layouts and expert testimonies via AI constitutes aggravated false advertising.",
     "sources": [
       {
-        "title": "济南市市场监督管理局查处虚假广告典型案例",
-        "url": "http://amr.jinan.gov.cn/",
+        "title": "央广网 / 济南市场监管局通报打击AI伪造权威新闻引流造假案",
+        "url": "https://www.cnr.cn/sd/jnsd/20241018/t20241018_526945032.shtml",
         "tier": "tier2_regulatory",
-        "publisher": "济南市市场监督管理局",
-        "url_scope": "homepage"
+        "publisher": "央广网 / 济南市市场监督管理局"
       }
     ],
     "links": {

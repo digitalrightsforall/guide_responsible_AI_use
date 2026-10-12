@@ -96,7 +96,7 @@ function setupEventListeners() {
     const activeSkillId = document.getElementById("guide-modal")?.getAttribute("data-active-skill");
     if (!activeSkillId || !itemsById[activeSkillId]) return;
     const item = itemsById[activeSkillId];
-    const cmd = item.install?.action_content || `curl -sL ${item.url}/raw/main/SKILL.md -o .agents/skills/${item.id}/SKILL.md`;
+    const cmd = item.action_content || item.install?.action_content || `curl -sL ${item.url}/raw/main/SKILL.md -o .agents/skills/${item.id}/SKILL.md`;
     navigator.clipboard.writeText(cmd).then(() => {
       const copyTextEl = document.getElementById("modal-copy-text");
       const originalText = copyTextEl.textContent;
@@ -244,15 +244,19 @@ function openModal(skillId) {
   const std = item.standard_alignment || {};
   const stdName = isZh ? (std.name_zh || std.name || "权威通用规范") : (std.name_en || std.name || "Standard Alignment");
   const stdOrg = std.organization || "International Body";
-  const stdUrl = std.doc_url || item.url;
-  const stdDesc = isZh ? (std.mechanism_zh || "") : (std.mechanism_en || std.mechanism_zh || "");
+  const stdUrl = std.url || std.doc_url || item.url;
+  const stdDesc = isZh ? (std.how_aligned_zh || std.mechanism_zh || "") : (std.how_aligned_en || std.mechanism_en || std.how_aligned_zh || std.mechanism_zh || "");
 
-  // Third party reviews
-  const rev = item.third_party_reviews || {};
-  const hasReviews = rev.has_independent_review;
-  const revDirectUrl = rev.direct_review_url || item.url;
-  const revSource = isZh ? (rev.review_source_zh || "") : (rev.review_source_en || rev.review_source_zh || "");
-  const revExcerpt = isZh ? (rev.excerpt_zh || "") : (rev.excerpt_en || rev.excerpt_zh || "");
+  // Third party reviews (array of objects in current schema)
+  const reviews = Array.isArray(item.third_party_reviews) ? item.third_party_reviews : (item.third_party_reviews ? [item.third_party_reviews] : []);
+  const hasReviews = reviews.length > 0;
+  const firstRev = hasReviews ? reviews[0] : {};
+  const revDirectUrl = firstRev.url || item.url;
+  const revSource = firstRev.source || (isZh ? firstRev.review_source_zh : firstRev.review_source_en) || "";
+  const revExcerpt = isZh ? (firstRev.excerpt_zh || firstRev.title_zh || "") : (firstRev.excerpt_en || firstRev.title_en || firstRev.excerpt_zh || "");
+
+  // Why Care CN/EN
+  const whyCareText = isZh ? (item.why_care_cn || item.why_care || "") : (item.why_care_en || item.why_care || item.why_care_cn || "");
 
   // Modal Body HTML
   const bodyEl = document.getElementById("modal-body");
@@ -275,14 +279,14 @@ function openModal(skillId) {
       </p>
       <div class="pt-1 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
         <span>🔬 ${isZh ? '测试验证：' : 'Verification: '}</span>
-        <span class="font-medium">${escapeHtml(verifiedBy)}</span>
+        <span class="font-medium">${escapeHtml(verifiedBy || "项目组测试")}</span>
       </div>
     </div>
 
     <!-- Core Intent & Why Care -->
     <div class="space-y-2">
       <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">${isZh ? '为什么普通人应该关心：' : 'Why You Should Care:'}</h4>
-      <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${isZh ? escapeHtml(item.why_care) : escapeHtml(item.why_care_en || item.why_care)}</p>
+      <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${escapeHtml(whyCareText)}</p>
     </div>
 
     <!-- Technical Standard Alignment -->

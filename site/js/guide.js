@@ -318,6 +318,61 @@ function openModal(skillId) {
       <p class="text-slate-700 dark:text-slate-300 leading-relaxed">${escapeHtml(whyCareText)}</p>
     </div>
 
+    ${(() => {
+      const isPreInputPrivacy = item.timing === "pre-input" && (item.category === "feed-to-ai" || item.id.includes("pii") || item.id.includes("anonymize") || item.id.includes("scholar") || item.id.includes("clinical"));
+      if (!isPreInputPrivacy) return "";
+
+      if (isZh) {
+        return `
+          <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/50 space-y-2.5 text-xs">
+            <span class="font-extrabold text-sky-950 dark:text-sky-200 flex items-center gap-1.5 text-xs sm:text-sm">
+              <span>💡 为什么“让 AI 脱敏”不会反而把隐私泄露给 AI？</span>
+            </span>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong>问：既然要防泄密，为什么还要把文件交给这个技能？这不矛盾吗？</strong><br>
+              这个疑问很自然。如果你把身份证号直接粘贴到网页对话框里让 AI“帮我脱敏后再回答”，信息在发送瞬间就已经上传到服务商服务器了，确实防不住泄密。这个技能的使用前提是：在本地电脑的终端或编辑器里指定文件路径，而不是在聊天框里粘贴文本。
+            </p>
+            <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-sky-200/60 dark:border-sky-900/60 space-y-1.5 text-slate-600 dark:text-slate-300 leading-relaxed">
+              <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs">什么是“本地脚本”？它从哪里来，和模型直接读有什么区别？</span>
+              <p>
+                <strong>1. 脚本是哪里来的？</strong> 当你把这个开源技能添加到电脑时，你其实是从 GitHub 下载了一个公开的小工具包。里面除了给 AI 看的说明书，还带有一段离线代码（通常是 Python）。代码完全公开透明，没有任何向外部发数据的联网动作。
+              </p>
+              <p>
+                <strong>2. 和模型直接读的区别：</strong> 模型运行在远端机房，原件发过去就脱离了你的控制。而本地脚本就像是放在你自己办公桌上的离线涂黑机。在你电脑发出文件前，脚本在本地内存中把人名、电话替换成 <code>[代号A]</code>、<code>[代号B]</code>，把真实密码本留在你的私有文件夹里。
+              </p>
+              <p>
+                <strong>3. 模型最终看到了什么：</strong> 远端模型全程只看到了被涂黑的复印件。任务完成后，本地脚本再根据你电脑里的密码本还原真实名字。原始文件自始至终都没有离开你的电脑。
+              </p>
+            </div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/50 space-y-2.5 text-xs">
+            <span class="font-extrabold text-sky-950 dark:text-sky-200 flex items-center gap-1.5 text-xs sm:text-sm">
+              <span>💡 Why Asking AI to Redact Doesn't Leak Data Upstream</span>
+            </span>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong>Q: If I must prevent leaks, isn't feeding files to this skill contradictory?</strong><br>
+              If you paste personal details directly into a cloud chatbox asking AI to "redact before answering," data leaves your device the instant you click send. This skill works differently: it accepts file paths in a local editor, rather than raw text pasted into chat.
+            </p>
+            <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-sky-200/60 dark:border-sky-900/60 space-y-1.5 text-slate-600 dark:text-slate-300 leading-relaxed">
+              <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs">What is a "local script", where does it come from, and how is it different?</span>
+              <p>
+                <strong>1. Where does the script come from?</strong> When adding this open-source skill, you download a public package from GitHub containing instructions and an offline helper script (typically Python). The code is completely transparent with zero external network calls.
+              </p>
+              <p>
+                <strong>2. How does it differ from the model reading directly?</strong> The cloud model runs on remote servers. A local script functions like an offline marker on your own desk: before files leave your machine, the script swaps names and IDs with placeholders like <code>[PERSON_A]</code>, keeping the real mapping key locked in your local private directory.
+              </p>
+              <p>
+                <strong>3. What does the model actually see?</strong> The remote model only inspects the pseudonymized copy. Once processing finishes, the local script restores real values using your local key. Raw data never leaves your hard drive.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+    })()}
+
     <!-- Technical Standard Alignment -->
     <div class="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-1.5">
       <div class="flex items-center justify-between">
@@ -1492,6 +1547,58 @@ const guideContent = {
           <div class="font-bold text-slate-900 dark:text-white">先说清楚：本章提到的“技能”是什么？没有技能怎么办？</div>
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">“技能”（SKILL.md）是一份写给 AI 助手的<strong>标准操作说明书</strong>：一个文件夹里放着说明文件，有时还附带检查脚本。只有支持 Agent Skills 规范的 AI 工具（例如 Claude Code 等智能体 / 编程工具）才能读取并按步骤执行。</p>
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>如果你只用网页版或手机 App（如豆包、Kimi、ChatGPT），用不了技能也没关系。</strong>下面每一节都有“零门槛”做法，只需要浏览器和几分钟时间。想用技能的读者，可以点开文中的技能卡片查看安装命令。</p>
+        </div>
+
+        <!-- Cloud vs Local Modes & Workspace Risks (Fundamental Distinction) -->
+        <div id="sec-cloud-vs-local" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-4 text-sm shadow-xs scroll-mt-36 lg:scroll-mt-28">
+          <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+            <span class="text-[11px] font-bold text-brand uppercase tracking-wider block mb-1">基本概念辨析</span>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              云端模式与本地模式的区别：数据在何处流转，以及接入工作空间的风险
+            </h3>
+          </div>
+
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
+            很多读者在初次使用 AI 时，容易把所有工具当成同一种东西。但一个 AI 工具是在云端运行还是在你的电脑本地运行，直接决定了你的数据会流经哪里。
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+              <span class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                第一种：云端模式（网页对话框、手机端与云端助手）
+              </span>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                在这种模式下，你的设备只负责显示画面。无论你在对话框里粘贴了一段文字，还是上传了一份文件，这些内容都必须先通过网络完整发送到服务商的机房。模型在远端服务器上读取这些文字并生成回答，再传回你的屏幕。这也意味着，只要你按下了发送键，原始文字就已经离开了你的设备。
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+              <span class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                第二种：本地模式（桌面编辑器与终端智能体）
+              </span>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                这常见于 Cursor、Claude Code 等安装在个人电脑上的工具。这里的区别在于：虽然大模型本身的推理计算可能依然调用云端接口，但控制程序和你的文件都留在你的电脑硬盘里。当你要求它处理一个文件时，你在对话框里输入的通常只是文件的存放路径，而不是文件本身。本地程序可以先在你的电脑上运行一段过滤小程序，把人名和电话换成代号，然后再把处理后的副本提供给模型。
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 space-y-2 text-xs sm:text-sm">
+            <span class="font-bold text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
+              <span>⚠️ 接入工作空间（Google Drive、OneDrive、飞书或 Notion）的现实风险</span>
+            </span>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs">
+              随着功能更新，不少云端产品开始提供“一键连接云盘或协同知识库”的功能。很多人为了省事会直接授权。这种授权带来两个容易被忽略的细节：
+            </p>
+            <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-1">
+              <li><strong>读取范围往往超出预期：</strong>多数授权协议是一次性针对整个文件夹甚至整个账号生效的。为了建立搜索索引，远端服务通常会在后台遍历并同步你账号里的历史文档、会议纪要与草稿，而不是只读取你当前正在讨论的那一篇。</li>
+              <li><strong>共享文档可能夹带不可控指令：</strong>当工作空间里有多人协作时，只要其中一份共享文档、网页剪藏或外部邮件中包含恶意的隐藏提示词，远端负责检索的智能体在读取该文档时就可能受到干扰，误将其他文档的内容汇总或发送出去。</li>
+            </ol>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pt-1 border-t border-amber-200/60 dark:border-amber-900/40">
+              如果处理的是日常公开资料，云端连接确实更方便。但如果涉及未经公开的业务底稿、人事档案或客户隐私，让远端服务保持对整个工作空间的常驻读取权限，会让个人很难把控信息的实际扩散边界。
+            </p>
+          </div>
         </div>
 
         <!-- Section 4.1 -->
@@ -3467,6 +3574,58 @@ const guideContent = {
           <div class="font-bold text-slate-900 dark:text-white">First: what is a "Skill" in this chapter, and what if you cannot use one?</div>
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">A Skill (SKILL.md) is a <strong>standard operating procedure written for an AI assistant</strong>: a folder containing instructions and sometimes helper scripts. Only AI tools that support the Agent Skills format (for example agentic / coding tools such as Claude Code) can load and follow them.</p>
           <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>If you only use a web or mobile chat app, that is fine.</strong> Every section below has a "no setup" option that needs nothing but a browser and a few minutes. If you do use Skills, open any skill card for install commands.</p>
+        </div>
+
+        <!-- Cloud vs Local Modes & Workspace Risks (Fundamental Distinction) -->
+        <div id="sec-cloud-vs-local-en" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-4 text-sm shadow-xs scroll-mt-36 lg:scroll-mt-28">
+          <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+            <span class="text-[11px] font-bold text-brand uppercase tracking-wider block mb-1">Foundational Distinction</span>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              Cloud vs. Local Modes: Where Data Flows, and Risks of Workspace Access
+            </h3>
+          </div>
+
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
+            When first using AI tools, it is easy to assume they all work the same way. In practice, whether a tool runs in the cloud or on your local machine determines where your data actually travels.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+              <span class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                Mode 1: Cloud-Hosted (Web Prompts, Mobile Apps, Cloud Agents)
+              </span>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Your device only acts as a display. Whether you paste text into a prompt or attach a PDF, that content travels over the network to the provider's data centers. The model processes the text on remote servers and streams answers back. Once you hit send, raw data has left your machine.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2">
+              <span class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Mode 2: Local Desktop (Local Editors & Terminal Agents)
+              </span>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Used in tools like Cursor or Claude Code on your computer. While model inference may still call remote APIs, your files and orchestrator reside on your local disk. When you ask it to process a document, the agent receives a file path rather than raw text. A local script can replace names and numbers with placeholders before sending anything to the model.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 space-y-2 text-xs sm:text-sm">
+            <span class="font-bold text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
+              <span>⚠️ Practical Risks of Granting Workspace Access (Google Drive, OneDrive, Notion)</span>
+            </span>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-xs">
+              Many cloud platforms offer one-click integrations to cloud drives and collaborative workspaces. Granting this access involves two easily overlooked risks:
+            </p>
+            <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-1">
+              <li><strong>Broad read scopes:</strong> Integrations often apply across entire folders or accounts. To build search indexes, the remote service scans and syncs historic drafts, private notes, and internal minutes beyond the single topic you are discussing.</li>
+              <li><strong>Prompt injection via shared files:</strong> In collaborative environments, if any shared document or clipped email contains hidden prompt injection instructions, an indexing agent reading that file can be misled into summarizing or exfiltrating other restricted content.</li>
+            </ol>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pt-1 border-t border-amber-200/60 dark:border-amber-900/40">
+              For public research, cloud integrations are convenient. For unreleased business drafts, personnel records, or client privacy, leaving persistent cloud access active makes it difficult to maintain control over information boundaries.
+            </p>
+          </div>
         </div>
 
         <!-- Section 3.1 -->

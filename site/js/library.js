@@ -812,6 +812,62 @@ function openModal(id) {
         <p class="text-slate-600 dark:text-slate-400 leading-relaxed">${timingDesc}</p>
       </div>
 
+      ${(() => {
+        // For pre-input privacy skills, add explicit plain-language Q&A answering why skills don't leak data
+        const isPreInputPrivacy = item.timing === "pre-input" && (item.category === "feed-to-ai" || item.id.includes("pii") || item.id.includes("anonymize") || item.id.includes("scholar") || item.id.includes("clinical"));
+        if (!isPreInputPrivacy) return "";
+
+        if (currentLang === "zh") {
+          return `
+            <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/50 space-y-2.5 text-xs">
+              <span class="font-extrabold text-sky-950 dark:text-sky-200 flex items-center gap-1.5 text-xs sm:text-sm">
+                <span>💡 为什么“让 AI 脱敏”不会反而把隐私泄露给 AI？</span>
+              </span>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                <strong>问：既然要防泄密，为什么还要把文件交给这个技能？这不矛盾吗？</strong><br>
+                这个疑问很自然。如果你把身份证号直接粘贴到网页对话框里让 AI“帮我脱敏后再回答”，信息在发送瞬间就已经上传到服务商服务器了，确实防不住泄密。这个技能的使用前提是：在本地电脑的终端或编辑器里指定文件路径，而不是在聊天框里粘贴文本。
+              </p>
+              <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-sky-200/60 dark:border-sky-900/60 space-y-1.5 text-slate-600 dark:text-slate-300 leading-relaxed">
+                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs">什么是“本地脚本”？它从哪里来，和模型直接读有什么区别？</span>
+                <p>
+                  <strong>1. 脚本是哪里来的？</strong> 当你把这个开源技能添加到电脑时，你其实是从 GitHub 下载了一个公开的小工具包。里面除了给 AI 看的说明书，还带有一段离线代码（通常是 Python）。代码完全公开透明，没有任何向外部发数据的联网动作。
+                </p>
+                <p>
+                  <strong>2. 和模型直接读的区别：</strong> 模型运行在远端机房，原件发过去就脱离了你的控制。而本地脚本就像是放在你自己办公桌上的离线涂黑机。在你电脑发出文件前，脚本在本地内存中把人名、电话替换成 <code>[代号A]</code>、<code>[代号B]</code>，把真实密码本留在你的私有文件夹里。
+                </p>
+                <p>
+                  <strong>3. 模型最终看到了什么：</strong> 远端模型全程只看到了被涂黑的复印件。任务完成后，本地脚本再根据你电脑里的密码本还原真实名字。原始文件自始至终都没有离开你的电脑。
+                </p>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/50 space-y-2.5 text-xs">
+              <span class="font-extrabold text-sky-950 dark:text-sky-200 flex items-center gap-1.5 text-xs sm:text-sm">
+                <span>💡 Why Asking AI to Redact Doesn't Leak Data Upstream</span>
+              </span>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                <strong>Q: If I must prevent leaks, isn't feeding files to this skill contradictory?</strong><br>
+                If you paste personal details directly into a cloud chatbox asking AI to "redact before answering," data leaves your device the instant you click send. This skill works differently: it accepts file paths in a local editor, rather than raw text pasted into chat.
+              </p>
+              <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-sky-200/60 dark:border-sky-900/60 space-y-1.5 text-slate-600 dark:text-slate-300 leading-relaxed">
+                <span class="font-bold text-slate-800 dark:text-slate-200 block text-xs">What is a "local script", where does it come from, and how is it different?</span>
+                <p>
+                  <strong>1. Where does the script come from?</strong> When adding this open-source skill, you download a public package from GitHub containing instructions and an offline helper script (typically Python). The code is completely transparent with zero external network calls.
+                </p>
+                <p>
+                  <strong>2. How does it differ from the model reading directly?</strong> The cloud model runs on remote servers. A local script functions like an offline marker on your own desk: before files leave your machine, the script swaps names and IDs with placeholders like <code>[PERSON_A]</code>, keeping the real mapping key locked in your local private directory.
+                </p>
+                <p>
+                  <strong>3. What does the model actually see?</strong> The remote model only inspects the pseudonymized copy. Once processing finishes, the local script restores real values using your local key. Raw data never leaves your hard drive.
+                </p>
+              </div>
+            </div>
+          `;
+        }
+      })()}
+
       <div class="space-y-2 text-xs sm:text-sm">
         <h4 class="font-bold text-slate-900 dark:text-slate-100">${t.howToUseLabel}</h4>
         <p class="text-slate-600 dark:text-slate-400 leading-relaxed">${howToUse}</p>

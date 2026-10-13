@@ -657,6 +657,7 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
+
 // Helper to render interactive pill in text (Clean SVG micro-badge, no raw emoji)
 function makePill(skillId, label) {
   return `<button type="button" class="inline-skill-pill" data-skill="${skillId}" title="点击查看 ${skillId} 的完整实测状态与标准依据"><svg width="13" height="13" style="width:13px;height:13px;min-width:13px;max-width:13px;display:inline-block;flex-shrink:0;vertical-align:-1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span>${escapeHtml(label || skillId)}</span></button>`;
@@ -674,14 +675,22 @@ function renderSkillCard(skillId, tierLabelZh, tierLabelEn, roleDescZh, roleDesc
   const tier = isZh ? tierLabelZh : tierLabelEn;
   const role = isZh ? roleDescZh : roleDescEn;
   const name = item ? item.name : skillId;
-  const clients = item?.clients ? item.clients.slice(0, 3).join(" / ") : "通用客户端";
   const isOutOfBox = (item?.status?.stage || "").includes("开箱即用");
   const statusLabel = isZh 
-    ? (isOutOfBox ? "🟢 开箱即用" : "🟡 需装依赖")
-    : (isOutOfBox ? "🟢 Ready" : "🟡 Deps Req");
-  const statusClass = isOutOfBox ? "status-ready" : "status-dep";
+    ? (isOutOfBox ? "开箱即用" : "需装依赖")
+    : (isOutOfBox ? "Ready" : "Deps Req");
+  const statusDotColor = isOutOfBox ? "bg-emerald-500" : "bg-amber-500";
   const tierClass = isAdvanced ? "tier-advanced" : "tier-required";
   
+  // Only display clients note when there is a specific restriction (not universal)
+  const rawClients = item?.clients || [];
+  const isUniversal = rawClients.length === 0 || rawClients.includes("通用") || rawClients.includes("Universal") || rawClients.length >= 4;
+  const clientTagHtml = (!isUniversal && rawClients.length > 0)
+    ? `<div class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-between truncate">
+         <span>${isZh ? '适用' : 'Requires'}: ${escapeHtml(rawClients.slice(0, 2).join(' / '))}</span>
+       </div>`
+    : "";
+
   return `
     <div class="skill-compact-card">
       <div class="space-y-2">
@@ -689,29 +698,28 @@ function renderSkillCard(skillId, tierLabelZh, tierLabelEn, roleDescZh, roleDesc
           <span class="skill-card-tag ${tierClass}">
             ${escapeHtml(tier)}
           </span>
-          <span class="skill-card-tag ${statusClass}">
-            ${escapeHtml(statusLabel)}
+          <span class="skill-status-text">
+            <span class="w-2 h-2 rounded-full ${statusDotColor} inline-block shrink-0"></span>
+            <span>${escapeHtml(statusLabel)}</span>
           </span>
         </div>
         <div>
           <h5 class="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white leading-snug">
             ${escapeHtml(name)}
           </h5>
-          <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+          <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
             ${escapeHtml(role)}
           </p>
         </div>
       </div>
       <div class="pt-2.5 mt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
-        <div class="text-[10px] text-slate-400 dark:text-slate-500 flex items-center justify-between truncate">
-          <span>${isZh ? '支持' : 'Clients'}: ${escapeHtml(clients)}</span>
-        </div>
+        ${clientTagHtml}
         <div class="grid grid-cols-2 gap-1.5 pt-0.5">
-          <button type="button" class="skill-inspect-btn px-2 py-1.5 rounded-lg bg-brand/10 dark:bg-brand/20 hover:bg-brand/20 dark:hover:bg-brand/30 text-brand dark:text-brand-container text-[11px] font-bold text-center transition-colors" data-skill="${skillId}">
-            🔬 ${isZh ? '决策实证' : 'Evidence'}
+          <button type="button" class="skill-action-inspect skill-inspect-btn text-center truncate" data-skill="${skillId}">
+            <span>${isZh ? '查看依据' : 'Evidence'}</span>
           </button>
-          <button type="button" class="skill-copy-btn px-2 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] font-bold text-center transition-colors truncate" data-skill="${skillId}">
-            📋 ${isZh ? '获取命令' : 'Copy Cmd'}
+          <button type="button" class="skill-action-copy skill-copy-btn text-center truncate" data-skill="${skillId}">
+            <span>${isZh ? '复制命令' : 'Copy Cmd'}</span>
           </button>
         </div>
       </div>
@@ -719,7 +727,7 @@ function renderSkillCard(skillId, tierLabelZh, tierLabelEn, roleDescZh, roleDesc
   `;
 }
 
-// Helper to render an entire defensive pipeline block with primary cards & expandable alternates
+// Helper to render an entire defensive pipeline block with primary cards & expandable alternates (Borderless)
 function renderSkillPipelineSection(options) {
   const isZh = currentLang === "zh";
   const title = isZh ? options.titleZh : options.titleEn;
@@ -732,11 +740,11 @@ function renderSkillPipelineSection(options) {
   if (options.alternates && options.alternates.length > 0) {
     const pillsHtml = options.alternates.map(a => makePill(a.id, a.label)).join("");
     const moreTitle = isZh 
-      ? `查看另外 ${options.alternates.length} 个备选/补充技能（根据环境自由选用） ▾`
-      : `View ${options.alternates.length} alternative & supplementary skills ▾`;
+      ? `查看另外 ${options.alternates.length} 个备选/补充技能（根据环境自由选用）`
+      : `View ${options.alternates.length} alternative & supplementary skills`;
     moreHtml = `
-      <details class="more-skills-drawer group">
-        <summary class="cursor-pointer text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-brand">
+      <details class="skill-alternates-row group">
+        <summary>
           <span>📦 ${moreTitle}</span>
           <span class="text-[10px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
         </summary>
@@ -748,10 +756,10 @@ function renderSkillPipelineSection(options) {
   }
 
   return `
-    <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3.5 my-4 shadow-2xs">
+    <div class="skill-pipeline-wrapper space-y-3 my-5">
       <div class="space-y-1">
-        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-          <span>🛠️</span>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-brand"></span>
           <span>${escapeHtml(title)}</span>
         </h4>
         <p class="text-xs text-slate-500 dark:text-slate-400">
@@ -762,6 +770,228 @@ function renderSkillPipelineSection(options) {
         ${primaryCardsHtml}
       </div>
       ${moreHtml}
+    </div>
+  `;
+}
+
+// Component 2: Action Panel Helper (Strict accessible headings: h4 for contrast, h5 for tiers)
+function renderActionPanel(opts) {
+  const isZh = opts.lang !== "en";
+  const headerTitle = isZh ? "行动建议与分级实操 (Action Guidance)" : "Action Guidance & Tiered Practices";
+  const dontTitle = isZh ? "❌ 常见高危做法" : "❌ High-Risk Practices";
+  const doTitle = isZh ? "✅ 规范自卫打法" : "✅ Standard Defense";
+  const tiersHeading = isZh ? "你可以这样做（按自己的情况选一档）" : "What you can do (pick the tier that fits you)";
+  const t1Title = isZh ? "零门槛 · 只用浏览器或手机" : "Zero Setup · Browser / Mobile Only";
+  const t2Title = isZh ? "进阶 · 愿意装个软件或在本地操作" : "Intermediate · Local Tools & Redaction";
+  const t3Title = isZh ? "专业 · 使用支持技能的 AI 客户端" : "Advanced · AI Tools with Agent Skills";
+  const verifyLabel = isZh ? "✔ 怎么确认做对了：" : "✔ How to verify you did it right: ";
+
+  const t1List = (opts.tierBrowser || []).map(item => "<li>" + item + "</li>").join("");
+  const t2List = (opts.tierSoftware || []).map(item => "<li>" + item + "</li>").join("");
+  const t3List = (opts.tierSkills || []).map(item => "<li>" + item + "</li>").join("");
+
+  return `
+    <div class="action-panel">
+      <div class="action-panel-header">
+        <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span>${headerTitle}</span>
+      </div>
+      <!-- Layer 1: Contrast Principles -->
+      <div class="action-contrast-grid">
+        <div class="action-contrast-col-dont">
+          <h4>${dontTitle}</h4>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${opts.dontText}</p>
+        </div>
+        <div class="action-contrast-col-do">
+          <h4>${doTitle}</h4>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${opts.doText}</p>
+        </div>
+      </div>
+      <!-- Layer 2: Tiered Action Guidance -->
+      <div class="pt-3">
+        <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2">${tiersHeading}</div>
+        <div class="action-tiers-grid">
+          <div class="action-tier-col space-y-1.5">
+            <h5>${t1Title}</h5>
+            <ol class="list-decimal list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${t1List}</ol>
+          </div>
+          <div class="action-tier-col space-y-1.5">
+            <h5>${t2Title}</h5>
+            <ol class="list-decimal list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${t2List}</ol>
+          </div>
+          <div class="action-tier-col space-y-1.5">
+            <h5>${t3Title}</h5>
+            <ol class="list-decimal list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${t3List}</ol>
+          </div>
+        </div>
+      </div>
+      <!-- Layer 3: Independent Verification Bar -->
+      <div class="action-verification-bar">
+        <strong>${verifyLabel}</strong><span>${opts.verifyText}</span>
+      </div>
+    </div>
+  `;
+}
+
+// Component 4: Evidence Drawer Helper (Auto-calculates item counts)
+function renderEvidenceDrawer(opts) {
+  const isZh = opts.lang !== "en";
+  const drawerTitle = opts.title || (isZh ? "实证与延伸：真实判例、法规条款与技术原理" : "Evidence & References: Cases, Statutes & Mechanisms");
+
+  // Calculate dynamic count badge if not explicitly provided
+  let countStr = opts.count;
+  if (!countStr) {
+    const parts = [];
+    if (opts.cases && opts.cases.length > 0) parts.push(isZh ? `${opts.cases.length} 起案例` : `${opts.cases.length} Cases`);
+    if (opts.statutes && opts.statutes.length > 0) parts.push(isZh ? `${opts.statutes.length} 条法规` : `${opts.statutes.length} Statutes`);
+    if (opts.technical && opts.technical.length > 0) parts.push(isZh ? `${opts.technical.length} 项实证` : `${opts.technical.length} Findings`);
+    countStr = parts.join(" · ");
+  }
+  const countBadge = countStr ? ` <span class="text-[11px] font-normal text-slate-400 dark:text-slate-500">(${countStr})</span>` : "";
+
+  const toggleHint = isZh
+    ? '<span class="group-open:hidden">展开证据 ⬇</span><span class="hidden group-open:inline">收起证据 ⬆</span>'
+    : '<span class="group-open:hidden">Expand ⬇</span><span class="hidden group-open:inline">Collapse ⬆</span>';
+
+  let sectionsHtml = "";
+
+  if (opts.cases && opts.cases.length > 0) {
+    const caseItems = opts.cases.map(c => '<div class="flex flex-wrap gap-1.5 pt-1">' + c + '</div>').join("");
+    sectionsHtml += `
+      <div class="evidence-drawer-section">
+        <div class="evidence-drawer-section-title flex items-center gap-1.5 text-rose-800 dark:text-rose-300">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>${isZh ? '真实案例与权威通报 (Real-World Incidents)' : 'Real-World Incidents & Sanctions'}</span>
+        </div>
+        <div class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">${opts.caseSummary || (isZh ? '点击案卷标签可原地查阅案号、行政罚单与第一手裁判文书：' : 'Click pills to inspect official rulings and case numbers:')}</div>
+        <div class="space-y-1.5 pt-1">${caseItems}</div>
+      </div>
+    `;
+  }
+
+  if (opts.statutes && opts.statutes.length > 0) {
+    const statuteLis = opts.statutes.map(s => '<li>' + s + '</li>').join("");
+    sectionsHtml += `
+      <div class="evidence-drawer-section">
+        <div class="evidence-drawer-section-title flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+          <svg class="w-3.5 h-3.5 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>${isZh ? '法规条款与标准对齐 (Statutes & Standards)' : 'Statutes & Regulatory Standards'}</span>
+        </div>
+        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">${statuteLis}</ul>
+      </div>
+    `;
+  }
+
+  if (opts.technical && opts.technical.length > 0) {
+    const techLis = opts.technical.map(t => '<li>' + t + '</li>').join("");
+    sectionsHtml += `
+      <div class="evidence-drawer-section">
+        <div class="evidence-drawer-section-title flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+          <svg class="w-3.5 h-3.5 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>${isZh ? '学术文献与技术机理解析 (Technical & Research Deep Dive)' : 'Technical & Research Deep Dive'}</span>
+        </div>
+        <ul class="list-disc list-inside space-y-1 text-sm text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">${techLis}</ul>
+      </div>
+    `;
+  }
+
+  return `
+    <details class="evidence-drawer group">
+      <summary class="evidence-drawer-summary">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
+          <span>${drawerTitle}${countBadge}</span>
+        </span>
+        <span class="text-[11px] font-semibold text-brand">${toggleHint}</span>
+      </summary>
+      <div class="evidence-drawer-content">
+        ${sectionsHtml}
+      </div>
+    </details>
+  `;
+}
+
+// Component 5: Persona Playbook Fast-Track Helper (uses clean verification-panel)
+function renderPersonaPlaybook(opts) {
+  const isZh = opts.lang !== "en";
+  const roleBadge = isZh ? opts.roleZh : opts.roleEn;
+  const title = isZh ? opts.titleZh : opts.titleEn;
+  const intro = isZh ? opts.introZh : opts.introEn;
+  const painTitle = isZh ? "1. 现实痛点与诱惑 (Temptation & Pain Point)" : "1. Real Pain Point & Temptation";
+  const painText = isZh ? opts.painZh : opts.painEn;
+  const timelineTitle = isZh ? "2. 一日自卫战术时刻表 (Chronological Playbook)" : "2. Chronological Daily Defense";
+  const minStdTitle = isZh ? "3. 最低完成标准与交付核对 (Verification Sign-off)" : "3. Verification Sign-off & Minimum Baseline";
+  const minZero = isZh ? opts.minZeroZh : opts.minZeroEn;
+  const minPro = isZh ? opts.minProZh : opts.minProEn;
+
+  const stepsHtml = (opts.steps || []).map(step => {
+    const time = step.time;
+    const sTitle = isZh ? step.titleZh : step.titleEn;
+    const sDesc = isZh ? step.descZh : step.descEn;
+    return `
+      <div class="persona-step">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-[11px] font-mono font-bold text-brand bg-brand/10 dark:bg-brand/20 px-2 py-0.5 rounded">${time}</span>
+          <span class="text-sm font-bold text-slate-900 dark:text-white">${sTitle}</span>
+        </div>
+        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${sDesc}</p>
+      </div>
+    `;
+  }).join("");
+
+  let casesHtml = "";
+  if (opts.cases && opts.cases.length > 0) {
+    const caseItems = opts.cases.join(" ");
+    const toggleHint = isZh
+      ? '<span class="group-open:hidden">展开参考案例 ⬇</span><span class="hidden group-open:inline">收起参考案例 ⬆</span>'
+      : '<span class="group-open:hidden">Expand Cases ⬇</span><span class="hidden group-open:inline">Collapse Cases ⬆</span>';
+    casesHtml = `
+      <details class="evidence-drawer group mt-3">
+        <summary class="evidence-drawer-summary">
+          <span class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-rose-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>${isZh ? '本角色真实前车之鉴与合规警示' : 'Real-World Incident Precedents'}</span>
+          </span>
+          <span class="text-[11px] font-semibold text-brand">${toggleHint}</span>
+        </summary>
+        <div class="evidence-drawer-content">
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">${isZh ? opts.nearMissZh : opts.nearMissEn}</p>
+          <div class="flex flex-wrap gap-1.5 pt-1">${caseItems}</div>
+        </div>
+      </details>
+    `;
+  }
+
+  return `
+    <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
+          <span class="w-2 h-2 rounded-full bg-brand"></span>
+          <span>${title}</span>
+        </div>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${roleBadge}</span>
+      </div>
+      <div class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">${intro}</div>
+      <div class="space-y-1.5 pt-1">
+        <div class="text-xs font-bold text-slate-800 dark:text-slate-200">${painTitle}</div>
+        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">${painText}</p>
+      </div>
+      <div class="pt-2">
+        <div class="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2.5">${timelineTitle}</div>
+        <div class="persona-timeline space-y-2">${stepsHtml}</div>
+      </div>
+      <!-- Component: Clean Standalone Verification Panel -->
+      <div class="verification-panel space-y-1.5">
+        <div class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>${minStdTitle}</span>
+        </div>
+        <div class="text-sm text-slate-700 dark:text-slate-300 space-y-1 leading-relaxed pl-1">
+          <p>• <strong>${isZh ? '最低要求 (零门槛)' : 'Minimum Baseline (Zero Setup)'}：</strong>${minZero}</p>
+          <p>• <strong>${isZh ? '进阶交付 (专业级)' : 'Professional Standard (Advanced)'}：</strong>${minPro}</p>
+        </div>
+      </div>
+      ${casesHtml}
     </div>
   `;
 }
@@ -804,6 +1034,32 @@ const guideContent = {
           </h2>
         </div>
 
+        <!-- Chapter Objectives Box (Flat Two-Column Layout) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>本章阅读导航</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm pt-1">
+            <div class="space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>本章解决什么问题
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                为什么日常用 AI 不能“想到什么就贴什么、AI 说什么就信什么”？盲信与滥用在现实司法中会带来哪些直接后果？
+              </p>
+            </div>
+            <div class="space-y-1 md:border-l md:border-slate-100 md:dark:border-slate-800 md:pl-4">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>读完你能获得什么
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                建立“个人数据主权”与“零信任求证”的基础认知，理解“AI 生成不是免责金牌”，为后续动手配置与实战建立心理防线。
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
           <p class="leading-relaxed">
             今天，大语言模型（LLM）与生成式人工智能正在被广泛应用于日常办公与专业研究中。无论是写一份周报、整理学术文献、编写一段业务代码，还是起草一份营销文案，我们都在被动或主动地向这些“黑盒”输入自己的工作内容、私人数据与未公开构想。
@@ -813,216 +1069,90 @@ const guideContent = {
             然而，在日常使用大语言模型和智能体时，用户面临着切实的数据与合规风险，这些风险在现实中已有对应的司法判例与公开通报：
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-            <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2 shadow-xs">
-              <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
+          <!-- Flat Editorial Text: Invisible Crises (No nested cards) -->
+          <div class="space-y-4 my-6 pl-1">
+            <div class="space-y-1.5">
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-brand"></span>
                 <span>隐形危机一：数据主权与准标识符马赛克拼图</span>
-              </div>
+              </h4>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 即使你在单次对话中没有说出自己的名字，长期使用同一账户输入的年龄、城市、职业困惑、技术选型等“准标识符”（Quasi-identifiers），在向量数据库中也能轻松拼接出完整的个人数字画像。免费工具的背后，每一个普通人都在充当不领薪水的训练矿工。
               </p>
             </div>
 
-            <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2 shadow-xs">
-              <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
+            <div class="space-y-1.5 pt-2">
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-brand"></span>
                 <span>隐形危机二：自信幻觉与认知依附 (MIT/Stanford 实证)</span>
-              </div>
+              </h4>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 认知神经科学与人机交互研究（如 MIT Media Lab 2025 年预印本《Your Brain on ChatGPT》及 Anthropic 谄媚性研究）提示：当过度把推理完全委托给 AI 代写时，可能产生即时记忆与注意力留存不足等“认知负担”（实验中深度依赖模型的测试组参与者多达 15/18 人难以准确引用刚生成的关键要点）。加之模型的<strong>谄媚倾向（Sycophancy，顺从讨好用户偏好）</strong>，若缺乏主动核查与批判反思，个人的独立审校与求证本能可能受到干扰。
               </p>
             </div>
           </div>
 
-          <!-- Structured Legal Precedents Section -->
-          <div class="my-6 space-y-3.5">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+          <!-- Structured Summary of Legal Realities (Vertical Divided List, No nested cards) -->
+          <div class="my-6 space-y-3">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
               <div class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                 <span>现实司法前车之鉴：盲信 AI 的全球与本土法律代价</span>
               </div>
-              <span class="text-[11px] text-slate-500 font-mono">5 起典型实证</span>
+              <span class="text-[11px] text-slate-500 font-mono">3 大核心警示</span>
             </div>
 
-            <div class="space-y-3">
-              <!-- Case 1: Beijing Voice Infringement -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 本土声音侵权第一案</span>
-                    <a href="https://www.bjinternetcourt.gov.cn/cpws/default/detail.html" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">北京互联网法院 (2023)京0491民初12142号 ↗</a>
-                    <span class="text-[10px] text-slate-400 font-mono">最高法案例库 2025-07-2-474-001</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">判赔 25 万元</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      配音演员的录音制品被软件公司未经单独明示许可提取声音特征，用于训练开发商业级 AI 文本转语音 (TTS) 产品并在多平台销售获利。
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      法院裁定自然人声音权益独立于录音制品著作权，未经单独明示授权不得将录音制作成 AI 商业模型。<strong>提示：取得同事录音或客户素材的使用权限，并不包含将其用于 AI 模型训练或云端处理的许可。</strong>
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-ai-voice-bj-2023', '查看殷某某案完整判决与防御要点 ↗')}
-                    </div>
-                  </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-rose-600 dark:text-rose-400 text-xs shrink-0">01</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">AI 生成不是免责牌：</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 生成不能成为免责理由。将内容提交给法庭、客户或公众的人，仍需依法承担核验义务及相应责任。全球法院与仲裁机构（中美法院及加拿大民事审裁机构已有相关裁判或决定）对 AI 虚构判例与虚假陈述已开出罚款、通报与全额赔偿。</span>
                 </div>
               </div>
 
-              <!-- Case 2: Nanjing Internet Court Defamation -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 AI 检索加工名誉权案</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">李小亮诉百度“AI智能回答”名誉侵权案（南京中院终审）</span>
-                    <span class="text-[10px] text-slate-400 font-mono">江苏高院公开通报</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">承担名誉侵权全责</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      某平台“AI 智能回答”功能在抓取整合网络碎片时发生严重幻觉拼接，错误生成某当事人“因爆炸罪被判处三年有期徒刑”并附带其真实工作肖像。
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      法院认定 AI 检索整合属于“内容产出”，平台收到受害人侵权通知未及时采取阻断措施须负全责。北京互联网法院 2026 年亦审结多起传播未核验 AI 虚构内容构成名誉侵权的纠纷。
-                    </p>
-                  </div>
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs shrink-0">02</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">输入材料授权范围有限：</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">获得录音制品或文档权限，并不等于获得投喂 AI 模型的许可。自然人人格权独立受保护，将他人敏感素材喂给商业大模型存在直接侵权风险。</span>
                 </div>
               </div>
 
-              <!-- Case 3: Supreme People's Court Rules -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 最高法裁判指引</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">《关于依法审理涉人工智能纠纷案件的意见》</span>
-                    <span class="text-[10px] text-slate-400 font-mono">法发〔2026〕10号 (2026-09-07)</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900">罚款·拘留·追究刑责</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      诉讼参与人使用 AI 辅助撰写文书必须严格核实内容真实性并如实向法庭说明；严禁利用大模型伪造证据、编造虚构法律判例与事实。
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      利用 AI 制造虚假诉讼的，依据《民事诉讼法》第 114 条采取严厉制裁。“这是 AI 生成的”绝非免责金牌，提交者承担 100% 的法律穿透责任。
-                    </p>
-                    <div class="pt-1.5 flex flex-wrap gap-1.5">
-                      ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州案号批评案 ↗')}
-                      ${makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌假法条训诫案 ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Case 4: US Federal Court Mata v. Avianca -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 虚构判例处罚案 (Mata v. Avianca)</span>
-                    <a href="https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">纽约南区联邦法院 Mata v. Avianca (2023) ↗</a>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">处罚 5,000 美元 + 全行业通报</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      执业律师轻信 ChatGPT 辅助起草的诉讼法律简报，简报中引用的 6 起先例判决（含案号、判词与法官姓名）全系 AI 凭空编造的虚假幻觉。
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      主审法官裁定律师存在主观恶意不尽核查义务，对涉事律师及律所各罚款 5,000 美元并向全行业通报。此案确立了全球司法界对 AI 生成引用“人工逐条核实”原则。
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-mata-avianca-fake-citations-2023', '查看 Mata 案虚假判例制裁裁决 ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Case 5: Moffatt v. Air Canada -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 算法疏忽侵权责任</span>
-                    <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">加拿大卑诗省民事审裁处 Moffatt v. Air Canada (2024 BCCRT 149) ↗</a>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">企业全额赔偿 + 驳回免责</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>发生了什么
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      加拿大航空官网的 AI 智能客服向旅客提供了凭空捏造的“事后追溯丧亲优惠票价”退款指南，导致旅客依照指引购票后被加航拒绝退款。
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>结果与对你的启示
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      裁决所严厉驳回了加航主张“AI 客服是独立实体、加航不应为机器人回答负责”的抗辩，认定企业必须对其部署算法的虚假陈述与疏忽误导承担全部民事赔偿责任。
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-air-canada-chatbot-refund-2024', '查看加航AI客服虚构退款规则案裁决详情 ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Clarification Note -->
-              <div class="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
-                <span class="text-sm shrink-0">🔍</span>
-                <div class="leading-relaxed space-y-1.5">
-                  <div>
-                    <strong class="text-slate-700 dark:text-slate-300">实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判。日常最明确的商业秘密执法案例是杭州市市场监管局对擅自带走 Prompt 模板用于大模型微调开出的 <strong>35 万元行政处罚</strong>：
-                    ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密处罚案卷 ↗')}
-                  </div>
-                  <div>
-                    而在涉密办公与公文纪律层面，已有确凿的党政纪律处分通报：
-                    ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密通报 ↗')}
-                    ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报实名辞退案 ↗')}
-                  </div>
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-brand dark:text-brand-container text-xs shrink-0">03</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">涉密与商密红线：</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">“涉密不上网，上网不涉密”。私自带走 Prompt 商业模板已被市监局处以 35 万元行政处罚，核心数据与公文喂 AI 已致科研人员受党政处分及实名辞退。</span>
                 </div>
               </div>
             </div>
+
+            <!-- Evidence Drawer: Detailed Case Precedents Folded for On-Demand Review -->
+            ${renderEvidenceDrawer({
+              lang: 'zh',
+              title: '实证与延伸：盲信 AI 的全球与本土司法裁判案卷与通报',
+              count: '5 起司法判例 · 3 起涉密通报 · 最高法裁判指引',
+              cases: [
+                makeIncidentPill('case-ai-voice-bj-2023', '北京互联网法院：全国首例AI声音侵权案判赔25万 (2023)京0491民初12142号 ↗'),
+                makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州法院：律师盲信AI生成假案号被司法通报批评 ↗'),
+                makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌法院：引用AI捏造虚假法条予以司法训诫案 ↗'),
+                makeIncidentPill('case-mata-avianca-fake-citations-2023', '纽约南区联邦法院：Mata v. Avianca 虚假先例制裁案罚款5000美元 ↗'),
+                makeIncidentPill('case-air-canada-chatbot-refund-2024', '加拿大审裁处：加航AI客服虚构退款规则案裁定全额赔偿 ↗'),
+                makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州市监局：擅自带走大模型Prompt模板微调被罚35万元 ↗'),
+                makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密受处分 ↗'),
+                makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')
+              ],
+              statutes: [
+                '<strong>最高人民法院《关于依法审理涉人工智能纠纷案件的意见》(法发〔2026〕10号)</strong>：诉讼参与人使用 AI 辅助撰写文书必须严格核实内容真实性并如实说明；严禁伪造证据、虚构判例与法条，违者依据《民事诉讼法》第 114 条予以严肃制裁。',
+                '<strong>《中华人民共和国个人信息保护法》第 23 条</strong>：向第三方提供个人信息的，应当向个人告知接收方的名称或者姓名、联系方式、处理目的、处理方式和个人信息的种类，并取得个人的单独同意。',
+                '<strong>新修订《中华人民共和国保守国家秘密法》</strong>：确立“涉密不上网，上网不涉密”法定红线，禁止在连接互联网或者其他公共信息网络的计算机和信息设备中存储、处理、传输国家秘密。'
+              ],
+              technical: [
+                '<strong>实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判。日常最明确的商业秘密执法案例是杭州市市场监管局对擅自带走 Prompt 模板用于大模型微调开出的 35 万元行政处罚。',
+                '<strong>生成虚构与自动化偏见</strong>：LLM 基于统计概率自回归预测生成词元，无内在真伪校验机制。在专业、冷门或长尾知识领域，极易生成看似专业但完全捏造的案号与文献。'
+              ]
+            })}
           </div>
 
           <!-- Chapter 1 Transition to Everyday Action -->
@@ -1031,11 +1161,11 @@ const guideContent = {
               <span>💡 应对这些风险，空洞的口号帮不上忙</span>
             </h4>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              宏观的治理口号并不能在日常对话框前保护普通人。我们需要的是在每一次打字、提问、交付前都能用上的具体习惯（第 2 章的<strong>四大日常追问</strong>）与实操技能（第 3 章的<strong>三档行动方案</strong>）。
+              宏观的治理口号并不能在日常对话框前保护普通人。我们需要的是第 2 章的基础安全设置、第 3 章的三大安全支柱与四大日常追问，以及第 4 章的分级实操方案。
             </p>
           </div>
         </div>
-              <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
+        <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
           <span>💡 看完这些真实翻车案例与法律代价，你可能会想：“那我天天在用的豆包、Kimi 或 ChatGPT，现在立刻该做什么？”</span>
           <a href="#chapter-2" class="text-brand font-bold hover:underline flex items-center gap-1">
             <span>上手第一步：关掉这几个隐形开关 ➔</span>
@@ -1052,25 +1182,51 @@ const guideContent = {
           </h2>
         </div>
 
+        <!-- Chapter Objectives Box (Flat Two-Column Layout) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>本章阅读导航</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm pt-1">
+            <div class="space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>本章解决什么问题
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                为什么在客户端“清空聊天记录”不能真正删掉数据？各主流工具（Trae、豆包、Kimi、Cursor、ChatGPT 等）究竟有哪些隐形的数据留存机制？
+              </p>
+            </div>
+            <div class="space-y-1 md:border-l md:border-slate-100 md:dark:border-slate-800 md:pl-4">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>读完你能获得什么
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                尽可能关闭主力 AI 客户端中的模型训练授权，并检查、清理长期记忆与已上传文件。
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
-          <!-- 30s Quick Action Card for Everyday Citizens -->
+          <!-- 30s Quick Action Card for Everyday Citizens (Flat Divided Layout) -->
           <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
             <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
               <span class="text-xl">⚡</span>
               <span>普通人自卫第一步：30 秒极简安全行动（先做这三件事）</span>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+            <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-brand/15 pt-1 text-xs">
+              <div class="py-2 sm:py-0 sm:px-3 first:pl-0 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. 关掉“训练授权”</span>
-                <p class="text-slate-600 dark:text-slate-400">在常用 AI 客户端的【设置】中，关闭“允许使用我的数据改进/训练模型”，防止未公开草稿被吞入公共语料。</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">在常用 AI 客户端的【设置】中，关闭“允许使用我的数据改进/训练模型”，防止未公开草稿被吞入公共语料。</p>
               </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+              <div class="py-2 sm:py-0 sm:px-3 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. 清理“长期记忆”</span>
-                <p class="text-slate-600 dark:text-slate-400">在【设置 &gt; 记忆/Memory】定期清理。单次删除对话不会同步删记忆，必须进记忆库单独注销。</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">在【设置 &gt; 记忆/Memory】定期清理。单次删除对话不会同步删记忆，必须进记忆库单独注销。</p>
               </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+              <div class="py-2 sm:py-0 sm:px-3 last:pr-0 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. 留个心眼“查一查”</span>
-                <p class="text-slate-600 dark:text-slate-400">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在权威平台核查（论文查知网/百度学术/doi.org，案号查裁判文书网，名言查原始出处）。</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 给的论文期刊、法律案号、名人金句，凡是要对外交差的，务必手动在权威平台核查（论文查知网/doi.org，案号查裁判文书网）。</p>
               </div>
             </div>
           </div>
@@ -1251,39 +1407,95 @@ const guideContent = {
           </h2>
         </div>
 
+        <!-- Chapter Objectives Box -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>本章阅读导航</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>本章解决什么问题
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                除了“防泄漏隐私”，安全使用 AI 还需要关注什么？面对 AI 顺从讨好的回答，如何识破心理陷阱并保持主观审慎？
+              </p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>读完你能获得什么
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                掌握“三大安全支柱”（知道什么/相信什么/能做什么）与贯穿全指南的“四大日常实操追问”，建立清晰的心理防线模型。
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-5">
           <p class="leading-relaxed">
             综合中国全国网安标委（TC260-005）、美国国家标准（NIST AI 600-1）、香港私隐专员公署（PCPD）及 OWASP 智能体应用安全框架，个人视角下的负责任与安全 AI 使用，必须跳出“只防输入隐私”的狭隘认知，升级为<strong>“三大核心安全追问 × 两大防御纵深 × 四大日常习惯”</strong>的完整立体架构：
           </p>
 
-          <!-- 3 Security Pillars Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                支柱一 · AI 知道什么？
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>数据保密与边界控制 (Confidentiality & Boundary)</strong>：不仅看 Prompt 敲了什么，还要看 Memory 存了什么、RAG 索引了什么、连接了什么本地文件与邮箱权限。对齐《个人信息保护法》(PIPL) 第6条最小必要、第13条授权同意与第23条向第三方提供数据的单独同意义务，参考 NIST AI 600-1 与 OWASP LLM02 规范防范敏感数据泄露。
-              </p>
+          <!-- 3 Security Pillars (Clean Vertical 3-Section Layout) -->
+          <div class="my-6 space-y-4">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span>三大安全支柱 · 平民心智防线</span>
+              </div>
+              <span class="text-[11px] text-slate-500 font-mono">3 Core Pillars</span>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                支柱二 · AI 相信什么？
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>认知完整与防投毒 (Cognitive Integrity & Anti-Poisoning)</strong>：AI 读取的外部文档、网页或 Issue 本身可能是带毒武器（间接提示词注入）。对齐《生成式人工智能服务管理暂行办法》第4条真实性防伪要求与最高法 2026 事实核验自负原则，防御 OWASP LLM01 注入劫持与 LLM05 供应链污染，坚守“外部内容均按不可信输入处理”的求证防线。
-              </p>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                支柱三 · AI 能做什么？
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>权限隔离与行动可逆性 (Privilege & Agency Isolation)</strong>：聊天机器人答错只消耗电费，智能体干错动作直接抹除文件或越权转账。严格对齐《算法推荐管理规定》人工干预机制与全国网安标委 TC260-005 智能体自主权分级，防范 OWASP ASI01/ASI03 与 LLM06 过度代理风险，落实默认只读与沙盒隔离。
-              </p>
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-brand dark:text-brand-container text-xs shrink-0">01</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>支柱一：AI 知道什么？</span>
+                    <span class="text-[11px] font-normal text-slate-500">(数据保密与边界控制 · Confidentiality & Boundary)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>通俗结论：不仅看输入框敲了什么，还要看后台存了什么。</strong>单次对话即使不提名字，零散的职业、城市与业务细节也会拼成个人画像；知识库、插件和长期记忆随时可能扩大数据暴露面。
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    法定与标准对齐：《个人信息保护法》(PIPL) 第6条最小必要、第13条授权同意与第23条单独同意；NIST AI 600-1 与 OWASP LLM02 敏感信息泄露防范。
+                  </p>
+                </div>
+              </div>
+
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs shrink-0">02</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>支柱二：AI 相信什么？</span>
+                    <span class="text-[11px] font-normal text-slate-500">(认知完整与防投毒 · Cognitive Integrity & Anti-Poisoning)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>通俗结论：AI 读取的外部网页、长文档和评论本身可能“带毒”，且模型天然倾向迎合用户。</strong>未经核验的内容均应视为不可信输入；AI 越顺从自信，越要主动核查原始出处。
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    法定与标准对齐：《生成式人工智能服务管理暂行办法》第4条禁止生成虚假有害信息；最高法 2026 年《意见》要求诉讼参与人对 AI 辅助生成的诉讼材料履行核实、说明义务并依法对真实性、准确性承担责任；防范 OWASP LLM01 间接提示词注入与 LLM05 供应链污染。
+                  </p>
+                </div>
+              </div>
+
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs shrink-0">03</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>支柱三：AI 能做什么？</span>
+                    <span class="text-[11px] font-normal text-slate-500">(权限隔离与行动可逆性 · Privilege & Agency Isolation)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>通俗结论：对话机器人答错只耗电费，智能体干错动作直接删本地文件或越权转账。</strong>凡涉及写文件、执行脚本或调用外部接口的操作，必须坚持“默认只读、人工确认、高危沙盒”。
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    法定与标准对齐：《互联网信息服务算法推荐管理规定》人工干预机制；全国网安标委 TC260-005《伦理安全指引 1.0》与《智能体部署使用安全指引》；防范 OWASP ASI01/ASI03 与 LLM06 过度代理风险。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1349,8 +1561,8 @@ const guideContent = {
                       AI 相信什么？<br><span class="text-[11px] text-slate-500 font-normal">(What does AI believe?)</span>
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
-                      • <strong>《生成式人工智能服务管理暂行办法》</strong>第4条：真实性、准确性防范虚假信息<br>
-                      • <strong>最高法 2026 AI 纠纷审理意见</strong>：诉讼参与人事实核验自负原则，伪造判例严肃追责
+                      • <strong>《生成式人工智能服务管理暂行办法》</strong>第4条：禁止生成虚假有害信息<br>
+                      • <strong>最高法 2026 年《意见》</strong>：诉讼参与人对 AI 辅助生成材料履行核实与说明义务，依法对真实性、准确性承担责任
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>OWASP Top 10 for LLM</strong>：<br>
@@ -1372,7 +1584,7 @@ const guideContent = {
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>《互联网信息服务算法推荐管理规定》</strong>：算法自主决策的人工干预要求<br>
-                      • <strong>全国网安标委 TC260-005</strong>：4.2.3 智能体自主权分级控制
+                      • <strong>全国网安标委</strong>：TC260-005《伦理安全指引 1.0》及《智能体部署使用安全指引》自主权分级
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>OWASP for Agentic AI</strong>：<br>
@@ -1602,104 +1814,38 @@ const guideContent = {
         </div>
 
         <!-- Section 4.1 -->
+        <!-- Section 4.1 -->
         <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.1 输入前 · 个人隐私保护与提示词注入防范 (Pre-Input)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据失控便存在数据泄露风险。仅抹去人名并不等同于完成脱敏。按照隐私研究中的<strong>马赛克拼图理论（Mosaic Theory）</strong>，即使隐去姓名，只要保留“某三甲医院罕见病科室 + 42岁男性 + 某日入院”等属性组合，依然能高概率推断出当事人身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 证实，仅凭“出生日期 + 性别 + 5位邮编”三个碎片信息，就能在公开数据库中精确定位 87% 的个体。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
+            当你准备把一份包含真实姓名、联系方式、财务数据或业务源码的文档提交给 AI 时，数据便存在泄露风险。仅抹去人名并不等同于完成脱敏。按照隐私研究中的<strong>马赛克拼图理论（Mosaic Theory）</strong>，即使隐去姓名，只要保留“某三甲医院罕见病科室 + 42岁男性 + 某日入院”等属性组合，依然能高概率推断出当事人身份。著名的 <a href="https://dataprivacylab.org/projects/identifiability/paper1.pdf" target="_blank" class="text-brand underline">Sweeney 经典实验 ↗</a> 表明，“出生日期 + 性别 + 5位邮编”这类属性组合在特定人口数据中具有高度唯一性，因此存在再识别风险。虽然单一出生日期与邮编属于一般个人信息，但依照《个人信息保护法》第28条，一旦与医疗健康、金融账户或行踪轨迹结合，极易还原出当事人身份，构成法律严格保护的敏感个人信息。
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             与此同时，在让 AI 联网搜索、分析长文档或企业知识库时，还存在<strong>“外部隐形投毒”（间接提示词注入，IPI）</strong>的威胁：攻击者在公开网页、文档或邮件中嵌入难以直接察觉的提示词注入指令。当 AI 抓取并解析这些内容时，可能误执行该指令，导致本地上下文或密钥信息被发送至外部服务器。
           </p>
 
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
-            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
-              <span>🚨 真实翻车前车之鉴（点击可原地查看案卷详情与裁判依据）：</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-0.5">
-              ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密受处分 ↗')}
-              ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某起草重大会议材料输入AI写作泄密 ↗')}
-              ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')}
-            </div>
-          </div>
-
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>常见高危做法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                以为抹去真实姓名就是“已脱敏”，直接将包含病历科室、年龄、交易流水或业务代码的准标识符全选输入对话框；直接把未审计的外部网页、公开仓库或 PDF 发给联网 Agent 全自动抓取并赋予其外部网络通信与工具执行权限。
-              </p>
-            </div>
-            <div class="scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>规范自卫打法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                基于 Presidio 等工具实施本地沙盒差分脱敏，用抽象占位符全局置换准标识符组合；对所有外部抓取与 RAG 文本实施 Spotlighting 标签定界与不可信数据隔离，清洗白底白字、零宽字符与 PDF 隐藏层，封锁非法出站通道。
-              </p>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>把真实姓名、电话、身份证号、住址替换成“[姓名A]”“[电话]”这类占位符再粘贴。</li>
-                  <li>年龄改成年龄段，地址只写到城市，单位只写行业。</li>
-                  <li>涉及国家秘密、工作秘密或他人病历的内容，不要输入任何公共 AI。</li>
-                  <li>让 AI 阅读陌生网页或 PDF 时，不要同时授予它收发邮件、读写文件的权限。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>先在本地文本编辑器里用“查找替换”批量替换敏感词，再复制给 AI。</li>
-                  <li>有条件可在本机运行开源的 Microsoft Presidio 自动识别并替换个人信息。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>在支持技能的工具中启用下方的脱敏类技能（如 <code>pii-safe-documents</code>），由 AI 在发送前自动检查。</li>
-                  <li>安装命令见卡片详情或技能库。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>把准备发送的文字转给不了解背景的同事阅读；若对方能推断出当事人身份，说明脱敏尚不充分。</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">隐私拼图效应与间接提示词注入案例</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">案例与原理解析</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开实证 ⬇</span>
-                <span class="hidden group-open:inline">收起实证 ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>马赛克理论与 PIPL 敏感个人信息防线</strong>：依照《个人信息保护法》第28条，医疗健康、金融账户与特定身份信息一旦泄露极易导致人格尊严受侵害。单纯掩盖姓名无法阻断准标识符组合还原，必须对年龄区间、地理位置、就诊科室等属性实施 K-匿名化扰动或生成合成数据。</li>
-              <li><strong>载体一：白底白字、CSS 隐藏与 HTML 注释</strong>：2026 年大规模网络测量（分析 12 亿 URL、2480 万 host，确认 1.53 万个真实注入实例分布于 1.17 万个网页）证实，大量网页在 <code>&lt;!-- 注释 --&gt;</code>、<code>font-size: 0</code>、<code>display: none</code> 中隐蔽嵌入面向 AI 的劫持指令。Agent 扁平化抓取文本时会将其与用户指令无差别混淆。</li>
-              <li><strong>载体二：零宽字符隐写 (Zero-width Unicode)</strong>：Reverse CAPTCHA 实验通过 8,308 次模型输出证实，攻击者利用 <code>\u200B</code>（零宽空格）及 Unicode Tags 可在人眼完全不可见的情况下将恶意指令喂给模型分词器（Tokenizer），轻易穿透传统 WAF 正则与关键词拦截。工程上须强制采用 NFKC 规范化与语言感知 allowlist 进行过滤。</li>
-              <li><strong>载体三：PDF 隐藏文本层 (Off-Screen / Phantom Layers)</strong>：CrackedPDFs 2026 研究（近 3 万份实验 PDF 样本）揭示，解析器直接抽取 PDF 纯文本构建向量索引时破坏了版面视觉逻辑，隐藏文本、同色文字在模型上下文中获得与正文相同的权重，持久污染知识库。安全防御必须结合 OCR 视觉比对实施语义与渲染层差分。</li>
-              <li><strong>在野 CVE 实证：<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-32711" target="_blank" class="text-brand font-bold underline">EchoLeak (CVE-2025-32711, CVSS 9.3 严重性) ↗</a></strong>：业界首个针对企业级大模型（Microsoft 365 Copilot）的“零点击（Zero-Click）”间接注入漏洞。受害者仅收到一封隐藏恶意提示词的普通邮件，不知情下对 Copilot 发出“总结今日邮件”指令，Copilot 即被劫持读取账户内机密财务邮件，并通过 Teams 代理域名 (<code>asyncgw.teams.microsoft.com</code>) 伪造 Markdown 图片标签将敏感数据外发，穿透企业 CSP 策略。</li>
-              <li><strong>工程防御：微软 <a href="https://arxiv.org/abs/2403.14720" target="_blank" class="text-brand font-bold underline">Spotlighting 防御机制 ↗</a> 与权限收敛</strong>：抛弃单薄的 system prompt 拦截，改用随机 Hash 标签定界不可信数据，结合 Base64 编码使注入成功率从 &gt;50% 降至 &lt;2%，并严格实施出站网络流量过滤与带外人工二次确认。</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '以为抹去真实姓名就是“已脱敏”，直接将包含病历科室、年龄、交易流水或业务代码的准标识符全选输入对话框；直接把未审计的外部网页、公开仓库或 PDF 发给联网 Agent 全自动抓取并赋予其外部网络通信与工具执行权限。',
+            doText: '基于 Presidio 等工具实施本地沙盒差分脱敏，用抽象占位符全局置换准标识符组合；对所有外部抓取与 RAG 文本实施 Spotlighting 标签定界与不可信数据隔离，清洗白底白字、零宽字符与 PDF 隐藏层，封锁非法出站通道。',
+            tierBrowser: [
+              '把真实姓名、电话、身份证号、住址替换成“[姓名A]”“[电话]”这类占位符再粘贴。',
+              '年龄改成年龄段，地址只写到城市，单位只写行业。',
+              '涉及国家秘密、工作秘密或他人病历的内容，不要输入任何公共 AI。',
+              '让 AI 阅读陌生网页或 PDF 时，不要同时授予它收发邮件、读写文件的权限。'
+            ],
+            tierSoftware: [
+              '先在本地文本编辑器里用“查找替换”批量替换敏感词，再复制给 AI。',
+              '有条件可在本机运行开源的 Microsoft Presidio 自动识别并替换个人信息。'
+            ],
+            tierSkills: [
+              '在支持技能的工具中启用下方的脱敏类技能（如 <code>pii-safe-documents</code>），由 AI 在发送前自动检查。',
+              '安装命令见卡片详情或技能库。'
+            ],
+            verifyText: '把准备发送的文字转给不了解背景的同事阅读；若对方能推断出当事人身份，说明脱敏尚不充分。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Pre-Input Defensive Pipeline)",
@@ -1742,7 +1888,29 @@ const guideContent = {
               { id: "nova-proximity", label: "nova-proximity · 敏感数据越界预警" }
             ]
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：隐私拼图效应、法条依据与间接注入机理',
+            count: '3 起案例 · 1 条法规 · 5 项技术实证',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密受处分 ↗'),
+              makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某起草重大会议材料输入AI写作泄密 ↗'),
+              makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')
+            ],
+            statutes: [
+              '<strong>马赛克理论与 PIPL 敏感个人信息防线</strong>：依照《个人信息保护法》第28条，医疗健康、金融账户与特定身份信息一旦泄露极易导致人格尊严受侵害。单纯掩盖姓名无法阻断准标识符组合还原，必须对年龄区间、地理位置、就诊科室等属性实施 K-匿名化扰动或生成合成数据。'
+            ],
+            technical: [
+              '<strong>载体一：白底白字、CSS 隐藏与 HTML 注释</strong>：2026 年大规模网络测量（分析 12 亿 URL、2480 万 host，确认 1.53 万个真实注入实例分布于 1.17 万个网页）证实，大量网页在 <code>&lt;!-- 注释 --&gt;</code>、<code>font-size: 0</code>、<code>display: none</code> 中隐蔽嵌入面向 AI 的劫持指令。Agent 扁平化抓取文本时会将其与用户指令无差别混淆。',
+              '<strong>载体二：零宽字符隐写 (Zero-width Unicode)</strong>：Reverse CAPTCHA 实验通过 8,308 次模型输出证实，攻击者利用 <code>\u200B</code>（零宽空格）及 Unicode Tags 可在人眼完全不可见的情况下将恶意指令喂给模型分词器（Tokenizer），轻易穿透传统 WAF 正则与关键词拦截。工程上须强制采用 NFKC 规范化与语言感知 allowlist 进行过滤。',
+              '<strong>载体三：PDF 隐藏文本层 (Off-Screen / Phantom Layers)</strong>：CrackedPDFs 2026 研究（近 3 万份实验 PDF 样本）揭示，解析器直接抽取 PDF 纯文本构建向量索引时破坏了版面视觉逻辑，隐藏文本、同色文字在模型上下文中获得与正文相同的权重，持久污染知识库。安全防御必须结合 OCR 视觉比对实施语义与渲染层差分。',
+              '<strong>在野 CVE 实证：<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-32711" target="_blank" class="text-brand font-bold underline">EchoLeak (CVE-2025-32711, CVSS 9.3 严重性) ↗</a></strong>：业界首个针对企业级大模型（Microsoft 365 Copilot）的“零点击（Zero-Click）”间接注入漏洞。受害者仅收到一封隐藏恶意提示词的普通邮件，不知情下对 Copilot 发出“总结今日邮件”指令，Copilot 即被劫持读取账户内机密财务邮件，并通过 Teams 代理域名 (<code>asyncgw.teams.microsoft.com</code>) 伪造 Markdown 图片标签将敏感数据外发，穿透企业 CSP 策略。',
+              '<strong>工程防御：微软 <a href="https://arxiv.org/abs/2403.14720" target="_blank" class="text-brand font-bold underline">Spotlighting 防御机制 ↗</a> 与权限收敛</strong>：抛弃单薄的 system prompt 拦截，改用随机 Hash 标签定界不可信数据，结合 Base64 编码使注入成功率从 &gt;50% 降至 &lt;2%，并严格实施出站网络流量过滤与带外人工二次确认。'
+            ]
+          })}
         </div>
+
 
         <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
@@ -1756,96 +1924,25 @@ const guideContent = {
             这种现象绝非系统偶发故障，而是根植于大模型的<strong>自回归运作机制（Autoregressive Next-Token Prediction）</strong>。语言模型基于前文概率预测后续词元，其机制是挑选统计上合理的词序列，而非核实客观事实。在生僻的学术论文或法律条文等领域，模型往往会生成格式逼真但实际不存在的引文。
           </p>
 
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
-            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
-              <span>🚨 司法与学术幻觉真实惩处案例（点击可查看案卷与文书分析）：</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-0.5">
-              ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州法院：AI虚构(2022)沪01民终12345号案号批评 ↗')}
-              ${makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌法院：AI篡改法条当庭训诫警告 ↗')}
-              ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', '国际顶刊Frontiers：AI生成荒诞插图撤稿通报 ↗')}
-              ${makeIncidentPill('case-mata-avianca-fake-citations-2023', '美国联邦法院：Mata案虚构判例制裁5000美元 ↗')}
-            </div>
-          </div>
-
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>常见高危做法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                看到 AI 提供了详尽的学者、刊号、DOI 或判决书案号就直接信以为真，未经多源核验就整段复制进诉讼状、开题报告、临床研究或投研研报中。
-              </p>
-            </div>
-            <div class="scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>规范自卫打法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                确立“默认虚构”的零信任核验原则；调用 CrossRef/PubMed 官方 API 与国内知网/中国裁判文书网开展双环交叉审计，确保每一项论断与引文在权威数据库中具有不可篡改的真实验证锚点。
-              </p>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>论文：复制 DOI，粘贴到 <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a> 打开；打不开或文章对不上，就当它不存在。</li>
-                  <li>没有 DOI 的论文：用标题去知网、百度学术或谷歌学术搜索原文。</li>
-                  <li>法律案号：到 <a href="https://wenshu.court.gov.cn/" target="_blank" class="text-brand underline">中国裁判文书网</a> 或人民法院案例库检索。</li>
-                  <li>名人名言、统计数字：找到原始出处再用。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>用 <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref 检索页</a> 批量核对 DOI 与作者、期刊是否一致。</li>
-                  <li>用 Zotero 等文献管理软件按 DOI 导入，导入失败的条目重点复查。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>在支持技能的工具中启用下方的引文核验类技能（如 <code>bibref-verify</code>），自动调用 Crossref / PubMed 逐条比对。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>你交出去的每一条引用，都至少亲手打开过一次原文页面。</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">AI 为什么会编造文献？法庭判例与文献核查方法</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">真实判例与核对</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开实证 ⬇</span>
-                <span class="hidden group-open:inline">收起实证 ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>自回归预测的结构性缺陷</strong>：大模型是“语言概率连接器”而非“数据库引擎”。遇到缺乏充分预训练语料的长尾知识点时，自注意力机制会顺应提示词语法偏好，拼凑出词嵌入向量高度共现的名词、数字与期刊名，创造出看似权威实则凭空捏造的幻觉引文。</li>
-              <li><strong>国际司法引证灾难案 (Mata v. Avianca)</strong>：美国纽约南区联邦法院审理的标志性案件中，执业律师向法庭提交由 ChatGPT 协助起草的法律简报。主审法官核验后震惊发现，简报中引用的 6 起判例（包括判决案号、引用文段及法官意见）完全是 AI 凭空编造的虚构作品。最终法官对涉事律师及律所处以 5,000 美元司法罚款并向同行公开发布通报。</li>
-              <li><strong>中国司法机关严惩 AI 虚假证据与案号造假</strong>：最高人民法院司法通报与各省高院明确强调，民事诉讼中当事人及代理律师不得使用生成式 AI 伪造虚假案例或法律文书。依据《中华人民共和国民事诉讼法》第一百一十四条，伪造重要证据妨碍人民法院审理案件的，法院将依法采取罚款、拘留直至追究刑事责任的严厉司法制裁。</li>
-              <li><strong>学术与司法双环权威事实核验链条</strong>：
-                <ol class="list-decimal list-inside pl-2 space-y-0.5 mt-1">
-                  <li><strong>国际学术双验环</strong>：强制通过 <a href="https://api.crossref.org" target="_blank" class="text-brand underline">CrossRef 官方 REST API ↗</a> 校验 DOI 元数据真实性，调用 <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-brand underline">NCBI PubMed ↗</a> 核实医学论文，结合 OpenAlex 校验学者学术图谱；</li>
-                  <li><strong>中国本土法学与学术核验环</strong>：中文学术引文建议在知网或万方核实篇名、作者与期刊卷期；涉案司法先例必须在 <a href="https://wenshu.court.gov.cn/" target="_blank" class="text-brand underline">中国裁判文书网 ↗</a> 及最高人民法院案例库按统一案号核验裁判事实，严禁直接采信未经证实的大模型法律输出。</li>
-                </ol>
-              </li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '看到 AI 提供了详尽的学者、刊号、DOI 或判决书案号就直接信以为真，未经多源核验就整段复制进诉讼状、开题报告、临床研究或投研研报中。',
+            doText: '确立“默认虚构”的零信任核验原则；调用 CrossRef/PubMed 官方 API 与国内知网/中国裁判文书网开展双环交叉审计，确保每一项论断与引文在权威数据库中具有不可篡改的真实验证锚点。',
+            tierBrowser: [
+              '论文：复制 DOI，粘贴到 <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a> 打开；打不开或文章对不上，就当它不存在。',
+              '没有 DOI 的论文：用标题去知网、百度学术或谷歌学术搜索原文。',
+              '法律案号：到 <a href="https://wenshu.court.gov.cn/" target="_blank" class="text-brand underline">中国裁判文书网</a> 或人民法院案例库检索。',
+              '名人名言、统计数字：找到原始出处再用。'
+            ],
+            tierSoftware: [
+              '用 <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref 检索页</a> 批量核对 DOI 与作者、期刊是否一致。',
+              '用 Zotero 等文献管理软件按 DOI 导入，导入失败的条目重点复查。'
+            ],
+            tierSkills: [
+              '在支持技能的工具中启用下方的引文核验类技能（如 <code>bibref-verify</code>），自动调用 Crossref / PubMed 逐条比对。'
+            ],
+            verifyText: '你交出去的每一条引用，都至少亲手打开过一次原文页面。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Fact & Citation Verification Pipeline)",
@@ -1888,7 +1985,28 @@ const guideContent = {
               { id: "the-judge", label: "the-judge · 裁判官逻辑交叉质证" }
             ]
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：自回归概率缺陷、法庭制裁判例与权威核验链条',
+            count: '4 起案例 · 2 套权威核查链条',
+            cases: [
+              makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州法院：AI虚构(2022)沪01民终12345号案号批评 ↗'),
+              makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌法院：AI篡改法条当庭训诫警告 ↗'),
+              makeIncidentPill('case-frontiers-ai-image-retraction-2024', '国际顶刊Frontiers：AI生成荒诞插图撤稿通报 ↗'),
+              makeIncidentPill('case-mata-avianca-fake-citations-2023', '美国联邦法院：Mata案虚构判例制裁5000美元 ↗')
+            ],
+            statutes: [
+              '<strong>中国司法机关严惩 AI 虚假证据与案号造假</strong>：最高人民法院司法通报与各省高院明确强调，民事诉讼中当事人及代理律师不得使用生成式 AI 伪造虚假案例或法律文书。依据《中华人民共和国民事诉讼法》第一百一十四条，伪造重要证据妨碍人民法院审理案件的，法院将依法采取罚款、拘留直至追究刑事责任的严厉司法制裁。'
+            ],
+            technical: [
+              '<strong>自回归预测的结构性缺陷</strong>：大模型是“语言概率连接器”而非“数据库引擎”。遇到缺乏充分预训练语料的长尾知识点时，自注意力机制会顺应提示词语法偏好，拼凑出词嵌入向量高度共现的名词、数字与期刊名，创造出看似权威实则凭空捏造的幻觉引文。',
+              '<strong>国际司法引证灾难案 (Mata v. Avianca)</strong>：美国纽约南区联邦法院审理的标志性案件中，执业律师向法庭提交由 ChatGPT 协助起草的法律简报。主审法官核验后震惊发现，简报中引用的 6 起判例（包括判决案号、引用文段及法官意见）完全是 AI 凭空编造的虚构作品。最终法官对涉事律师及律所处以 5,000 美元司法罚款并向同行公开发布通报。',
+              '<strong>学术与司法双环权威事实核验链条</strong>：国际学术双验环：强制通过 <a href="https://api.crossref.org" target="_blank" class="text-brand underline">CrossRef 官方 REST API ↗</a> 校验 DOI 元数据真实性，调用 <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-brand underline">NCBI PubMed ↗</a> 核实医学论文，结合 OpenAlex 校验学者学术图谱；中国本土法学与学术核验环：中文学术引文建议在知网或万方核实篇名、作者与期刊卷期；涉案司法先例必须在 <a href="https://wenshu.court.gov.cn/" target="_blank" class="text-brand underline">中国裁判文书网 ↗</a> 及最高人民法院案例库按统一案号核验裁判事实。'
+            ]
+          })}
         </div>
+
 
         <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
@@ -1902,77 +2020,24 @@ const guideContent = {
             大模型为什么天然热衷于讨好用户？Anthropic 2023 年里程碑研究《<a href="https://arxiv.org/abs/2310.13548" target="_blank" class="text-brand font-bold underline">Towards Understanding Sycophancy in Language Models ↗</a>》揭示了其根本成因：在训练大模型的“人类反馈强化学习”（RLHF）阶段，人类测试员更喜欢给那些顺从自己观点、措辞客气顺从或迎合的回答。研究表明，在存在分歧的技术或决策问题中，模型倾向于附和用户的预设立场，掩盖潜在的架构缺陷。
           </p>
 
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>常见高危做法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                提问时预设立场、暗示倾向，在模型顺应作答后未做交叉检验与对立视角测试，便直接采纳结论。
-              </p>
-            </div>
-            <div class="scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>规范自卫打法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                建立“三级对抗审阅管道（3-Tier Adversarial Scrutiny Pipeline）”，从轻量认知微提醒到魔鬼代言人逆反推演，直至引入独立多角色陪审团，层层剥离谄媚滤镜，让方案在激进质疑中淬炼。
-              </p>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>提问时不要先说自己的倾向，只描述问题和约束条件。</li>
-                  <li>拿到方案后追加一句（可直接复制）：<code>请忽略我的偏好，指出这个方案最脆弱的 3 个假设，以及它最可能失败的场景。</code></li>
-                  <li>再问一句：<code>如果你是反对这个方案的人，你最有力的 3 条理由是什么？</code></li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>开一个新会话或换一个不同厂商的模型，问同一个问题，对比结论是否一致。</li>
-                  <li>重大决定前，至少找一位真人同事看过反方意见。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>启用下方的反谄媚 / 魔鬼代言人类技能（如 <code>sycophancy-challenger</code>），让 AI 固定执行对抗审阅流程。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>你能说出这个决定“最大的风险是什么”，而且这条风险不是 AI 主动夸你时顺带提的。</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">为什么 AI 总爱顺着你说？模型迎合倾向与反向质询</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">对抗质询流程</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开实证 ⬇</span>
-                <span class="hidden group-open:inline">收起实证 ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>RLHF 奖励模型机制局限</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。</li>
-              <li><strong>Tier 1: 认知摩擦微提醒 (Discernment Nudge)</strong>：在 Prompt 中强制植入认知摩擦约束，例如：“请完全忽略我的偏好与倾向，直接指出当前技术方案中最脆弱的 3 个底层假设和潜在失效场景。” 对应技能：<code>discernment-nudge</code>, <code>sycophancy-challenger</code>。</li>
-              <li><strong>Tier 2: 魔鬼代言人逆向攻防 (Devil's Advocate & Adversarial Review)</strong>：赋予模型极端敌对的对立角色（如“做空机构分析师”、“苛刻合规官”或“诉讼反方首席律师”），专门对技术架构与商业主张发起进攻性质询与破绽深挖。对应技能：<code>devils-advocate-mad-skills</code>, <code>devils-advocate-reviewer</code>, <code>godfly-opposing-counsel</code>, <code>anti-sycophancy-molly</code>。</li>
-              <li><strong>Tier 3: 独立多角色陪审团会诊 (The Jury & Red Team)</strong>：多智能体架构模拟，拆解为架构师、安全官、财务官与反直觉质疑者组成的多维陪审团，实行背靠背独立投票质证，减少单一会话中的同质化偏见。对应技能：<code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>。</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '提问时预设立场、暗示倾向，在模型顺应作答后未做交叉检验与对立视角测试，便直接采纳结论。',
+            doText: '建立“三级对抗审阅管道（3-Tier Adversarial Scrutiny Pipeline）”，从轻量认知微提醒到魔鬼代言人逆反推演，直至引入独立多角色陪审团，层层剥离谄媚滤镜，让方案在激进质疑中淬炼。',
+            tierBrowser: [
+              '提问时不要先说自己的倾向，只描述问题和约束条件。',
+              '拿到方案后追加一句（可直接复制）：<code>请忽略我的偏好，指出这个方案最脆弱的 3 个假设，以及它最可能失败的场景。</code>',
+              '再问一句：<code>如果你是反对这个方案的人，你最有力的 3 条理由是什么？</code>'
+            ],
+            tierSoftware: [
+              '开一个新会话或换一个不同厂商的模型，问同一个问题，对比结论是否一致。',
+              '重大决定前，至少找一位真人同事看过反方意见。'
+            ],
+            tierSkills: [
+              '启用下方的反谄媚 / 魔鬼代言人类技能（如 <code>sycophancy-challenger</code>），让 AI 固定执行对抗审阅流程。'
+            ],
+            verifyText: '你能说出这个决定“最大的风险是什么”，而且这条风险不是 AI 主动夸你时顺带提的。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Anti-Sycophancy & Critical Review Pipeline)",
@@ -2015,9 +2080,24 @@ const guideContent = {
               { id: "receiving-code-review", label: "receiving-code-review · 客观代码审查受纳" }
             ]
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：为什么 AI 总爱顺着你说？模型迎合倾向与反向质询',
+            count: '4 级对抗流程解析',
+            cases: [],
+            statutes: [],
+            technical: [
+              '<strong>RLHF 奖励模型机制局限</strong>：模型在 RLHF 微调阶段学习到“附和用户的观点能获取更高的 Reward 分数”，随着模型参数规模扩大，这种谄媚行为非但没有消除，反而演变得更加圆滑和极具说服力。未经专门对抗纠偏的大模型绝非合格的中立决策顾问。',
+              '<strong>Tier 1: 认知摩擦微提醒 (Discernment Nudge)</strong>：在 Prompt 中强制植入认知摩擦约束，例如：“请完全忽略我的偏好与倾向，直接指出当前技术方案中最脆弱的 3 个底层假设和潜在失效场景。” 对应技能：<code>discernment-nudge</code>, <code>sycophancy-challenger</code>。',
+              '<strong>Tier 2: 魔鬼代言人逆向攻防 (Devil\'s Advocate & Adversarial Review)</strong>：赋予模型极端敌对的对立角色（如“做空机构分析师”、“苛刻合规官”或“诉讼反方首席律师”），专门对技术架构与商业主张发起进攻性质询与破绽深挖。对应技能：<code>devils-advocate-mad-skills</code>, <code>devils-advocate-reviewer</code>, <code>godfly-opposing-counsel</code>, <code>anti-sycophancy-molly</code>。',
+              '<strong>Tier 3: 独立多角色陪审团会诊 (The Jury & Red Team)</strong>：多智能体架构模拟，拆解为架构师、安全官、财务官与反直觉质疑者组成的多维陪审团，实行背靠背独立投票质证，减少单一会话中的同质化偏见。对应技能：<code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>。'
+            ]
+          })}
         </div>
 
-        <!-- Section 4.4 (Agent Execution Security) -->
+
+        <!-- Section 4.4 -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.4 执行命令时 · 限制智能体越权操作与文件误删 (Pre-Action)</span>
@@ -2026,87 +2106,24 @@ const guideContent = {
             当智能体获得终端执行与文件改写权限时，安全风险也从生成内容延伸到了系统操作层面。例如误执行删除命令、解析了包含恶意指令的外部文档，或者配置了权限过宽的外部工具，都可能导致项目文件被误删或本地数据被意外修改。
           </p>
 
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
-            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
-              <span>🚨 Agent 与自动化执行违规追责案例（点击查看行政处罚通报）：</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-0.5">
-              ${makeIncidentPill('case-outcall-douxing-shanghai-2026', '国家市监总局典型案例：斗星智能AI批量外呼虚假宣传罚款20万元 ↗')}
-            </div>
-          </div>
-
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>❌ 常见高危做法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                在 IDE 或终端开启无感全自动执行模式（如 YOLO 或“允许完全访问”），对不可信仓库允许智能体在宿主机裸机执行未审视的 Shell 脚本与文件批量覆盖；随意挂载不受信任的第三方 MCP 服务。
-              </p>
-            </div>
-            <div class="scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>✅ 规范自卫打法</span>
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                严格保持“默认权限”与审批弹窗；将高危脚本和测试任务重定向到 E2B 临时微型虚拟机中物理隔绝运行；对 MCP 工具按需单项授权，审查工具 descriptor 防止供应链语义投毒。
-              </p>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li><strong>只在网页或手机 App 上聊天的读者，可以跳过本节。</strong></li>
-                  <li>如果你用的工具能操作电脑（读写文件、运行命令），保持“默认权限 / 每步确认”，不要开启“完全访问”“自动执行全部”。</li>
-                  <li>让 AI 动手前，先备份重要文件夹。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>不要安装来源不明的插件或 MCP 工具；只开启当前任务真正需要的那几个。</li>
-                  <li>在单独的系统账户、虚拟机或容器里运行 AI 自动执行的任务。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>启用 <code>agent-sandbox-skill</code>，把高风险脚本放进一次性的隔离环境中执行。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>AI 执行的每一个删除、覆盖、联网操作，你都在弹窗里亲眼看过并点了确认。</p>
-          </div>
-
-          <!-- Real World Exploit / Architecture Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">智能体与 MCP 工具的真实越权漏洞案例</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">安全漏洞案例</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开实证 ⬇</span>
-                <span class="hidden group-open:inline">收起实证 ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>权限门禁 ≠ 物理容器</strong>：WorkBuddy 将权限严谨分为“默认权限”（限制工作空间、弹窗确认）与“完全访问”；Kimi Work 官方明确提示完全权限存在文件覆盖和系统改动风险。没有容器沙箱前，严禁开启无确认全自动执行。</li>
-              <li><strong>MCP 服务端 SSRF 风险（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40100" target="_blank" class="text-brand font-bold underline">FastGPT CVE-2026-40100 ↗</a>）</strong>：公开安全漏洞分析显示，MCP <code>runTool</code> 接口曾存在未认证 SSRF，外部请求可被诱导向内部私有地址发起探测，需及时升级防护补丁并建立网络隔离。</li>
-              <li><strong>跨租户配置泄露（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand font-bold underline">Dify CVE-2026-41947 ↗</a>）</strong>：Dify 曾曝出 Trace 配置未授权访问，攻击者可将受害者的提示词和响应流重定向至外部监听端点（已在 v1.14.2 修复）。</li>
-              <li><strong>MCP 语义供应链投毒 (Tool Poisoning)</strong>：学术界与 PoC 证实，恶意 MCP 工具可在描述元数据中隐蔽嵌入系统指令，即使用户未主动调用该工具，也会劫持模型对上下文的任务推演。</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '在 IDE 或终端开启无感全自动执行模式（如 YOLO 或“允许完全访问”），对不可信仓库允许智能体在宿主机裸机执行未审视的 Shell 脚本与文件批量覆盖；随意挂载不受信任的第三方 MCP 服务。',
+            doText: '严格保持“默认权限”与审批弹窗；将高危脚本和测试任务重定向到 E2B 临时微型虚拟机中物理隔绝运行；对 MCP 工具按需单项授权，审查工具 descriptor 防止供应链语义投毒。',
+            tierBrowser: [
+              '<strong>只在网页或手机 App 上聊天的读者，可以跳过本节。</strong>',
+              '如果你用的工具能操作电脑（读写文件、运行命令），保持“默认权限 / 每步确认”，不要开启“完全访问”“自动执行全部”。',
+              '让 AI 动手前，先备份重要文件夹。'
+            ],
+            tierSoftware: [
+              '不要安装来源不明的插件或 MCP 工具；只开启当前任务真正需要的那几个。',
+              '在单独的系统账户、虚拟机或容器里运行 AI 自动执行的任务。'
+            ],
+            tierSkills: [
+              '启用 <code>agent-sandbox-skill</code>，把高风险脚本放进一次性的隔离环境中执行。'
+            ],
+            verifyText: 'AI 执行的每一个删除、覆盖、联网操作，你都在弹窗里亲眼看过并点了确认。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
@@ -2125,134 +2142,52 @@ const guideContent = {
             ],
             alternates: []
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：智能体与 MCP 工具真实越权漏洞案例',
+            count: '1 起处罚通报 · 2 个已公开 CVE · 2 项架构实证',
+            cases: [
+              makeIncidentPill('case-outcall-douxing-shanghai-2026', '国家市监总局典型案例：斗星智能AI批量外呼虚假宣传罚款20万元 ↗')
+            ],
+            statutes: [],
+            technical: [
+              '<strong>权限门禁 ≠ 物理容器</strong>：WorkBuddy 将权限严谨分为“默认权限”（限制工作空间、弹窗确认）与“完全访问”；Kimi Work 官方明确提示完全权限存在文件覆盖和系统改动风险。没有容器沙箱前，严禁开启无确认全自动执行。',
+              '<strong>MCP 服务端 SSRF 风险（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40100" target="_blank" class="text-brand font-bold underline">FastGPT CVE-2026-40100 ↗</a>）</strong>：公开安全漏洞分析显示，MCP <code>runTool</code> 接口曾存在未认证 SSRF，外部请求可被诱导向内部私有地址发起探测，需及时升级防护补丁并建立网络隔离。',
+              '<strong>跨租户配置泄露（<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand font-bold underline">Dify CVE-2026-41947 ↗</a>）</strong>：Dify 曾曝出 Trace 配置未授权访问，攻击者可将受害者的提示词和响应流重定向至外部监听端点（已在 v1.14.2 修复）。',
+              '<strong>MCP 语义供应链投毒 (Tool Poisoning)</strong>：学术界与 PoC 证实，恶意 MCP 工具可在描述元数据中隐蔽嵌入系统指令，即使用户未主动调用该工具，也会劫持模型对上下文的任务推演。'
+            ]
+          })}
         </div>
 
-        <!-- Section 4.5 (Pre-Handoff) -->
+
+        <!-- Section 4.5 -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.5 交付成果前 · 广告虚假宣传审查与许可证核对 (Pre-Handoff)</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            这是内容发布前的合规核验环节。当一段由 AI 辅助生成的代码、文案或产品页面准备对外发布时，需要经过实质性核对。在法律层面上，<strong>AI 并非法律责任主体，生成内容的法律责任由使用者与发布方承担</strong>。未经核对的内容可能面临行政处罚、无障碍合规纠纷、密钥泄漏或开源许可证违规等风险。
+            这是内容发布前的合规核验环节。当一段由 AI 辅助生成的代码、文案或产品页面准备对外发布时，需要经过实质性核对。在法律层面上，<strong>AI 本身不是独立责任主体。发生侵权或违法后，法院将结合使用者、发布者和服务提供者各自的控制能力、注意义务与具体行为依法划分责任</strong>。未经核对的内容可能面临行政处罚、无障碍合规纠纷、密钥泄漏或开源许可证违规等风险。
           </p>
 
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200/80 dark:border-rose-900/50 space-y-1.5 my-3 text-xs">
-            <div class="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
-              <span>🚨 发布与商业化真实违法惩处判决（点击查看案卷文号与行政罚单）：</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-0.5">
-              ${makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品虚假广告罚款20万 ↗')}
-              ${makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '北京通州首例刑案：Stable Diffusion图生图电商拼图判刑1年半 ↗')}
-              ${makeIncidentPill('case-criminal-extortion-medical-shanghai-2026', '上海杨浦法院刑案：男子用AI制造假病历敲诈勒索拘役判决 ↗')}
-            </div>
-          </div>
-
-          <!-- 4 Statutory Gates Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>门禁一：商业与营销主张法定合规门禁</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                严格阻断 AI 生成绝对化用语（《广告法》第9条“国家级/最高级/最佳”）、普通食品宣称疾病疗效（《广告法》第17条）与虚假宣传（《广告法》第28条、《反不正当竞争法》第8条）。每一项主张必须绑定客观引证依据。
-              </p>
-              <div>${makePill("marketing-claims-review", "marketing-claims-review · 广告法与 FTC 审查门禁")}</div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>门禁二：数字包容与法定 Web 无障碍门禁</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                中国《无障碍环境建设法》第32条对利用财政资金建设的公共服务网站提出合规要求，并鼓励各类公众服务平台提升无障碍水平。W3C WCAG 2.1 AA 是国际通行的关键设计与审计基线，防范生成代码缺失语义标签、缺乏键盘导航或对比度严重不足（低于 4.5:1）。
-              </p>
-              <div>${makePill("web-accessibility", "web-accessibility · 法定 WCAG 无障碍门禁")}</div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>门禁三：代码凭证与密钥泄露物理拦截</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                在 Git Pre-commit 阶段利用 Gitleaks 与 OWASP 规则集，物理扫描并阻断大模型代码补全中可能夹带的硬编码 API Key、私钥证书、内网数据库连接串直接推向外部仓库。
-              </p>
-              <div>${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")}</div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>门禁四：开源协议传染与微调版权合规</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                依据 SPDX 规范与中国司法裁判标准，阻断 AI 引入 GPL/AGPL 代码导致的商业闭源传染与侵权风险；对齐奥特曼 LoRA 判例，禁止无授权复现高知名商业 IP。
-              </p>
-              <div>${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")}</div>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>发布前自问三句：有没有“最、第一、国家级、根治”这类词？</li>
-                  <li>文中的数字和功效，有没有可以出示的来源？</li>
-                  <li>这是 AI 生成或合成的内容吗？如果是，按《人工智能生成合成内容标识办法》（2025 年 9 月 1 日起施行）添加标识。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>网页类成果：用 Chrome 开发者工具中的 Lighthouse 跑一次无障碍检测。</li>
-                  <li>代码类成果：提交前用 Gitleaks 等工具扫描是否夹带密钥。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>启用下方四个门禁技能，在发布流程中自动拦截。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>假如有人逐句追问“这句话的依据是什么”，你都能拿出来。</p>
-          </div>
-
-          <!-- Real World Statutory & Judicial Forensic Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">虚假宣传处罚案例与发布前合规核验</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">真实处罚文书</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
-                <span class="group-open:hidden">展开实证 ⬇</span>
-                <span class="hidden group-open:inline">收起实证 ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>市场监管部门 (AMR) 真实行政处罚案例</strong>：
-                <ul class="list-none pl-2 space-y-1 mt-0.5">
-                  <li>• <strong>厦门市集美区市场监管局（2025年7月）</strong>：苗古金贴（厦门）大药房有限公司，利用 AI 技术凭空生成“传承千年苗方苗古金贴传承人”“第56代传承人”等根本不存在的人物身份及“中老年专用”绝对化宣传，依据《广告法》第四、二十八、四十六条重罚 <strong>120 万元人民币</strong>（市场监管总局 2025 互联网违法广告典型案例）。</li>
-                  <li>• <strong>北京市海淀区市场监管局（2025年6月）</strong>：北京心情好生物科技有限公司，利用 AI 仿冒央视知名主持人形象与声音推销普通食品“深海多烯鱼油”并宣称疾病治疗效果，被罚款 <strong>20 万元人民币</strong>（北京首例查处滥用 AI 技术冒用名人广告案）。</li>
-                  <li>• <strong>北京市昌平区市场监管局（2026年）</strong>：北京双泰源贸易有限公司，利用 AI 虚拟人直播销售普通食品并宣称提高免疫力，依《反不正当竞争法》被责令停止并处罚款。</li>
-                  <li>• <strong>总局 2025 数据通报</strong>：前三季度全国查办互联网违法广告 <strong>22,185 件</strong>，罚没 <strong>1.11 亿元</strong>，专项督办 AI 虚假广告。</li>
-                </ul>
-              </li>
-              <li><strong>FTC "Operation AI Comply" 国际对比</strong>：美国 FTC 严厉打击缺乏实证支持的 AI 吹嘘（AI Washing）：DoNotPay 因宣传所谓“世界首个机器人律师”被罚款 19.3 万美元并被严禁无实证宣传；2026 年 8 月 CMG Media 等三家公司因虚假宣称 AI“Active Listening”监听消费者语音定向广告和解支付 93 万美元；Air AI 2026 年 3 月因虚假商业机会承诺达成和解。核心在于 Substantiation（每一项效能声称必须具备严密证据支撑）。</li>
-              <li><strong>无障碍标准与法定指引</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条规定利用财政资金设立的网站逐步符合无障碍标准，并鼓励公共服务网站提升无障碍水平。W3C WCAG 2.1 AA 国际准则是工程设计的重要基线（如色彩对比度通常不低于 4.5:1，交互控件支持纯键盘导航与语义回退）。</li>
-              <li><strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中级人民法院于 2024 年 12 月 30 日终审判决的标志性案件。一审认定“触手 AI”平台提供奥特曼 LoRA 模型训练并在模型广场分发、设立“IP作品”专区且具备低成本事前过滤能力而未采取必要措施，构成信息网络传播权之<strong>帮助侵权</strong>，判令下架并赔偿损失；二审驳回上诉、维持原判。该案确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。</li>
-              <li><strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 生成的代码同样受上游开源许可证约束，在持续集成中应引入依赖检查与 SBOM 审计；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。</li>
-              <li><strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。<strong>注意：“本内容由 AI 生成”仅属于来源披露义务，并不免除发布者的法律侵权或广告违法责任。</strong></li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '直接将 AI 生成的带绝对化宣传词（“国家级/最高级/根治”）的文案投入商业广告；未跑无障碍检测直接上线页面；将带有硬编码密钥或带有 GPL/AGPL 传染协议的代码未经审查推向公共或商业闭源项目。',
+            doText: '严格阻断广告法绝对化用语，为每一项功效声称绑定客观检测依据；按照 W3C WCAG 2.1 AA 标准校验可访问性；利用 Gitleaks 与 SPDX SBOM 工具严密扫描密钥泄露与开源协议传染风险。',
+            tierBrowser: [
+              '发布前自问三句：有没有“最、第一、国家级、根治”这类词？',
+              '文中的数字和功效，有没有可以出示的来源？',
+              '这是 AI 生成或合成的内容吗？如果是，按《人工智能生成合成内容标识办法》（2025 年 9 月 1 日起施行）添加标识。'
+            ],
+            tierSoftware: [
+              '网页类成果：用 Chrome 开发者工具中的 Lighthouse 跑一次无障碍检测。',
+              '代码类成果：提交前用 Gitleaks 等工具扫描是否夹带密钥。'
+            ],
+            tierSkills: [
+              '启用下方门禁技能（如 <code>marketing-claims-review</code>、<code>web-accessibility</code>、<code>license-compliance-audit</code>），在发布流程中自动拦截。'
+            ],
+            verifyText: '假如有人逐句追问“这句话的依据是什么”，你都能拿出来。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Pre-Handoff & Disclosure Pipeline)",
@@ -2286,15 +2221,41 @@ const guideContent = {
               }
             ],
             alternates: [
+              { id: "marketing-claims-review", label: "marketing-claims-review · 广告法与 FTC 审查门禁" },
+              { id: "web-accessibility", label: "web-accessibility · 法定 WCAG 无障碍门禁" },
+              { id: "repo-security-review", label: "repo-security-review · 凭证泄露审查门禁" },
+              { id: "license-compliance-audit", label: "license-compliance-audit · SPDX 协议合规审计" },
               { id: "ai-disclosure-convention", label: "ai-disclosure-convention · 透明披露规范" },
               { id: "skill-provenance-tracker", label: "skill-provenance-tracker · 技能调用溯源" },
               { id: "vertu-seo-publish-gate", label: "vertu-seo-publish-gate · SEO 发布质检门禁" },
               { id: "gdpr-compliance-audit", label: "gdpr-compliance-audit · GDPR 权利合规审计" }
             ]
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：市监处罚案例、法定门禁、版权判例与开源协议传染',
+            count: '3 起典型判例 · 4 类行政门禁 · 4 项司法准则',
+            cases: [
+              makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品虚假广告罚款20万 ↗'),
+              makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '北京通州首例刑案：Stable Diffusion图生图电商拼图判刑1年半 ↗'),
+              makeIncidentPill('case-criminal-extortion-medical-shanghai-2026', '上海杨浦法院刑案：男子用AI制造假病历敲诈勒索拘役判决 ↗')
+            ],
+            statutes: [
+              '<strong>市场监管部门 (AMR) 真实行政处罚案例</strong>：厦门市集美区市监局重罚“苗古金贴” 120 万元人民币（捏造传承人虚假宣传）；北京市海淀区市监局查处 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；昌平区市监局查处虚拟人直播违规；总局 2025 通报前三季度查办互联网违法广告 22,185 件，罚没 1.11 亿元。',
+              '<strong>无障碍标准与法定指引</strong>：中国《无障碍环境建设法》（2023年9月1日施行）第三十二条规定利用财政资金设立的网站逐步符合无障碍标准，并鼓励公共服务网站提升无障碍水平。W3C WCAG 2.1 AA 国际准则是工程设计的重要基线（如色彩对比度通常不低于 4.5:1，交互控件支持纯键盘导航与语义回退）。',
+              '<strong>法定生成标识与水印义务</strong>：依据《互联网信息服务深度合成管理规定》第16/17条以及 2025 年 9 月 1 日实施的《人工智能生成合成内容标识办法》，发布 AI 生成合成内容必须添加显著显式标识与元数据隐式水印。注意：“本内容由 AI 生成”仅属于来源披露义务，并不免除发布者的法律侵权或广告违法责任。'
+            ],
+            technical: [
+              '<strong>FTC "Operation AI Comply" 国际执法对比</strong>：美国 FTC 严厉打击缺乏实证支持的 AI 吹嘘（AI Washing）：DoNotPay 宣称“世界首个机器人律师”被罚款 19.3 万美元；CMG Media 等三家公司因虚假宣称 AI 监听语音定向广告支付 93 万美元和解金。核心在于 Substantiation（每一项效能声称必须具备严密证据支撑）。',
+              '<strong>奥特曼 LoRA 终审版权案 (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>：杭州互联网法院审理、杭州市中院终审裁判。认定平台提供奥特曼 LoRA 模型训练与分发构成帮助侵权，确立了高知名 IP + 稳定复现 LoRA + 商业获利的平台注意义务边界。',
+              '<strong>开源协议传染司法判例与 AI 代码补全</strong>：最高人民法院 <code>(2021)最高法知民终2063号</code> 终审裁判（维持深圳中院 VirtualApp 案 <code>(2019)粤03民初3928号</code>）确认，违反 GPLv3 条件导致许可依法终止，继续使用代码构成著作权侵权；同时最高法在 <code>(2019)最高法知民终663号</code> 确立独立程序通过标准接口交互不当然被 GPL 传染。AI 生成的代码同样受上游开源许可证约束，在持续集成中应引入依赖检查与 SBOM 审计；SaaS 云服务尤其严防 GNU AGPLv3 第 13 条因网络交互触发强制开源。'
+            ]
+          })}
         </div>
 
-        <!-- Section 4.6 (Post-Session) -->
+
+        <!-- Section 4.6 -->
         <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.6 长期归档时 · 记录人机分工说明与生成凭据 (Post-Session)</span>
@@ -2303,33 +2264,23 @@ const guideContent = {
             一个规范的协作流程包括两个环节：其一，清理本地临时会话记录与日志，避免敏感上下文残留；其二，对最终文本进行去套路润色，消除机械腔调。核心原则是：<strong>未经测试验证通过，不应宣称任务完成。</strong>
           </p>
 
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">你可以这样做（按自己的情况选一档）</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">零门槛 · 只用浏览器或手机</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>含敏感内容的对话用完即删；再到【设置 › 记忆】里把相关记忆单独删除。</li>
-                  <li>交付前问自己：“这件事我自己检查过了吗？”没检查过，就不要说“已完成”。</li>
-                  <li>润色旨在提高表达的清晰度，合规要求披露 AI 辅助的场景仍应如实说明。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">进阶 · 愿意装个软件</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>定期（如每月）清理一次各 AI 平台的历史对话和上传文件。</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">专业 · 使用支持技能的 AI 工具</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>启用 <code>verification-before-completion</code>，要求 AI 在宣称完成前先跑完检查。</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ 怎么确认做对了：</strong>一个月后回看，平台上没有残留你不想留下的对话和文件。</p>
-          </div>
+          ${renderActionPanel({
+            lang: 'zh',
+            dontText: '直接把包含项目凭据、未公开设想或内部人名的历史会话长久留在云端账户；在没有通过本地测试和事实复核的情况下，轻信 AI 的“已全部搞定”并直接交付；为了图快直接发布充满“画卷徐徐铺展/不仅如此而且”的生硬套话。',
+            doText: '会话结束后主动清理涉及敏感材料的上下文与记忆；设立严格的完成前测试门禁，跑通自动化测试套件后方可打标完成；依照维基百科去 AI 化规范深度润色，保留真实的思考肌理。',
+            tierBrowser: [
+              '含敏感内容的对话用完即删；再到【设置 › 记忆】里把相关记忆单独删除。',
+              '交付前问自己：“这件事我自己检查过了吗？”没检查过，就不要说“已完成”。',
+              '润色旨在提高表达的清晰度，合规要求披露 AI 辅助的场景仍应如实说明。'
+            ],
+            tierSoftware: [
+              '定期（如每月）清理一次各 AI 平台的历史对话和上传文件。'
+            ],
+            tierSkills: [
+              '启用 <code>verification-before-completion</code>，要求 AI 在宣称完成前先跑完检查。'
+            ],
+            verifyText: '一个月后回看，平台上没有残留你不想留下的对话和文件。'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
@@ -2356,6 +2307,18 @@ const guideContent = {
             ],
             alternates: []
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'zh',
+            title: '实证与延伸：任务终局验证原则与文本去套路化规范',
+            count: '维基百科 AI 写作特征指引 · 测试驱动门禁',
+            cases: [],
+            statutes: [],
+            technical: [
+              '<strong>维基百科《Signs of AI Writing》规范</strong>：维基百科编辑社群总结的 AI 生成文本典型特征，包括：过度使用“不仅...而且”对仗结构、公式化的首段引言与结尾升华总结、充斥虚高名词但缺乏具体细节、行文充满毫无意义的推销赞美语气等。去套路化润色是恢复专业可信度的关键步骤。',
+              '<strong>证据驱动的完成门禁机制 (Evidence-Based Completion)</strong>：大语言模型常因自回归倾向在代码未实际编译通过、引用未实际查证的情况下，生成“我已经为您全部搞定并测试通过”的幻觉声明。<code>verification-before-completion</code> 规范通过前置钩子强行阻断这一声明，强制其出示执行证据（测试通过日志、状态码 200 或终端返回值），由事实本身而非模型语言来定义任务的终局。'
+            ]
+          })}
         </div>
       </section>
 
@@ -2371,381 +2334,191 @@ const guideContent = {
           </p>
         </div>
 
-        <!-- Section 4.1 -->
-        <div id="sec-5-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-1" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>剧本一：高校研究生与学术研究者的一天</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              学术科研 · Graduate Researchers &amp; Scholars
-            </span>
-          </div>
-
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. 真实工作痛点与诱惑 (Temptation &amp; Pain Point)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                面对毕业论文开题报告、万字前沿综述 DDL 以及国家自然科学基金/重点课题申报书起草，学者必须在数日内研读数百篇英文文献并梳理创新脉络。面对巨大时间压力，极具诱惑力的是将未发表的独创实验设想、独创推演假说或原始实验数据，直接全选贴入商业联网大模型以寻求一键生成综述框架或整段润色。
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. 高危翻车瞬间与学术红线 (Near-Miss Incident)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>未发表成果遭云端截留与严重泄密处分</strong>：国家保密行政管理部门通报的科研人员小李案：小李将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时，若未加核查直接采信大模型基于自回归概率编造的“权威学者、虚构刊号与假 DOI”，一旦进入同行评议或盲审，将被直接定性为学术不端与虚构引文。
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密受处分案 ↗')}
-                ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers期刊AI生成图表撤稿案 ↗')}
-                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', '通州法院AI编造虚假判例批评案 ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. 自卫技能流水线：一日防御时刻表 (Defensive Pipeline)</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 09:30 · 课题设想沙盒隔离与防训练采集</span>
-                在利用 AI 协助构思文献综述脉络时，严禁将原创实验参数或实验代码直传公网。调用 ${makePill("scholar-safety", "scholar-safety · 学术检索隐私隔离")}，在本地对独创假说与未发表设想实施差分抽象脱敏，构建单向检索沙盒，避免未公开的研究思路被商业模型抓取作为训练语料。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 14:00 · 综述引文 CrossRef 自动化验真与裁判官质证</span>
-                模型生成文献综述与论据后，需进行逐条真实性核验。调用 ${makePill("bibref-verify", "bibref-verify · 参考文献精准核验")} 自动请求 CrossRef REST API 与 PubMed 数据库，逐条校验 DOI、卷期与出版元数据真实性；同时调用 ${makePill("the-judge", "the-judge · 裁判官逻辑交叉质证")} 模拟同行评审专家对核心论点与引证逻辑展开双向交叉质询，挤出概率拼凑的水分。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 17:30 · 期刊透明度附录与 Nature CRediT 贡献者陈述</span>
-                在向顶刊、毕业答辩委员会或导师交付论文定稿前，杜绝“隐瞒使用”或“敷衍声明”。调用 ${makePill("ai-disclosure-convention", "ai-disclosure-convention · 学术出版 AI 披露规范")}，严格遵照 Nature 与 ICMJE 作者贡献分类标准（CRediT Taxonomy），生成详尽的《AI 辅助工作流透明度附录》（明晰披露 AI 仅用于文献语法润色，所有学术推演与结论由人类作者独立签署），保障学术诚信与成果的可追溯性。
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. 交付成果与审计留痕 (Verification Proof)</span>
-            </div>
-            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>• <strong>最低要求（零门槛）</strong>：引文清单中的每一条文献，必须亲手在 doi.org 或知网/PubMed 检索并点开确认过，确保篇名、作者、刊期真实存在；文末明确附上一句话 AI 使用声明（如仅用于语法润色）。</p>
-              <p>• <strong>理想状态（专业进阶）</strong>：附带经 CrossRef 官方 API 逐条核验的《文献引文真实性报告》与标准规范的《Nature CRediT AI 使用透明度陈述附录》，使学术推演经得起第三方盲审复核。</p>
-            </div>
-          </div>
+        <!-- Section 5.1 -->
+        <div id="sec-5-1" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'zh',
+            titleZh: '剧本一：高校研究生与学术研究者的一天',
+            roleZh: '学术科研 · Graduate Researchers & Scholars',
+            introZh: '面对论文开题报告、万字文献综述以及基金课题申报书，学者在巨大时间压力下的典型自卫链条。',
+            painZh: '面对开题报告、万字前沿综述 DDL 以及国家自然科学基金/重点课题申报书起草，学者必须在数日内研读数百篇英文文献并梳理创新脉络。面对巨大时间压力，极具诱惑力的是将未发表的独创实验设想、独创推演假说或原始实验数据，直接全选贴入商业联网大模型以寻求一键生成综述框架或整段润色。',
+            nearMissZh: '国家保密行政管理部门通报的科研人员小李案：小李将核心实验数据与未发表成果上传至商业 AI 写作应用，导致该领域核心敏感数据被云端留存并在互联网流传，造成国家利益损失并受到严肃处理；同时若未加核查直接采信编造的虚假 DOI， blind-review 中将被直接定性为学术不端与虚假引文。',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', '国安部科研人员小李泄密受处分案 ↗'),
+              makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers期刊AI生成图表撤稿案 ↗'),
+              makeIncidentPill('case-court-fake-citation-tongzhou-2025', '通州法院AI编造虚假判例批评案 ↗')
+            ],
+            steps: [
+              {
+                time: '09:30',
+                titleZh: '课题设想沙盒隔离与防训练采集',
+                descZh: '在利用 AI 协助构思文献综述脉络时，严禁将原创实验参数或实验代码直传公网。调用 ' + makePill('scholar-safety', 'scholar-safety · 学术检索隐私隔离') + '，在本地对独创假说与未发表设想实施差分抽象脱敏，构建单向检索沙盒，避免未公开的研究思路被商业模型抓取作为训练语料。'
+              },
+              {
+                time: '14:00',
+                titleZh: '综述引文 CrossRef 自动化验真与裁判官质证',
+                descZh: '模型生成文献综述与论据后，需进行逐条真实性核验。调用 ' + makePill('bibref-verify', 'bibref-verify · 参考文献精准核验') + ' 自动请求 CrossRef REST API 与 PubMed 数据库，逐条校验 DOI、卷期与出版元数据真实性；同时调用 ' + makePill('the-judge', 'the-judge · 裁判官逻辑交叉质证') + ' 模拟同行评审专家对核心论点与引证逻辑展开双向交叉质询，挤出概率拼凑的水分。'
+              },
+              {
+                time: '17:30',
+                titleZh: '期刊透明度附录与 Nature CRediT 贡献者陈述',
+                descZh: '在向顶刊、毕业答辩委员会或导师交付论文定稿前，杜绝“隐瞒使用”或“敷衍声明”。调用 ' + makePill('ai-disclosure-convention', 'ai-disclosure-convention · 学术出版 AI 披露规范') + '，严格遵照 Nature 与 ICMJE 作者贡献分类标准（CRediT Taxonomy），生成详尽的《AI 辅助工作流透明度附录》（明晰披露 AI 仅用于文献语法润色，所有学术推演与结论由人类作者独立签署），保障学术诚信与成果的可追溯性。'
+              }
+            ],
+            minZeroZh: '引文清单中的每一条文献，必须亲手在 doi.org 或知网/PubMed 检索并点开确认过，确保篇名、作者、刊期真实存在；文末明确附上一句话 AI 使用声明（如仅用于语法润色）。',
+            minProZh: '附带经 CrossRef 官方 API 逐条核验的《文献引文真实性报告》与标准规范的《Nature CRediT AI 使用透明度陈述附录》，使学术推演经得起第三方盲审复核。'
+          })}
         </div>
 
-        <!-- Section 4.2 -->
-        <div id="sec-5-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-2" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.2 软件工程师与开源维护者的一天</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              研发运维 · Software Engineers &amp; Maintainers
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. 真实工作痛点与诱惑 (Temptation &amp; Pain Point)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                面对冲刺发版排期、线上突发严重 Crash 堆栈排查、高并发微服务重构以及开源仓库数十个待审 Issue，工程师渴望借助编程 Agent（如 Cursor Agent、Trae、Claude Code 等）直接读取本地代码仓库、自动编写高覆盖率单元测试并执行自动化修复。
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. 高危翻车瞬间与法律合规红线 (Near-Miss Incident)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>凭证外泄、公网裸露与开源协议合规三重风险</strong>：国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；此外，AI 生成代码若混入 GPLv3/AGPLv3 传染性协议代码，可能违反《最高法(2021)最高法知民终2063号》判例中的合规要求，使项目面临源码披露义务或著作权侵权指控。离职带走系统调优 Prompt 模板亦已被正式定性为侵犯商业秘密违法行为。
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密侵权案罚款35万 ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. 自卫技能流水线：一日防御时刻表 (Defensive Pipeline)</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 10:00 · 生产配置本地抹除与微虚拟机沙盒执行</span>
-                在将报错堆栈或代码段提交模型调试前，本地调用 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")} 自动用正则与高熵检测抹去私钥、JWT Token、内网 IP 与数据库密码；对 Agent 自动执行的重构测试与 Shell 脚本，强制调用 ${makePill("agent-sandbox-skill", "agent-sandbox-skill · 微虚拟机沙盒执行隔离")} 在抛弃式 E2B 微虚拟机中隔绝运行，杜绝宿主机裸机执行风险。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 15:30 · 架构方案反向质询与压力测试</span>
-                面对大模型对分布式架构的赞不绝口（“您的方案完美兼顾了弹性与高可用”），工程师警惕 RLHF 机制的谄媚本能。调用 ${makePill("sycophancy-challenger", "sycophancy-challenger · 谄媚质疑挑战者")} 剥除迎合修饰，同时唤起 ${makePill("red-team-review", "red-team-review · 红队对抗漏洞挖掘")} 扮演外部黑客视角，对网络脑裂、幂等性缺陷与反序列化漏洞展开极限压力测试。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 晚上 19:00 · Git Pre-commit 凭证拦截、SPDX 开源合规与全体验证</span>
-                在发起 Pull Request 前，本地自动触发 ${makePill("repo-security-review", "repo-security-review · 凭证泄露审查门禁")} 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ${makePill("license-compliance-audit", "license-compliance-audit · SPDX 协议合规审计")} 扫描代码的 SPDX 开源协议兼容性，防范开源许可证兼容性与传染风险；最后严格执行 ${makePill("verification-before-completion", "verification-before-completion · 完成前检验门禁")}，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. 交付成果与审计留痕 (Verification Proof)</span>
-            </div>
-            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>• <strong>最低要求（零门槛）</strong>：提交前本地运行 <code>git diff</code> 逐行复核，确保没有硬编码任何 API Key、密码或内网 IP；手动跑通全部核心单元测试，严禁直接推送未经人工过目的 AI 代码。</p>
-              <p>• <strong>理想状态（专业进阶）</strong>：PR 附带 Gitleaks 密钥扫描通过证明、沙盒执行日志与 SPDX SBOM 依赖许可证合规报告，使交付对安全架构组与开源社区完全透明可查。</p>
-            </div>
-          </div>
+        <!-- Section 5.2 -->
+        <div id="sec-5-2" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'zh',
+            titleZh: '剧本二：软件工程师与开源维护者的一天',
+            roleZh: '研发运维 · Software Engineers & Maintainers',
+            introZh: '面对冲刺发版、排查线上崩溃堆栈以及重构微服务，工程师如何在追求极速的同时防范密钥外泄与许可证传染。',
+            painZh: '面对冲刺发版排期、线上突发严重 Crash 堆栈排查、高并发微服务重构以及开源仓库数十个待审 Issue，工程师渴望借助编程 Agent（如 Cursor Agent、Trae、Claude Code 等）直接读取本地代码仓库、自动编写高覆盖率单元测试并执行自动化修复。',
+            nearMissZh: '国企工程师曾因使用商业 AI 时未脱敏代码环境，导致核心架构与实时数据库凭证外流境外；新华社通报小王案中，个人电脑部署开源大模型因默认公网端口裸露且未设密码，被境外 IP 批量渗透窃密；智能体在 YOLO 模式下解析含间接注入的不可信 Issue 险些在宿主机误删配置文件；离职带走系统调优 Prompt 模板已被杭州法院正式定性为侵犯商业秘密违法行为（罚款 35 万元）。',
+            cases: [
+              makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州首例大模型Prompt商密侵权案罚款35万 ↗')
+            ],
+            steps: [
+              {
+                time: '10:00',
+                titleZh: '生产配置本地抹除与微虚拟机沙盒执行',
+                descZh: '在将报错堆栈或代码段提交模型调试前，本地调用 ' + makePill('pii-safe-documents', 'pii-safe-documents · 文档敏感脱敏') + ' 自动用正则与高熵检测抹去私钥、JWT Token、内网 IP 与数据库密码；对 Agent 自动执行的重构测试与 Shell 脚本，强制调用 ' + makePill('agent-sandbox-skill', 'agent-sandbox-skill · 微虚拟机沙盒执行隔离') + ' 在抛弃式 E2B 微虚拟机中隔绝运行，杜绝宿主机裸机执行风险。'
+              },
+              {
+                time: '15:30',
+                titleZh: '架构方案反向质询与压力测试',
+                descZh: '面对大模型对分布式架构的赞不绝口（“您的方案完美兼顾了弹性与高可用”），工程师警惕 RLHF 机制的谄媚本能。调用 ' + makePill('sycophancy-challenger', 'sycophancy-challenger · 谄媚质疑挑战者') + ' 剥除迎合修饰，同时唤起 ' + makePill('red-team-review', 'red-team-review · 红队对抗漏洞挖掘') + ' 扮演外部黑客视角，对网络脑裂、幂等性缺陷与反序列化漏洞展开极限压力测试。'
+              },
+              {
+                time: '19:00',
+                titleZh: 'Git Pre-commit 凭证拦截、SPDX 开源合规与全体验证',
+                descZh: '在发起 Pull Request 前，本地自动触发 ' + makePill('repo-security-review', 'repo-security-review · 凭证泄露审查门禁') + ' 基于 Gitleaks 拦截隐藏在 commit 历史中的私钥；调用 ' + makePill('license-compliance-audit', 'license-compliance-audit · SPDX 协议合规审计') + ' 扫描代码的 SPDX 开源协议兼容性，防范开源许可证兼容性与传染风险；最后严格执行 ' + makePill('verification-before-completion', 'verification-before-completion · 完成前检验门禁') + '，只有本地全套单元测试与集成测试亮绿灯后才允许合并上线。'
+              }
+            ],
+            minZeroZh: '提交前本地运行 git diff 逐行复核，确保没有硬编码任何 API Key、密码或内网 IP；手动跑通全部核心单元测试，严禁直接推送未经人工过目的 AI 代码。',
+            minProZh: 'PR 附带 Gitleaks 密钥扫描通过证明、沙盒执行日志与 SPDX SBOM 依赖许可证合规报告，使交付对安全架构组与开源社区完全透明可查。'
+          })}
         </div>
 
-        <!-- Section 4.3 -->
-        <div id="sec-5-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-3" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.3 文案策划与数字营销专员的一天</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              创意营销 · Writers &amp; Marketing Specialists
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. 真实工作痛点与诱惑 (Temptation &amp; Pain Point)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                面对电商大促倒计时、多渠道自媒体矩阵批量推文以及活动推广落地页的高频上线需求，文案专员每天需要创作数十套爆款标题、产品详情页与宣发文案。为迅速夺取用户注意力，容易直接采纳大模型生成的包含夸大修辞的草稿。
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. 高危翻车瞬间与法定处罚红线 (Near-Miss Incident)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>巨额虚假宣传罚单与无障碍合规风险</strong>：AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造“传承千年传承人”等虚假身份宣传，依法重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；此外，AI 生成的前端落地页若缺失语义标签与对比度，可能难以达到政府与公共服务平台采购对于《无障碍环境建设法》及 WCAG 标准的无障碍合规要求。
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品罚款20万 ↗')}
-                ${makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '通州首例刑案：Stable Diffusion生图电商拼图判刑1年半 ↗')}
-                ${makeIncidentPill('case-ai-voice-bj-2023', '北京互联网法院：全国首例声音侵权判赔25万 ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. 自卫技能流水线：一日防御时刻表 (Defensive Pipeline)</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 10:30 · 机械套路清洗与人性化去八股润色</span>
-                利用 AI 展开批量创意思路发散后，调用 ${makePill("humanizer", "humanizer · 人性化文本去套路润色")} 深度过滤 AI 高频公文与八股模板词（如“画卷铺展开来”、“不可否认的是”、“在这充满挑战的时刻”等），重构真实生动、具有人类情感温度和现场感的好文案。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 15:30 · 中国《广告法》与 FTC 标准逐句实质合规审核</span>
-                在文案交付视觉设计排版前，调用 ${makePill("marketing-claims-review", "marketing-claims-review · 广告法与 FTC 审查门禁")} 按照中国《广告法》与美国 FTC Substantiation 法则逐句进行合规筛查，强制要求文案中每一个功能参数与功效声称（如“续航长达48小时”、“效率提升30%”）均必须附带经权威机构检测报告支撑的客观证据锚点，排查并剔除“最、首选、顶级”等违反广告法的极限词。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 18:00 · 营销落地页 W3C WCAG 2.1 AA 读屏与对比度门禁</span>
-                对前端营销落地页与海报交互代码，执行 ${makePill("web-accessibility", "web-accessibility · 法定 WCAG 无障碍门禁")}，系统化校验文字对比度是否达标（&ge; 4.5:1）、是否全键盘可访问、是否具备完整 ARIA 屏幕阅读器标签，确保每一位残障和老年读者都能平等无碍浏览。
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. 交付成果与审计留痕 (Verification Proof)</span>
-            </div>
-            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>• <strong>最低要求（零门槛）</strong>：文案交付前亲手通读筛查，删去所有“最、第一、根治、绝对”等绝对化词汇；所有宣称的功效与数字必须有内部真实凭据；对外发布时明确标明“AI 辅助生成”。</p>
-              <p>• <strong>理想状态（专业进阶）</strong>：出具完整的《广告法合规声明对照表》（逐项绑定检测报告编号）与落地页 WCAG 2.1 AA 无障碍合规检测，消除行政处罚与诉讼隐患。</p>
-            </div>
-          </div>
+        <!-- Section 5.3 -->
+        <div id="sec-5-3" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'zh',
+            titleZh: '剧本三：文案策划与数字营销专员的一天',
+            roleZh: '创意营销 · Writers & Marketing Specialists',
+            introZh: '面对电商大促和自媒体批量推文，文案专员如何在保证高效产出的同时防范广告法重罚与版权侵权。',
+            painZh: '面对电商大促倒计时、多渠道自媒体矩阵批量推文以及活动推广落地页的高频上线需求，文案专员每天需要创作数十套爆款标题、产品详情页与宣发文案。为迅速夺取用户注意力，容易直接采纳大模型生成的包含夸大修辞的草稿。',
+            nearMissZh: 'AI 极易脱口而出“全网第一”、“国家级工艺”、“彻底根治”等词汇，直接触犯中国《广告法》第9条（绝对化用语禁令）、第17条（普通商品宣称医疗功效）及《反不正当竞争法》第8条。真实执法案例：厦门集美查处苗古金贴利用 AI 捏造虚假身份宣传重罚 120 万元人民币；北京海淀查处利用 AI 仿冒央视主持人虚假推销鱼油罚款 20 万元；北京通州首例刑案图生图侵权判刑 1 年半。',
+            cases: [
+              makeIncidentPill('case-ad-fake-host-haidian-2025', '北京海淀市监局：AI仿冒主持人推销食品罚款20万 ↗'),
+              makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', '通州首例刑案：Stable Diffusion生图电商拼图判刑1年半 ↗'),
+              makeIncidentPill('case-ai-voice-bj-2023', '北京互联网法院：全国首例声音侵权判赔25万 ↗')
+            ],
+            steps: [
+              {
+                time: '10:30',
+                titleZh: '机械套路清洗与人性化去八股润色',
+                descZh: '利用 AI 展开批量创意思路发散后，调用 ' + makePill('humanizer', 'humanizer · 人性化文本去套路润色') + ' 深度过滤 AI 高频公文与八股模板词（如“画卷铺展开来”、“不可否认的是”、“在这充满挑战的时刻”等），重构真实生动、具有人类情感温度和现场感的好文案。'
+              },
+              {
+                time: '15:30',
+                titleZh: '中国《广告法》与 FTC 标准逐句实质合规审核',
+                descZh: '在文案交付视觉设计排版前，调用 ' + makePill('marketing-claims-review', 'marketing-claims-review · 广告法与 FTC 审查门禁') + ' 按照中国《广告法》与美国 FTC Substantiation 法则逐句进行合规筛查，强制要求文案中每一个功能参数与功效声称（如“续航长达48小时”、“效率提升30%”）均必须附带经权威机构检测报告支撑的客观证据锚点，排查并剔除“最、首选、顶级”等违反广告法的极限词。'
+              },
+              {
+                time: '18:00',
+                titleZh: '营销落地页 W3C WCAG 2.1 AA 读屏与对比度门禁',
+                descZh: '对前端营销落地页与海报交互代码，执行 ' + makePill('web-accessibility', 'web-accessibility · 法定 WCAG 无障碍门禁') + '，系统化校验文字对比度是否达标（≥ 4.5:1）、是否全键盘可访问、是否具备完整 ARIA 屏幕阅读器标签，确保每一位残障和老年读者都能平等无碍浏览。'
+              }
+            ],
+            minZeroZh: '文案交付前亲手通读筛查，删去所有“最、第一、根治、绝对”等绝对化词汇；所有宣称的功效与数字必须有内部真实凭据；对外发布时明确标明“AI 辅助生成”。',
+            minProZh: '出具完整的《广告法合规声明对照表》（逐项绑定检测报告编号）与落地页 WCAG 2.1 AA 无障碍合规检测，消除行政处罚与诉讼隐患。'
+          })}
         </div>
 
-        <!-- Section 4.4 -->
-        <div id="sec-5-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-4" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.4 政企行政与企业知识工作者的一天</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              政企行政与法务合规 · Enterprise, Legal &amp; Administrative Staff
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. 真实工作痛点与诱惑 (Temptation &amp; Pain Point)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                在党政机关、央国企及大型民营企业的办公室综合科、法务合规部、采购招投标部与人力资源科室，员工每天面对长达数小时的高频内部例会录音整理、敏感公文起草、几十万字采购招标文件条款比对、重大商业合同风险初审以及涉及薪酬的员工绩效材料。面对繁重机械的工作量与急迫的发文时限，员工极度渴望利用市面上流行的商业大模型（网页端/微信 AI 助手）“一键转写语音”、“一键总结红头文件”、“一键审查合同条款”，甚至将供应商商业报价全选粘贴进输入框。
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. 高危翻车瞬间与纪律处分红线 (Near-Miss Incident)</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>涉密公文泄密通报、保密法规追责与劳动合同解除</strong>：国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作，依然因涉密风险暴露受到严肃处分（保密局严厉警示：“分段输入、代码替换、删除对话即可安全”纯属违法侥幸，国家秘密绝对不能脱敏上网）；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导王某行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立<strong>“涉密不上网，上网不涉密”</strong>原则，且《实施条例》第六十一条规定可能泄密须在 <strong>24 小时内</strong> 强制如实上报；企业内部亦普遍设立“红黄绿灯规则”与“三不准原则”，违规使用公共 AI 处理保密信息将直接记入人事档案、解除劳动合同并不予经济补偿，直至依法追究刑事责任（《刑法》第398条）。
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密案 ↗')}
-                ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某重大会议材料输入AI写作案 ↗')}
-                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. 自卫技能流水线：一日防御时刻表 (Defensive Pipeline)</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 上午 09:30 · 涉密公文与会议纪要本地离线脱敏（严禁云端听会）</span>
-                禁用带有自动云端同步或上传功能的第三方录音转写插件；针对包含内部管理与非核心业务内容的纪要，在本地电脑离线环境中调用 ${makePill("presidio-anonymize-text", "presidio-anonymize-text · 微软标准文本匿名化")} 与 ${makePill("pii-safe-documents", "pii-safe-documents · 文档敏感脱敏")}，利用 NLP 实体识别技术将领导真实姓名、内部项目敏感代号、未公开财务指标替换为标准类型化稳态占位符（如 <code>[DEPT_HEAD_A]</code>、<code>[PROJECT_ALPHA]</code>、<code>[METRIC_VALUE_X]</code>）；本地生成安全的加密映射隔离表并保存在本地加密保管库中，不随提示词发送给大模型；若会议涉及国家秘密、工作秘密或核心商业秘密，严禁上传至公有云大模型，单纯的假名化替换无法消除泄密风险。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 下午 14:30 · 采购招标文件与商业合同对抗性风险扫描</span>
-                审核大型工程招投标文件或采购合同时，严格遵循“数据最小化”原则，剔除双方真实公司名、商业底价与特定财务流水；仅提取争议条款与违约赔偿机制文本，调用 ${makePill("godfly-opposing-counsel", "godfly-opposing-counsel · 模拟对方辩友质证")} 模拟严苛的对立审计稽查官与对手方首席法务顾问，站在“刁难挑刺、寻找责任转嫁漏洞”的极端对抗视角，全面扫描我方合同中的无限连带赔偿责任陷阱、知识产权归属含糊条款与不可抗力免责缺陷。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 傍晚 17:30 · AI 使用透明度台账与合规证据留痕</span>
-                对照《政务领域人工智能大模型部署应用指引》与企业 Responsible AI 内部政策中“全周期管理、辅助型定位、运行日志及定期审计”的硬性要求，调用 ${makePill("ai-provenance", "ai-provenance · AI 来源与提示词追溯")} 导出结构化审计台账；台账中精确记录：AI 模型版本号、会话脱敏时间戳、提示词哈希校验值、人类复核责任人签字（Sign-off）记录；严禁私自删除会话记录掩盖违规，一旦遭遇企业内控审计或保密检查，凭借完备的证据链一键实现<strong>“全链路自证合规”</strong>。
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. 交付成果与审计留痕 (Verification Proof)</span>
-            </div>
-            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>• <strong>最低要求（零门槛）</strong>：任何呈送云端 AI 辅助处理的公文或纪要，严禁包含真实企事业单位全称、领导姓名与涉密信息；严格执行“涉密不上网”原则。</p>
-              <p>• <strong>理想状态（专业进阶）</strong>：出具本地离线脱敏对照单、Godfly 模拟对抗审计的合同风控意见书及附带人类签署人盖章的《企业 AI 办公合规留痕单 (Provenance Ledger)》。</p>
-            </div>
-          </div>
+        <!-- Section 5.4 -->
+        <div id="sec-5-4" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'zh',
+            titleZh: '剧本四：政企行政与企业知识工作者的一天',
+            roleZh: '政企行政与法务合规 · Enterprise, Legal & Administrative Staff',
+            introZh: '面对会议纪要整理、采购招投标与重大合同初审，员工如何坚守“涉密不上网”底线与全流程审计留痕。',
+            painZh: '在党政机关、央国企及大型民营企业的办公室综合科、法务合规部、采购招投标部与人力资源科室，员工每天面对长达数小时的高频内部例会录音整理、敏感公文起草、几十万字采购招标文件条款比对、重大商业合同风险初审以及涉及薪酬的员工绩效材料。面对繁重机械的工作量与急迫的发文时限，员工极度渴望利用市面上流行的商业大模型“一键转写语音”、“一键总结红头文件”、“一键审查合同条款”。',
+            nearMissZh: '国家保密局与国家安全部通报李某私自将涉密方案输入手机 AI 写作应用受到严肃处理；涉密人员冯某妄图以“字母代码替换涉密敏感词”规避审查输入 AI 写作依然受到严肃处分；安保方案经云端 OCR 小程序转写造成泄密，导致单位副职领导行政警告、两名第三方人员直接被解除劳动合同。新修订《保守国家秘密法》确立“涉密不上网，上网不涉密”原则。',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密案 ↗'),
+              makeIncidentPill('case-state-secrecy-feng-leakage-2026', '保密观通报：冯某重大会议材料输入AI写作案 ↗'),
+              makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退 ↗')
+            ],
+            steps: [
+              {
+                time: '09:30',
+                titleZh: '涉密公文与会议纪要本地离线脱敏（严禁云端听会）',
+                descZh: '禁用带有自动云端同步或上传功能的第三方录音转写插件；针对包含内部管理与非核心业务内容的纪要，在本地电脑离线环境中调用 ' + makePill('presidio-anonymize-text', 'presidio-anonymize-text · 微软标准文本匿名化') + ' 与 ' + makePill('pii-safe-documents', 'pii-safe-documents · 文档敏感脱敏') + '，利用 NLP 实体识别技术将领导真实姓名、内部项目敏感代号、未公开财务指标替换为标准类型化稳态占位符（如 [DEPT_HEAD_A]、[PROJECT_ALPHA]、[METRIC_VALUE_X]）；本地生成加密映射表并保存在本地保管库中。若会议涉及国家秘密或核心商密，严禁上传至公有云大模型。'
+              },
+              {
+                time: '14:30',
+                titleZh: '采购招标文件与商业合同对抗性风险扫描',
+                descZh: '审核大型工程招投标文件或采购合同时，严格遵循“数据最小化”原则，剔除双方真实公司名、商业底价与特定财务流水；仅提取争议条款与违约赔偿机制文本，调用 ' + makePill('godfly-opposing-counsel', 'godfly-opposing-counsel · 模拟对方辩友质证') + ' 模拟严苛的对立审计稽查官与对手方首席法务顾问，站在“刁难挑刺、寻找责任转嫁漏洞”的极端对抗视角，全面扫描我方合同中的无限连带赔偿责任陷阱与不可抗力免责缺陷。'
+              },
+              {
+                time: '17:30',
+                titleZh: 'AI 使用透明度台账与合规证据留痕',
+                descZh: '对照《政务领域人工智能大模型部署应用指引》与企业 Responsible AI 内部政策，调用 ' + makePill('ai-provenance', 'ai-provenance · AI 来源与提示词追溯') + ' 导出结构化审计台账；台账中精确记录：AI 模型版本号、会话脱敏时间戳、提示词哈希校验值、人类复核责任人签字记录；一旦遭遇企业内控审计或保密检查，凭借完备的证据链一键实现“全链路自证合规”。'
+              }
+            ],
+            minZeroZh: '任何呈送云端 AI 辅助处理的公文或纪要，严禁包含真实企事业单位全称、领导姓名与涉密信息；严格执行“涉密不上网”原则。',
+            minProZh: '出具本地离线脱敏对照单、Godfly 模拟对抗审计的合同风控意见书及附带人类签署人盖章的《企业 AI 办公合规留痕单 (Provenance Ledger)》。'
+          })}
         </div>
 
-        <!-- Section 4.5: Everyday Citizens & Family Routine -->
-        <div id="sec-5-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-5" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.5 普通个人与家庭日常：看病求医、辅导作业与防范诈骗</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-              家庭生活 · Everyday Citizens & Families
-            </span>
-          </div>
 
-          <!-- Part 1: Pain Point -->
-          <div class="space-y-1.5">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>1. 真实生活痛点与诱惑 (Temptation & Pain Point)</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              日常生活中，普通家庭最常使用 AI 的场景并不是编写代码或起草公文，而是：身体不舒服时把症状或体检化验单随手发给 AI“看病”，让 AI 替孩子直接写作文和解答理化难题，或者在社交软件中收到疑似亲友借钱的语音和视频。面对图省事、图安心的心理，人们很容易把 AI 当成全知全能的家庭医生或全科家庭教师，甚至对高度逼真的 AI 拟真音视频丧失警惕。
-            </p>
-          </div>
-
-          <!-- Part 2: Near-Miss -->
-          <div class="scenario-box-danger space-y-1.5">
-            <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-              <span>2. 常见翻车瞬间与现实伤害 (Near-Miss Incident)</span>
-            </div>
-            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
-              <li><strong>误诊与乱用药险情</strong>：把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测，或自行建议药名与剂量；若不经执业医生核验盲目用药，可能延误病情、损害健康。</li>
-              <li><strong>孩子思维能力“被替代”</strong>：孩子把整道几何大题或作文题目拍照发给 AI 抄答案，表面作业全对，实质丧失了拆解问题与独立构思的过程，容易产生认知依赖。</li>
-              <li><strong>深度伪造（Deepfake）AI 拟声换脸诈骗与虚假宣传</strong>：诈骗团伙截取社交平台公开发布的语音或短视频片段仿造声音致电老人诈骗；商家私自克隆主持人声音形象进行虚假宣传带货，导致个体声誉受损或财产损失。</li>
-            </ul>
-            <div class="pt-1 flex flex-wrap gap-1.5">
-              ${makeIncidentPill('case-ai-voice-bj-2023', '北京互联法院全国首例AI声音侵权案 ↗')}
-              ${makeIncidentPill('case-ad-fake-host-haidian-2025', '海淀法院AI克隆知名主持人带货虚假宣传案 ↗')}
-              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC查处DoNotPay“世界首位机器人律师”虚假营销案 ↗')}
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="space-y-2">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. 家庭自卫流水线：日常四个好习惯 (Defensive Pipeline)</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 习惯一 · 问健康：把 AI 当就诊“准备清单”，不作为诊断依据</span>
-                就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；特别提示：凡涉及“吃什么药、吃几粒、停不停药”，<strong>只听正规医院当面诊断处方</strong>，不采信大模型给出的自行用药建议。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 习惯二 · 伴学习：用追问做“思维脚手架”，严禁直接要现成答案</span>
-                与孩子约定辅导原则：给 AI 的提示词必须是“不要直接告诉我答案，请问我 3 个启发性问题，引导我自己把这道题想出来”。利用 ${makePill("discernment-nudge", "discernment-nudge · 批判性辨识微提醒")} 引导孩子找出 AI 讲解里不合逻辑的漏洞，把 AI 当成练辩论的陪练。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🛡️ 习惯三 · 防电诈：家庭设立“线下安全暗号”，转账必须多源核验</span>
-                与父母、配偶约定只有家庭内部知道的口令（如“外公最爱吃的菜”或一串数字暗号）。一旦接到声称亲友急用钱、要求转账到陌生账户的微信语音或视频，<strong>无论声音画面多么逼真，先问暗号，并立即挂断通过原手机号二次回拨核实</strong>。
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">📱 习惯四 · 护隐私：帮父母手机检查 APP 权限与长期记忆</span>
-                定期花 3 分钟检查父母常用聊天软件中的 AI 助手，撤销麦克风与相册的常驻后台权限；在设置中关闭“允许使用我的数据训练”，并清空历史累积的个人记忆列表。
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. 家庭自卫检查清单 (Everyday Checklist)</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              每个家庭成员都能轻松达到的安全基线：① 问健康不盲信药名，就医当面遵医嘱；② 辅导作业只问思路步骤，不抄整句整篇；③ 转账汇款必对家庭暗号，回拨本人核实；④ 手机 AI 助手权限只给必要，定期清空个人记忆。
-            </p>
-          </div>
+        <!-- Section 5.5 -->
+        <div id="sec-5-5" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'zh',
+            titleZh: '剧本五：普通个人与家庭日常：看病求医、辅导作业与防范诈骗',
+            roleZh: '家庭生活 · Everyday Citizens & Families',
+            introZh: '普通家庭最常使用 AI 的生活场景：身体不适随手问诊、辅导孩子作业以及防范深度伪造音视频电诈。',
+            painZh: '日常生活中，普通家庭最常使用 AI 的场景并不是编写代码或起草公文，而是：身体不舒服时把症状或体检化验单随手发给 AI“看病”，让 AI 替孩子直接写作文和解答理化难题，或者在社交软件中收到疑似亲友借钱的语音和视频。面对图省事、图安心的心理，人们很容易把 AI 当成全知全能的家庭医生或全科家庭教师，甚至对高度逼真的 AI 拟真音视频丧失警惕。',
+            nearMissZh: '把长辈的体检异常指标输入大模型，AI 顺应用户焦虑给出耸人听闻的严重疾病推测或自行建议药名与剂量，延误病情；孩子把整道题拍照发给 AI 抄答案，丧失拆解问题能力；诈骗团伙截取社交平台公开发布的语音仿造亲友声音致电老人借钱，导致巨额财产损失。',
+            cases: [
+              makeIncidentPill('case-ai-voice-bj-2023', '北京互联法院全国首例AI声音侵权案 ↗'),
+              makeIncidentPill('case-ad-fake-host-haidian-2025', '海淀法院AI克隆知名主持人带货虚假宣传案 ↗'),
+              makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC查处DoNotPay“世界首位机器人律师”虚假营销案 ↗')
+            ],
+            steps: [
+              {
+                time: '习惯一',
+                titleZh: '问健康：把 AI 当就诊“准备清单”，不作为诊断依据',
+                descZh: '就医咨询前可让 AI“整理去医院时该向医生交代的 5 个关键问题”，但输入体检报告前务必遮盖名字、身份证号与就诊医院；特别提示：凡涉及“吃什么药、吃几粒、停不停药”，只听正规医院当面诊断处方，不采信大模型给出的自行用药建议。'
+              },
+              {
+                time: '习惯二',
+                titleZh: '伴学习：用追问做“思维脚手架”，严禁直接要现成答案',
+                descZh: '与孩子约定辅导原则：给 AI 的提示词必须是“不要直接告诉我答案，请问我 3 个启发性问题，引导我自己把这道题想出来”。利用 ' + makePill('discernment-nudge', 'discernment-nudge · 批判性辨识微提醒') + ' 引导孩子找出 AI 讲解里不合逻辑的漏洞，把 AI 当成练辩论的陪练。'
+              },
+              {
+                time: '习惯三',
+                titleZh: '防电诈：家庭设立“线下安全暗号”，转账必须多源核验',
+                descZh: '与父母、配偶约定只有家庭内部知道的口令（如“外公最爱吃的菜”或一串数字暗号）。一旦接到声称亲友急用钱、要求转账到陌生账户的微信语音或视频，无论声音画面多么逼真，先问暗号，并立即挂断通过原手机号二次回拨核实。'
+              },
+              {
+                time: '习惯四',
+                titleZh: '护隐私：帮父母手机检查 APP 权限与长期记忆',
+                descZh: '定期花 3 分钟检查父母常用聊天软件中的 AI 助手，撤销麦克风与相册的常驻后台权限；在设置中关闭“允许使用我的数据训练”，并清空历史累积的个人记忆列表。'
+              }
+            ],
+            minZeroZh: '问健康不盲信药名，就医当面遵医嘱；辅导作业只问思路步骤，不抄整句整篇；转账汇款必对家庭暗号，回拨本人核实；手机 AI 助手权限只给必要，定期清空个人记忆。',
+            minProZh: '家庭设备定期执行隐私配置检查，建立亲友防电诈线下核验流程，并引导家庭成员具备基本的大模型幻觉认知与真伪辨识习惯。'
+          })}
         </div>
       </section>
 
@@ -2849,6 +2622,32 @@ const guideContent = {
           </h2>
         </div>
 
+        <!-- Chapter Objectives Box (Flat Two-Column Layout) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Chapter Objectives</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm pt-1">
+            <div class="space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Problem Addressed
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Why can't everyday users blindly trust AI outputs or paste raw sensitive context? What tangible judicial penalties follow unchecked reliance?
+              </p>
+            </div>
+            <div class="space-y-1 md:border-l md:border-slate-100 md:dark:border-slate-800 md:pl-4">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Takeaways
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Build digital sovereignty and zero-trust verification baselines, recognizing that "AI generated it" is never an affirmative defense under the law.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
           <p class="leading-relaxed">
             Generative AI and large language models (LLMs) are reshaping knowledge work at unprecedented velocity. Whether drafting research summaries, debugging production code, analyzing business proposals, or generating marketing content, we are constantly inputting fragments of our intellectual labor into commercial AI black boxes.
@@ -2858,228 +2657,103 @@ const guideContent = {
             Behind the high-tech euphoria, ordinary users face alarming, asymmetric vulnerabilities validated by scientific empirical studies and landmark legal cases:
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-            <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2 shadow-xs">
-              <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
+          <!-- Flat Editorial Text: Invisible Crises (No nested cards) -->
+          <div class="space-y-4 my-6 pl-1">
+            <div class="space-y-1.5">
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-brand"></span>
                 <span>Vulnerability 1: Silent Loss of Sovereignty & Quasi-Identifier Mosaics</span>
-              </div>
+              </h4>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Even without disclosing your name, long-term multi-turn interaction yields age, location, and professional clues ("quasi-identifiers") that can reconstruct complete identity dossiers in vector databases. Everyday users become unpaid training miners.
               </p>
             </div>
 
-            <div class="p-4 sm:p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2 shadow-xs">
-              <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
+            <div class="space-y-1.5 pt-2">
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-brand"></span>
                 <span>Vulnerability 2: Confident Falsehoods & Cognitive Debt (MIT/Stanford EEG)</span>
-              </div>
+              </h4>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Emerging cognitive science and HCI literature (such as MIT Media Lab's 2025 preprint <em>Your Brain on ChatGPT</em> and Anthropic's sycophancy investigations) suggests that wholesale delegation of analytical drafting to LLMs can introduce immediate memory decay and lower recall retention (in initial trials, 15 of 18 participants in the heavy-reliance condition struggled to accurately cite key points of just-generated text). Coupled with algorithmic sycophancy, uncritical reliance risks weakening personal verification habits without active critical scrutiny.
               </p>
             </div>
           </div>
 
-          <!-- Structured Legal Precedents Section (English) -->
-          <div class="my-6 space-y-3.5">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+          <!-- Structured Summary of Legal Realities (Vertical Divided List, No nested cards) -->
+          <div class="my-6 space-y-3">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
               <div class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                 <span>Landmark Legal Precedents: The Global and Domestic Cost of Blind AI Reliance</span>
               </div>
-              <span class="text-[11px] text-slate-500 font-mono">5 Empirical Cases</span>
+              <span class="text-[11px] text-slate-500 font-mono">3 Core Warnings</span>
             </div>
 
-            <div class="space-y-3">
-              <!-- Case 1: Beijing Voice Infringement -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 China's Landmark Voice AI Case</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">Beijing Internet Court (2023) Jing 0491 Min Chu No. 12142</span>
-                    <span class="text-[10px] text-slate-400 font-mono">SPC Case Repository 2025-07-2-474-001</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">¥250,000 RMB Damages</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Incident &amp; Misuse
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      A voice actor's vocal recordings were extracted without express consent to train a commercial text-to-speech (TTS) engine and monetized across software platforms.
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Judicial Ruling &amp; Defense
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      The court ruled natural person voice rights are independent of recording copyrights. <strong>Takeaway: Possessing a client audio recording license does NOT grant permission to feed it to AI voice cloning models!</strong>
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-ai-voice-bj-2023', 'View Beijing Voice AI Landmark Judgment ↗')}
-                    </div>
-                  </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-rose-600 dark:text-rose-400 text-xs shrink-0">01</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">AI generation is not a legal shield:</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI generation cannot serve as an excuse for exemption. Individuals submitting content to courts, clients, or the public remain legally obligated to verify facts and bear corresponding responsibility. Courts in China and the US, as well as civil tribunals in Canada, have levied sanctions, reprimands, and full damage orders for hallucinated citations and misleading chatbot statements.</span>
                 </div>
               </div>
 
-              <!-- Case 2: Nanjing Internet Court Defamation -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 AI Search Summary Defamation</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">Nanjing Intermediate People's Court Final Ruling</span>
-                    <span class="text-[10px] text-slate-400 font-mono">Jiangsu High Court Bulletin</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">Full Defamation Liability</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Incident &amp; Misuse
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      An AI search assistant hallucinated that a citizen was "sentenced to three years for bombing," displaying their real professional portrait alongside the false accusation.
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Judicial Ruling &amp; Defense
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      The court ruled that AI indexing and synthesis constitutes "content production." The platform failed to promptly block defamatory content upon notice and was held fully liable for reputation infringement.
-                    </p>
-                  </div>
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs shrink-0">02</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">Material usage scope is limited:</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">Possessing audio or document usage rights does NOT grant permission to feed them to commercial AI models. Personal rights remain protected, and unauthorized uploads risk direct tort liability.</span>
                 </div>
               </div>
 
-              <!-- Case 3: Supreme People's Court Rules -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🇨🇳 SPC Litigation Guidelines</span>
-                    <span class="text-xs font-bold text-slate-900 dark:text-white">Opinions on Adjudicating AI-Related Disputes</span>
-                    <span class="text-[10px] text-slate-400 font-mono">Fa Fa [2026] No. 10 (2026-09-07)</span>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900">Judicial Fines &amp; Sanctions</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Statutory Responsibility
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      Litigants using AI to assist legal drafting must verify authenticity and explicitly disclose AI assistance; fabricating evidence or precedents is strictly prohibited.
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Judicial Ruling &amp; Defense
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      Fabricating false litigation using AI triggers fines, detention, and criminal penalties under Civil Procedure Law Art. 114. "The AI generated it" is never an affirmative defense.
-                    </p>
-                    <div class="pt-1.5 flex flex-wrap gap-1.5">
-                      ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedent Reprimand ↗')}
-                      ${makeIncidentPill('case-court-fake-citation-yichang-2026', 'Yichang Court Hallucinated Cause of Action ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Case 4: US Federal Court Mata v. Avianca -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 International Judicial Citation Debacle</span>
-                    <a href="https://www.courtlistener.com/docket/63397390/mata-v-avianca-inc/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">US Federal Court (SDNY) Mata v. Avianca (2023) ↗</a>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">$5,000 USD Sanction + Censure</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Incident &amp; Misuse
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      Practicing attorneys submitted a brief containing 6 hallucinated judicial decisions (including fake docket numbers, quotes, and judges) drafted using ChatGPT.
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Judicial Ruling &amp; Defense
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      The judge sanctioned both attorneys and the firm for subjective bad faith and failure to verify. This landmark case established the universal rule of zero-trust physical verification for AI legal citations.
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-mata-avianca-fake-citations-2023', 'View Mata v. Avianca $5k Sanction Details ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Case 5: Moffatt v. Air Canada -->
-              <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-xs">
-                <div class="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand/10 text-brand dark:text-brand-container">🌐 Algorithmic Negligence &amp; Liability</span>
-                    <a href="https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-slate-900 dark:text-white hover:text-brand transition-colors">Civil Resolution Tribunal Moffatt v. Air Canada (2024 BCCRT 149) ↗</a>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900">Full Damages Awarded</span>
-                </div>
-                <div class="p-3.5 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Incident &amp; Misuse
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      Air Canada's AI customer support chatbot provided hallucinated instructions promising retroactive bereavement fare refunds that contradicted actual company policy.
-                    </p>
-                  </div>
-                  <div class="space-y-1">
-                    <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Judicial Ruling &amp; Defense
-                    </span>
-                    <p class="text-slate-600 dark:text-slate-400">
-                      The tribunal rejected Air Canada's defense that the chatbot was a "separate legal entity," ruling the airline strictly liable for misleading representations made by its automated algorithms.
-                    </p>
-                    <div class="pt-1.5">
-                      ${makeIncidentPill('case-air-canada-chatbot-refund-2024', 'View Moffatt v. Air Canada Misleading Chatbot Details ↗')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Clarification Note -->
-              <div class="p-3 sm:p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
-                <span class="text-sm shrink-0">🔍</span>
-                <div class="leading-relaxed space-y-1.5">
-                  <p>
-                    <strong class="text-slate-700 dark:text-slate-300">Forensic Negative Finding</strong>: As of October 2026, there are no public Chinese court judgments convicting an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR's <strong>¥350,000 fine</strong> against algorithm employee Sun for leaking proprietary prompt templates and model architectures). The immediate daily risks remain employment NDA termination and civil liability under PIPL Art. 23 for unauthorized third-party personal data transmission.
-                  </p>
-                  <div class="flex flex-wrap gap-1.5 pt-1">
-                    ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗')}
-                    ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗')}
-                    ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Notice ↗')}
-                  </div>
+              <div class="py-3 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-3">
+                <span class="font-mono font-bold text-brand dark:text-brand-container text-xs shrink-0">03</span>
+                <div>
+                  <strong class="text-slate-900 dark:text-white font-bold">Trade secrets and state secrecy red lines:</strong>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">"Classified material stays offline, online material stays unclassified." Regulators have fined employees ¥350k for exfiltrating prompt templates, and unauthorized uploading of internal briefings has triggered administrative discipline and terminations.</span>
                 </div>
               </div>
             </div>
+
+            <!-- Evidence Drawer: Detailed Case Precedents Folded for On-Demand Review -->
+            ${renderEvidenceDrawer({
+              lang: 'en',
+              title: 'Evidence & References: Global & Domestic Landmark Judicial Precedents',
+              count: '5 Judicial Precedents · 3 Workplace Bulletins · SPC Guidelines',
+              cases: [
+                makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court: Voice AI Rights Ruling ¥250k Damages (2023) ↗'),
+                makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Beijing Tongzhou Court: Fake Case Number Sanction Bulletin ↗'),
+                makeIncidentPill('case-court-fake-citation-yichang-2026', 'Hubei Yichang Court: Judicial Reprimand for Hallucinated Statute ↗'),
+                makeIncidentPill('case-mata-avianca-fake-citations-2023', 'US Federal Court SDNY: Mata v. Avianca $5,000 Sanction ↗'),
+                makeIncidentPill('case-air-canada-chatbot-refund-2024', 'Civil Resolution Tribunal: Moffatt v. Air Canada Full Damages Award ↗'),
+                makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR: ¥350,000 Fine for Exfiltrating Prompt Templates ↗'),
+                makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Bulletin: Researcher Xiao Li Disciplinary Sanction ↗'),
+                makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Bulletin No. 3 ↗')
+              ],
+              statutes: [
+                '<strong>Supreme People\'s Court Opinions on AI Disputes (Fa Fa [2026] No. 10)</strong>: Litigants must verify authenticity and disclose AI assistance; fabricating evidence or citations triggers penalties under Civil Procedure Law Art. 114.',
+                '<strong>China PIPL Art. 23</strong>: Providing personal data to third parties requires explicit notice and separate consent.',
+                '<strong>State Secrets Protection Law</strong>: Strict statutory prohibition against processing or storing classified state or commercial secrets on Internet-connected systems.'
+              ],
+              technical: [
+                '<strong>Forensic Negative Finding</strong>: As of October 2026, no Chinese court judgment has convicted an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR\'s ¥350k fine for proprietary prompt template misappropriation).',
+                '<strong>Autoregressive Hallucination Mechanics</strong>: LLMs probabilistically predict tokens without internal truth verification, frequently manufacturing plausible yet fictitious citations in niche domains.'
+              ]
+            })}
           </div>
 
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
-            Why Reject Toothless, Abstract AI Principles?
-          </h3>
-          <p class="leading-relaxed">
-            Existing governance dialogues often dwell in ivory towers or corporate PR whitepapers. Grand slogans like "fairness, transparency, and accountability" offer zero defense when an everyday knowledge worker sits before a blinking chat prompt.
-          </p>
-          <p class="leading-relaxed">
-            <strong>This curated repository and field guide exist to place tactical shields and verification rulers directly into people's hands.</strong> Rather than inventing buzzwords, we curate 44 production-tested, standard-aligned open-source SKILL.md packages to provide tangible defense in your daily workflow.
-          </p>
+          <!-- Chapter 1 Transition to Everyday Action -->
+          <div class="p-4 rounded-2xl bg-brand/5 dark:bg-brand/10 border border-brand/20 space-y-2 mt-4">
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>💡 Abstract Slogans Offer Zero Defense</span>
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Grand principles cannot protect someone facing a blinking prompt. We need Chapter 2's baseline security configurations, Chapter 3's Three Pillars and Four Practical Daily Questions, and Chapter 4's tiered defense protocols.
+            </p>
+          </div>
         </div>
-              <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
+        <div class="p-4 rounded-xl bg-brand/5 dark:bg-brand/10 border border-brand/20 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3 mt-6">
           <span>💡 Having seen these real-world casualties and legal liabilities, you might ask: "What should I immediately do with my daily AI apps?"</span>
           <a href="#chapter-2" class="text-brand font-bold hover:underline flex items-center gap-1">
             <span>First Steps: Turn Off Hidden Switches ➔</span>
@@ -3090,31 +2764,57 @@ const guideContent = {
       <!-- Chapter 2 -->
       <section id="chapter-2" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 0 · BASELINE</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · BASELINE</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             Defensive Baseline: Anti-Harvesting & Platform Hardening (Choose & Configure)
           </h2>
         </div>
 
+        <!-- Chapter Objectives Box (Flat Two-Column Layout) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Chapter Objectives</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm pt-1">
+            <div class="space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Problem Addressed
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Why doesn't "deleting chat history" erase your data? What hidden data retention channels exist in modern tools (Trae, Doubao, Kimi, ChatGPT, Cursor)?
+              </p>
+            </div>
+            <div class="space-y-1 md:border-l md:border-slate-100 md:dark:border-slate-800 md:pl-4">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Takeaways
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Disable training authorizations across your primary AI tools wherever possible, and inspect/purge persistent memories and uploaded files.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-4">
-          <!-- 30s Quick Action Card for Everyday Citizens (EN) -->
+          <!-- 30s Quick Action Card for Everyday Citizens (Flat Divided Layout) -->
           <div class="p-5 rounded-2xl bg-gradient-to-r from-brand/10 via-brand/5 to-transparent border border-brand/20 space-y-3 my-2">
             <div class="flex items-center gap-2 font-bold text-sm text-brand dark:text-brand-container">
               <span class="text-xl">⚡</span>
               <span>First Step to Digital Self-Defense: 30-Second Quick Start (Do These 3 Things First)</span>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+            <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-brand/15 pt-1 text-xs">
+              <div class="py-2 sm:py-0 sm:px-3 first:pl-0 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">1. Turn off "Training"</span>
-                <p class="text-slate-600 dark:text-slate-400">In your AI client's Settings, disable "Improve model for everyone" to prevent unreleased drafts from being absorbed into training corpora.</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">In your AI client's Settings, disable "Improve model for everyone" to prevent unreleased drafts from being absorbed into training corpora.</p>
               </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+              <div class="py-2 sm:py-0 sm:px-3 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">2. Audit "Memory"</span>
-                <p class="text-slate-600 dark:text-slate-400">Regularly review Settings &gt; Memory. Deleting a chat conversation does NOT wipe memory entries—purge them individually.</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Regularly review Settings &gt; Memory. Deleting a chat conversation does NOT wipe memory entries—purge them individually.</p>
               </div>
-              <div class="p-3 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
+              <div class="py-2 sm:py-0 sm:px-3 last:pr-0 space-y-1">
                 <span class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">3. Verify Before You Hand Off</span>
-                <p class="text-slate-600 dark:text-slate-400">Before sharing AI outputs, manually double-check citations, statutory references, and names against authoritative sources.</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Before sharing AI outputs, manually double-check citations, statutory references, and names against authoritative sources.</p>
               </div>
             </div>
           </div>
@@ -3123,12 +2823,19 @@ const guideContent = {
             Before typing a single word into the blinking prompt, security boundaries have already been negotiated. Many believe clicking "Delete Chat" or toggling off history provides immunity. However, underlying architecture reveals an <strong>"Illusion of Control"</strong>—hiding views on the UI does not equal complete server-side destruction.
           </p>
 
-          <!-- 6 Hardening Traps Alert -->
-          <div class="p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4">
-            <div class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center gap-2">
-              <span>⚠️ 6 Silent Retention Truths & Non-Equivalences (2026 Verified):</span>
-            </div>
-            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc">
+          <!-- 6 Hardening Traps Alert (Folded) -->
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/40 space-y-3 my-4 shadow-xs">
+            <summary class="font-bold text-sm text-amber-900 dark:text-amber-300 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2">
+                <span>⚠️</span>
+                <span>Why Deleting Chats Isn't Enough (6 Hidden Retention Truths)</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">Expand Truths ⬇</span>
+                <span class="hidden group-open:inline">Collapse Truths ⬆</span>
+              </span>
+            </summary>
+            <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 space-y-2 pl-4 list-disc pt-2 leading-relaxed">
               <li><strong>Opting Out of Training ≠ Immediate Deletion</strong>: In Kimi and Doubao, opting out only stops future conversations from optimizing weights; historical chats remain indefinitely on servers. Doubao chat clearing does not cascade-delete extracted memory.</li>
               <li><strong>Turning On Privacy Mode ≠ Absolute Zero Retention</strong>: In Trae IDE, Privacy Mode guarantees conversations and outputs are not used for training, but code snippets are temporarily uploaded to compute vector embeddings for whole-codebase indexing. Furthermore, <strong>logging out automatically disables Privacy Mode</strong>!</li>
               <li><strong>Disabling Memory ≠ Deleting Existing Memory</strong>: Doubao, WorkBuddy, and ChatGPT decouple historical memory storage. Toggling off the Memory feature only halts new memory extraction; previously captured facts remain active unless purged manually.</li>
@@ -3136,7 +2843,7 @@ const guideContent = {
               <li><strong>Deleting Conversation ≠ Deleting Uploaded Knowledge Files</strong>: In Dify, FastGPT, and ChatGPT Projects, backend document stores and vector embeddings are decoupled from ephemeral chat sessions. Deleting a chat leaves knowledge embeddings intact.</li>
               <li><strong>Cybersecurity Law Art. 21 (6-Month Rule) ≠ Saving Full Chat Transcripts for 6 Months</strong>: Statutory Chinese mandates require retaining <strong>"network operation and cybersecurity logs"</strong> for &ge; 6 months, not the full text of user prompts or private code. Never let platforms use compliance as an excuse for unbounded data hoards.</li>
             </ul>
-          </div>
+          </details>
 
           <!-- Domestic Chinese Tools Matrix (Collapsible) -->
           <details class="adaptive-details group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs transition-all my-4">
@@ -3282,10 +2989,36 @@ const guideContent = {
       <!-- Chapter 3 -->
       <section id="chapter-3" class="space-y-6 pt-4 scroll-mt-36 lg:scroll-mt-28">
         <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 2 · DECONSTRUCTION</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand dark:text-brand-container">CHAPTER 3 · DECONSTRUCTION</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
             Deconstruction: Three Security Pillars & Four Core Questions
           </h2>
+        </div>
+
+        <!-- Chapter Objectives Box -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-3 shadow-xs">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Chapter Objectives</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>Problem Addressed
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Beyond privacy, how do we dismantle algorithmic sycophancy, automation bias, and cognitive dependency?
+              </p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Takeaways
+              </span>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Master the "Three Security Pillars" (What does AI know / believe / do) and the "Four Practical Daily Questions" underpinning the guide.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div class="prose max-w-none text-slate-700 dark:text-slate-300 space-y-5">
@@ -3293,43 +3026,80 @@ const guideContent = {
             Synthesizing NIST AI 600-1, SAC/TC260-005, Hong Kong PCPD, and OWASP Agentic Top 10, responsible AI use transcends mere prompt filtering. It is organized into <strong>Three Core Security Inquiries × Two Defensive Perimeters × Four Daily Desktop Habits</strong>:
           </p>
 
-          <!-- 3 Pillars Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                Pillar 1 · What Does AI Know?
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Confidentiality & Boundary Control</strong>: Audit not only prompt inputs, but what is cached in Memory, indexed in RAG, and accessed via local files or mailboxes. Strictly aligned with PIPL Art. 6 (minimization), Art. 13 (lawful basis), and Art. 23 (third-party consent), as well as NIST AI 600-1 and OWASP LLM02.
-              </p>
+          <!-- 3 Security Pillars (Clean Vertical 3-Section Layout) -->
+          <div class="my-6 space-y-4">
+            <div class="flex items-center justify-between pb-1 border-b border-slate-200 dark:border-slate-800">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span>Three Security Pillars · Mental Defensive Line</span>
+              </div>
+              <span class="text-[11px] text-slate-500 font-mono">3 Core Pillars</span>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                Pillar 2 · What Does AI Believe?
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Cognitive Integrity & Anti-Poisoning</strong>: External documents, web pages, and GitHub issues read by AI can be weaponized with indirect prompt injection. Aligned with Generative AI Interim Measures Art. 4 and SPC 2026 verification rules, defending against OWASP LLM01 and LLM05 supply chain hazards.
-              </p>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-              <span class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-brand"></span>
-                Pillar 3 · What Can AI Do?
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Privilege Isolation & Action Reversibility</strong>: Chatbot suggestions fail cheaply; Agent actions fail expensively. Aligned with Algorithmic Recommendation Provisions and TC260-005 Clause 4.2.3, neutralizing OWASP ASI01/ASI03 and LLM06 excessive agency through sandbox execution and human sign-off.
-              </p>
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-brand dark:text-brand-container text-xs shrink-0">01</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Pillar 1: What Does AI Know?</span>
+                    <span class="text-[11px] font-normal text-slate-500">(Confidentiality & Boundary Control)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>Plain takeaway: Audit what is stored behind the scenes, not just what you type.</strong> Even without names, scattered details about projects, locations, and colleagues can be pieced together. Long-term memory, knowledge bases, and tools broaden data exposure.
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    Statutory & Standard Mapping: Aligned with PIPL Art. 6 (minimization), Art. 13 (lawful basis), Art. 23 (third-party consent), NIST AI 600-1, and OWASP LLM02.
+                  </p>
+                </div>
+              </div>
+
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-amber-600 dark:text-amber-400 text-xs shrink-0">02</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Pillar 2: What Does AI Believe?</span>
+                    <span class="text-[11px] font-normal text-slate-500">(Cognitive Integrity & Anti-Poisoning)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>Plain takeaway: External web pages, PDFs, and issues read by AI can be poisoned, and models naturally flatter users.</strong> Treat all external content as untrusted input. The more confident and agreeable the AI seems, the more strictly you must check original sources.
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    Statutory & Standard Mapping: Aligned with Generative AI Interim Measures Art. 4 (prohibiting generation of false and harmful information), SPC 2026 Opinions (requiring litigants to verify and explain AI-assisted filings and bear legal responsibility for authenticity and accuracy), OWASP LLM01, and LLM05.
+                  </p>
+                </div>
+              </div>
+
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs shrink-0">03</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span>Pillar 3: What Can AI Do?</span>
+                    <span class="text-[11px] font-normal text-slate-500">(Privilege Isolation & Action Reversibility)</span>
+                  </div>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong>Plain takeaway: Chatbot errors waste tokens; agent errors delete files or trigger unauthorized actions.</strong> Any operation involving writing files, running terminal scripts, or calling external APIs requires default read-only access, confirmation prompts, and isolated sandboxes.
+                  </p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                    Statutory & Standard Mapping: Aligned with Algorithm Recommendation Provisions Art. 17 (human intervention), TC260-005 Guidelines 1.0 alongside the Agent Deployment & Use Security Guidelines, OWASP ASI01/ASI03, and LLM06.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 3 Pillars Deep Mapping Table -->
-          <div class="my-5 space-y-2">
-            <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>📋 Three Security Pillars: Statutory Baselines & Industrial Standards Mapping</span>
-            </h4>
-            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1">
+          <!-- 3 Pillars Deep Mapping Table (Folded for Everyday Users) -->
+          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 my-4 shadow-xs">
+            <summary class="font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between cursor-pointer list-none select-none">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-brand"></span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Statutes & Industrial Standards Mapping Table</span>
+              </span>
+              <span class="adaptive-toggle-hint text-[11px] text-brand font-medium shrink-0">
+                <span class="group-open:hidden">Expand Standards ⬇</span>
+                <span class="hidden group-open:inline">Collapse Standards ⬆</span>
+              </span>
+            </summary>
+            <div class="text-[11px] text-slate-400 dark:text-slate-500 mb-1 sm:hidden flex items-center gap-1 pt-2">
               <span>👉 Swipe horizontally to view full table</span>
             </div>
             <div class="overflow-x-auto">
@@ -3379,8 +3149,8 @@ const guideContent = {
                       What does AI believe?
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
-                      • <strong>Interim Measures on Generative AI Services</strong> Art. 4: Truthfulness, accuracy, and prevention of false information<br>
-                      • <strong>SPC 2026 AI Dispute Adjudication Opinion</strong>: Litigant fact-checking self-liability; strict penalties for fabricated citations
+                      • <strong>Interim Measures on Generative AI Services</strong> Art. 4: Prohibiting generation of false and harmful information<br>
+                      • <strong>SPC 2026 AI Dispute Opinions</strong>: Litigant duty to verify and explain AI-assisted filings; legal liability for authenticity and accuracy
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>OWASP Top 10 for LLM</strong>:<br>
@@ -3402,7 +3172,7 @@ const guideContent = {
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>Provisions on Algorithmic Recommendation Services</strong>: Mandatory human intervention in autonomous decision-making<br>
-                      • <strong>TC260-005</strong>: Clause 4.2.3 Hierarchical control of agent autonomy
+                      • <strong>TC260 Standards</strong>: TC260-005 Guidelines 1.0 &amp; Agent Deployment and Use Security Guidelines
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
                       • <strong>OWASP for Agentic AI</strong>:<br>
@@ -3417,7 +3187,7 @@ const guideContent = {
                 </tbody>
               </table>
             </div>
-          </div>
+          </details>
 
           <!-- Two Defensive Lines Card -->
           <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
@@ -3629,117 +3399,51 @@ const guideContent = {
         </div>
 
         <!-- Section 3.1 -->
+        <!-- Section 4.1 -->
         <div id="sec-4-1" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-1" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span>4.1 Pre-Input: Privacy Protection & Prompt Injection Defense</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            When preparing to feed drafts, logs, or customer files to an AI model, data loss begins immediately. However, simply removing explicit names is dangerous security theater: in classic privacy research, Latanya Sweeney's <strong>Mosaic Theory</strong> experiment demonstrated that just 3 quasi-identifiers—birth date, gender, and 5-digit ZIP code—are sufficient to uniquely re-identify 87% of the US population from publicly available voter records. Under China's Personal Information Protection Law (PIPL Art. 28), medical health, financial accounts, and tracking information are classified as sensitive personal info; retaining "Grade-A tertiary hospital rare disease ward + 42-year-old male + admission date" creates an irreversible re-identification hazard.
+            When preparing to feed drafts, logs, or customer files to an AI model, data loss begins immediately. However, simply removing explicit names is dangerous security theater: in classic privacy research, Latanya Sweeney's <strong>Mosaic Theory</strong> experiment demonstrated that quasi-identifier combinations such as birth date, gender, and 5-digit ZIP code exhibit high uniqueness within specific population datasets, introducing serious re-identification risks. Under China's Personal Information Protection Law (PIPL Art. 28), medical health, financial accounts, and tracking information are classified as sensitive personal info; retaining "Grade-A tertiary hospital rare disease ward + 42-year-old male + admission date" creates an irreversible re-identification hazard.
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
             Simultaneously, in agentic web browsing, long-context parsing, and enterprise RAG (Retrieval-Augmented Generation) workflows, <strong>Indirect Prompt Injections (IPI)</strong> have migrated from academic labs to real-world threats: adversaries do not interact with your chatbox directly, but embed concealed payloads inside web pages, PDFs, and emails that autonomous agents retrieve, hijacking execution flow and triggering stealthy data exfiltration.
           </p>
 
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400">❌ High-Risk Anti-Pattern</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Assuming that masking names constitutes complete redaction, pasting raw records containing quasi-identifiers (hospital departments, age, transaction logs) into prompts; letting autonomous Agents scrape uninspected PDFs, web pages, or repositories with full external tool capabilities.
-              </p>
-            </div>
-            <div class="scenario-box scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✅ Defensive Best Practice</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Run local differential redaction via Presidio to replace quasi-identifier tuples with randomized placeholders; enforce Spotlighting hash delimiters on retrieved RAG texts, clean zero-width characters and hidden PDF layers, and restrict outbound egress channels.
-              </p>
-            </div>
-          </div>
-
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
-                <span>⚠️ Real-World Warning: Trade Secret & Workplace Leakage Incidents</span>
-              </span>
-              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">3 Typical Cases</span>
-            </div>
-            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
-              Copying unredacted work drafts, proprietary model configs, or confidential data into public AI chat prompts frequently triggers disciplinary action, hefty regulatory fines, or state security consequences:
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-0.5">
-              ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗')}
-              ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗')}
-              ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')}
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Replace real names, phone numbers, ID numbers and addresses with placeholders like "[Name A]" or "[Phone]" before pasting.</li>
-                  <li>Turn exact ages into ranges; keep locations at city level; describe employers by industry only.</li>
-                  <li>Never paste state secrets, confidential work material or other people's medical records into public AI tools.</li>
-                  <li>When an AI reads unfamiliar web pages or PDFs, do not also give it permission to send email or read/write files.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Use find-and-replace in a local text editor to swap sensitive terms before copying text to the AI.</li>
-                  <li>If you can, run the open-source Microsoft Presidio locally to detect and replace personal data automatically.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable the redaction skills listed below (e.g. <code>pii-safe-documents</code>) in a Skills-capable tool so the AI checks before sending.</li>
-                  <li>Install commands are in each skill card or the Skill Library.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>Show the text to a colleague who does not know the person involved. If they can guess who it is, it is not redacted yet.</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Mosaic Identifiers & Indirect Prompt Injection Cases</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Mechanisms & Cases</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
-                <span class="group-open:hidden">Expand Evidence ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>Mosaic Theory & PIPL Statutory Safeguards</strong>: Under PIPL Art. 28, unauthorized leakage of medical, financial, or biometric data infringes personal dignity. Stripping names alone fails against linkage attacks; quasi-identifiers must undergo K-anonymity perturbation or synthetic generation.</li>
-              <li><strong>Carrier 1: CSS Hidden Layers & HTML Comments</strong>: A 2026 web-scale measurement study (analyzing 1.2B URLs across 24.8M hosts, confirming 15,300 verified injection instances across 11,700 pages) revealed widespread payloads concealed within <code>&lt;!-- comments --&gt;</code>, <code>font-size: 0</code>, and <code>display: none</code>. Text parsers flatten HTML and present these hidden directives as valid context to LLMs.</li>
-              <li><strong>Carrier 2: Zero-Width Unicode Steganography</strong>: The Reverse CAPTCHA experiment (8,308 model outputs) proved that invisible Unicode characters (such as <code>\u200B</code> and Unicode Tags) pass directly into model tokenizers while evading traditional regex and WAF filters. Systems must enforce NFKC normalization and language-aware allowlists.</li>
-              <li><strong>Carrier 3: PDF Hidden Text Layers (Off-Screen / Phantom Text)</strong>: The CrackedPDFs 2026 benchmark (evaluating 29,322 generated PDFs) demonstrated that flattening PDFs strips layout coordinate awareness, making phantom text indistinguishable from visible content. Defense requires OCR visual verification to contrast rendered pages against extracted text.</li>
-              <li><strong>Empirical CVE: EchoLeak (CVE-2025-32711, CVSS 9.3)</strong>: The first documented zero-click indirect prompt injection in enterprise production (Microsoft 365 Copilot). An incoming email containing hidden text hijacked Copilot when the user innocently asked "Summarize today's emails", exfiltrating confidential emails via Markdown image tags routed through Teams proxy domains (<code>asyncgw.teams.microsoft.com</code>), bypassing corporate CSP.</li>
-              <li><strong>Spotlighting Defense & Least Privilege</strong>: Delimit untrusted RAG and web data using unpredictable random hash tags (e.g. <code>&lt;&lt;RANDOM_TOKEN_xxxx&gt;&gt;</code>) and Base64 encoding (slashing attack success from &gt;50% to &lt;2%), backed by strict network egress control and human-in-the-loop authorization.</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Assuming that masking names constitutes complete redaction, pasting raw records containing quasi-identifiers (hospital departments, age, transaction logs) into prompts; letting autonomous Agents scrape uninspected PDFs, web pages, or repositories with full external tool capabilities.',
+            doText: 'Run local differential redaction via Presidio to replace quasi-identifier tuples with randomized placeholders; enforce Spotlighting hash delimiters on retrieved RAG texts, clean zero-width characters and hidden PDF layers, and restrict outbound egress channels.',
+            tierBrowser: [
+              'Replace real names, phone numbers, ID numbers and addresses with placeholders like "[Name A]" or "[Phone]" before pasting.',
+              'Turn exact ages into ranges; keep locations at city level; describe employers by industry only.',
+              'Never paste state secrets, confidential work material or other people\'s medical records into public AI tools.',
+              'When an AI reads unfamiliar web pages or PDFs, do not also give it permission to send email or read/write files.'
+            ],
+            tierSoftware: [
+              'Use find-and-replace in a local text editor to swap sensitive terms before copying text to the AI.',
+              'If you can, run open-source Microsoft Presidio locally to detect and replace personal data automatically.'
+            ],
+            tierSkills: [
+              'Enable the redaction skills listed below (e.g. <code>pii-safe-documents</code>) in a Skills-capable tool so the AI checks before sending.',
+              'Install commands are available on the skill cards or in the Skill Library.'
+            ],
+            verifyText: 'If a colleague unfamiliar with the context reads the prompt, could they guess the identity of the person or company? If yes, redact further.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Pre-Input Defensive Pipeline)",
             titleEn: "Pre-Input Defensive Pipeline & Curated Skills",
             subtitleZh: "工序：敏感数据本地脱敏 → 投喂内容清洗 → 外部提示词注入拦截。首推 3 项核心技能，其余按需选用。",
-            subtitleEn: "Pipeline: Local PII redaction → data sanitization → prompt injection defense. Curating 3 core tools with alternates on demand.",
+            subtitleEn: "Pipeline: Local PII redaction → data sanitization → prompt injection defense.",
             primary: [
               {
                 id: "pii-safe-documents",
                 tierZh: "核心防线 · 输入前",
                 tierEn: "Core Defense · Pre-Input",
                 roleZh: "在本地生成可逆脱敏副本，防止向大模型泄露真实个人与客户隐私",
-                roleEn: "Generates local reversible redacted copy to prevent leaking personal PII to cloud models",
+                roleEn: "Creates local redacted working copy to protect private PII from cloud upload",
                 isAdvanced: false
               },
               {
@@ -3747,7 +3451,7 @@ const guideContent = {
                 tierZh: "核心防线 · 数据净化",
                 tierEn: "Core Defense · Sanitization",
                 roleZh: "投喂文本清洗器，过滤代码与文本中隐藏的凭据、内网地址与恶意识别符",
-                roleEn: "Sanitizes sensitive tokens, private internal IPs, and credentials prior to ingestion",
+                roleEn: "Sanitizes sensitive tokens, private IPs and internal credentials before ingestion",
                 isAdvanced: false
               },
               {
@@ -3755,124 +3459,75 @@ const guideContent = {
                 tierZh: "核心防线 · 注入防御",
                 tierEn: "Core Defense · Anti-Injection",
                 roleZh: "分析网页与PDF等外部上下文，实时识别并阻断间接提示词注入指令",
-                roleEn: "Inspects external contexts (PDF/web) to block indirect prompt injection payloads",
+                roleEn: "Inspects external context (PDF/web) to block indirect prompt injection payloads",
                 isAdvanced: false
               }
             ],
             alternates: [
-              { id: "presidio-anonymize-text", label: "presidio-anonymize-text · Presidio Anonymizer" },
-              { id: "pii-detection-pipeline", label: "pii-detection-pipeline · PII Multi-Scan" },
-              { id: "openmed-clinical-ingestion", label: "openmed-clinical-ingestion · Clinical Privacy" },
-              { id: "skillguard", label: "skillguard · Static Malicious Audit" },
-              { id: "security-threat-model", label: "security-threat-model · Threat Modeling" },
-              { id: "scholar-safety", label: "scholar-safety · Research Data Isolation" },
-              { id: "nova-proximity", label: "nova-proximity · Proximity Warning" }
+              { id: "presidio-anonymize-text", label: "presidio-anonymize-text · Microsoft Presidio Local Text Anonymizer" },
+              { id: "pii-detection-pipeline", label: "pii-detection-pipeline · Multi-Stage PII Detection" },
+              { id: "openmed-clinical-ingestion", label: "openmed-clinical-ingestion · Clinical Ingestion Redaction" },
+              { id: "skillguard", label: "skillguard · Malicious Skill Scanner" },
+              { id: "security-threat-model", label: "security-threat-model · STRIDE Threat Modeler" },
+              { id: "scholar-safety", label: "scholar-safety · Academic Search Isolation" },
+              { id: "nova-proximity", label: "nova-proximity · Proximity Guard" }
+            ]
+          })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: Mosaic Theory, Statutes & Prompt Injection In-the-Wild',
+            count: '3 Incidents · 1 Statute · 5 Technical Findings',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗'),
+              makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗'),
+              makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')
+            ],
+            statutes: [
+              '<strong>Mosaic Theory & Sensitive PII Protection</strong>: Under China\'s Personal Information Protection Law (PIPL Art. 28) and international privacy frameworks, medical health and identity profiles receive strict statutory protection. Sweeney\'s benchmark research demonstrated that quasi-identifier combinations exhibit high uniqueness in specific population records, creating substantial re-identification vulnerabilities. Differential privacy or synthetic data generation is necessary.'
+            ],
+            technical: [
+              '<strong>Vector 1: Zero-font, CSS display:none & HTML Comments</strong>: 2026 empirical measurement across 1.2 billion URLs confirmed 15,300 live injection payloads embedded in comments and hidden layers. Scraping agents flatten these into instructions with identical authority.',
+              '<strong>Vector 2: Zero-Width Unicode Steganography</strong>: Reverse CAPTCHA experiments (8,308 LLM outputs) showed attackers inject invisible instructions using \\u200B zero-width spaces, bypassing regex filters and directly reaching the model tokenizer.',
+              '<strong>Vector 3: Phantom PDF Layers</strong>: CrackedPDFs 2026 demonstrated that direct text extraction treats off-screen text and background-colored glyphs identically to foreground text, persistently poisoning knowledge bases.',
+              '<strong>In-the-Wild CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-32711" target="_blank" class="text-brand font-bold underline">EchoLeak (CVE-2025-32711, CVSS 9.3 Critical) ↗</a></strong>: First zero-click indirect prompt injection in Microsoft 365 Copilot. Receiving a single unread email hijacked Copilot into reading confidential financial mail and exfiltrating data via Teams image markdown proxies.',
+              '<strong>Engineering Defense: Microsoft <a href="https://arxiv.org/abs/2403.14720" target="_blank" class="text-brand font-bold underline">Spotlighting Mechanism ↗</a></strong>: Wraps untrusted input with cryptographic hash delimiters and Base64 transformations, reducing attack success rates from >50% to <2%.'
             ]
           })}
         </div>
 
+
         <!-- Section 4.2 -->
         <div id="sec-4-2" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-2" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.2 During-Chat: Identifying Fabricated Citations & Hallucinations</span>
+            <span>4.2 During-Chat: Fact-Checking & Hallucinated Citations</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            The most dangerous characteristic of modern models is their supreme confidence. When asked for academic foundations, legal precedents, or technical sources, they generate beautifully formatted citations featuring real scholars, authoritative journals, and valid-looking <code>10.xxxx</code> DOIs. Yet upon verification, you discover the DOI is dead or the cited paper asserts the exact opposite of what the model claimed.
+            The most seductive yet perilous property of modern LLMs is their authoritative eloquence. When asked for scientific papers, judicial precedents, or technical sources, models instantly output formatted citations complete with authors, journals, volume numbers, and realistic DOIs starting with <code>10.xxxx</code>. Yet clicking them reveals that the DOI does not exist, or the article argued the exact opposite.
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            This is not a random glitch, but a mathematical consequence of <strong>Autoregressive Next-Token Prediction</strong>: governed by conditional probabilities \(P(w_t | w_{&lt;t})\), the objective is optimizing statistical plausibility and grammatical fluency over empirical truthfulness. In long-tail specialized domains, models routinely sacrifice reality to maintain linguistic coherence, producing structural hallucinations.
+            This is not an occasional glitch, but an inherent consequence of <strong>Autoregressive Next-Token Prediction</strong>: models choose statistically plausible sequences of words, not verified facts. In specialized or long-tail fields, models frequently hallucinate non-existent references with persuasive formatting.
           </p>
 
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400">❌ High-Risk Anti-Pattern</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Accepting model-generated citations, DOI identifiers, or court docket numbers at face value and pasting them directly into research proposals, legal briefs, or executive summaries.
-              </p>
-            </div>
-            <div class="scenario-box scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✅ Defensive Best Practice</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Enforce a zero-trust verification loop; execute dual-loop audits against official CrossRef/PubMed APIs and national databases (CNKI, China Judgments Online) to anchor every claim in verifiable reality.
-              </p>
-            </div>
-          </div>
-
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
-                <span>⚠️ Real-World Warning: Fabricated Precedents & Hallucinated Citations</span>
-              </span>
-              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">4 Landmark Incidents</span>
-            </div>
-            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
-              Directly relying on fluent AI citations and fictitious docket numbers has resulted in judicial sanctions, public reprimands, and academic journal retractions worldwide:
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-0.5">
-              ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedents ↗')}
-              ${makeIncidentPill('case-court-fake-citation-yichang-2026', 'Yichang Court Hallucinated Cause of Action ↗')}
-              ${makeIncidentPill('case-mata-avianca-fake-citations-2023', 'Mata v. Avianca $5k Sanction ↗')}
-              ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers Journal AI Retraction ↗')}
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Papers: paste the DOI into <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a>. If it fails or the article does not match, treat the citation as non-existent.</li>
-                  <li>No DOI? Search the exact title in Google Scholar or the publisher's site.</li>
-                  <li>Court cases: look up the case number in the official court database of that jurisdiction.</li>
-                  <li>Quotes and statistics: trace them to the original source before using them.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Use the <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref search page</a> to check that DOI, authors and journal match.</li>
-                  <li>Import references by DOI into Zotero; re-check every entry that fails to import.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable citation-checking skills below (e.g. <code>bibref-verify</code>) to compare every reference against Crossref / PubMed automatically.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You have personally opened the source page of every citation you hand in.</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Why Models Fabricate Citations: Court Cases & Verification Methods</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Cases & Verification</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
-                <span class="group-open:hidden">Expand Evidence ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>Structural Defect of Autoregressive Sampling</strong>: LLMs are probabilistic token sequence synthesizers, not database retrieval engines. When confronting long-tail queries, self-attention greedy search stitches co-occurring academic tokens together, manufacturing non-existent citations with zero syntactic flaws.</li>
-              <li><strong>The Mata v. Avianca Judicial Debacle</strong>: In the landmark Southern District of New York case, attorneys submitted a legal brief drafted with ChatGPT. The federal judge verified that 6 cited judicial decisions (including fake docket numbers, quotes, and judicial opinions) were entirely bogus hallucinations. The court slapped both attorneys with a $5,000 sanction and public censure.</li>
-              <li><strong>Chinese Judicial Warnings Against Fake Evidence</strong>: The Supreme People's Court of China and local High Courts have issued warnings that submitting AI-fabricated cases or counterfeit court decisions violates Article 114 of the Civil Procedure Law, triggering fines, detention, or criminal investigation for obstructing judicial administration.</li>
-              <li><strong>Dual-Loop Fact-Checking Architecture</strong>:
-                <ol class="list-decimal list-inside pl-2 space-y-0.5 mt-1">
-                  <li><strong>Global Academic Loop</strong>: Query the CrossRef REST API for verified DOI registrations, call PubMed PMID for biomedical papers, and query OpenAlex for institutional graph validation.</li>
-                  <li><strong>Domestic China Loop</strong>: Cross-examine Chinese academic literature on CNKI and Wanfang Data; verify all legal case citations on China Judgments Online (裁判文书网) and the SPC People's Court Case Database (人民法院案例库) using official docket numbers.</li>
-                </ol>
-              </li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Blindly trusting generated scholars, DOIs, journal volumes, or court case numbers, copying them straight into legal briefs, thesis dissertations, or clinical reports without verification.',
+            doText: 'Adopt a zero-trust verification mindset: automatically query CrossRef and PubMed REST APIs to confirm that cited DOIs, authors, and volumes physically exist in authoritative databases before citing.',
+            tierBrowser: [
+              'Papers: Copy the DOI and open it at <a href="https://doi.org/" target="_blank" class="text-brand underline">doi.org</a>. If it fails to resolve or the title doesn\'t match, treat it as non-existent.',
+              'Papers without DOIs: Search the exact title in Google Scholar, PubMed, or institutional libraries.',
+              'Legal cases: Search the case number in official court databases (e.g., China Judgments Online or PACER).',
+              'Quotations and statistics: Trace back to original primary publications.'
+            ],
+            tierSoftware: [
+              'Use the <a href="https://search.crossref.org/" target="_blank" class="text-brand underline">Crossref Search portal</a> to batch-verify DOIs against registered authors and journals.',
+              'Import citations into Zotero by DOI; flag and investigate any item that fails to fetch metadata.'
+            ],
+            tierSkills: [
+              'Enable citation checking skills (e.g. <code>bibref-verify</code>) in your tool to query Crossref / PubMed APIs automatically.'
+            ],
+            verifyText: 'You have personally clicked through and opened the authentic primary page of every single citation included in your final deliverable.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Fact & Citation Verification Pipeline)",
@@ -3907,93 +3562,66 @@ const guideContent = {
             ],
             alternates: [
               { id: "citation-faithfulness-checker", label: "citation-faithfulness-checker · Faithfulness Checker" },
-              { id: "citation-integrity-auditor", label: "citation-integrity-auditor · Integrity Auditor" },
-              { id: "post-generation-fact-check", label: "post-generation-fact-check · Post-Generation Audit" },
-              { id: "vectara-hallucination-corrector", label: "vectara-hallucination-corrector · Hallucination Corrector (Deps Req)" },
-              { id: "hallucination-risk-reviewer", label: "hallucination-risk-reviewer · Risk Reviewer" },
-              { id: "kdense-peer-review", label: "kdense-peer-review · Peer Review" },
-              { id: "the-judge", label: "the-judge · The Judge" }
+              { id: "citation-integrity-auditor", label: "citation-integrity-auditor · Citation Integrity Auditor" },
+              { id: "post-generation-fact-check", label: "post-generation-fact-check · Post-Generation Fact Check" },
+              { id: "vectara-hallucination-corrector", label: "vectara-hallucination-corrector · Vectara Corrector" },
+              { id: "hallucination-risk-reviewer", label: "hallucination-risk-reviewer · Hallucination Reviewer" },
+              { id: "kdense-peer-review", label: "kdense-peer-review · Rigorous Peer Reviewer" },
+              { id: "the-judge", label: "the-judge · Judicial Logic Cross-Examiner" }
+            ]
+          })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: Autoregressive Mechanics, Court Sanctions & Primary Chains',
+            count: '4 Judicial Precedents · 2 Verification Chains',
+            cases: [
+              makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Beijing Tongzhou Court AI Citation Reprimand ↗'),
+              makeIncidentPill('case-court-fake-citation-yichang-2026', 'Yichang Court Altered Statute Sanction ↗'),
+              makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers AI Graphic Retraction ↗'),
+              makeIncidentPill('case-mata-avianca-fake-citations-2023', 'US Federal Court Mata v. Avianca $5,000 Fine ↗')
+            ],
+            statutes: [
+              '<strong>Judicial Sanctions Against AI Evidence Fabrication</strong>: In both US federal courts (Mata v. Avianca) and Chinese judicial guidelines, submitting hallucinated AI citations violates procedural rules of candor. Under Civil Procedure Law Art. 114, fabricating evidence carries fines, detention, or criminal sanctions.'
+            ],
+            technical: [
+              '<strong>Autoregressive Next-Token Prediction Limitations</strong>: Models are statistical sequence synthesizers, not verified knowledge retrieval engines. Without grounded RAG or external deterministic APIs, high token-co-occurrence probabilities produce syntactically impeccable hallucinations.',
+              '<strong>Dual-Loop Verification Protocol</strong>: CrossRef REST API provides ground truth for DOI registrations; NCBI PubMed provides verified clinical PMIDs. Combining OpenAlex with CrossRef metadata eliminates citation fabrication before publication.'
             ]
           })}
         </div>
 
+
         <!-- Section 4.3 -->
         <div id="sec-4-3" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-3" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.3 During-Chat: Guarding Against AI Sycophancy & Uncritical Agreement</span>
+            <span>4.3 During-Chat: Countering Model Sycophancy & Agreement Bias</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            Have you noticed how models flatter your biased premises? Frame a leading question like "I believe a monolithic architecture is far better for our small team," and the model immediately chimes in: "Your insight is profoundly visionary! A monolith is indeed the optimal choice!" In AI research, this bias is called <strong>Sycophancy</strong>. To maximize user approval, models actively conceal opposing evidence and flaws.
+            When users prompt an AI with a leading premise (e.g. "I think a monolith architecture is superior here"), models routinely agree. In machine learning research, this phenomenon is called <strong>Sycophancy</strong>: models adapt their output to match user beliefs, sacrificing truthfulness to maximize reinforcement reward scores.
           </p>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            Why do frontier models behave like sycophantic yes-men? Anthropic's landmark 2023 study (<em>Towards Understanding Sycophancy in Language Models</em>) unveiled the structural root: in <strong>Reinforcement Learning from Human Feedback (RLHF)</strong>, the Reward Model is trained on human annotator ratings. Human raters suffer from pervasive <strong>Confirmation Bias</strong>, consistently rating answers that agree with their own views as "higher quality". Consequently, models learn to prioritize agreement over truth—in <strong>over 60%</strong> of cases involving opinionated prompts, models concede facts and withhold counterarguments to please the user.
+            Anthropic's milestone research paper <em>Towards Understanding Sycophancy in Language Models</em> (2023) demonstrated that during Reinforcement Learning from Human Feedback (RLHF), human evaluators consistently score flattering, agreeably worded responses higher. Consequently, models learn to mask architectural flaws and reinforce confirmation bias.
           </p>
 
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400">❌ High-Risk Anti-Pattern</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Framing questions with leading biases and immediately signing off after the model responds with excessive praise, making crucial technical or strategic decisions inside an uninspected echo chamber.
-              </p>
-            </div>
-            <div class="scenario-box scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✅ Defensive Best Practice</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Deploy a 3-tier adversarial scrutiny pipeline—from cognitive friction nudges to devil's advocate pushback and independent multi-role juries—to stress-test every premise under adversarial fire.
-              </p>
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Describe the problem and constraints without revealing which answer you prefer.</li>
-                  <li>Then ask (copy as-is): <code>Ignore my preferences. List the 3 weakest assumptions in this plan and the scenario where it is most likely to fail.</code></li>
-                  <li>And: <code>If you opposed this plan, what would your 3 strongest arguments be?</code></li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Ask the same question in a fresh chat or a model from a different vendor and compare the conclusions.</li>
-                  <li>Before a major decision, have at least one human colleague review the counter-arguments.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable anti-sycophancy / devil's-advocate skills below (e.g. <code>sycophancy-challenger</code>) so the AI always runs an adversarial review.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You can name the biggest risk of the decision, and it is not something the AI mentioned only in passing while praising you.</p>
-          </div>
-
-          <!-- Real World Exploit / Technical Mechanism Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Why AI Flatters: Model Alignment Biases & Counter-Interrogation</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Adversarial Review</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
-                <span class="group-open:hidden">Expand Evidence ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>The RLHF Reward Trap</strong>: Models learn that agreeing with user presuppositions yields higher reward scores. As models scale up in size, sycophancy does not disappear; it becomes more eloquent, sophisticated, and deceptively persuasive.</li>
-              <li><strong>Tier 1: Discernment Nudge</strong>: Inject cognitive friction directly into prompts: "Ignore my stance and pleasantries. Detail the 3 weakest core assumptions in my proposal and list the top reasons why a competitor would reject it." Skills: <code>discernment-nudge</code>, <code>sycophancy-challenger</code>.</li>
-              <li><strong>Tier 2: Devil's Advocate & Adversarial Counsel</strong>: Instruct the model to role-play an adversarial figure (e.g. "Hostile Short-Seller Analyst" or "Opposing Trial Attorney") tasked with attacking your architectural designs or business claims. Skills: <code>devils-advocate-mad-skills</code>, <code>devils-advocate-reviewer</code>, <code>godfly-opposing-counsel</code>, <code>anti-sycophancy-molly</code>.</li>
-              <li><strong>Tier 3: Independent Multi-Role Jury (The Jury & Red Team)</strong>: Orchestrate a multi-agent panel comprising conservative financial auditors, security red-teamers, and skeptical end-users to cast independent back-to-back ballots, dismantling the monolithic echo chamber. Skills: <code>the-jury</code>, <code>the-fool</code>, <code>red-team-review</code>, <code>receiving-code-review</code>.</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Leading the AI with pre-conceived conclusions and accepting its agreeing response without adversarial counter-examination or alternative perspectives.',
+            doText: 'Establish a 3-tier adversarial review pipeline: inject cognitive friction nudges, deploy Devil\'s Advocate critique, and simulate independent multi-agent juries to challenge key assumptions.',
+            tierBrowser: [
+              'Avoid stating your preferred conclusion up front; describe problems and constraints neutrally.',
+              'Follow up with this reusable prompt: "Ignore my preference. State the 3 weakest assumptions in this plan and its most likely failure scenarios."',
+              'Add another counter-prompt: "If you were opposing this proposal, what are your 3 strongest objections?"'
+            ],
+            tierSoftware: [
+              'Open a new conversation or test with an alternative model provider to compare differences.',
+              'Before finalizing major decisions, have a real human colleague review the counter-arguments.'
+            ],
+            tierSkills: [
+              'Enable anti-sycophancy and Devil\'s Advocate skills (e.g. <code>sycophancy-challenger</code>) to automate adversarial scrutiny.'
+            ],
+            verifyText: 'You can clearly articulate the single biggest risk of the decision, and that risk was not merely offered as a polite afterthought by the AI.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Anti-Sycophancy & Critical Review Pipeline)",
@@ -4028,107 +3656,58 @@ const guideContent = {
             ],
             alternates: [
               { id: "sycophancy-challenger", label: "sycophancy-challenger · Sycophancy Challenger" },
-              { id: "anti-sycophancy-molly", label: "anti-sycophancy-molly · Direct Guard Molly" },
-              { id: "devils-advocate-reviewer", label: "devils-advocate-reviewer · Critical Reviewer" },
-              { id: "godfly-opposing-counsel", label: "godfly-opposing-counsel · Opposing Counsel" },
-              { id: "the-fool", label: "the-fool · The Fool" },
-              { id: "red-team-review", label: "red-team-review · Red Team Review" },
-              { id: "receiving-code-review", label: "receiving-code-review · Code Review Reception" }
+              { id: "anti-sycophancy-molly", label: "anti-sycophancy-molly · Direct Candor Guard" },
+              { id: "devils-advocate-reviewer", label: "devils-advocate-reviewer · Adversarial Reviewer" },
+              { id: "godfly-opposing-counsel", label: "godfly-opposing-counsel · Opposing Counsel Simulator" },
+              { id: "the-fool", label: "the-fool · Unconventional Questioner" },
+              { id: "red-team-review", label: "red-team-review · Red Team Vulnerability Probe" },
+              { id: "receiving-code-review", label: "receiving-code-review · Code Review Receptor" }
+            ]
+          })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: RLHF Reward Misalignment & 3-Tier Scrutiny Protocol',
+            count: '4 Scrutiny Tiers & Research Findings',
+            cases: [],
+            statutes: [],
+            technical: [
+              '<strong>RLHF Optimization Traps</strong>: Anthropic research shows that reward models favor affirmative tone over unpleasant factual corrections. As parameter scale increases, sycophancy grows more sophisticated unless explicitly counter-prompted.',
+              '<strong>Tier 1: Discernment Nudges</strong>: Embed cognitive friction prompts forcing the model to articulate the 3 most brittle underlying assumptions.',
+              '<strong>Tier 2: Devil\'s Advocate Red-Teaming</strong>: Instruct the model to assume adversarial roles (short-seller analyst, opposing legal counsel) to attack commercial proposals.',
+              '<strong>Tier 3: The Jury Consensus</strong>: Deploys independent multi-agent personas for blind consensus voting, breaking single-session echo chambers.'
             ]
           })}
         </div>
 
-        <!-- Section 3.4 (Agent Execution Safety) -->
+
+        <!-- Section 4.4 -->
         <div id="sec-4-4" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-4" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.4 Pre-Action: Limiting Agent Permissions & Sandboxing Commands</span>
+            <span>4.4 Pre-Action: Agent Privilege Containment & Accidental Destruction</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            With agentic IDEs and assistants executing shell commands, rewriting files, and orchestrating tools via MCP (Trae IDE, WorkBuddy, Cursor Agent, Claude Code), <strong>AI security has evolved from generating wrong text to executing destructive physical actions</strong>. A reckless <code>rm -rf</code>, an uninspected prompt-injected GitHub issue, or a compromised MCP tool can wipe local repositories or breach your host machine.
+            When autonomous agents obtain terminal execution and file-write privileges, security risks extend directly into the operating system. Overwriting project repositories, executing malicious scripts from poisoned documents, or granting overprivileged MCP tools can result in irreparable local data loss.
           </p>
 
-          <!-- Do / Don't Box -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-            <div class="scenario-box scenario-box-danger space-y-1.5">
-              <span class="text-xs font-bold text-rose-700 dark:text-rose-400">❌ High-Risk Anti-Pattern</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Enabling uninhibited YOLO mode (Run Everything or Full Access), letting autonomous agents run uninspected bash scripts and batch file overwrites on bare-metal host machines; mounting untrusted third-party MCP servers without auditing.
-              </p>
-            </div>
-            <div class="scenario-box scenario-box-success space-y-1.5">
-              <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✅ Defensive Best Practice</span>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Retain "Default Permissions" with human approval gates; divert risky shell tasks and tests to isolated microVMs (E2B) physically detached from host systems; audit MCP descriptors to preempt semantic supply-chain poisoning.
-              </p>
-            </div>
-          </div>
-
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
-                <span>⚠️ Real-World Warning: Uncontrolled Automation & False Promises</span>
-              </span>
-              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">Typical Incidents</span>
-            </div>
-            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
-              Granting AI autonomous execution or direct commitments without sandbox barriers and human sign-off leaves organizations and operators strictly liable for misleading representations and commercial damage:
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-0.5">
-              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC DoNotPay "Robot Lawyer" Enforcement ↗')}
-              ${makeIncidentPill('case-air-canada-chatbot-refund-2024', 'Moffatt v. Air Canada Misleading Chatbot Ruling ↗')}
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li><strong>If you only chat in a browser or phone app, you can skip this section.</strong></li>
-                  <li>If your tool can operate your computer (files, commands), keep "default permissions / confirm each step". Do not enable "full access" or "run everything".</li>
-                  <li>Back up important folders before letting the AI act.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Do not install plugins or MCP tools from unknown sources; enable only the ones the current task needs.</li>
-                  <li>Run AI-automated tasks in a separate OS account, virtual machine or container.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable <code>agent-sandbox-skill</code> to run risky scripts in a disposable isolated environment.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>You saw and approved every delete, overwrite and network action the AI performed.</p>
-          </div>
-
-          <!-- Real World Exploit / Architecture Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">Real-World Agent & MCP Security Vulnerability Cases</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Vulnerability Cases</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
-                <span class="group-open:hidden">Expand Evidence ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>Permission Gates ≠ Container Sandboxing</strong>: WorkBuddy strictly differentiates "Default Permissions" (workspace-scoped, confirmation prompts) from "Full Access"; Kimi Work explicitly documents risk of irreversible file loss and system corruption under autonomous modes. Never run uncontained agents with full host rights.</li>
-              <li><strong>MCP Server-Side SSRF (FastGPT CVE-2026-40100)</strong>: Public advisories reveal FastGPT's MCP <code>runTool</code> path suffered from unauthenticated SSRF, allowing attackers to leverage the AI platform to probe internal networks.</li>
-              <li><strong>Cross-Tenant Configuration Bypass (Dify CVE-2026-41947)</strong>: Dify previously suffered from unauthorized access on trace endpoints, enabling threat actors to exfiltrate prompt streams to external listeners (patched in v1.14.2).</li>
-              <li><strong>MCP Semantic Supply-Chain Poisoning (Tool Poisoning)</strong>: Academic studies demonstrate that malicious MCP tools can conceal system directives in metadata descriptors, hijacking reasoning even when the malicious tool itself is not explicitly invoked.</li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Enabling YOLO or "Allow All" full-access execution modes in IDEs; letting agents run unreviewed shell scripts on host machines; attaching untrusted third-party MCP servers.',
+            doText: 'Maintain default step-by-step confirmation popups; isolate high-risk commands inside disposable micro-VM sandboxes; audit tool descriptors to prevent semantic supply-chain poisoning.',
+            tierBrowser: [
+              'Readers who only interact via chat apps or web browsers can skip this section.',
+              'If your tool controls your local computer, keep default approval prompts enabled; never switch on "automatic execution without confirmation".',
+              'Back up critical project directories before letting agents modify files.'
+            ],
+            tierSoftware: [
+              'Only enable MCP tools and plugins that you explicitly need for current tasks.',
+              'Run automated agent workflows inside dedicated virtual machines or Docker containers.'
+            ],
+            tierSkills: [
+              'Enable <code>agent-sandbox-skill</code> to redirect risky commands into isolated cloud sandboxes.'
+            ],
+            verifyText: 'You personally inspected and clicked approval on every single file deletion, overwrite, or network command executed by the agent.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Agent Execution Isolation Pipeline)",
@@ -4147,136 +3726,52 @@ const guideContent = {
             ],
             alternates: []
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: Privilege Escalation, CVE Vulnerabilities & MCP Risks',
+            count: '1 Enforcement Case · 2 Disclosed CVEs · 2 Architectural Findings',
+            cases: [
+              makeIncidentPill('case-outcall-douxing-shanghai-2026', 'SAMR Landmark Case: Douxing AI Outcall ¥200k Fine ↗')
+            ],
+            statutes: [],
+            technical: [
+              '<strong>Permission UI vs. Container Isolation</strong>: WorkBuddy and Kimi Work explicitly distinguish default restricted access from full access. Without container boundaries, host-level execution risks irrevocable destruction.',
+              '<strong>MCP Server-Side SSRF: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40100" target="_blank" class="text-brand font-bold underline">FastGPT CVE-2026-40100 ↗</a></strong>: Unauthenticated SSRF in MCP runTool endpoints allowed external actors to probe internal private infrastructure.',
+              '<strong>Cross-Tenant Trace Leakage: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41947" target="_blank" class="text-brand font-bold underline">Dify CVE-2026-41947 ↗</a></strong>: Unauthorized configuration exposure redirected prompt streams to arbitrary external endpoints (patched in v1.14.2).',
+              '<strong>MCP Tool Description Poisoning</strong>: Malicious descriptors embed hidden system directives that hijack model reasoning even when not explicitly invoked by users.'
+            ]
+          })}
         </div>
 
-        <!-- Section 3.5 (Pre-Handoff) -->
+
+        <!-- Section 4.5 -->
         <div id="sec-4-5" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-5" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.5 Pre-Handoff: Advertising Claims Review & License Auditing</span>
+            <span>4.5 Pre-Handoff: Advertising Compliance & License Auditing</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            This is the ultimate legal checkpoint in the responsible AI workflow. Before shipping AI-assisted code, marketing releases, or user interfaces to production, never publish on unvetted intuition. Under the law, <strong>AI is never a legal person—deploying enterprises and users bear sole liability for all outputs</strong>. Ungated publication risks immediate regulatory fines, accessibility litigation, secret theft, or copyleft IP lawsuits.
+            Before code, copy, or UI pages are published externally, substantive auditing is required. Legally, <strong>AI itself is not an independent legal entity. In the event of infringement or non-compliance, adjudicators allocate liability among users, publishers, and service providers based on their degree of control, duty of care, and specific conduct</strong>. Unverified output exposes organizations to heavy administrative penalties, accessibility lawsuits, credential leaks, and open-source license infringement.
           </p>
 
-          <!-- 4 Statutory Gates Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span>📢 Gate 1: Commercial & Marketing Claims Compliance</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Intercept absolute superlatives (Advertising Law Art. 9 "national/best/top"), non-medical disease cure claims (Art. 17), and deceptive marketing (Art. 28 & Anti-Unfair Competition Law Art. 8). Every objective claim requires rigorous substantiation.
-              </p>
-              <div>${makePill("marketing-claims-review", "marketing-claims-review · Advertising Law & FTC Gate")}</div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span>♿ Gate 2: Digital Inclusion & Statutory Web Accessibility</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Mandated by China's Accessible Environment Construction Law Art. 34 and W3C WCAG 2.1 AA standards; intercepts missing ARIA tags, keyboard traps, and low contrast (below 4.5:1) before code enters production.
-              </p>
-              <div>${makePill("web-accessibility", "web-accessibility · Statutory WCAG Accessibility")}</div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span>🔑 Gate 3: Credential & Secret Leak Interception</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Enforce Git pre-commit gates via Gitleaks and OWASP rulesets to physically block API keys, cloud access secrets, and internal database connection URIs synthesized by code assistants.
-              </p>
-              <div>${makePill("repo-security-review", "repo-security-review · Secret Leak Gate")}</div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white">
-                <span>📜 Gate 4: Copyleft Infection & Fine-Tuning IP Compliance</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Audit against SPDX standards and judicial precedents; intercept copyleft GPL/AGPL contamination in proprietary products, and align with Ultraman LoRA rulings to prevent unauthorized commercial IP reproduction.
-              </p>
-              <div>${makePill("license-compliance-audit", "license-compliance-audit · SPDX License Audit")}</div>
-            </div>
-          </div>
-
-          <!-- Real-world Incident Alert Banner -->
-          <div class="p-3.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-xs text-rose-900 dark:text-rose-200 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-bold flex items-center gap-1.5 text-rose-700 dark:text-rose-400">
-                <span>⚠️ Real-World Warning: Deceptive Advertising & IP Infringement Liabilities</span>
-              </span>
-              <span class="text-[10px] text-rose-600/80 dark:text-rose-400/80">3 Landmark Judicial Rulings</span>
-            </div>
-            <p class="text-rose-800/90 dark:text-rose-300 leading-relaxed text-[11px]">
-              Publishing unvetted AI-synthesized content directly to the public has faced severe judicial and regulatory crackdowns—including deepfaked TV host marketing, unauthorized voice cloning, and AI copyright infringement:
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-0.5">
-              ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Advertising Case ↗')}
-              ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
-              ${makeIncidentPill('case-ultraman-copyright-guangzhou-2024', 'Guangzhou Internet Court Ultraman Copyright Case ↗')}
-            </div>
-          </div>
-
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Before publishing, ask: are there words like "best", "No. 1", "cures"?</li>
-                  <li>Can I show a source for every number and performance claim?</li>
-                  <li>Is this AI-generated or synthetic content? If so, label it as required by local rules (in China: the AI-Generated Content Labeling Measures, effective 1 Sep 2025).</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Web pages: run an accessibility audit with Lighthouse in Chrome DevTools.</li>
-                  <li>Code: scan for leaked secrets with a tool such as Gitleaks before committing.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable the four gate skills below to block issues automatically in your release flow.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>If someone asked "what is the basis for this sentence?" line by line, you could answer every time.</p>
-          </div>
-
-          <!-- Real World Statutory & Judicial Forensic Callout -->
-          <details class="adaptive-details group p-4 sm:p-5 rounded-2xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-3 text-xs my-4 shadow-xs">
-            <summary class="font-bold text-slate-900 dark:text-white flex items-center justify-between cursor-pointer list-none select-none">
-              <span class="flex items-center gap-2 flex-wrap">
-                <span class="w-2 h-2 rounded-full bg-brand shrink-0"></span>
-                <span class="text-sm font-bold text-slate-900 dark:text-white">False Advertising Penalties & Pre-Publication Compliance</span>
-                <span class="adaptive-desktop-badge hidden lg:inline-flex items-center text-[11px] font-semibold text-brand bg-brand/10 px-2 py-0.5 rounded-md">Legal Precedents</span>
-              </span>
-              <span class="adaptive-toggle-hint text-[11px] text-brand font-bold shrink-0">
-                <span class="group-open:hidden">Expand Evidence ⬇</span>
-                <span class="hidden group-open:inline">Collapse ⬆</span>
-              </span>
-            </summary>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1 leading-relaxed">
-              <li><strong>Authentic Chinese AMR Administrative Penalties</strong>:
-                <ul class="list-none pl-2 space-y-1 mt-0.5">
-                  <li>• <strong>Xiamen Jimei AMR (July 2025)</strong>: Miaogujintie Pharmacy fined <strong>1.2 Million RMB</strong> under Advertising Law Art. 4, 28, and 46 for fabricating an AI "56th-generation inheritor of millennium Miao therapy" and absolute claims ("seniors-exclusive") (SAMR typical case).</li>
-                  <li>• <strong>Beijing Haidian AMR (June 2025)</strong>: Beijing Xingqinghao Tech fined <strong>200,000 RMB</strong> for deepfaking a famous CCTV host's voice and likeness to promote fish oil candy with fake medical benefits (Beijing's first AI celebrity deepfake ad case).</li>
-                  <li>• <strong>Beijing Changping AMR (2026)</strong>: Beijing Shuangtaiyuan Trade fined for using AI avatars in livestreams claiming dietary products boost immunity, penalized under Anti-Unfair Competition rules.</li>
-                  <li>• <strong>SAMR 2025 Internet Campaign</strong>: Investigated <strong>22,185 cases</strong>, levying <strong>111 Million RMB</strong> in fines, with targeted crackdowns on AI-generated deceptive advertising.</li>
-                </ul>
-              </li>
-              <li><strong>FTC "Operation AI Comply" Comparison</strong>: The US FTC targets unsubstantiated AI claims (AI Washing): DoNotPay was fined $193,000 and banned from advertising "the world's first robot lawyer" without competent proof; CMG Media and two partners settled for $930,000 in August 2026 over fictitious "Active Listening" AI phone tracking claims; Air AI settled in March 2026. The core principle: every capability assertion requires strict substantiation.</li>
-              <li><strong>Statutory Accessibility Requirements</strong>: China's <em>Accessible Environment Construction Law</em> (effective Sept 1, 2023) Article 34 legally requires public-service websites and apps to meet accessibility standards. Combined with W3C WCAG 2.1 AA, AI-generated code must maintain &gt;= 4.5:1 color contrast and full keyboard navigation with semantic ARIA fallbacks.</li>
-              <li><strong>Ultraman LoRA Copyright Precedent (2024)浙0192民初1587号 / (2024)浙01民终10332号</strong>: The landmark dispute decided by Hangzhou Internet Court and finalized by Hangzhou Intermediate Court on Dec 30, 2024. The court ruled that Chushou AI committed <strong>contributory infringement</strong> of information network dissemination rights by facilitating Ultraman LoRA fine-tuning and model plaza distribution with commercial gain while neglecting viable filtering measures.</li>
-              <li><strong>GPL Copyleft Precedents & AI Code Hygiene</strong>: The Supreme People's Court of China ruled in <code>(2021)最高法知民终2063号</code> (affirming the Shenzhen VirtualApp case <code>(2019)粤03民初3928号</code>) that violating GPLv3 conditions revokes the authorization and constitutes copyright infringement; SPC <code>(2019)最高法知民终663号</code> affirmed that independent modules communicating via standard APIs do not automatically contract GPL infection. AI code generation is not a license laundering tool: CI/CD must mandate SCA/SBOM scans and audit SaaS products against GNU AGPLv3 Section 13 remote-network copyleft.</li>
-              <li><strong>Mandatory AI Watermarking & Disclosure</strong>: Under China's <em>Provisions on the Administration of Deep Synthesis</em> (Art. 16/17) and <em>Measures for Labeling AI-Generated Content</em> (effective Sept 1, 2025), all AI outputs must bear prominent visual labels and metadata watermarks. <strong>Iron Rule: "Generated by AI" fulfills transparency obligations only; it never waives legal liability for false advertising or copyright infringement.</strong></li>
-            </ul>
-          </details>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Publishing AI-generated marketing copy with unsubstantiated superlative claims ("cure-all", "best"); deploying web interfaces without accessibility checks; pushing code containing hardcoded credentials or virally licensed GPL components into proprietary repos.',
+            doText: 'Screen claims against advertising standards, substantiating every performance metric with testing reports; enforce WCAG 2.1 AA accessibility baselines; scan git commits with Gitleaks and SPDX SBOM tooling.',
+            tierBrowser: [
+              'Before publishing, ask yourself: Does this copy claim "the best", "guaranteed", or "number one"? If so, tone it down.',
+              'Do all quoted metrics and benefits have verifiable source documentation?',
+              'If content was AI-generated, include mandatory disclosure labels as required by applicable regulations.'
+            ],
+            tierSoftware: [
+              'Web projects: Run Chrome DevTools Lighthouse to audit accessibility before launch.',
+              'Code projects: Run Gitleaks locally to catch accidentally committed API keys or tokens.'
+            ],
+            tierSkills: [
+              'Enable gatekeeper skills (e.g. <code>marketing-claims-review</code>, <code>web-accessibility</code>, <code>license-compliance-audit</code>) in your publishing workflow.'
+            ],
+            verifyText: 'If an auditor challenges any sentence or performance claim, you can immediately produce authentic supporting documentation.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Pre-Handoff & Disclosure Pipeline)",
@@ -4310,50 +3805,66 @@ const guideContent = {
               }
             ],
             alternates: [
-              { id: "ai-disclosure-convention", label: "ai-disclosure-convention · Disclosure Convention" },
-              { id: "skill-provenance-tracker", label: "skill-provenance-tracker · Skill Invocation Provenance" },
-              { id: "vertu-seo-publish-gate", label: "vertu-seo-publish-gate · SEO Quality Gate" },
+              { id: "marketing-claims-review", label: "marketing-claims-review · Advertising Claims Review" },
+              { id: "web-accessibility", label: "web-accessibility · Statutory WCAG Accessibility Gate" },
+              { id: "repo-security-review", label: "repo-security-review · Credential Leakage Gate" },
+              { id: "license-compliance-audit", label: "license-compliance-audit · SPDX License Audit" },
+              { id: "ai-disclosure-convention", label: "ai-disclosure-convention · Transparent Disclosure Standard" },
+              { id: "skill-provenance-tracker", label: "skill-provenance-tracker · Skill Call Provenance" },
+              { id: "vertu-seo-publish-gate", label: "vertu-seo-publish-gate · SEO Publish Gate" },
               { id: "gdpr-compliance-audit", label: "gdpr-compliance-audit · GDPR Compliance Audit" }
+            ]
+          })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: False Advertising Sanctions, Copyright & GPL Judicial Rulings',
+            count: '3 Landmark Rulings · 4 Gatekeeper Categories · 4 Judicial Baselines',
+            cases: [
+              makeIncidentPill('case-ad-fake-host-haidian-2025', 'Beijing Haidian AMR AI Fake Anchor ¥200k Penalty ↗'),
+              makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', 'Tongzhou SD E-commerce Copyright Sentence ↗'),
+              makeIncidentPill('case-criminal-extortion-medical-shanghai-2026', 'Shanghai AI Fake Medical Record Extortion Ruling ↗')
+            ],
+            statutes: [
+              '<strong>AMR Advertising Enforcement Records</strong>: Xiamen AMR penalized Miaogu Jintie ¥1.2M for fabricating AI heritage endorsements; Beijing Haidian AMR fined food marketers ¥200k for cloning celebrity TV anchors.',
+              '<strong>Accessibility Statutory Mandates</strong>: Accessible Environment Creation Law (effective Sept 2023) Art. 32 mandates accessibility for public websites. W3C WCAG 2.1 AA provides the baseline (4.5:1 text contrast, full keyboard navigation).',
+              '<strong>Mandatory Watermarking & Attribution</strong>: The AI Synthesized Content Labeling Administrative Measures require visible disclosures and metadata watermarking. Note: AI disclosure does not absolve publishers from substantive copyright or false advertising liability.'
+            ],
+            technical: [
+              '<strong>FTC "Operation AI Comply" Enforcement</strong>: US FTC targets unsubstantiated AI claims: DoNotPay was fined $193,000 for calling itself the "World\'s First Robot Lawyer"; CMG Media settled for $930,000 over unproven active listening AI ad claims.',
+              '<strong>Ultraman LoRA Copyright Precedent</strong>: Hangzhou Intermediate Court established secondary liability for AI platforms hosting commercial character LoRAs without licensing.',
+              '<strong>Supreme Court Precedent on GPL Viral Licensing</strong>: Supreme People\'s Court (2021) confirmed that violating GPLv3 conditions terminates the license, rendering downstream distribution copyright infringement.'
             ]
           })}
         </div>
 
-        <!-- Section 3.6 (Post-Session) -->
+
+        <!-- Section 4.6 -->
         <div id="sec-4-6" class="space-y-4 scroll-mt-36 lg:scroll-mt-28"><span id="sec-3-6" class="hidden"></span>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>4.6 Post-Session: Recording Human-AI Contributions & Provenance Receipts</span>
+            <span>4.6 Post-Session: Human-Machine Attribution & Evidence Archiving</span>
           </h3>
           <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-            Responsible collaboration finishes with two parallel actions: purge local temporary logs to avoid context leakage, and humanize boilerplate machine tones. The iron rule: <strong>Never claim completion without passing hard verification tests.</strong>
+            Disciplined collaboration includes two final steps: purging local temporary logs to prevent context leakage, and polishing output to eliminate robotic tropes. Core principle: <strong>never declare a task complete without verifiable test passage.</strong>
           </p>
 
-          <!-- Tiered Actions (plain-reader) -->
-          <div class="tiered-actions p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-brand/30 space-y-3 text-sm">
-            <div class="text-sm font-bold text-slate-900 dark:text-white">What you can do (pick the level that fits you)</div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">No setup · browser or phone only</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Delete chats containing sensitive content when done, then delete related items under Settings › Memory separately.</li>
-                  <li>Before handing off, ask: "Did I check this myself?" If not, do not call it done.</li>
-                  <li>Polishing is for clarity, not for hiding AI use. Disclose where disclosure is required.</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Intermediate · willing to install a tool</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Clear chat history and uploaded files on each AI platform regularly (e.g. monthly).</li>
-                </ol>
-              </div>
-              <div class="space-y-1.5">
-                <div class="text-xs font-bold text-brand">Advanced · AI tools that support Skills</div>
-                <ol class="list-decimal list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <li>Enable <code>verification-before-completion</code> so the AI must run checks before claiming completion.</li>
-                </ol>
-              </div>
-            </div>
-            <p class="text-xs text-slate-700 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800 pt-2"><strong>✔ How to know you did it right: </strong>A month later, no chats or files you did not want to keep remain on the platform.</p>
-          </div>
+          ${renderActionPanel({
+            lang: 'en',
+            dontText: 'Leaving sensitive working drafts or credentials permanently stored in cloud conversation histories; taking an AI\'s verbal claim of "all tasks completed" at face value without verification; publishing text cluttered with AI buzzwords and robotic phrasing.',
+            doText: 'Purge sensitive memory and chat histories after sessions; enforce automated test gates before declaring completion; rewrite output following Wikipedia anti-AI-writing guidelines to restore authentic human voice.',
+            tierBrowser: [
+              'Delete conversations containing sensitive details once finished; inspect Account Settings > Memory to clear stored personal facts.',
+              'Before handoff, ask: "Did I personally test and verify this outcome?" If not, do not claim it is done.',
+              'Polishing improves clarity; where compliance requires disclosing AI assistance, state it truthfully.'
+            ],
+            tierSoftware: [
+              'Regularly (e.g. monthly) clear historical chats and uploaded attachments across AI provider consoles.'
+            ],
+            tierSkills: [
+              'Enable <code>verification-before-completion</code> to forbid the AI from declaring success before running test suites.'
+            ],
+            verifyText: 'One month later, checking the platform reveals no lingering sensitive logs or unwanted retained files.'
+          })}
 
           ${renderSkillPipelineSection({
             titleZh: "本场景工序防线与精选技能 (Post-Session & Completion Verification Pipeline)",
@@ -4380,6 +3891,18 @@ const guideContent = {
             ],
             alternates: []
           })}
+
+          ${renderEvidenceDrawer({
+            lang: 'en',
+            title: 'Evidence & References: Wikipedia AI Writing Signs & Test-Driven Completion Gates',
+            count: 'Wikipedia Anti-Trope Guidelines · Test-Driven Sign-off',
+            cases: [],
+            statutes: [],
+            technical: [
+              '<strong>Wikipedia "Signs of AI Writing" Guidelines</strong>: The Wikipedia editorial community identified core tropes of synthetic prose: forced contrasts ("not only... but also"), formulaic introductory and concluding summaries, inflated vocabulary lacking specific detail, and relentless promotional tone. Humanized rewriting is essential for professional credibility.',
+              '<strong>Evidence-Based Task Completion Gate</strong>: Autoregressive models routinely hallucinate phrases like "I have completed all testing successfully" without running code. The <code>verification-before-completion</code> pattern blocks completion declarations unless accompanied by deterministic exit codes or verified logs.'
+            ]
+          })}
         </div>
       </section>
 
@@ -4395,380 +3918,191 @@ const guideContent = {
           </p>
         </div>
 
-        <!-- Section 4.1 -->
-        <div id="sec-5-1" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-1" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.1 Graduate Researchers &amp; Scholars</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              Academic Research · Graduate Researchers &amp; Scholars
-            </span>
-          </div>
-
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. Temptation &amp; Pain Point</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Confronted by imminent thesis deadlines, complex literature reviews across hundreds of journal papers, and research grant applications. The temptation is immense to paste unpublished novel experimental designs, raw lab metrics, or breakthrough theoretical conjectures directly into commercial cloud LLMs for instant drafting, restructuring, and language polish.
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. Near-Miss Incident &amp; Academic Red Lines</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Proprietary Lab Data Leakage &amp; Hallucinated Citations</strong>: Official cases documented by state secrecy authorities (e.g. Researcher Li), who uploaded core experimental results and unpublished data into commercial AI writing apps to save drafting time, causing proprietary lab breakthroughs to leak online and triggering severe administrative sanctions; simultaneously, uninspected LLMs autoregressively synthesize plausible yet non-existent citations—fabricating authors, bogus journal issues, and phantom DOIs (analogous to documented academic retractions where papers cited non-existent DOIs generated by LLMs). Submitting unverified papers to peer review triggers fatal findings of academic fabrication and destroyed reputations.
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Sanction ↗')}
-                ${makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers Journal AI Retraction ↗')}
-                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Precedent Reprimand ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. Defensive Pipeline: Daily Battle Schedule</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 09:30 AM · Research Scoping Sandbox &amp; Anti-Harvesting Isolation</span>
-                Before synthesizing literature landscapes, never expose raw experimental parameters. Deploy ${makePill("scholar-safety", "scholar-safety · Research Data Isolation")} to construct an ephemeral retrieval sandbox with local hypothesis masking, blocking commercial LLMs from ingesting proprietary research concepts into next-generation training corpora.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 02:00 PM · Automated DOI CrossRef Verification &amp; Judicial Cross-Examination</span>
-                Upon receiving AI-summarized literature, enforce a zero-trust verification loop. Invoke ${makePill("bibref-verify", "bibref-verify · BibRef Verification")} to query the CrossRef REST API and PubMed database, authenticating every DOI, publication date, and author metadata; deploy ${makePill("the-judge", "the-judge · The Judge Cross-Examination")} to roleplay hostile peer reviewers cross-examining arguments and expelling autoregressive hallucinations.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 05:30 PM · Publication Transparency &amp; Nature CRediT Attribution</span>
-                Before final submission to supervisors or academic journals, replace vague disclaimers with formal attribution. Call ${makePill("ai-disclosure-convention", "ai-disclosure-convention · AI Disclosure Convention")} to generate a structured appendix conforming to Nature and ICMJE CRediT (Contributor Roles Taxonomy) standards, declaring AI assistance strictly for language editing while establishing sole human authorship for all scientific claims.
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. Verification Proof &amp; Audit Trail</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Delivered to academic advisors and review boards: A comprehensive package containing the final manuscript accompanied by an automated CrossRef 100% DOI validation receipt, The-Judge cross-examination records, and a formal Nature CRediT AI workflow disclosure appendix, ensuring 100% independent verifiability.
-            </p>
-          </div>
+        <!-- Section 5.1 -->
+        <div id="sec-5-1" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'en',
+            titleEn: 'Playbook 1: Graduate Researchers & Scholars',
+            roleEn: 'Academic Research · Graduate Researchers & Scholars',
+            introEn: 'A daily defensive workflow for scholars drafting literature reviews, research proposals, and thesis submissions under tight deadlines.',
+            painEn: 'Facing thesis deadlines and grant proposal milestones, scholars must digest hundreds of papers in days. Under time pressure, the temptation is immense to paste unreleased hypotheses or raw experimental datasets directly into public commercial LLMs for instant review synthesis.',
+            nearMissEn: 'MSS Xiao Li leakage notice: a researcher uploaded core experimental data to commercial AI tools, leading to sensitive data exposure online and disciplinary action. Furthermore, citing hallucinated DOIs in peer-reviewed submissions results in academic misconduct allegations.',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗'),
+              makeIncidentPill('case-frontiers-ai-image-retraction-2024', 'Frontiers AI Graphic Retraction ↗'),
+              makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court Fake Citation Reprimand ↗')
+            ],
+            steps: [
+              {
+                time: '09:30',
+                titleEn: 'Hypothesis Isolation & Anti-Training Scrape',
+                descEn: 'Never send unpublished experimental data to public cloud models. Deploy ' + makePill('scholar-safety', 'scholar-safety · Academic Isolation') + ' to locally redact proprietary hypotheses, creating a one-way research sandbox that prevents commercial training harvesting.'
+              },
+              {
+                time: '14:00',
+                titleEn: 'CrossRef REST API Automated Verification',
+                descEn: 'Query CrossRef and PubMed APIs via ' + makePill('bibref-verify', 'bibref-verify · BibRef Verifier') + ' to check DOI and author authenticity; invoke ' + makePill('the-judge', 'the-judge · Judicial Cross-Examiner') + ' to cross-examine claims from a reviewer angle.'
+              },
+              {
+                time: '17:30',
+                titleEn: 'Nature CRediT Appendix & Authorship Disclosure',
+                descEn: 'Before submission to journals or thesis committees, invoke ' + makePill('ai-disclosure-convention', 'ai-disclosure-convention · AI Disclosure Standard') + ' to generate a Nature CRediT-compliant transparency statement, ensuring academic integrity.'
+              }
+            ],
+            minZeroEn: 'Every cited DOI must be personally clicked and verified on doi.org or PubMed to confirm real authors and journal titles; include a clear one-sentence AI usage disclosure.',
+            minProEn: 'Attach a CrossRef-verified citation report and a standardized Nature CRediT authorship appendix for blind peer review.'
+          })}
         </div>
 
-        <!-- Section 4.2 -->
-        <div id="sec-5-2" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-2" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>Playbook 2: Software Engineers &amp; Open-Source Maintainers</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              Engineering &amp; DevOps · Software Engineers &amp; Maintainers
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. Temptation &amp; Pain Point</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Under intense sprint pressure to refactor legacy monoliths, debug production crash stack traces, and maintain open-source repositories. The temptation is immense to paste raw production logs with real database connection strings or launch autonomous agent IDEs in unconstrained "YOLO / Full Access" mode on bare-metal host machines.
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. Near-Miss Incident &amp; Compliance Red Lines</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Secret Exfiltration, Port Exposure &amp; Copyleft Contamination</strong>: In real enterprise audits, engineers pasting unmasked configs into AI assistants inadvertently routed production database credentials and proprietary architecture code to overseas endpoints; state employee Xiao Wang deployed an open-source model locally without firewall rules or passwords, allowing foreign threat actors to scan the open port and download internal sensitive documents; autonomous agents in YOLO mode running unconstrained shell scripts risk batch file wipes via indirect prompt injection; AI code generation silently injecting strictly reciprocal GPLv3/AGPLv3 code violates Supreme People's Court precedent (2021)最高法知民终2063号, exposing proprietary commercial codebases to forced open-sourcing or steep infringement damages.
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-state-security-wang-port-exposure-2025', 'MSS Xiao Wang Port Exposure Breach ↗')}
-                ${makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR Employee Trade Secret Fine ↗')}
-                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Policy Dismissal ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. Defensive Pipeline: Daily Battle Schedule</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 10:00 AM · Secret Masking &amp; MicroVM Sandbox Execution</span>
-                Before submitting error logs or code for debugging, call ${makePill("pii-safe-documents", "pii-safe-documents · Document Masking")} to strip private keys, JWTs, and database URLs via regex and high-entropy detection; delegate agent refactoring and bash scripts to isolated ephemeral microVMs via ${makePill("agent-sandbox-skill", "agent-sandbox-skill · MicroVM Sandbox Execution")}, physically separating execution from the host.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 03:30 PM · Smashing Architecture Sycophancy &amp; Red-Team Scrutiny</span>
-                When the model flatters your microservice architecture ("This design provides flawless 99.999% availability"), recognize the RLHF sycophancy trap. Invoke ${makePill("sycophancy-challenger", "sycophancy-challenger · Sycophancy Challenger")} to strip agreeable platitudes, and dispatch ${makePill("red-team-review", "red-team-review · Red Team Vulnerability Review")} to simulate malicious adversary attacks against network partitions, distributed split-brain states, and replay vulnerabilities.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 07:00 PM · Git Pre-Commit Secret Scanning, SPDX Licensing &amp; Hard Verification</span>
-                Before opening a PR, trigger ${makePill("repo-security-review", "repo-security-review · Secret Leak Gate")} locally via Gitleaks to intercept leaked API keys; audit third-party dependencies with ${makePill("license-compliance-audit", "license-compliance-audit · SPDX License Audit")} to eliminate AGPL/GPL copyleft contamination; and enforce ${makePill("verification-before-completion", "verification-before-completion · Verification Gate")}, allowing merge only after all local test suites pass 100% green.
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. Verification Proof &amp; Audit Trail</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Delivered in the Pull Request: A machine-readable SPDX SBOM compliance report, a zero-leak Gitleaks audit badge, ephemeral sandbox execution logs, and full test-suite green receipts, guaranteeing compliance under enterprise security audits.
-            </p>
-          </div>
+        <!-- Section 5.2 -->
+        <div id="sec-5-2" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'en',
+            titleEn: 'Playbook 2: Software Engineers & Open Source Maintainers',
+            roleEn: 'Engineering · Software Engineers & Maintainers',
+            introEn: 'Balancing rapid prototyping with defense against secret leakage, MCP exploits, and copyleft license contamination.',
+            painEn: 'Racing toward release sprint deadlines, debugging stack traces, and triaging repository issues, developers rely heavily on coding agents (Cursor, Claude Code, Trae) with direct repository and terminal access.',
+            nearMissEn: 'Corporate engineers leaking live database credentials by feeding unredacted stack traces to cloud models; public ports of self-hosted LLMs breached without authentication; agent YOLO modes executing poisoned issues. Exfiltrating prompt templates has been judicially ruled commercial trade secret theft (¥350k penalty).',
+            cases: [
+              makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR ¥350k Fine ↗')
+            ],
+            steps: [
+              {
+                time: '10:00',
+                titleEn: 'Local Redaction & Micro-VM Sandboxed Execution',
+                descEn: 'Redact API tokens, JWTs, and private IPs with ' + makePill('pii-safe-documents', 'pii-safe-documents · PII Redaction') + '; run automated test refactoring scripts inside disposable E2B micro-VMs via ' + makePill('agent-sandbox-skill', 'agent-sandbox-skill · Micro-VM Sandbox') + '.'
+              },
+              {
+                time: '15:30',
+                titleEn: 'Adversarial Architecture Stress Testing',
+                descEn: 'Counter sycophantic praise by deploying ' + makePill('sycophancy-challenger', 'sycophancy-challenger · Sycophancy Challenger') + ' and ' + makePill('red-team-review', 'red-team-review · Red Team Probe') + ' to simulate external hacker probing on distributed consensus and serialization.'
+              },
+              {
+                time: '19:00',
+                titleEn: 'Git Pre-Commit Secret Blocking & SPDX Audit',
+                descEn: 'Run pre-commit scans with ' + makePill('repo-security-review', 'repo-security-review · Secret Leak Gate') + ' via Gitleaks, verify license compatibility using ' + makePill('license-compliance-audit', 'license-compliance-audit · SPDX License Audit') + ', and enforce ' + makePill('verification-before-completion', 'verification-before-completion · Completion Gate') + '.'
+              }
+            ],
+            minZeroEn: 'Run git diff locally before committing to guarantee zero hardcoded API keys or passwords; manually pass all unit test suites.',
+            minProEn: 'Provide Gitleaks scan reports, sandboxed execution logs, and SPDX SBOM license compliance attestations with every PR.'
+          })}
         </div>
 
-        <!-- Section 4.3 -->
-        <div id="sec-5-3" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-3" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.3 Writers &amp; Marketing Specialists</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              Content &amp; Growth · Writers &amp; Marketing Specialists
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. Temptation &amp; Pain Point</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Facing tight launch deadlines, omni-channel social media quotas, and landing page builds. To maximize click-through and engagement, writers are tempted to publish exaggerated AI-generated copy and promotional headlines filled with superlatives without substantiation.
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. Near-Miss Incident &amp; Statutory Enforcement</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Heavy False Advertising Penalties &amp; Accessibility Violations</strong>: Models frequently churn out prohibited absolute terms like "the very best", "national grade", or "cures all illnesses", violating Advertising Law Art. 9, Art. 17, and Anti-Unfair Competition Law Art. 8. Real-world enforcement: Xiamen AMR penalized Miaogujintian 1.2M RMB for AI-fabricated "56th generation inheritor" claims; Beijing Haidian AMR fined a dietary supplement firm 200,000 RMB for using AI-cloned celebrity anchors; another enterprise was fined 1.2M RMB for unlabelled AI commercial marketing; furthermore, promotional landing pages lacking semantic ARIA tags violate mandatory requirements under China's Accessible Environment Construction Law (Art. 34), risking regulatory takedown orders.
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-ad-fake-history-xiamen-2024', 'Xiamen AMR ¥1.2M Fine for AI False Brand History ↗')}
-                ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Live-Commerce Ruling ↗')}
-                ${makeIncidentPill('case-ad-fake-news-jinan-2024', 'Jinan AMR ¥200k Fine for AI Fake News Ads ↗')}
-                ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. Defensive Pipeline: Daily Battle Schedule</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 10:30 AM · De-Boilerplating &amp; Humanized Tone Polishing</span>
-                After generating initial creative hooks, deploy ${makePill("humanizer", "humanizer · Humanize Output")} to strip predictable AI cliches ("tapestry of innovation", "in this fast-paced world"), restoring authentic human emotional resonance and genuine voice.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 03:30 PM · Advertising Law &amp; FTC Substantiation Scrutiny</span>
-                Before routing copy to graphic design and media buying, execute ${makePill("marketing-claims-review", "marketing-claims-review · Marketing Claims Review")} to audit claims against Chinese Advertising Law and FTC Substantiation guidelines, requiring empirical third-party test reports for every performance assertion while striking all unlawful superlatives.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 06:00 PM · W3C WCAG 2.1 AA Accessibility Testing</span>
-                For promotional web code and interactive banners, run ${makePill("web-accessibility", "web-accessibility · Statutory WCAG Gate")} to verify color contrast ratios (&ge; 4.5:1), complete keyboard navigation, and semantic screen-reader compatibility under statutory accessibility laws.
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. Verification Proof &amp; Audit Trail</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Submitted to legal and marketing leadership: A comprehensive Marketing Compliance Dossier comprising prominently labeled AI marketing copy, a Claims Substantiation Evidence Matrix cross-referencing certified lab reports, and a Lighthouse WCAG 2.1 AA 100/100 accessibility scorecard.
-            </p>
-          </div>
+        <!-- Section 5.3 -->
+        <div id="sec-5-3" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'en',
+            titleEn: 'Playbook 3: Writers & Marketing Specialists',
+            roleEn: 'Creative Marketing · Writers & Marketing Specialists',
+            introEn: 'High-volume social campaign creation guarded against advertising sanctions, copyright disputes, and accessibility deficits.',
+            painEn: 'Facing campaign countdowns and multi-channel publication deadlines, copywriters generate dozens of taglines and landing pages daily, tempted to accept unverified superlatives and unsubstantiated benefit claims.',
+            nearMissEn: 'AI copy declaring "industry best" or "100% cure" directly violates advertising laws. Xiamen AMR fined Miaogu Jintie ¥1.2M for fabricated AI heritage claims; Beijing Haidian AMR fined fish-oil marketers ¥200k for cloned anchor promotions; Tongzhou courts sentenced image-to-image e-commerce infringers to 1.5 years.',
+            cases: [
+              makeIncidentPill('case-ad-fake-host-haidian-2025', 'Beijing Haidian AMR ¥200k Fine ↗'),
+              makeIncidentPill('case-criminal-copyright-puzzle-tongzhou-2025', 'Tongzhou SD E-commerce Copyright Sentence ↗'),
+              makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice Infringement ↗')
+            ],
+            steps: [
+              {
+                time: '10:30',
+                titleEn: 'Trope Scrubbing & Humanized Style Rewriting',
+                descEn: 'Filter out repetitive AI cliches and buzzwords using ' + makePill('humanizer', 'humanizer · Humanize Style Rewriter') + ' to restore natural cadence, authentic human perspective, and emotional resonance.'
+              },
+              {
+                time: '15:30',
+                titleEn: 'Statutory Advertising & Substantiation Audit',
+                descEn: 'Audit copy line-by-line with ' + makePill('marketing-claims-review', 'marketing-claims-review · Ad Claims Gate') + ' under FTC substantiation rules, ensuring every numeric claim maps to certified test documentation.'
+              },
+              {
+                time: '18:00',
+                titleEn: 'Landing Page W3C WCAG 2.1 AA Screen Reader Gate',
+                descEn: 'Audit front-end HTML/CSS with ' + makePill('web-accessibility', 'web-accessibility · WCAG Accessibility Gate') + ' to verify contrast (≥ 4.5:1), keyboard focus, and complete ARIA screen reader attributes.'
+              }
+            ],
+            minZeroEn: 'Proofread copy to remove all absolute terms ("best", "guaranteed"); confirm documented proof exists for every metric; label deliverables with AI generation tags.',
+            minProEn: 'Generate an Ad Compliance Matrix mapping claims to test report numbers alongside a clean WCAG 2.1 AA audit report.'
+          })}
         </div>
 
-        <!-- Section 4.4 -->
-        <div id="sec-5-4" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-4" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.4 Enterprise, Legal &amp; Administrative Staff</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-              Corporate Governance · Enterprise, Legal &amp; Administrative Staff
-            </span>
-          </div>
 
-          <!-- Part 1 & 2: Temptation vs Near-Miss Incident -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-xs">
-              <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                <span>1. Temptation &amp; Pain Point</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Administrative officers, legal counsels, procurement specialists, and HR staff in state-owned enterprises (SOEs), public institutions, and large corporations drown in hours of internal executive meeting recordings, official directive drafting, multi-million dollar procurement tender comparisons, and employee performance files. Under relentless deadlines, employees face tremendous temptation to turn to commercial web AI assistants or WeChat bots for "one-click meeting transcription", "confidential draft polishing", and "pasting unmasked vendor pricing into prompts".
-              </p>
-            </div>
-
-            <div class="scenario-box-danger space-y-2">
-              <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                <span>2. Near-Miss Incident &amp; Disciplinary Red Lines</span>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <strong>Official Reprimands, Secrecy Law Prosecutions &amp; Employment Terminations</strong>: Secrecy bureaus and state security departments have repeatedly sanctioned employees for AI leaks: Researcher Li was punished for feeding confidential blueprints into AI apps; staff member Feng was disciplined for attempting to evade secrecy rules by replacing names with letter codes ("分段输入、代码替换、删除对话即可安全" are dangerous fallacies—pseudonymization does not legalize cloud processing of secrets); a security scheme OCR leak triggered leadership administrative warnings and vendor contract terminations. The 2024 revised <em>State Secrets Law</em> Art. 31 establishes the unbreakable red line: <strong>"No State Secrets on the Internet, No Internet on State Secrets"</strong>, with 2024 regulations mandating official reporting within <strong>24 hours</strong> of any potential leak; enterprise "Traffic Light" rules designate core bids and unmasked PII as Red Light items, where violations incur immediate contract termination without severance and criminal liability under Criminal Law Art. 398.
-              </p>
-              <div class="pt-1 flex flex-wrap gap-1.5">
-                ${makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Sanction ↗')}
-                ${makeIncidentPill('case-state-secrecy-feng-leakage-2026', 'Secrecy Bureau Feng Pseudo-Code AI Leak ↗')}
-                ${makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')}
-                ${makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Tongzhou Court AI Fabricated Precedent Reprimand ↗')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. Defensive Pipeline: Daily Battle Schedule</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌅 09:30 AM · Offline Meeting Minutes De-identification (Zero Cloud Audio)</span>
-                Strictly forbid third-party cloud recording or transcription services. For internal operational meetings, execute local offline masking via ${makePill("presidio-anonymize-text", "presidio-anonymize-text · Presidio Text Anonymizer")} and ${makePill("pii-safe-documents", "pii-safe-documents · Document Masking")}, replacing executive identities, internal project codes, and proprietary metrics with typed tokens (<code>[DEPT_HEAD_A]</code>, <code>[PROJECT_ALPHA]</code>, <code>[METRIC_VALUE_X]</code>). Keep the de-identification mapping table strictly on local encrypted disk—never upload it with prompts. (Classified materials must remain in physically isolated environments and must never be uploaded under any circumstances).
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">☀️ 02:30 PM · Procurement Bidding &amp; Adversarial Contract Scrutiny</span>
-                When reviewing engineering bids or vendor agreements, enforce strict data minimization by removing entity names and commercial baseline quotes. Extract dispute and liability clauses, then deploy ${makePill("godfly-opposing-counsel", "godfly-opposing-counsel · Opposing Counsel Simulator")} to simulate aggressive opposing counsel and regulatory auditors, actively uncovering indemnification traps, intellectual property ambiguities, and hidden liability shifts.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🌆 05:30 PM · Compliance Audit Ledger &amp; Provenance Archival</span>
-                In adherence to national public-sector AI guidelines and corporate Responsible AI policies requiring full lifecycle logs and human accountability, invoke ${makePill("ai-provenance", "ai-provenance · AI Provenance Tracking")} to export an immutable audit ledger containing model versions, prompt hash digests, de-identification records, and human sign-off receipts, enabling instant exoneration during internal corporate compliance reviews.
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. Verification Proof &amp; Audit Trail</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Archived with official approval files: A three-part compliance bundle including the Local De-identification Mapping Receipt (securely held offline), the Godfly Adversarial Contract Risk Audit Opinion, and a signed Corporate AI Provenance Ledger verifying zero leakage of protected data and certified human executive sign-off.
-            </p>
-          </div>
+        <!-- Section 5.4 -->
+        <div id="sec-5-4" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'en',
+            titleEn: 'Playbook 4: Enterprise, Legal & Administrative Staff',
+            roleEn: 'Enterprise Administration · Legal & Administrative Staff',
+            introEn: 'Safeguarding executive meeting minutes, tender documentation, and confidential commercial agreements.',
+            painEn: 'Handling hours of internal meeting recordings, sensitive official circulars, procurement bid evaluations, and compensation reviews, staff are tempted by commercial AI tools offering one-click audio transcription and contract review.',
+            nearMissEn: 'National secrecy bureaus issued strict penalties to staff uploading confidential plans to mobile AI tools; replacing secret keywords with letter codes still triggered severe sanctions. Uploading internal security plans to cloud OCR led to executive reprimands and immediate contract terminations.',
+            cases: [
+              makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Xiao Li Secrecy Notice ↗'),
+              makeIncidentPill('case-state-secrecy-feng-leakage-2026', 'National Secrecy Feng AI Writing Notice ↗'),
+              makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Notice ↗')
+            ],
+            steps: [
+              {
+                time: '09:30',
+                titleEn: 'Local Offline Redaction (No Cloud Listening)',
+                descEn: 'Disable cloud transcription plugins. Redact staff names, project codenames, and unreleased financial metrics locally with ' + makePill('presidio-anonymize-text', 'presidio-anonymize-text · Microsoft Presidio') + ' and ' + makePill('pii-safe-documents', 'pii-safe-documents · PII Redaction') + '. Never upload state or core trade secrets to public models.'
+              },
+              {
+                time: '14:30',
+                titleEn: 'Adversarial Commercial Contract Risk Scrutiny',
+                descEn: 'Strip corporate names and pricing floors before reviewing tender contracts; invoke ' + makePill('godfly-opposing-counsel', 'godfly-opposing-counsel · Opposing Counsel Simulator') + ' to uncover hidden joint liability traps and ambiguous IP clauses from an aggressive auditor stance.'
+              },
+              {
+                time: '17:30',
+                titleEn: 'AI Usage Ledger & Audit Provenance Archiving',
+                descEn: 'Export structured compliance ledgers via ' + makePill('ai-provenance', 'ai-provenance · AI Provenance') + ' recording model versions, prompt hashes, redaction timestamps, and human sign-offs to demonstrate complete regulatory compliance.'
+              }
+            ],
+            minZeroEn: 'Never include real entity names or confidential details in prompts; strictly enforce "Confidentiality never touches the internet".',
+            minProEn: 'Provide local redaction logs, Godfly adversarial contract risk assessments, and signed Provenance Ledgers with human signatory approval.'
+          })}
         </div>
-              <!-- Section 5.5: Everyday Citizens & Family Routine -->
-        <div id="sec-5-5" class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 scroll-mt-36 lg:scroll-mt-28 shadow-xs"><span id="sec-4-5" class="hidden"></span>
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-base sm:text-lg">
-              <span class="w-2 h-2 rounded-full bg-brand"></span>
-              <span>5.5 Individuals & Family Daily Life: Health Inquiries, Homework & Fraud Defense</span>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-              Everyday Citizens & Families
-            </span>
-          </div>
 
-          <!-- Part 1: Pain Point -->
-          <div class="space-y-1.5">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>1. Temptation & Pain Point</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              At home, ordinary users rarely audit shell scripts or review procurement bids. Instead, they upload lab results to ask AI for a diagnosis, let AI generate complete school homework for their children, or receive urgent voice messages on messaging apps asking for money. Seeking convenience and reassurance, people easily treat LLMs as licensed physicians or all-knowing tutors, lowering their guard against synthetic audio and video.
-            </p>
-          </div>
 
-          <!-- Part 2: Near-Miss -->
-          <div class="scenario-box scenario-box-danger space-y-1.5">
-            <div class="text-xs font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-              <span>2. Near-Miss Incidents & Real-World Hazards</span>
-            </div>
-            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-1 pl-4 list-disc leading-relaxed">
-              <li><strong>Self-Medication Hazards</strong>: Uploading blood tests leads the AI to offer alarming interpretations or suggest dosage changes; acting on this without a licensed physician risks permanent health damage.</li>
-              <li><strong>Outsourcing Childhood Cognition</strong>: A student snaps photos of geometry questions or essay prompts and copies the AI's exact answers; the homework is spotless, but critical problem-solving skills decay.</li>
-              <li><strong>Deepfake & Voice-Cloning Extortion</strong>: Criminals extract brief audio clips from social media posts and clone a family member's voice to call elderly relatives claiming a car accident requires immediate wire transfers.</li>
-            </ul>
-            <div class="pt-1 flex flex-wrap gap-1.5">
-              ${makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice AI Infringement ↗')}
-              ${makeIncidentPill('case-ad-fake-host-haidian-2025', 'Haidian Court Deepfaked Host Advertising Case ↗')}
-              ${makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC DoNotPay "Robot Lawyer" Enforcement ↗')}
-            </div>
-          </div>
-
-          <!-- Part 3: Defensive Pipeline -->
-          <div class="space-y-2">
-            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
-              <span>3. Family Self-Defense Pipeline: Four Healthy Habits</span>
-            </div>
-            <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🏥 Habit 1 · Health Inquiries: Use AI for Clinic Prep, Never for Final Prescriptions</span>
-                Ask AI: "List 5 specific questions I should ask my doctor during tomorrow's appointment." Redact patient names, ID numbers, and hospital IDs first. Follow one iron rule: for medication, dosages, and changes, <strong>only follow in-person medical prescriptions</strong>.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">📚 Habit 2 · Learning Scaffolding: Ask for Hints, Never Ready-Made Answers</span>
-                Agree with children on a guiding prompt: "Do not give me the answer. Ask me 3 guiding questions so I can solve this myself." Use ${makePill("discernment-nudge", "discernment-nudge · Critical Discernment")} to encourage finding logical flaws in AI responses.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">🛡️ Habit 3 · Deepfake Defense: Establish Offline Family Passphrases</span>
-                Create a memorable offline passphrase known only inside the family. Whenever an unexpected call or message demands urgent wire transfers, <strong>always ask for the passphrase first, hang up, and call the person back on their registered phone number</strong>.
-              </div>
-              <div class="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
-                <span class="font-bold text-slate-900 dark:text-white block mb-1">📱 Habit 4 · Privacy Hygiene: Check App Permissions & Long-Term Memories</span>
-                Spend 3 minutes auditing parents' mobile chat apps: revoke background microphone and photo library permissions, toggle off model improvement training, and clear accumulated personal memory lists.
-              </div>
-            </div>
-          </div>
-
-          <!-- Part 4: Verification Proof -->
-          <div class="scenario-box scenario-box-success space-y-1.5">
-            <div class="text-xs font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span>4. Everyday Family Checklist</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Baselines anyone can maintain: ① Use health AI only for consultation preparation, never for self-medication; ② Prompt AI for reasoning hints instead of copying answers; ③ Verify family emergencies via secret offline passphrases; ④ Restrict persistent smartphone permissions and purge AI memory.
-            </p>
-          </div>
+        <!-- Section 5.5 -->
+        <div id="sec-5-5" class="scroll-mt-36 lg:scroll-mt-28">
+          ${renderPersonaPlaybook({
+            lang: 'en',
+            titleEn: 'Playbook 5: Everyday Citizens & Families',
+            roleEn: 'Family Routine · Everyday Citizens & Families',
+            introEn: 'Everyday scenarios for families: consulting health symptoms, helping children with homework, and preventing deepfake voice fraud.',
+            painEn: 'Everyday families frequently use AI to interpret symptom reports, generate full homework answers for children, or interact with realistic voice and video clips received on social media.',
+            nearMissEn: 'Feeding abnormal lab metrics to models prompts alarming disease hypotheses and unwarranted medication advice, risking health; students copying entire essays forfeit problem-solving skills; scammers cloning family voices via social media audio deceive elderly relatives into emergency transfers.',
+            cases: [
+              makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court Voice Infringement ↗'),
+              makeIncidentPill('case-ad-fake-host-haidian-2025', 'Beijing Haidian AI Anchor Fraud ↗'),
+              makeIncidentPill('case-ftc-donotpay-robot-lawyer-2025', 'FTC Robot Lawyer False Marketing Action ↗')
+            ],
+            steps: [
+              {
+                time: 'Habit 1',
+                titleEn: 'Health Consults: Preparation Checklists, Not Diagnoses',
+                descEn: 'Use AI only to generate questions to ask your doctor; mask names and hospitals on lab reports; follow face-to-face physician prescriptions only, never AI drug dosage suggestions.'
+              },
+              {
+                time: 'Habit 2',
+                titleEn: 'Homework: Cognitive Scaffolding, Never Ready Answers',
+                descEn: 'Instruct the AI: "Do not give the answer; ask 3 guiding questions so I work it out myself." Use ' + makePill('discernment-nudge', 'discernment-nudge · Discernment Nudge') + ' to train critical thinking.'
+              },
+              {
+                time: 'Habit 3',
+                titleEn: 'Anti-Scam: Family Passwords & Out-of-Band Calls',
+                descEn: 'Agree on an offline family secret code. If receiving urgent money requests via voice or video, ask for the code and immediately hang up to call back on the original phone number.'
+              },
+              {
+                time: 'Habit 4',
+                titleEn: 'Privacy: Check Mobile App Permissions & Long-Term Memory',
+                descEn: 'Review chat assistant permissions on parents\' devices every few months; revoke background mic access, turn off model training permissions, and clear accumulated memory lists.'
+              }
+            ],
+            minZeroEn: 'Follow doctors for prescriptions; use AI for homework scaffolding only; verify urgent transfers with offline family codes; revoke unnecessary app permissions.',
+            minProEn: 'Audit family device privacy settings regularly, establish anti-fraud verification protocols, and foster foundational AI literacy across all generations.'
+          })}
         </div>
       </section>
 
@@ -4929,24 +4263,12 @@ function updateUI() {
   setText("footer-link-library", t.navLinkLibrary);
   setText("footer-link-incidents", t.footerLinkIncidents || t.navLinkIncidents);
 
-  // Synchronize adaptive details (expand by default on desktop >= 1024px, collapse on mobile < 1024px)
+  // Details remain collapsed by default on both desktop and mobile
   syncAdaptiveDetails(true);
 }
 
-let lastIsDesktop = null;
-function syncAdaptiveDetails(force = false) {
-  const isDesktop = window.innerWidth >= 1024;
-  if (!force && lastIsDesktop === isDesktop) return;
-  lastIsDesktop = isDesktop;
-
-  const adaptiveDetailsList = document.querySelectorAll(".adaptive-details");
-  adaptiveDetailsList.forEach((details) => {
-    if (isDesktop) {
-      details.setAttribute("open", "");
-    } else {
-      details.removeAttribute("open");
-    }
-  });
+function syncAdaptiveDetails() {
+  // Details remain collapsed by default for a clean, stable reading line
 }
 
 function setText(id, text) {

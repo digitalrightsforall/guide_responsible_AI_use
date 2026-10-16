@@ -374,6 +374,7 @@ function openModal(skillId) {
     })()}
 
     <!-- Technical Standard Alignment -->
+    ${item.standard_alignment && item.standard_alignment.organization ? `
     <div class="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-1.5">
       <div class="flex items-center justify-between">
         <span class="text-xs font-bold text-indigo-900 dark:text-indigo-300">
@@ -386,6 +387,7 @@ function openModal(skillId) {
       <p class="text-xs font-semibold text-slate-800 dark:text-slate-200">${escapeHtml(stdName)}</p>
       <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">${escapeHtml(stdDesc)}</p>
     </div>
+    ` : ''}
 
     <!-- Third-Party Review / Inclusion -->
     <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-1.5">
@@ -412,7 +414,7 @@ function openModal(skillId) {
     <!-- Supported Clients & Persona -->
     <div class="text-[11px] text-slate-500 dark:text-slate-400 grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
       <div><strong>${isZh ? '适用人群：' : 'Target: '}</strong> ${escapeHtml(item.target_persona || '通用知识工作者')}</div>
-      <div><strong>${isZh ? '适用客户端：' : 'Clients: '}</strong> ${(item.clients || []).join('、')}</div>
+      <div><strong>${isZh ? '面向智能体：' : 'Target Agents: '}</strong> ${(item.clients || []).join('、')}</div>
     </div>
   `;
 

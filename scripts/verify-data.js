@@ -141,12 +141,26 @@ items.forEach((item, index) => {
     errors++;
   }
 
-  // Canonical clients verification
+  // Canonical clients verification (authentic verified harnesses)
   const canonicalClients = [
+    'Claude Code',
+    'OpenAI Codex',
+    'Cursor',
+    'Trae',
     'Trae IDE',
     'WorkBuddy',
-    'Cursor',
-    'Claude Code',
+    'Windsurf',
+    'GitHub Copilot',
+    'Gemini CLI',
+    'ClawHub',
+    'Claude Projects',
+    'Manus',
+    'ZCode',
+    '通用 Agent (SKILL.md 规范)',
+    '通用 Agent (AgentSkills 规范)',
+    '通用 Agent (本地 Python 环境)',
+    '通用 Agent (PROV-O 规范)',
+    '通用 Agent (SKILL.md / 代码注释规范)',
     'Web/通用提示词'
   ];
   if (!Array.isArray(item.clients) || item.clients.length === 0) {
@@ -190,21 +204,23 @@ items.forEach((item, index) => {
     errors++;
   }
 
-  // Validate technical standard alignment (Option B)
-  if (!item.standard_alignment || typeof item.standard_alignment !== 'object') {
-    console.error(`❌ ${prefix} Missing or invalid 'standard_alignment' object`);
-    errors++;
-  } else {
-    const stdPrefix = `${prefix} [Standard Alignment]`;
-    ['name_zh', 'name_en', 'organization', 'how_aligned_zh', 'how_aligned_en'].forEach((k) => {
-      if (!item.standard_alignment[k] || item.standard_alignment[k].trim() === '') {
-        console.error(`❌ ${stdPrefix} Missing or empty field: ${k}`);
+  // Validate technical standard alignment (Optional: only validated when explicitly declared by upstream)
+  if (item.standard_alignment !== null && item.standard_alignment !== undefined) {
+    if (typeof item.standard_alignment !== 'object') {
+      console.error(`❌ ${prefix} 'standard_alignment' must be an object or null`);
+      errors++;
+    } else {
+      const stdPrefix = `${prefix} [Standard Alignment]`;
+      ['name_zh', 'name_en', 'organization', 'how_aligned_zh', 'how_aligned_en'].forEach((k) => {
+        if (!item.standard_alignment[k] || item.standard_alignment[k].trim() === '') {
+          console.error(`❌ ${stdPrefix} Missing or empty field: ${k}`);
+          errors++;
+        }
+      });
+      if (!item.standard_alignment.url || !item.standard_alignment.url.startsWith('http')) {
+        console.error(`❌ ${stdPrefix} Invalid standard url: ${item.standard_alignment.url}`);
         errors++;
       }
-    });
-    if (!item.standard_alignment.url || !item.standard_alignment.url.startsWith('http')) {
-      console.error(`❌ ${stdPrefix} Invalid standard url: ${item.standard_alignment.url}`);
-      errors++;
     }
   }
 

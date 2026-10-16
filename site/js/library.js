@@ -868,54 +868,39 @@ function openModal(id) {
         }
       })()}
 
-      <div class="space-y-2 text-xs sm:text-sm">
-        <h4 class="font-bold text-slate-900 dark:text-slate-100">${t.howToUseLabel}</h4>
-        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">${howToUse}</p>
-        <div class="mt-2 p-3 rounded-2xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto flex items-center justify-between gap-3 border border-slate-800">
-          <code class="break-all">${escapeHtml(item.action_content)}</code>
-          <button data-modal-copy="${escapeHtml(item.action_content)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand hover:bg-brand-dim text-white font-sans text-xs font-bold transition-colors cursor-pointer">
-            ${t.copyCommand}
-          </button>
+      <!-- Target Agent & Installation / Usage Section -->
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-3.5 text-xs sm:text-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+            <span>💻</span>
+            <span>${currentLang === 'zh' ? '面向的智能体与运行环境：' : 'Target Agent & Environment:'}</span>
+          </h4>
+          <div class="flex flex-wrap items-center gap-1.5">
+            ${item.clients.map(c => `
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+                ${escapeHtml(c)}
+              </span>
+            `).join('')}
+          </div>
         </div>
-      </div>
 
-      <!-- Multi-Client Installation Commands & Paths -->
-      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-3 text-xs sm:text-sm">
-        <h4 class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-          ${t.clientGuideTitle}
-        </h4>
-        <div class="space-y-2">
-          ${item.clients.map(client => {
-            let dirPath = '';
-            let cmd = '';
-            if (client === 'Trae IDE' || client === 'WorkBuddy' || client === 'Cursor') {
-              dirPath = `.agents/skills/${item.id}/`;
-              cmd = `mkdir -p .agents/skills/${item.id} && git clone --depth=1 ${item.url} .agents/skills/${item.id}`;
-            } else if (client === 'Claude Code') {
-              dirPath = `.claude/skills/${item.id}/`;
-              cmd = `mkdir -p .claude/skills/${item.id} && git clone --depth=1 ${item.url} .claude/skills/${item.id}`;
-            } else {
-              dirPath = currentLang === 'zh' ? '系统提示词 / 自定义规则' : 'System Prompt / Custom Instructions';
-              cmd = item.action_content;
-            }
-            return `
-              <div class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                <div class="space-y-0.5 min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-slate-800 dark:text-slate-200 text-xs">${escapeHtml(client)}</span>
-                    <span class="font-mono text-[11px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">${escapeHtml(dirPath)}</span>
-                  </div>
-                  <div class="font-mono text-[11px] text-slate-600 dark:text-slate-400 truncate max-w-xl">
-                    ${escapeHtml(cmd)}
-                  </div>
-                </div>
-                <button data-modal-copy="${escapeHtml(cmd)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand/10 hover:bg-brand text-brand hover:text-white dark:bg-brand/20 dark:hover:bg-brand dark:text-brand-container dark:hover:text-white font-sans text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-2xs">
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                  <span>${t.copyClientCmd}</span>
-                </button>
-              </div>
-            `;
-          }).join('')}
+        <div class="space-y-1.5">
+          <span class="font-semibold text-slate-800 dark:text-slate-200 block text-xs">
+            ${t.howToUseLabel}
+          </span>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-xs sm:text-sm">${howToUse}</p>
+        </div>
+
+        <div class="space-y-1.5">
+          <span class="font-mono text-[11px] text-slate-500 dark:text-slate-400 block font-semibold">
+            ${currentLang === 'zh' ? '官方/推荐安装与执行命令：' : 'Recommended Installation & Invocation Command:'}
+          </span>
+          <div class="p-3 rounded-2xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto flex items-center justify-between gap-3 border border-slate-800">
+            <code class="break-all">${escapeHtml(item.action_content)}</code>
+            <button data-modal-copy="${escapeHtml(item.action_content)}" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand hover:bg-brand-dim text-white font-sans text-xs font-bold transition-colors cursor-pointer">
+              ${t.copyCommand}
+            </button>
+          </div>
         </div>
       </div>
 

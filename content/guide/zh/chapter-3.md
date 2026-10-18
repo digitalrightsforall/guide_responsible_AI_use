@@ -201,7 +201,7 @@
                       AI 能做什么？<br><span class="text-[11px] text-slate-500 font-normal">(What can AI do?)</span>
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">
-                      • <strong>《互联网信息服务算法推荐管理规定》</strong>：算法自主决策的人工干预要求<br>
+                      • <strong>《互联网信息服务算法��荐管理规定》</strong>：算法自主决策的人工干预要求<br>
                       • <strong>全国网安标委</strong>：TC260-005《伦理安全指引 1.0》及《智能体部署使用安全指引》自主权分级
                     </td>
                     <td class="py-3.5 px-4 leading-relaxed">

@@ -116,35 +116,32 @@
             </div>
 
             <!-- Evidence Drawer: Detailed Case Precedents Folded for On-Demand Review -->
-            
-<details class="evidence-drawer">
-<summary>🔍 <strong>Evidence & References: Global & Domestic Landmark Judicial Precedents</strong><em> (7 Judicial Precedents · 3 Workplace Bulletins · SPC Guidelines)</em></summary>
-
-#### ⚖️ Real-World Incidents & Sanctions
-*Click pills to inspect official rulings and case numbers:*
-
-* [incident:case-chatgpt-medical-advice-delay-winters-2026 "Winters v. OpenAI: ChatGPT Medical Advice Delay Leads to Severe Pulmonary Embolism"]
-* [incident:case-deepfake-videocall-baotou-2024 "Baotou Deepfake Video Call Fraud: ¥4.3M Stolen in 10 Minutes"]
-* [incident:case-ai-voice-bj-2023 "Beijing Internet Court: Voice AI Rights Ruling ¥250k Damages"]
-* [incident:case-court-fake-citation-tongzhou-2025 "Beijing Tongzhou Court: Fake Case Number Sanction Bulletin"]
-* [incident:case-court-fake-citation-yichang-2026 "Hubei Yichang Court: Judicial Reprimand for Hallucinated Statute"]
-* [incident:case-mata-avianca-fake-citations-2023 "US Federal Court SDNY: Mata v. Avianca $5,000 Sanction"]
-* [incident:case-air-canada-chatbot-refund-2024 "Civil Resolution Tribunal: Moffatt v. Air Canada Full Damages Award"]
-* [incident:case-trade-secret-prompt-hangzhou-2026 "Hangzhou AMR: ¥350,000 Fine for Exfiltrating Prompt Templates"]
-* [incident:case-state-security-li-leakage-2025 "MSS Bulletin: Researcher Xiao Li Disciplinary Sanction"]
-* [incident:case-bytedance-ai-export-leak-2026 "ByteDance Workplace Dismissal Bulletin No. 3"]
-
-#### 📜 Statutes & Regulatory Standards
-* <strong>Supreme People's Court Opinions on AI Disputes (Fa Fa [2026] No. 10)</strong>: Litigants must verify authenticity and disclose AI assistance; fabricating evidence or citations triggers penalties under Civil Procedure Law Art. 114.
-* <strong>China PIPL Art. 23</strong>: Providing personal data to third parties requires explicit notice and separate consent.
-* <strong>State Secrets Protection Law</strong>: Strict statutory prohibition against processing or storing classified state or commercial secrets on Internet-connected systems.
-
-#### 🔬 Technical & Research Deep Dive
-* <strong>Forensic Negative Finding</strong>: As of October 2026, no Chinese court judgment has convicted an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR's ¥350k fine for proprietary prompt template misappropriation).
-* <strong>Autoregressive Hallucination Mechanics</strong>: LLMs probabilistically predict tokens without internal truth verification, frequently manufacturing plausible yet fictitious citations in niche domains.
-
-</details>
-
+            ${renderEvidenceDrawer({
+              lang: 'en',
+              title: 'Evidence & References: Global & Domestic Landmark Judicial Precedents',
+              count: '7 Judicial Precedents · 3 Workplace Bulletins · SPC Guidelines',
+              cases: [
+                makeIncidentPill('case-chatgpt-medical-advice-delay-winters-2026', 'Winters v. OpenAI: ChatGPT Medical Advice Delay Leads to Severe Pulmonary Embolism'),
+                makeIncidentPill('case-deepfake-videocall-baotou-2024', 'Baotou Deepfake Video Call Fraud: ¥4.3M Stolen in 10 Minutes'),
+                makeIncidentPill('case-ai-voice-bj-2023', 'Beijing Internet Court: Voice AI Rights Ruling ¥250k Damages'),
+                makeIncidentPill('case-court-fake-citation-tongzhou-2025', 'Beijing Tongzhou Court: Fake Case Number Sanction Bulletin'),
+                makeIncidentPill('case-court-fake-citation-yichang-2026', 'Hubei Yichang Court: Judicial Reprimand for Hallucinated Statute'),
+                makeIncidentPill('case-mata-avianca-fake-citations-2023', 'US Federal Court SDNY: Mata v. Avianca $5,000 Sanction'),
+                makeIncidentPill('case-air-canada-chatbot-refund-2024', 'Civil Resolution Tribunal: Moffatt v. Air Canada Full Damages Award'),
+                makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', 'Hangzhou AMR: ¥350,000 Fine for Exfiltrating Prompt Templates'),
+                makeIncidentPill('case-state-security-li-leakage-2025', 'MSS Bulletin: Researcher Xiao Li Disciplinary Sanction'),
+                makeIncidentPill('case-bytedance-ai-export-leak-2026', 'ByteDance Workplace Dismissal Bulletin No. 3')
+              ],
+              statutes: [
+                '<strong>Supreme People\'s Court Opinions on AI Disputes (Fa Fa [2026] No. 10)</strong>: Litigants must verify authenticity and disclose AI assistance; fabricating evidence or citations triggers penalties under Civil Procedure Law Art. 114.',
+                '<strong>China PIPL Art. 23</strong>: Providing personal data to third parties requires explicit notice and separate consent.',
+                '<strong>State Secrets Protection Law</strong>: Strict statutory prohibition against processing or storing classified state or commercial secrets on Internet-connected systems.'
+              ],
+              technical: [
+                '<strong>Forensic Negative Finding</strong>: As of October 2026, no Chinese court judgment has convicted an employee of criminal trade secret theft solely for typing company data into a commercial LLM (the closest administrative action was Hangzhou AMR\'s ¥350k fine for proprietary prompt template misappropriation).',
+                '<strong>Autoregressive Hallucination Mechanics</strong>: LLMs probabilistically predict tokens without internal truth verification, frequently manufacturing plausible yet fictitious citations in niche domains.'
+              ]
+            })}
           </div>
 
           <!-- Chapter 1 Transition to Everyday Action -->

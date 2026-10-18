@@ -79,7 +79,7 @@
                 <span class="font-mono font-bold text-rose-600 dark:text-rose-400 text-xs shrink-0">01</span>
                 <div>
                   <strong class="text-slate-900 dark:text-white font-bold">AI 生成不是免责牌：</strong>
-                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 生成不能成为免责理由。将内容提交给法庭、客户或公众的人，仍需依法承担核验义务及相应责任。中美法院及加拿大民事审裁机构已有相关裁判或决定，对虚构判例、造假法条与虚假陈述多次开出罚款、司法通报与赔偿裁决。</span>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 生成不能成为免责理由。将内容提交给法庭、客户或公众的人，仍需依法承担核验义务及相应责任。全球法院与仲裁机构对虚构判例、造假法条与虚假陈述已多次开出罚款、司法通报与赔偿裁决。</span>
                 </div>
               </div>
 
@@ -101,35 +101,32 @@
             </div>
 
             <!-- Evidence Drawer: Detailed Case Precedents Folded for On-Demand Review -->
-            
-<details class="evidence-drawer">
-<summary>🔍 <strong>实证与延伸：盲信 AI 的全球与本土司法裁判案卷与通报</strong><em> (7 起典型判例与执法 · 3 起涉密通报 · 最高法裁判指引)</em></summary>
-
-#### ⚖️ 真实案例与权威通报 (Real-World Incidents)
-*点击案卷标签可原地查阅案号、行政罚单与第一手裁判文书：*
-
-* [incident:case-ai-voice-bj-2023 "北京互联网法院：全国首例AI声音侵权案判赔25万 (2023)京0491民初12142号"]
-* [incident:case-deepfake-videocall-baotou-2024 "包头特大案：10分钟 AI 换脸拟声冒充好友视频诈骗 430 万元"]
-* [incident:case-chatgpt-medical-advice-delay-winters-2026 "Winters 诉 OpenAI：采信 ChatGPT 医疗意见延误诊疗致肺栓塞诉讼案"]
-* [incident:case-court-fake-citation-tongzhou-2025 "北京通州法院：律师盲信AI生成假案号被司法通报批评"]
-* [incident:case-court-fake-citation-yichang-2026 "湖北宜昌法院：引用AI捏造虚假法条予以司法训诫案"]
-* [incident:case-mata-avianca-fake-citations-2023 "纽约南区联邦法院：Mata v. Avianca 虚假先例制裁案罚款5000美元"]
-* [incident:case-air-canada-chatbot-refund-2024 "加拿大审裁处：加航AI客服虚构退款规则案裁定全额赔偿"]
-* [incident:case-trade-secret-prompt-hangzhou-2026 "杭州市监局：擅自带走大模型Prompt模板微调被罚35万元"]
-* [incident:case-state-security-li-leakage-2025 "国安部通报：科研人员小李核心数据喂AI泄密受处分"]
-* [incident:case-bytedance-ai-export-leak-2026 "字节跳动3号通报：员工利用AI整理业务被实名辞退"]
-
-#### 📜 法规条款与标准对齐 (Statutes & Standards)
-* <strong>最高人民法院《关于依法审理涉人工智能纠纷案件的意见》(法发〔2026〕10号)</strong>：诉讼参与人使用 AI 辅助撰写文书必须严格核实内容真实性并如实说明；严禁伪造证据、虚构判例与法条，违者依据《民事诉讼法》第 114 条予以严肃制裁。
-* <strong>《中华人民共和国个人信息保护法》第 23 条</strong>：向第三方提供个人信息的，应当向个人告知接收方的名称或者姓名、联系方式、处理目的、处理方式和个人信息的种类，并取得个人的单独同意。
-* <strong>新修订《中华人民共和国保守国家秘密法》</strong>：确立“涉密不上网，上网不涉密”法定红线，禁止在连接互联网或者其他公共信息网络的计算机和信息设备中存储、处理、传输国家秘密。
-
-#### 🔬 学术文献与技术机理解析 (Technical & Research Deep Dive)
-* <strong>实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判。日常最明确的商业秘密执法案例是杭州市市场监管局对擅自带走 Prompt 模板用于大模型微调开出的 35 万元行政处罚。
-* <strong>生成虚构与自动化偏见</strong>：LLM 基于统计概率自回归预测生成词元，无内在真伪校验机制。在专业、冷门或长尾知识领域，极易生成看似专业但完全捏造的案号与文献。
-
-</details>
-
+            ${renderEvidenceDrawer({
+              lang: 'zh',
+              title: '实证与延伸：盲信 AI 的全球与本土司法裁判案卷与通报',
+              count: '7 起典型判例与执法 · 3 起涉密通报 · 最高法裁判指引',
+              cases: [
+                makeIncidentPill('case-ai-voice-bj-2023', '北京互联网法院：全国首例AI声音侵权案判赔25万 (2023)京0491民初12142号'),
+                makeIncidentPill('case-deepfake-videocall-baotou-2024', '包头特大案：10分钟 AI 换脸拟声冒充好友视频诈骗 430 万元'),
+                makeIncidentPill('case-chatgpt-medical-advice-delay-winters-2026', 'Winters 诉 OpenAI：采信 ChatGPT 医疗意见延误诊疗致肺栓塞诉讼案'),
+                makeIncidentPill('case-court-fake-citation-tongzhou-2025', '北京通州法院：律师盲信AI生成假案号被司法通报批评'),
+                makeIncidentPill('case-court-fake-citation-yichang-2026', '湖北宜昌法院：引用AI捏造虚假法条予以司法训诫案'),
+                makeIncidentPill('case-mata-avianca-fake-citations-2023', '纽约南区联邦法院：Mata v. Avianca 虚假先例制裁案罚款5000美元'),
+                makeIncidentPill('case-air-canada-chatbot-refund-2024', '加拿大审裁处：加航AI客服虚构退款规则案裁定全额赔偿'),
+                makeIncidentPill('case-trade-secret-prompt-hangzhou-2026', '杭州市监局：擅自带走大模型Prompt模板微调被罚35万元'),
+                makeIncidentPill('case-state-security-li-leakage-2025', '国安部通报：科研人员小李核心数据喂AI泄密受处分'),
+                makeIncidentPill('case-bytedance-ai-export-leak-2026', '字节跳动3号通报：员工利用AI整理业务被实名辞退')
+              ],
+              statutes: [
+                '<strong>最高人民法院《关于依法审理涉人工智能纠纷案件的意见》(法发〔2026〕10号)</strong>：诉讼参与人使用 AI 辅助撰写文书必须严格核实内容真实性并如实说明；严禁伪造证据、虚构判例与法条，违者依据《民事诉讼法》第 114 条予以严肃制裁。',
+                '<strong>《中华人民共和国个人信息保护法》第 23 条</strong>：向第三方提供个人信息的，应当向个人告知接收方的名称或者姓名、联系方式、处理目的、处理方式和个人信息的种类，并取得个人的单独同意。',
+                '<strong>新修订《中华人民共和国保守国家秘密法》</strong>：确立“涉密不上网，上网不涉密”法定红线，禁止在连接互联网或者其他公共信息网络的计算机和信息设备中存储、处理、传输国家秘密。'
+              ],
+              technical: [
+                '<strong>实证负结果澄清</strong>：截至 2026 年 10 月，中国公开司法判例中，尚未出现“员工把商业秘密贴进公共 ChatGPT 类产品，直接被法院判决侵犯商业秘密罪”的生效裁判。日常最明确的商业秘密执法案例是杭州市市场监管局对擅自带走 Prompt 模板用于大模型微调开出的 35 万元行政处罚。',
+                '<strong>生成虚构与自动化偏见</strong>：LLM 基于统计概率自回归预测生成词元，无内在真伪校验机制。在专业、冷门或长尾知识领域，极易生成看似专业但完全捏造的案号与文献。'
+              ]
+            })}
           </div>
 
           <!-- Chapter 1 Transition to Action -->

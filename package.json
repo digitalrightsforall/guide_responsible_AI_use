@@ -4,9 +4,10 @@
   "description": "Curated directory of authentic open-source SKILL.md packages for responsible and safe AI use (Digital Rights for All / putongren.org).",
   "main": "site/index.html",
   "scripts": {
-    "test": "node scripts/verify-data.js",
+    "test": "node scripts/verify-data.js && node scripts/verify-guide.js",
     "test:remote": "node scripts/verify-remote.js",
-    "build": "node scripts/generate-readmes.js && node scripts/sync-layout.js",
+    "build:guide": "node scripts/build-guide.js",
+    "build": "node scripts/build-guide.js && node scripts/generate-readmes.js && node scripts/sync-layout.js",
     "sync:layout": "node scripts/sync-layout.js",
     "serve": "node scripts/serve.js",
     "build:css": "npx tailwindcss -i site/css/input.css -o site/css/tailwind.css --minify",

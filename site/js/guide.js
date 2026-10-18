@@ -1112,7 +1112,7 @@ const guideContent = {
                 <span class="font-mono font-bold text-rose-600 dark:text-rose-400 text-xs shrink-0">01</span>
                 <div>
                   <strong class="text-slate-900 dark:text-white font-bold">AI 生成不是免责牌：</strong>
-                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 生成不能成为免责理由。将内容提交给法庭、客户或公众的人，仍需依法承担核验义务及相应责任。全球法院与仲裁机构对虚构判例、造假法条与虚假陈述已多次开出罚款、司法通报与赔偿裁决。</span>
+                  <span class="text-slate-600 dark:text-slate-400 leading-relaxed">AI 生成不能成为免责理由。将内容提交给法庭、客户或公众的人，仍需依法承担核验义务及相应责任。中美法院及加拿大民事审裁机构已有相关裁判或决定，对虚构判例、造假法条与虚假陈述多次开出罚款、司法通报与赔偿裁决。</span>
                 </div>
               </div>
 

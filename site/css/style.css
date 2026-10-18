@@ -754,7 +754,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.75rem;
+  padding: 0.625rem 0.75rem;
   border-radius: 8px;
   background-color: var(--primary);
   color: #ffffff;
@@ -762,6 +762,7 @@ body {
   font-weight: 700;
   transition: all 0.15s ease;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .skill-action-inspect:hover {
@@ -774,7 +775,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.75rem;
+  padding: 0.625rem 0.75rem;
   border-radius: 8px;
   background-color: #f1f5f9;
   color: #334155;
@@ -783,6 +784,7 @@ body {
   font-weight: 600;
   transition: all 0.15s ease;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .dark .skill-action-copy {
@@ -1328,26 +1330,42 @@ body {
    ========================================================================== */
 #lang-toggle,
 #theme-toggle,
+#nav-github-link,
 #site-header a[title="GitHub Repository"] {
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.skill-action-inspect,
+.skill-action-copy {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.625rem 0.75rem !important;
+  box-sizing: border-box !important;
 }
 
 #modal-close,
 #incident-modal-close {
-  min-height: 44px;
-  min-width: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
 }
 
-#modal-copy-btn {
-  min-height: 44px;
-  box-sizing: border-box;
+#modal-copy-btn,
+#incident-modal-copy-btn {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.625rem 1.25rem !important;
+  box-sizing: border-box !important;
 }

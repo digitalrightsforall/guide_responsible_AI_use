@@ -97,12 +97,27 @@ Every submitted item (whether for the README or the website dataset) must provid
   ```
 ```
 
+### Editing the Practical Field Guide (实务长篇指南内容贡献)
+
+The Field Guide narrative is completely decoupled from site frontend code and stored as modular Markdown in `content/guide/`:
+- `content/guide/zh/chapter-1.md` ... `chapter-6.md`: Chinese guide chapters.
+- `content/guide/en/chapter-1.md` ... `chapter-6.md`: English guide chapters.
+- `content/guide/metadata.json`: Navigation titles, badges, and UI text.
+
+To reference curated skills or judicial cases within the Markdown text:
+- **Interactive Skill Pill**: `[skill:skill-id]` or `[skill:skill-id "Custom Display Label"]`
+- **Interactive Case Law Pill**: `[incident:case-id]` or `[incident:case-id "Custom Display Label"]`
+- **Evidence Drawer**: `<details class="evidence-drawer"><summary>🔍 Title</summary>...</details>`
+
 ---
 
 ## 5. Contribution Workflow
 
 1. **Fork** the repository.
-2. Add your item to `site/data/items.json` following the Item Schema.
-3. Run `npm test` to verify schema validation and GitHub URL constraints.
-4. Run `npm run build` to auto-generate `README.md` and `README_CN.md`.
-5. Submit a Pull Request with a clear description of the skill and why it promotes responsible and safe AI use.
+2. Edit or add content:
+   - For skills: Add or update your item in `site/data/items.json`.
+   - For cases: Add or update your item in `site/data/incidents.json`.
+   - For guide text: Edit the corresponding Markdown file in `content/guide/zh/` or `content/guide/en/`.
+3. Run `npm test` to verify schema validation, guide token references, and structural integrity.
+4. Run `npm run build` to compile the Guide and auto-generate `README.md` and `README_CN.md`.
+5. Submit a Pull Request with a clear description of the contribution.

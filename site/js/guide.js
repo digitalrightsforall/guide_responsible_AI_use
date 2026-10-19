@@ -58,6 +58,8 @@ async function loadIncidents() {
   } catch (err) {
     console.error("Failed to load incidents.json:", err);
   }
+}
+
 // Load guide content (data/guide-content.json with fallback to window.__GUIDE_CONTENT__)
 async function loadGuideContent() {
   if (guideContent) return;
